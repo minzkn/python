@@ -2201,6 +2201,429 @@ p = Point(<span class="number">10</span>, <span class="number">20</span>)
             </div>
         </section>
         
+        <section id="ai-ml">
+            <h2>AI/ML 핵심 구현</h2>
+            <span class="level-badge level-intermediate">중급</span>
+            <span class="level-badge level-advanced">고급</span>
+            <span class="level-badge level-expert">전문가</span>
+            
+            <h3>NumPy (수치 계산)</h3>
+            <div class="code-block">
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+<span class="comment"># 배열 생성</span>
+arr = np.array([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])
+matrix = np.array([[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]])
+
+<span class="comment"># 특수 배열</span>
+zeros = np.zeros(<span class="number">3</span>)
+ones = np.ones((<span class="number">3</span>, <span class="number">4</span>))
+eye = np.eye(<span class="number">4</span>)
+range_arr = np.arange(<span class="number">0</span>, <span class="number">10</span>, <span class="number">2</span>)
+linspace = np.linspace(<span class="number">0</span>, <span class="number">1</span>, <span class="number">5</span>)
+
+<span class="comment"># 배열 연산</span>
+arr * <span class="number">2</span>        <span class="comment"># Broadcasting</span>
+arr + arr       <span class="comment"># 요소별 연산</span>
+np.dot(arr, arr)  <span class="comment"># 내적</span>
+np.sum(arr)      <span class="comment"># 합계</span>
+np.mean(arr)     <span class="comment"># 평균</span>
+np.std(arr)      <span class="comment"># 표준편차</span>
+np.max(arr), np.min(arr)  <span class="comment"># 최대/최소</span>
+
+<span class="comment"># 형태 변환</span>
+arr.reshape(<span class="number">-1</span>, <span class="number">1</span>)  <span class="comment"># 열 벡터로</span>
+arr.flatten()    <span class="comment"># 1차원으로</span>
+
+<span class="comment"># 인덱싱</span>
+arr[<span class="number">0</span>]         <span class="comment"># 첫 번째 요소</span>
+arr[<span class="number">1</span>:<span class="number">4</span>]       <span class="comment"># 슬라이싱</span>
+arr[arr > <span class="number">3</span>]    <span class="comment"># 조건 인덱싱</span>
+            </div>
+            
+            <h3>Pandas (데이터 처리)</h3>
+            <div class="code-block">
+<span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+
+<span class="comment"># DataFrame 생성</span>
+df = pd.DataFrame({
+    <span class="string">"name"</span>: [<span class="string">"Alice"</span>, <span class="string">"Bob"</span>, <span class="string">"Charlie"</span>],
+    <span class="string">"age"</span>: [<span class="number">25</span>, <span class="number">30</span>, <span class="number">35</span>],
+    <span class="string">"score"</span>: [<span class="number">85</span>, <span class="number">90</span>, <span class="number">78</span>]
+})
+
+<span class="comment"># CSV에서 읽기/쓰기</span>
+df = pd.read_csv(<span class="string">"data.csv"</span>)
+df.to_csv(<span class="string">"output.csv"</span>, index=<span class="keyword">False</span>)
+
+<span class="comment"># 데이터 조회</span>
+df.head(<span class="number">10</span>)     <span class="comment"># 첫 10행</span>
+df.tail(<span class="number">5</span>)      <span class="comment"># 마지막 5행</span>
+df.info()         <span class="comment"># 정보</span>
+df.describe()    <span class="comment"># 통계 요약</span>
+
+<span class="comment"># 열/행 선택</span>
+df[<span class="string">"name"</span>]           <span class="comment"># 특정 열</span>
+df[[<span class="string">"name"</span>, <span class="string">"age"</span>]]  <span class="comment"># 여러 열</span>
+df.loc[<span class="number">0</span>]             <span class="comment"># 행 인덱스</span>
+df.iloc[<span class="number">0</span>:<span class="number">5</span>]          <span class="comment"># 행 번호</span>
+
+<span class="comment"># 데이터 처리</span>
+df.isnull()           <span class="comment"># 결측치 확인</span>
+df.fillna(<span class="number">0</span>)          <span class="comment"># 결측치 채우기</span>
+df.dropna()            <span class="comment"># 결측치 행 삭제</span>
+df.drop(<span class="string">"column"</span>, axis=<span class="number">1</span>)  <span class="comment"># 열 삭제</span>
+df.sort_values(<span class="string">"age"</span>)  <span class="comment"># 정렬</span>
+df.groupby(<span class="string">"category"</span>).mean()  <span class="comment"># 그룹화</span>
+
+<span class="comment"># 결측치 처리</span>
+df[<span class="string">"col"</span>].fillna(df[<span class="string">"col"</span>].mean(), inplace=<span class="keyword">True</span>)
+            </div>
+            
+            <h3>Matplotlib (시각화)</h3>
+            <div class="code-block">
+<span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+<span class="comment"># 기본 플롯</span>
+plt.figure(figsize=(<span class="number">10</span>, <span class="number">6</span>))
+plt.plot([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>])
+plt.xlabel(<span class="string">"X"</span>)
+plt.ylabel(<span class="string">"Y"</span>)
+plt.title(<span class="string">"Title"</span>)
+plt.show()
+
+<span class="comment"># 여러 그래프</span>
+fig, axes = plt.subplots(<span class="number">2</span>, <span class="number">2</span>)
+axes[<span class="number">0</span>, <span class="number">0</span>].plot(x, y)
+axes[<span class="number">1</span>, <span class="number">1</span>].scatter(x, y)
+
+<span class="comment"># 막대 그래프</span>
+plt.bar([<span class="string">"A"</span>, <span class="string">"B"</span>, <span class="string">"C"</span>], [<span class="number">10</span>, <span class="number">20</span>, <span class="number">15</span>])
+
+<span class="comment"># 히스토그램</span>
+plt.hist(data, bins=<span class="number">30</span>)
+
+<span class="comment"># 히트맵</span>
+plt.imshow(correlation_matrix, cmap=<span class="string">"coolwarm"</span>)
+
+<span class="comment"># 이미지 저장</span>
+plt.savefig(<span class="string">"plot.png"</span>, dpi=<span class="number">300</span>)
+            </div>
+            
+            <h3>scikit-learn (머신러닝)</h3>
+            <div class="code-block">
+<span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split
+<span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> StandardScaler, LabelEncoder
+<span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LinearRegression, LogisticRegression
+<span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier
+<span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score, mean_squared_error
+
+<span class="comment"># 데이터 분할</span>
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=<span class="number">0.2</span>, random_state=<span class="number">42</span>
+)
+
+<span class="comment"># 전처리 - 스케일링</span>
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+
+<span class="comment"># 전처리 - 레이블 인코딩</span>
+le = LabelEncoder()
+y_encoded = le.fit_transform(y)
+
+<span class="comment"># 선형 회귀</span>
+model = LinearRegression()
+model.fit(X_train, y_train)
+predictions = model.predict(X_test)
+mse = mean_squared_error(y_test, predictions)
+
+<span class="comment"># 로지스틱 회귀 (분류)</span>
+clf = LogisticRegression()
+clf.fit(X_train, y_train)
+y_pred = clf.predict(X_test)
+accuracy = accuracy_score(y_test, y_pred)
+
+<span class="comment"># 랜덤 포레스트</span>
+rf = RandomForestClassifier(n_estimators=<span class="number">100</span>, random_state=<span class="number">42</span>)
+rf.fit(X_train, y_train)
+            </div>
+            
+            <h3>TensorFlow/Keras (딥러닝)</h3>
+            <div class="code-block">
+<span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf
+<span class="keyword">from</span> tensorflow <span class="keyword">import</span> keras
+<span class="keyword">from</span> tensorflow.keras <span class="keyword">import</span> layers, models
+
+<span class="comment"># Sequential 모델</span>
+model = keras.Sequential([
+    layers.Dense(<span class="number">64</span>, activation=<span class="string">"relu"</span>, input_shape=(<span class="number">784</span>,)),
+    layers.Dense(<span class="number">32</span>, activation=<span class="string">"relu"</span>),
+    layers.Dense(<span class="number">10</span>, activation=<span class="string">"softmax"</span>)
+])
+
+<span class="comment"># 모델 컴파일</span>
+model.compile(
+    optimizer=<span class="string">"adam"</span>,
+    loss=<span class="string">"sparse_categorical_crossentropy"</span>,
+    metrics=[<span class="string">"accuracy"</span>]
+)
+
+<span class="comment"># 모델 학습</span>
+model.fit(X_train, y_train, epochs=<span class="number">10</span>, batch_size=<span class="number">32</span>, validation_split=<span class="number">0.2</span>)
+
+<span class="comment"># 평가 및 예측</span>
+test_loss, test_acc = model.evaluate(X_test, y_test)
+predictions = model.predict(X_test)
+
+<span class="comment"># 함수형 API</span>
+inputs = keras.Input(shape=(<span class="number">784</span>,))
+x = layers.Dense(<span class="number">64</span>, activation=<span class="string">"relu"</span>)(inputs)
+outputs = layers.Dense(<span class="number">10</span>, activation=<span class="string">"softmax"</span>)(x)
+model = keras.Model(inputs=inputs, outputs=outputs)
+            </div>
+            
+            <h3>PyTorch (딥러닝)</h3>
+            <div class="code-block">
+<span class="keyword">import</span> torch
+<span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn
+<span class="keyword">import</span> torch.optim <span class="keyword">as</span> optim
+<span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> DataLoader, TensorDataset
+
+<span class="comment"># 텐서 생성</span>
+x = torch.tensor([[<span class="number">1</span>, <span class="number">2</span>], [<span class="number">3</span>, <span class="number">4</span>]], dtype=torch.float32)
+y = torch.tensor([<span class="number">1</span>, <span class="number">0</span>])
+
+<span class="comment"># GPU 사용</span>
+device = torch.device(<span class="string">"cuda"</span> <span class="keyword">if</span> torch.cuda.is_available() <span class="keyword">else</span> <span class="string">"cpu"</span>)
+x = x.to(device)
+
+<span class="comment"># 모델 정의</span>
+<span class="keyword">class</span> <span class="function">Net</span>(nn.Module):
+    <span class="keyword">def</span> <span class="function">__init__</span>(self):
+        <span class="builtin">super</span>(Net, self).__init__()
+        self.fc1 = nn.Linear(<span class="number">784</span>, <span class="number">128</span>)
+        self.fc2 = nn.Linear(<span class="number">128</span>, <span class="number">10</span>)
+    
+    <span class="keyword">def</span> <span class="function">forward</span>(self, x):
+        x = torch.relu(self.fc1(x))
+        x = self.fc2(x)
+        <span class="keyword">return</span> x
+
+model = Net().to(device)
+
+<span class="comment"># 손실 함수 및 옵티마이저</span>
+criterion = nn.CrossEntropyLoss()
+optimizer = optim.Adam(model.parameters(), lr=<span class="number">0.001</span>)
+
+<span class="comment"># 학습 루프</span>
+<span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="builtin">range</span>(<span class="number">10</span>):
+    <span class="keyword">for</span> data, target <span class="keyword">in</span> dataloader:
+        data, target = data.to(device), target.to(device)
+        
+        optimizer.zero_grad()
+        output = model(data)
+        loss = criterion(output, target)
+        loss.backward()
+        optimizer.step()
+            </div>
+            
+            <h3>데이터 전처리 핵심</h3>
+            <div class="code-block">
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+<span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> StandardScaler, MinMaxScaler, OneHotEncoder
+
+<span class="comment"># 표준화 (Z-score)</span>
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+<span class="comment"># 정규화 (0-1)</span>
+minmax = MinMaxScaler()
+X_normalized = minmax.fit_transform(X)
+
+<span class="comment"># 원-핫 인코딩</span>
+encoder = OneHotEncoder(sparse_output=<span class="keyword">False</span>)
+X_encoded = encoder.fit_transform(X categorical.reshape(<span class="number">-1</span>, <span class="number">1</span>))
+
+<span class="comment"># 결측치 처리</span>
+<span class="comment"># 평균/중앙값 대체</span>
+from sklearn.impute import SimpleImputer
+imputer = SimpleImputer(strategy=<span class="string">"mean"</span>)
+X_imputed = imputer.fit_transform(X)
+
+<span class="comment"># 데이터 증강 (이미지)</span>
+<span class="keyword">from</span> tensorflow.keras.preprocessing.image <span class="keyword">import</span> ImageDataGenerator
+datagen = ImageDataGenerator(
+    rotation_range=<span class="number">20</span>,
+    width_shift_range=<span class="number">0.2</span>,
+    height_shift_range=<span class="number">0.2</span>,
+    horizontal_flip=<span class="keyword">True</span>
+)
+            </div>
+            
+            <h3>모델 평가 및 검증</h3>
+            <div class="code-block">
+<span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> (
+    accuracy_score, precision_score, recall_score, f1_score,
+    confusion_matrix, classification_report, roc_auc_score
+)
+
+<span class="comment"># 분류 метрик</span>
+accuracy = accuracy_score(y_test, y_pred)
+precision = precision_score(y_test, y_pred, average=<span class="string">"weighted"</span>)
+recall = recall_score(y_test, y_pred, average=<span class="string">"weighted"</span>)
+f1 = f1_score(y_test, y_pred, average=<span class="string">"weighted"</span>)
+
+<span class="comment"># 혼동 행렬</span>
+cm = confusion_matrix(y_test, y_pred)
+
+<span class="comment"># 리포트</span>
+<span class="keyword">print</span>(classification_report(y_test, y_pred))
+
+<span class="comment"># ROC-AUC</span>
+roc_auc = roc_auc_score(y_test, y_proba, multi_class=<span class="string">"ovr"</span>)
+
+<span class="comment"># 교차 검증</span>
+<span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> cross_val_score
+scores = cross_val_score(model, X, y, cv=<span class="number">5</span>, scoring=<span class="string">"accuracy"</span>)
+            </div>
+            
+            <h3>CNN (합성곱 신경망)</h3>
+            <div class="code-block">
+<span class="keyword">from</span> tensorflow.keras <span class="keyword">import</span> layers
+
+model = keras.Sequential([
+    <span class="comment"># 합성곱 층</span>
+    layers.Conv2D(<span class="number">32</span>, (<span class="number">3</span>, <span class="number">3</span>), activation=<span class="string">"relu"</span>, input_shape=(<span class="number">28</span>, <span class="number">28</span>, <span class="number">1</span>),
+    layers.MaxPooling2D((<span class="number">2</span>, <span class="number">2</span>)),
+    layers.Conv2D(<span class="number">64</span>, (<span class="number">3</span>, <span class="number">3</span>), activation=<span class="string">"relu"</span>),
+    layers.MaxPooling2D((<span class="number">2</span>, <span class="number">2</span>)),
+    
+    <span class="comment"># 완전 연결 층</span>
+    layers.Flatten(),
+    layers.Dense(<span class="number">64</span>, activation=<span class="string">"relu"</span>),
+    layers.Dropout(<span class="number">0.5</span>),
+    layers.Dense(<span class="number">10</span>, activation=<span class="string">"softmax"</span>)
+])
+            </div>
+            
+            <h3>RNN/LSTM (시퀀스 데이터)</h3>
+            <div class="code-block">
+<span class="comment"># LSTM 모델</span>
+model = keras.Sequential([
+    layers.Embedding(<span class="number">10000</span>, <span class="number">128</span>),
+    layers.LSTM(<span class="number">128</span>, dropout=<span class="number">0.2</span>, recurrent_dropout=<span class="number">0.2</span>),
+    layers.Dense(<span class="number">1</span>, activation=<span class="string">"sigmoid"</span>)
+])
+
+<span class="comment"># Bidirectional LSTM</span>
+model = keras.Sequential([
+    layers.Embedding(<span class="number">10000</span>, <span class="number">128</span>),
+    layers.Bidirectional(layers.LSTM(<span class="number">64</span>)),
+    layers.Dense(<span class="number">1</span>, activation=<span class="string">"sigmoid"</span>)
+])
+
+<span class="comment"># GRU 모델</span>
+model = keras.Sequential([
+    layers.Embedding(<span class="number">10000</span>, <span class="number">128</span>),
+    layers.GRU(<span class="number">64</span>),
+    layers.Dense(<span class="number">1</span>, activation=<span class="string">"sigmoid"</span>)
+])
+            </div>
+            
+            <h3>Transformer (자연어 처리)</h3>
+            <div class="code-block">
+<span class="keyword">from</span> tensorflow.keras <span class="keyword">import</span> layers
+
+<span class="comment"># Self-Attention</span>
+<span class="keyword">class</span> <span class="function">MultiHeadSelfAttention</span>(layers.Layer):
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, embed_dim, num_heads=<span class="number">8</span>):
+        <span class="builtin">super</span>(MultiHeadSelfAttention, self).__init__()
+        self.embed_dim = embed_dim
+        self.num_heads = num_heads
+        self.head_dim = embed_dim // num_heads
+        
+        self.query = layers.Dense(embed_dim)
+        self.key = layers.Dense(embed_dim)
+        self.value = layers.Dense(embed_dim)
+        self.out = layers.Dense(embed_dim)
+    
+    <span class="keyword">def</span> <span class="function">call</span>(self, x):
+        <span class="comment"># Multi-head attention 구현</span>
+        <span class="keyword">return</span> x
+
+<span class="comment"># BERT 모델 사용 (Hugging Face)</span>
+<span class="comment"># from transformers import BertTokenizer, TFBertModel</span>
+            </div>
+            
+            <h3>전이 학습 (Transfer Learning)</h3>
+            <div class="code-block">
+<span class="comment"># 사전 학습된 모델 로드</span>
+<span class="keyword">from</span> tensorflow.keras.applications <span class="keyword">import</span> ResNet50V2
+
+base_model = ResNet50V2(weights=<span class="string">"imagenet"</span>, include_top=<span class="keyword">False</span>, input_shape=(<span class="number">224</span>, <span class="number">224</span>, <span class="number">3</span>))
+
+<span class="comment"># 파인튜닝</span>
+base_model.trainable = <span class="keyword">False</span>
+
+model = keras.Sequential([
+    base_model,
+    layers.GlobalAveragePooling2D(),
+    layers.Dense(<span class="number">256</span>, activation=<span class="string">"relu"</span>),
+    layers.Dropout(<span class="number">0.5</span>),
+    layers.Dense(<span class="number">10</span>, activation=<span class="string">"softmax"</span>)
+])
+
+<span class="comment"># 일정 층만 파인튜닝</span>
+<span class="keyword">for</span> layer <span class="keyword">in</span> base_model.layers[<span class="number">-50</span>:]:
+    layer.trainable = <span class="keyword">True</span>
+            </div>
+            
+            <h3>AI 프레임워크 설치</h3>
+            <div class="code-block">
+<span class="comment"># 필수 패키지 설치</span>
+pip install numpy pandas matplotlib seaborn
+
+<span class="comment"># scikit-learn</span>
+pip install scikit-learn
+
+<span class="comment"># TensorFlow</span>
+pip install tensorflow
+
+<span class="comment"># PyTorch</span>
+pip install torch torchvision torchaudio
+
+<span class="comment"># Hugging Face Transformers</span>
+pip install transformers datasets
+
+<span class="comment"># 딥러닝 추가</span>
+pip install keras opencv-python pillow
+            </div>
+            
+            <h3>AI 개발 환경 설정</h3>
+            <div class="code-block">
+<span class="comment"># requirements.txt 예시</span>
+numpy>=1.24.0
+pandas>=2.0.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
+scikit-learn>=1.3.0
+tensorflow>=2.13.0
+torch>=2.0.0
+transformers>=4.30.0
+opencv-python>=4.8.0
+
+<span class="comment"># GPU 확인</span>
+<span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf
+<span class="keyword">print</span>(tf.config.list_physical_devices(<span class="string">"GPU"</span>))
+
+<span class="keyword">import</span> torch
+<span class="keyword">print</span>(torch.cuda.is_available())
+<span class="keyword">print</span>(torch.cuda.get_device_name(<span class="number">0</span>))
+            </div>
+        </section>
+        
         <section id="resources">
             <h2>13. 참고 자료 & 다음 단계</h2>
             <span class="level-badge level-beginner">초급</span>
