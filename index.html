@@ -1,0 +1,2476 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Complete Guide - 완벽한 파이썬 가이드</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+            line-height: 1.8;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding-bottom: 100px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 30px 40px;
+        }
+        
+        header {
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 0;
+            padding: 40px;
+            margin-bottom: 0;
+            box-shadow: none;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 3em;
+            color: #3776AB;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.3em;
+            color: #666;
+        }
+        
+        .python-logo {
+            width: 120px;
+            height: 120px;
+            margin: 20px auto;
+        }
+        
+        nav {
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 0;
+            padding: 15px 20px;
+            margin: 0;
+            box-shadow: none;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin: 0;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: #3776AB;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 25px;
+            background: #f0f4f8;
+            transition: all 0.3s;
+        }
+        
+        nav a:hover {
+            background: #3776AB;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        section {
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 0;
+            padding: 40px 50px;
+            margin: 0;
+            box-shadow: none;
+        }
+        
+        h2 {
+            color: #3776AB;
+            font-size: 2em;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3776AB;
+        }
+        
+        h3 {
+            color: #5a4fcf;
+            font-size: 1.5em;
+            margin: 25px 0 15px;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+        
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9em;
+            line-height: 1.8;
+            border-left: 4px solid #3776AB;
+            white-space: pre;
+            display: block;
+        }
+        
+        .code-block code {
+            display: block;
+            white-space: pre;
+        }
+        
+        .code-block .keyword { color: #569cd6; }
+        .code-block .string { color: #ce9178; }
+        .code-block .comment { color: #6a9955; }
+        .code-block .function { color: #dcdcaa; }
+        .code-block .number { color: #b5cea8; }
+        .code-block .builtin { color: #4ec9b0; }
+        .code-block .decorator { color: #d7ba7d; }
+        .code-block .class { color: #4ec9b0; }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .feature-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            border-radius: 15px;
+            padding: 25px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+        
+        .feature-card h4 {
+            color: #3776AB;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+        }
+        
+        .feature-card ul {
+            margin: 10px 0 0 20px;
+            padding: 0;
+        }
+        
+        .feature-card li {
+            margin-bottom: 5px;
+            font-size: 0.9em;
+        }
+        
+        .level-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin-bottom: 15px;
+            margin-right: 5px;
+        }
+        
+        .level-badge.level-beginner { background: #4CAF50; color: white; }
+        .level-badge.level-intermediate { background: #FF9800; color: white; }
+        .level-badge.level-advanced { background: #f44336; color: white; }
+        .level-badge.level-expert { background: #9C27B0; color: white; }
+        
+        .svg-container {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .svg-container svg {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        ul, ol {
+            margin: 15px 0 15px 30px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+        
+        .tip-box {
+            background: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .tip-box ul {
+            margin: 10px 0 0 20px;
+        }
+        
+        .warning-box {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .info-box {
+            background: #e8f5e9;
+            border-left: 4px solid #4CAF50;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .error-box {
+            background: #ffebee;
+            border-left: 4px solid #f44336;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .two-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 20px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .two-columns {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        footer {
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 0;
+            padding: 30px;
+            text-align: center;
+            box-shadow: none;
+            margin: 0;
+        }
+        
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            width: 0%;
+            transition: width 0.1s;
+            z-index: 1000;
+        }
+        
+        .toc {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .toc h3 {
+            color: #3776AB;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .toc ul {
+            columns: 2;
+            column-gap: 30px;
+        }
+        
+        .toc a {
+            color: #333;
+            text-decoration: none;
+            display: block;
+            padding: 8px 15px;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        
+        .toc a:hover {
+            background: #e3f2fd;
+            color: #3776AB;
+            transform: translateX(5px);
+        }
+        
+        .code-demo {
+            background: #282c34;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+        
+        .code-demo .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #444;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .code-demo .code-language {
+            color: #61afef;
+            font-weight: bold;
+        }
+        
+        .code-demo .copy-btn {
+            background: #4b5363;
+            color: white;
+            border: none;
+            padding: 5px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8em;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .comparison-table th, .comparison-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .comparison-table th {
+            background: #3776AB;
+            color: white;
+        }
+        
+        .comparison-table tr:hover {
+            background: #f5f5f5;
+        }
+        
+        .accordion {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .accordion-header {
+            padding: 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8f9fa;
+            font-weight: bold;
+            color: #3776AB;
+        }
+        
+        .accordion-header:hover {
+            background: #e3f2fd;
+        }
+        
+        .accordion-content {
+            padding: 20px;
+            display: none;
+        }
+        
+        .accordion-content.active {
+            display: block;
+        }
+        
+        .quiz-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            color: white;
+        }
+        
+        .quiz-box h3 {
+            margin-bottom: 20px;
+        }
+        
+        .quiz-option {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .quiz-option:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .resource-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .resource-link {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            text-decoration: none;
+            color: #3776AB;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .resource-link:hover {
+            border-color: #3776AB;
+            transform: translateY(-3px);
+        }
+        
+        @media (max-width: 768px) {
+            .container { padding: 10px; }
+            header { padding: 25px; }
+            h1 { font-size: 2em; }
+            section { padding: 25px; }
+            nav ul { flex-direction: column; align-items: center; }
+            .toc ul { columns: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    
+    <div class="container">
+        <header>
+            <!-- Python Logo SVG -->
+            <svg class="python-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="50" cy="50" r="45" fill="#3776AB"/>
+                <text x="50" y="65" font-size="50" font-weight="bold" fill="white" text-anchor="middle">Py</text>
+                <circle cx="30" cy="35" r="8" fill="#FFD43B"/>
+                <circle cx="70" cy="35" r="8" fill="#FFD43B"/>
+            </svg>
+            <h1>Python Complete Guide</h1>
+            <p class="subtitle">초급부터 고급까지: 파이썬의 모든 것</p>
+        </header>
+        
+        <nav>
+            <ul>
+                <li><a href="#intro">시작하기</a></li>
+                <li><a href="#basics">기초 문법</a></li>
+                <li><a href="#datatypes">자료형</a></li>
+                <li><a href="#control">제어문</a></li>
+                <li><a href="#functions">함수</a></li>
+                <li><a href="#oop">객체지향</a></li>
+                <li><a href="#exception">예외 처리</a></li>
+                <li><a href="#modules">모듈/패키지</a></li>
+                <li><a href="#fileio">파일 입출력</a></li>
+                <li><a href="#regex">정규식</a></li>
+                <li><a href="#testing">테스팅</a></li>
+                <li><a href="#advanced">고급 주제</a></li>
+                <li><a href="#resources">참고 자료</a></li>
+            </ul>
+        </nav>
+        
+        <section id="intro">
+            <h2>1. 파이썬이란?</h2>
+            <p>
+                <span class="highlight">파이썬(Python)</span>은 1991년 네덜란드 CWI의 <strong>귀도 반 로섬(Guido van Rossum)</strong>이 발표한 고급 프로그래밍 언어입니다.
+                파이썬이라는 이름은 자신이 좋아하던 코미디 쇼 "몬티 파이썬의 날아다니는 서커스"에서 따왔다고 합니다.
+            </p>
+            
+            <h3>파이썬의 핵심 철학 (PEP 20)</h3>
+            <div class="tip-box">
+                <ul>
+                    <li>"아름다운게 추한 것보다 낫다." (Beautiful is better than ugly)</li>
+                    <li>"명시적인 것이 암시적인 것 보다 낫다." (Explicit is better than implicit)</li>
+                    <li>"단순함이 복잡함보다 낫다." (Simple is better than complex)</li>
+                    <li>"복잡함이 난해한 것보다 낫다." (Complex is better than complicated)</li>
+                    <li>"가독성은 중요하다." (Readability counts)</li>
+                </ul>
+            </div>
+            
+            <p><strong>"인생은 너무 짧다. 그래서 파이썬이 필요하다."</strong> ("Life is short, You need Python.")</p>
+            
+            <h3>파이썬 인터프리터 종류</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>CPython</h4>
+                    <p>C로 작성된 인터프리터. Reference 구현체로 사실상 표준</p>
+                </div>
+                <div class="feature-card">
+                    <h4>PyPy</h4>
+                    <p>파이썬으로 작성된 파이썬 인터프리터 (JIT 컴파일러 포함)</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Jython</h4>
+                    <p>자바 가상 머신용 인터프리터</p>
+                </div>
+                <div class="feature-card">
+                    <h4>IronPython</h4>
+                    <p>.NET 플랫폼용 인터프리터</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Brython</h4>
+                    <p>JavaScript로 구현, 웹에서 Python 실행</p>
+                </div>
+            </div>
+            
+            <h3>Python 2.x vs 3.x 차이점</h3>
+            <div class="warning-box">
+                <strong>권장:</strong> 이제 Python 3.x 이상을 기준으로 학습하세요. Python 2.x는 2020년에 지원이 종료되었습니다.
+            </div>
+            <ul>
+                <li><strong>print</strong>: 2.x는 <code>print "hello"</code>, 3.x는 <code>print("hello")</code></li>
+                <li><strong>나눗셈</strong>: 2.x는 정수나누기 결과가 정수, 3.x는 실수</li>
+                <li><strong>유니코드</strong>: 2.x는 <code>u"문자열"</code>, 3.x는 기본이 유니코드</li>
+                <li><strong>한글 변수</strong>: 3.x부터 한글 변수명 사용 가능</li>
+            </ul>
+            
+            <h3>Python 3.14 새로운 기능 (2025년 10월 출시)</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>PEP 750: Template Strings</h4>
+                    <p><code>f"..."</code> 대신 <code>t"..."</code>로 템플릿 문자열 사용</p>
+                </div>
+                <div class="feature-card">
+                    <h4>PEP 734: Multiple Interpreters</h4>
+                    <p>표준 라이브러리에서 다중 인터프리터 지원</p>
+                </div>
+                <div class="feature-card">
+                    <h4>PEP 649: Deferred Annotations</h4>
+                    <p>타입 어노테이션 지연 평가 (runtime에서)</p>
+                </div>
+                <div class="feature-card">
+                    <h4>PEP 768: Debugger Interface</h4>
+                    <p>안전한 외부 디버거 인터페이스</p>
+                </div>
+                <div class="feature-card">
+                    <h4>PEP 784: Zstandard</h4>
+                    <p>표준 라이브러리에서 Zstandard 압축 지원</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Free-threaded Mode</h4>
+                    <p>GIL 없는 다중 스레딩 성능 향상</p>
+                </div>
+            </div>
+            
+            <h3>주요 CLI 옵션</h3>
+            <table class="comparison-table">
+                <tr><th>옵션</th><th>설명</th></tr>
+                <tr><td><code>python</code></td><td>인자 없이 실행: 대화형 인터프리터</td></tr>
+                <tr><td><code>-d</code></td><td>디버그 출력</td></tr>
+                <tr><td><code>-O</code></td><td>최적화 (pyo 파일 생성)</td></tr>
+                <tr><td><code>-v</code></td><td>자세한 출력 (import 추적)</td></tr>
+                <tr><td><code>-c "cmd"</code></td><td>명령어 실행</td></tr>
+                <tr><td><code>-S</code></td><td>시작 시 import site 건너뛰기</td></tr>
+            </table>
+            
+            <h3>파이썬 환경변수</h3>
+            <table class="comparison-table">
+                <tr><th>변수</th><th>설명</th></tr>
+                <tr><td><code>PYTHONPATH</code></td><td>모듈 파일 위치</td></tr>
+                <tr><td><code>PYTHONSTARTUP</code></td><td>인터프리터 시작 시 실행 파일</td></tr>
+                <tr><td><code>PYTHONHOME</code></td><td>모듈 검색 경로</td></tr>
+                <tr><td><code>PYTHONCASEOK</code></td><td>대소문자 구분 안 함 (Windows)</td></tr>
+            </table>
+            
+            <h3>예약어 (Keywords)</h3>
+            <p>다음 예약어는 변수나 식별자로 사용할 수 없습니다:</p>
+            <div class="code-block">and, assert, break, class, continue, def, del, elif, else, except,
+exec, finally, for, from, global, if, import, in, is, lambda,
+not, or, pass, raise, return, try, while, with, yield, True, False, None</div>
+            
+            <h3>연산자 우선순위</h3>
+            <table class="comparison-table">
+                <tr><th>우선순위</th><th>연산자</th><th>설명</th></tr>
+                <tr><td>1</td><td>**</td><td>지수 제곱</td></tr>
+                <tr><td>2</td><td>~, +, -,</td><td>단항 연산</td></tr>
+                <tr><td>3</td><td>*, /, %, //</td><td>산술 연산</td></tr>
+                <tr><td>4</td><td>+, -</td><td>산술 연산</td></tr>
+                <tr><td>5</td><td>>, <<</td><td>비트 쉬프트</td></tr>
+                <tr><td>6</td><td>&</td><td>비트 AND</td></tr>
+                <tr><td>7</td><td>^, |</td><td>비트 XOR, OR</td></tr>
+                <tr><td>8</td><td><=, <, >, >=</td><td>비교 연산</td></tr>
+                <tr><td>9</td><td><>, ==, !=</td><td>평등 연산</td></tr>
+                <tr><td>10</td><td>=, %=, /=, //=</td><td>할당 연산</td></tr>
+                <tr><td>11</td><td>is, is not</td><td>식별 연산</td></tr>
+                <tr><td>12</td><td>in, not in</td><td>멤버 연산</td></tr>
+                <tr><td>13</td><td>not, or, and</td><td>논리 연산</td></tr>
+            </table>
+        </section>
+        
+        <section id="basics">
+            <h2>2. 기초 문법</h2>
+            <span class="level-badge level-beginner">초급</span>
+            
+            <h3>Hello, World! 출력하기</h3>
+            <p>프로그래밍의 첫걸음은 언제나 "Hello, World!"를 출력하는 것입니다.</p>
+            
+            <div class="code-block">
+<span class="keyword">print</span>(<span class="string">"Hello, World!"</span>)
+<span class="comment"># 결과: Hello, World!</span>
+            </div>
+            
+            <div class="tip-box">
+                <strong>💡 팁:</strong> 파이썬에서 print()는 함수의 일종입니다.括号 안에 넣은 내용을 화면에 출력해줍니다.
+            </div>
+            
+            <h3>변수와 주석</h3>
+            <p>변수는 데이터를 저장하는 공간입니다. 주석은 코드에 설명을 추가하는 데 사용됩니다.</p>
+            
+            <div class="code-block">
+<span class="comment"># 변수 선언의 예</span>
+name = <span class="string">"민준"</span>
+age = <span class="number">25</span>
+height = <span class="number">175.5</span>
+
+<span class="keyword">print</span>(name)  <span class="comment"># 민준</span>
+<span class="keyword">print</span>(age)   <span class="comment"># 25</span>
+            </div>
+            
+            <h3>주석 (Comments)</h3>
+            <div class="code-block">
+<span class="comment"># 한 줄 주석입니다</span>
+
+<span class="string">""" 
+여러 줄 주석 (Docstring)
+함수나 클래스의 설명을 작성할 때 사용
+"""</span>
+
+<span class="string">'''
+역시 여러 줄 주석입니다
+'''</span>
+            </div>
+            
+            <h3>여러 줄로 구문 작성</h3>
+            <div class="code-block">
+<span class="comment"># \(백슬래시)로 줄 연결</span>
+a = <span class="number">1</span> + \
+    <span class="number">2</span> + \
+    <span class="number">3</span>
+
+<span class="comment"># [], {}, ()는 자동으로 연결</span>
+numbers = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>,
+          <span class="number">4</span>, <span class="number">5</span>]
+
+<span class="comment"># 한 줄에 여러 구문 (세미콜론)</span>
+x = <span class="number">1</span>; y = <span class="number">2</span>; <span class="keyword">print</span>(x + y)
+            </div>
+            
+            <h3>식별자 (Identifiers)</h3>
+            <ul>
+                <li>영문자, 숫자, _(밑줄) 사용 가능</li>
+                <li>대소문자 엄격히 구분</li>
+                <li>Python 3.x부터 한글 변수명 사용 가능</li>
+                <li><code>_</code>로 시작: 내부 사용</li>
+                <li><code>__</code>로 시작: 더 내부적인 용도</li>
+            </ul>
+            
+            <h3>들여쓰기 (Indentation)</h3>
+            <div class="warning-box">
+                <strong>중요:</strong> 파이썬은 들여쓰기로 블록을 구분합니다. 콜론(:) 뒤에 들여쓰기를 하세요.
+            </div>
+            <div class="code-block">
+<span class="keyword">if</span> x > <span class="number">0</span>:
+    <span class="keyword">print</span>(<span class="string">"양수"</span>)  <span class="comment"># 4칸 들여쓰기</span>
+    <span class="keyword">if</span> x > <span class="number">10</span>:
+        <span class="keyword">print</span>(<span class="string">"큰 양수"</span>)  <span class="comment"># 8칸 들여쓰기</span>
+            </div>
+            
+            <h3>첫 줄 Shebang과 인코딩</h3>
+            <div class="code-block">
+<span class="comment">#!/usr/bin/env python</span>
+<span class="comment"># -*- coding: utf-8 -*-</span>
+
+<span class="keyword">print</span>(<span class="string">"안녕하세요"</span>)
+            </div>
+            
+            <div class="svg-container">
+                <!-- Variable Concept SVG -->
+                <svg width="600" height="180" viewBox="0 0 600 180" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="50" y="50" width="150" height="80" rx="10" fill="#e3f2fd" stroke="#2196F3" stroke-width="2"/>
+                    <text x="125" y="95" text-anchor="middle" font-weight="bold" fill="#333">name</text>
+                    
+                    <polygon points="200,90 230,70 230,110" fill="#667eea"/>
+                    <line x1="200" y1="90" x2="300" y2="90" stroke="#667eea" stroke-width="2"/>
+                    
+                    <rect x="300" y="50" width="150" height="80" rx="10" fill="#fff3e0" stroke="#ff9800" stroke-width="2"/>
+                    <text x="375" y="95" text-anchor="middle" font-weight="bold" fill="#333">"민준"</text>
+                    
+                    <text x="375" y="150" text-anchor="middle" fill="#666" font-size="14">메모리 공간</text>
+                    
+                    <rect x="500" y="20" width="80" height="40" rx="5" fill="#4CAF50"/>
+                    <text x="540" y="45" text-anchor="middle" fill="white" font-weight="bold">값</text>
+                </svg>
+            </div>
+        </section>
+        
+        <section id="datatypes">
+            <h2>3. 자료형 (Data Types)</h2>
+            <span class="level-badge level-beginner">초급</span>
+            
+            <p>파이썬에는 다양한 자료형이 있습니다. 가장 기본적인 것들을 알아봅시다.</p>
+            
+            <h3>숫자 (Numbers)</h3>
+            <div class="code-block">
+<span class="comment"># 정수 (Integer)</span>
+integer = <span class="number">42</span>
+
+<span class="comment"># 실수 (Float)</span>
+float_num = <span class="number">3.14</span>
+scientific = <span class="number">3.4e10</span>  <span class="comment"># 지수 표기</span>
+
+<span class="comment"># 복소수 (Complex)</span>
+complex_num = <span class="number">3 + 4j</span>
+<span class="keyword">print</span>(complex_num.real)  <span class="comment"># 3.0 (실수부)</span>
+<span class="keyword">print</span>(complex_num.imag)  <span class="comment"># 4.0 (허수부)</span>
+<span class="keyword">print</span>(complex_num.conjugate())  <span class="comment"># (3-4j) (켤레복소수)</span>
+
+<span class="comment"># 8진수 (0o开头)</span>
+octal = <span class="number">0o34</span>
+
+<span class="comment"># 16진수 (0x开头)</span>
+hex_num = <span class="number">0xFF</span>
+            </div>
+            
+            <h3>문자열 (String)</h3>
+            <div class="code-block">
+single = <span class="string">'작은따옴표'</span>
+double = <span class="string">"큰따옴표"</span>
+multi_line = <span class="string">"""여러 줄
+문자열"""</span>
+
+<span class="comment"># 문자열 포맷팅</span>
+name = <span class="string">"철수"</span>
+<span class="keyword">print</span>(<span class="string">f"안녕하세요, {name}님!"</span>)  <span class="comment"># 안녕하세요, 철수님!</span>
+            </div>
+            
+            <h3>문자열 주요 메서드</h3>
+            <table class="comparison-table">
+                <tr><th>메서드</th><th>설명</th></tr>
+                <tr><td>.upper()</td><td>대문자 변환</td></tr>
+                <tr><td>.lower()</td><td>소문자 변환</td></tr>
+                <tr><td>.strip()</td><td>좌우 공백 제거</td></tr>
+                <tr><td>.split()</td><td>분할 (리스트 반환)</td></tr>
+                <tr><td>.join()</td><td>합치기</td></tr>
+                <tr><td>.replace()</td><td>치환</td></tr>
+                <tr><td>.find()</td><td>위치 찾기 (-1 if not found)</td></tr>
+                <tr><td>.index()</td><td>위치 찾기 (오류 if not found)</td></tr>
+                <tr><td>.count()</td><td>개수 세기</td></tr>
+                <tr><td>.startswith()</td><td>시작 문자열 확인</td></tr>
+                <tr><td>.endswith()</td><td>끝 문자열 확인</td></tr>
+                <tr><td>.isalpha()</td><td>영문자 여부</td></tr>
+                <tr><td>.isdigit()</td><td>숫자 여부</td></tr>
+                <tr><td>.splitlines()</td><td>줄바꿈으로 분할</td></tr>
+                <tr><td>.zfill()</td><td>0으로 패딩</td></tr>
+            </table>
+            
+            <h3>문자열 슬라이싱</h3>
+            <div class="code-block">
+s = <span class="string">"Hello Python"</span>
+s[<span class="number">0</span>]     <span class="comment"># 'H' (인덱싱)</span>
+s[<span class="number">0</span>:<span class="number">5</span>]   <span class="comment"># 'Hello' (슬라이싱, 끝 제외)</span>
+s[<span class="number">6</span>:]     <span class="comment"># 'Python' (6부터 끝까지)</span>
+s[:<span class="number">5</span>]     <span class="comment"># 'Hello' (처음부터 5까지)</span>
+s[-<span class="number">1</span>]     <span class="comment"># 'n' (마지막 문자)</span>
+s[<span class="number">0</span>:<span class="number">10</span>:<span class="number">2</span>] <span class="comment"># 'HloPto' (step 2)</span>
+s[::<span class="number">-</span><span class="number">1</span>]  <span class="comment"># 'nohtyP olleH' (역순)</span>
+            </div>
+            
+            <h3>Escape 문자</h3>
+            <table class="comparison-table">
+                <tr><th>코드</th><th>설명</th></tr>
+                <tr><td>\n</td><td>줄바꿈</td></tr>
+                <tr><td>\t</td><td>탭</td></tr>
+                <tr><td>\\</td><td>백슬래시</td></tr>
+                <tr><td>\'</td><td>작은따옴표</td></tr>
+                <tr><td>\"</td><td>큰따옴표</td></tr>
+                <tr><td>\r</td><td>캐리지 리턴</td></tr>
+                <tr><td>\b</td><td>백스페이스</td></tr>
+            </table>
+            
+            <h3>리스트와 튜플</h3>
+            <div class="code-block">
+<span class="comment"># 리스트 (수정 가능) - []</span>
+fruits = [<span class="string">"사과"</span>, <span class="string">"바나나"</span>, <span class="string">"딸기"</span>]
+fruits[<span class="number">0</span>] = <span class="string">"포도"</span>  <span class="comment"># 가능</span>
+
+<span class="comment"># 튜플 (수정 불가능) - ()</span>
+coordinates = (<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>)
+<span class="comment"># coordinates[0] = 5  # 오류 발생!</span>
+            </div>
+            
+            <h3>리스트 주요 메서드</h3>
+            <table class="comparison-table">
+                <tr><th>메서드</th><th>설명</th><th>예시</th></tr>
+                <tr><td>.append(x)</td><td>末尾 추가</td><td>[1,2].append(3) → [1,2,3]</td></tr>
+                <tr><td>.extend(iterable)</td><td>iterable 추가</td><td>[1].extend([2,3]) → [1,2,3]</td></tr>
+                <tr><td>.insert(i, x)</td><td>위치에 삽입</td><td>[1,3].insert(1,2) → [1,2,3]</td></tr>
+                <tr><td>.remove(x)</td><td>첫 번째 x 제거</td><td>[1,2,3].remove(2) → [1,3]</td></tr>
+                <tr><td>.pop([i])</td><td>위치 값 제거/반환</td><td>[1,2,3].pop() → 3</td></tr>
+                <tr><td>.clear()</td><td>모두 제거</td><td>[1,2].clear() → []</td></tr>
+                <tr><td>.index(x)</td><td>첫 번째 x 인덱스</td><td>[1,2,3].index(2) → 1</td></tr>
+                <tr><td>.count(x)</td><td>x 개수</td><td>[1,2,2].count(2) → 2</td></tr>
+                <tr><td>.sort(*, key, reverse)</td><td>정렬</td><td>[3,1,2].sort() → [1,2,3]</td></tr>
+                <tr><td>.reverse()</td><td>역순</td><td>[1,2,3].reverse() → [3,2,1]</td></tr>
+                <tr><td>.copy()</td><td> shallow 복사</td><td>[1,2].copy() → [1,2]</td></tr>
+            </table>
+            
+            <h3>List Comprehension (리스트 내포)</h3>
+            <div class="code-block">
+<span class="comment"># 기본</span>
+squares = [x**<span class="number">2</span> <span class="keyword">for</span> x <span class="keyword">in</span> <span class="builtin">range</span>(<span class="number">5</span>)]
+<span class="comment"># [0, 1, 4, 9, 16]</span>
+
+<span class="comment"># 조건 포함</span>
+evens = [x <span class="keyword">for</span> x <span class="keyword">in</span> <span class="builtin">range</span>(<span class="number">10</span>) <span class="keyword">if</span> x % <span class="number">2</span> == <span class="number">0</span>]
+<span class="comment"># [0, 2, 4, 6, 8]</span>
+
+<span class="comment"># 중첩</span>
+matrix = [[j <span class="keyword">for</span> j <span class="keyword">in</span> <span class="builtin">range</span>(<span class="number">3</span>)] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="builtin">range</span>(<span class="number">3</span>)]
+            </div>
+            
+            <div class="svg-container">
+                <!-- Data Types Comparison SVG -->
+                <svg width="700" height="250" viewBox="0 0 700 250" xmlns="http://www.w3.org/2000/svg">
+                    <!-- List Box -->
+                    <rect x="30" y="30" width="180" height="180" rx="15" fill="#e8f5e9" stroke="#4CAF50" stroke-width="3"/>
+                    <text x="120" y="60" text-anchor="middle" font-weight="bold" fill="#2E7D32" font-size="16">List (리스트)</text>
+                    <text x="120" y="85" text-anchor="middle" fill="#666" font-size="12">[]</text>
+                    <rect x="50" y="100" width="140" height="30" rx="5" fill="white" stroke="#4CAF50"/>
+                    <text x="120" y="120" text-anchor="middle" fill="#333">"사과"</text>
+                    <rect x="50" y="135" width="140" height="30" rx="5" fill="white" stroke="#4CAF50"/>
+                    <text x="120" y="155" text-anchor="middle" fill="#333">"바나나"</text>
+                    <rect x="50" y="170" width="140" height="30" rx="5" fill="white" stroke="#4CAF50"/>
+                    <text x="120" y="190" text-anchor="middle" fill="#333">"딸기"</text>
+                    <text x="120" y="225" text-anchor="middle" fill="#4CAF50" font-size="12">✏️ 수정 가능</text>
+                    
+                    <!-- Tuple Box -->
+                    <rect x="260" y="30" width="180" height="180" rx="15" fill="#fff3e0" stroke="#ff9800" stroke-width="3"/>
+                    <text x="350" y="60" text-anchor="middle" font-weight="bold" fill="#E65100" font-size="16">Tuple (튜플)</text>
+                    <text x="350" y="85" text-anchor="middle" fill="#666" font-size="12">()</text>
+                    <rect x="280" y="100" width="140" height="30" rx="5" fill="white" stroke="#ff9800"/>
+                    <text x="350" y="120" text-anchor="middle" fill="#333">"사과"</text>
+                    <rect x="280" y="135" width="140" height="30" rx="5" fill="white" stroke="#ff9800"/>
+                    <text x="350" y="155" text-anchor="middle" fill="#333">"바나나"</text>
+                    <rect x="280" y="170" width="140" height="30" rx="5" fill="white" stroke="#ff9800"/>
+                    <text x="350" y="190" text-anchor="middle" fill="#333">"딸기"</text>
+                    <text x="350" y="225" text-anchor="middle" fill="#ff9800" font-size="12">🔒 수정 불가</text>
+                    
+                    <!-- Dict Box -->
+                    <rect x="490" y="30" width="180" height="180" rx="15" fill="#e3f2fd" stroke="#2196F3" stroke-width="3"/>
+                    <text x="580" y="60" text-anchor="middle" font-weight="bold" fill="#1565C0" font-size="16">Dict (사전)</text>
+                    <text x="580" y="85" text-anchor="middle" fill="#666" font-size="12">{"key": "value"}</text>
+                    <rect x="510" y="100" width="140" height="25" rx="5" fill="white" stroke="#2196F3"/>
+                    <text x="580" y="118" text-anchor="middle" fill="#333" font-size="13">"이름": "민준"</text>
+                    <rect x="510" y="130" width="140" height="25" rx="5" fill="white" stroke="#2196F3"/>
+                    <text x="580" y="148" text-anchor="middle" fill="#333" font-size="13">"나이": 25</text>
+                    <rect x="510" y="160" width="140" height="25" rx="5" fill="white" stroke="#2196F3"/>
+                    <text x="580" y="178" text-anchor="middle" fill="#333" font-size="13">"도시": "서울"</text>
+                    <text x="580" y="215" text-anchor="middle" fill="#2196F3" font-size="12">🔑 키-값 쌍</text>
+                </svg>
+            </div>
+            
+            <h3>집합 (Set)</h3>
+            <div class="code-block">
+<span class="comment"># 집합 (중복 불가, 순서 없음)</span>
+s = {<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>}
+s.add(<span class="number">4</span>)        <span class="comment"># 추가</span>
+s.remove(<span class="number">2</span>)      <span class="comment"># 제거</span>
+
+<span class="comment"># 집합 연산</span>
+a = {<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>}
+b = {<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>}
+<span class="keyword">print</span>(a | b)  <span class="comment"># 합집합: {1, 2, 3, 4}</span>
+<span class="keyword">print</span>(a & b)  <span class="comment"># 교집합: {2, 3}</span>
+<span class="keyword">print</span>(a - b)  <span class="comment"># 차집합: {1}</span>
+            </div>
+            
+            <h3>None (Null)</h3>
+            <div class="code-block">
+x = <span class="keyword">None</span>
+<span class="keyword">print</span>(x <span class="keyword">is</span> <span class="keyword">None</span>)  <span class="comment"># True</span>
+<span class="keyword">print</span>(x == <span class="keyword">None</span>)  <span class="comment"># True (하지만 is를 권장)</span>
+            </div>
+            
+            <h3>불변 vs 가변 객체</h3>
+            <div class="tip-box">
+                <ul>
+                    <li><strong>불변:</strong> int, float, str, tuple, frozenset</li>
+                    <li><strong>가변:</strong> list, dict, set</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section id="control">
+            <h2>4. 제어문</h2>
+            <span class="level-badge level-beginner">초급</span>
+            <span class="level-badge level-intermediate">중급</span>
+            
+            <h3>조건문 (if-elif-else)</h3>
+            <div class="code-block">
+score = <span class="number">85</span>
+
+<span class="keyword">if</span> score >= <span class="number">90</span>:
+    grade = <span class="string">"A"</span>
+<span class="keyword">elif</span> score >= <span class="number">80</span>:
+    grade = <span class="string">"B"</span>
+<span class="keyword">elif</span> score >= <span class="number">70</span>:
+    grade = <span class="string">"C"</span>
+<span class="keyword">else</span>:
+    grade = <span class="string">"F"</span>
+
+<span class="keyword">print</span>(<span class="string">f"학점: {grade}"</span>)  <span class="comment"># 학점: B</span>
+            </div>
+            
+            <h3>반복문 (for, while)</h3>
+            <div class="code-block">
+<span class="comment"># for 반복문</span>
+<span class="keyword">for</span> i <span class="keyword">in</span> <span class="builtin">range</span>(<span class="number">5</span>):
+    <span class="keyword">print</span>(i)  <span class="comment"># 0, 1, 2, 3, 4</span>
+
+<span class="comment"># while 반복문</span>
+count = <span class="number">0</span>
+<span class="keyword">while</span> count < <span class="number">3</span>:
+    <span class="keyword">print</span>(<span class="string">f"카운트: {count}"</span>)
+    count += <span class="number">1</span>
+            </div>
+            
+            <h3>Match-Case (Structural Pattern Matching)</h3>
+            <p>Python 3.10+. 데이터 구조에 따른 패턴 매칭</p>
+            <div class="code-block">
+<span class="keyword">def</span> <span class="function">http_status</span>(status):
+    <span class="keyword">match</span> status:
+        <span class="keyword">case</span> <span class="number">200</span>:
+            <span class="keyword">return</span> <span class="string">"OK"</span>
+        <span class="keyword">case</span> <span class="number">404</span>:
+            <span class="keyword">return</span> <span class="string">"Not Found"</span>
+        <span class="keyword">case</span> <span class="number">500</span>:
+            <span class="keyword">return</span> <span class="string">"Server Error"</span>
+        <span class="keyword">case</span> _:
+            <span class="keyword">return</span> <span class="string">"Unknown"</span>
+
+<span class="comment"># 패턴 매칭 with tuple/list</span>
+<span class="keyword">def</span> <span class="function">location</span>(point):
+    <span class="keyword">match</span> point:
+        <span class="keyword">case</span> (<span class="number">0</span>, <span class="number">0</span>):
+            <span class="keyword">return</span> <span class="string">"원점"</span>
+        <span class="keyword">case</span> (x, <span class="number">0</span>):
+            <span class="keyword">return</span> <span class="string">f"x축 위: {x}"</span>
+        <span class="keyword">case</span> (x, y):
+            <span class="keyword">return</span> <span class="string">f"점 ({x}, {y})"</span>
+            </div>
+            
+            <h3>Break, Continue, Else (반복문)</h3>
+            <div class="code-block">
+<span class="keyword">for</span> i <span class="keyword">in</span> <span class="builtin">range</span>(<span class="number">10</span>):
+    <span class="keyword">if</span> i == <span class="number">3</span>:
+        <span class="keyword">continue</span>  <span class="comment"># 다음 반복으로</span>
+    <span class="keyword">if</span> i == <span class="number">7</span>:
+        <span class="keyword">break</span>  <span class="comment"># 반복 종료</span>
+    <span class="keyword">print</span>(i)
+<span class="keyword">else</span>:
+    <span class="keyword">print</span>(<span class="string">"완료"</span>)  <span class="comment"># break로 나가면 실행 안됨</span>
+            </div>
+            
+            <div class="svg-container">
+                <!-- Loop Flow SVG -->
+                <svg width="500" height="300" viewBox="0 0 500 300" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Start -->
+                    <ellipse cx="250" cy="30" rx="60" ry="25" fill="#4CAF50"/>
+                    <text x="250" y="35" text-anchor="middle" fill="white" font-weight="bold">시작</text>
+                    
+                    <!-- Condition -->
+                    <polygon points="250,80 320,130 250,180 180,130" fill="#FF9800"/>
+                    <text x="250" y="135" text-anchor="middle" fill="white" font-weight="bold">조건</text>
+                    <text x="250" y="155" text-anchor="middle" fill="white" font-size="11">확인?</text>
+                    
+                    <!-- Arrow down from Start -->
+                    <line x1="250" y1="55" x2="250" y2="80" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    
+                    <!-- Yes path -->
+                    <line x1="320" y1="130" x2="400" y2="130" stroke="#4CAF50" stroke-width="2"/>
+                    <text x="360" y="120" fill="#4CAF50" font-weight="bold">Yes</text>
+                    <line x1="400" y1="130" x2="400" y2="200" stroke="#4CAF50" stroke-width="2"/>
+                    <rect x="330" y="200" width="140" height="40" rx="8" fill="#4CAF50"/>
+                    <text x="400" y="225" text-anchor="middle" fill="white" font-weight="bold">실행</text>
+                    
+                    <!-- No path -->
+                    <line x1="180" y1="130" x2="100" y2="130" stroke="#f44336" stroke-width="2"/>
+                    <text x="140" y="120" fill="#f44336" font-weight="bold">No</text>
+                    <line x1="100" y1="130" x2="100" y2="250" stroke="#f44336" stroke-width="2"/>
+                    <ellipse cx="100" cy="265" rx="50" ry="20" fill="#f44336"/>
+                    <text x="100" y="270" text-anchor="middle" fill="white" font-weight="bold">종료</text>
+                    
+                    <!-- Arrow from execute back to condition -->
+                    <path d="M 400 240 Q 400 280 320 280 Q 250 280 250 180" stroke="#3776AB" stroke-width="2" fill="none" stroke-dasharray="5,5"/>
+                    
+                    <!-- Arrow definitions -->
+                    <defs>
+                        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                            <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+            
+            <div class="tip-box">
+                <strong>💡 팁:</strong> range() 함수는 숫자 시퀀스를 생성합니다. range(5)는 0부터 4까지입니다.
+            </div>
+        </section>
+        
+        <section id="functions">
+            <h2>5. 함수 (Functions)</h2>
+            <span class="level-badge level-beginner">초급</span>
+            <span class="level-badge level-intermediate">중급</span>
+            
+            <p>함수는 반복적으로 사용되는 코드를 하나로 묶은 것입니다. 함수를 사용하면 코드를 재사용하고 관리하기 쉬워집니다.</p>
+            
+            <h3>기본 함수 정의</h3>
+            <div class="code-block">
+<span class="keyword">def</span> <span class="function">greet</span>(name):
+    <span class="string">"""인사말을 출력하는 함수"""</span>
+    <span class="keyword">return</span> <span class="string">f"안녕하세요, {name}님!"</span>
+
+result = <span class="function">greet</span>(<span class="string">"민준"</span>)
+<span class="keyword">print</span>(result)  <span class="comment"># 안녕하세요, 민준님!</span>
+            </div>
+            
+            <h3>매개변수와 반환값</h3>
+            <div class="code-block">
+<span class="keyword">def</span> <span class="function">add_numbers</span>(a, b=<span class="number">0</span>):
+    <span class="string">"""두 수를 더하는 함수 (기본값 지원)"""</span>
+    <span class="keyword">return</span> a + b
+
+<span class="function">add_numbers</span>(<span class="number">5</span>, <span class="number">3</span>)    <span class="comment"># 8</span>
+<span class="function">add_numbers</span>(<span class="number">5</span>)         <span class="comment"># 5 (b의 기본값 0 사용)</span>
+            </div>
+            
+            <h3>*args와 **kwargs</h3>
+            <div class="code-block">
+<span class="keyword">def</span> <span class="function">print_all</span>(*args, **kwargs):
+    <span class="keyword">print</span>(<span class="string">"args:"</span>, args)
+    <span class="keyword">print</span>(<span class="string">"kwargs:"</span>, kwargs)
+
+<span class="function">print_all</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, name=<span class="string">"민준"</span>, age=<span class="number">25</span>)
+<span class="comment"># args: (1, 2, 3)</span>
+<span class="comment"># kwargs: {'name': '민준', 'age': 25}</span>
+            </div>
+            
+            <h3>Lambda (익명 함수)</h3>
+            <div class="code-block">
+<span class="comment"># lambda 함수</span>
+square = <span class="keyword">lambda</span> x: x ** <span class="number">2</span>
+<span class="keyword">print</span>(square(<span class="number">5</span>))  <span class="comment"># 25</span>
+
+<span class="comment"># 정렬에 사용</span>
+pairs = [(<span class="number">1</span>, <span class="string">"one"</span>), (<span class="number">3</span>, <span class="string">"three"</span>), (<span class="number">2</span>, <span class="string">"two"</span>)]
+pairs.sort(key=<span class="keyword">lambda</span> x: x[<span class="number">0</span>])
+<span class="comment"># [(1, 'one'), (2, 'two'), (3, 'three')]</span>
+            </div>
+            
+            <h3>고급 함수 기법</h3>
+            <div class="code-block">
+<span class="comment"># 클로저 (Closure)</span>
+<span class="keyword">def</span> <span class="function">make_counter</span>():
+    count = [<span class="number">0</span>]
+    <span class="keyword">def</span> <span class="function">counter</span>():
+        count[<span class="number">0</span>] += <span class="number">1</span>
+        <span class="keyword">return</span> count[<span class="number">0</span>]
+    <span class="keyword">return</span> counter
+
+c = <span class="function">make_counter</span>()
+<span class="keyword">print</span>(c())  <span class="comment"># 1</span>
+<span class="keyword">print</span>(c())  <span class="comment"># 2</span>
+
+<span class="comment"># 데코레이터</span>
+<span class="keyword">def</span> <span class="function">my_decorator</span>(func):
+    <span class="keyword">def</span> <span class="function">wrapper</span>(*args, **kwargs):
+        <span class="keyword">print</span>(<span class="string">"Before"</span>)
+        result = func(*args, **kwargs)
+        <span class="keyword">print</span>(<span class="string">"After"</span>)
+        <span class="keyword">return</span> result
+    <span class="keyword">return</span> wrapper
+
+<span class="decorator">@my_decorator</span>
+<span class="keyword">def</span> <span class="function">say_hello</span>():
+    <span class="keyword">print</span>(<span class="string">"Hello!"</span>)
+            </div>
+            
+            <h3>일급 시민 (First-class Citizens)</h3>
+            <p>함수는 변수에 할당, 인자로 전달, 반환값으로 사용 가능</p>
+            <div class="code-block">
+<span class="comment"># 함수를 변수에 할당</span>
+my_func = <span class="builtin">print</span>
+my_func(<span class="string">"Hello"</span>)
+
+<span class="comment"># 함수를 인자로 전달</span>
+<span class="keyword">def</span> <span class="function">apply</span>(func, x):
+    <span class="keyword">return</span> func(x)
+
+<span class="keyword">def</span> <span class="function">double</span>(x): <span class="keyword">return</span> x * <span class="number">2</span>
+<span class="keyword">print</span>(<span class="function">apply</span>(double, <span class="number">5</span>))  <span class="comment"># 10</span>
+
+<span class="comment"># 함수 반환</span>
+<span class="keyword">def</span> <span class="function">get_adder</span>(n):
+    <span class="keyword">return</span> <span class="keyword">lambda</span> x: x + n
+
+add5 = <span class="function">get_adder</span>(<span class="number">5</span>)
+<span class="keyword">print</span>(add5(<span class="number">3</span>))  <span class="comment"># 8</span>
+            </div>
+            
+            <h3>함수 Annotations</h3>
+            <div class="code-block">
+<span class="keyword">def</span> <span class="function">greet</span>(name: <span class="builtin">str</span>, times: <span class="builtin">int</span> = <span class="number">1</span>) -> <span class="builtin">str</span>:
+    <span class="keyword">return</span> <span class="string">"Hello! "</span> * times + name
+
+<span class="comment"># Annotations 확인</span>
+<span class="keyword">print</span>(greet.__annotations__)
+<span class="comment"># {'name': <class 'str'>, 'times': <class 'int'>, 'return': <class 'str'>}</span>
+            </div>
+            
+            <h3>제너레이터 (Generator) - 함수에서</h3>
+            <div class="code-block">
+<span class="keyword">def</span> <span class="function">fibonacci</span>(n):
+    a, b = <span class="number">0</span>, <span class="number">1</span>
+    <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="builtin">range</span>(n):
+        <span class="keyword">yield</span> a
+        a, b = b, a + b
+
+<span class="keyword">for</span> num <span class="keyword">in</span> <span class="function">fibonacci</span>(<span class="number">10</span>):
+    <span class="keyword">print</span>(num)  <span class="comment"># 0, 1, 1, 2, 3, 5, 8, 13, 21, 34</span>
+
+<span class="comment"># next()로 수동 가져오기</span>
+gen = <span class="function">fibonacci</span>(<span class="number">5</span>)
+<span class="keyword">print</span>(<span class="builtin">next</span>(gen))  <span class="comment"># 0</span>
+<span class="keyword">print</span>(<span class="builtin">next</span>(gen))  <span class="comment"># 1</span>
+            </div>
+            
+            <div class="svg-container">
+                <!-- Function Concept SVG -->
+                <svg width="600" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Input -->
+                    <rect x="30" y="80" width="100" height="50" rx="8" fill="#e3f2fd" stroke="#2196F3" stroke-width="2"/>
+                    <text x="80" y="110" text-anchor="middle" fill="#333" font-weight="bold">입력 (Input)</text>
+                    <text x="80" y="145" text-anchor="middle" fill="#666" font-size="11">매개변수</text>
+                    
+                    <!-- Arrow to Function -->
+                    <line x1="130" y1="105" x2="180" y2="105" stroke="#3776AB" stroke-width="3" marker-end="url(#arrow2)"/>
+                    
+                    <!-- Function Box -->
+                    <rect x="180" y="50" width="200" height="100" rx="15" fill="#667eea"/>
+                    <text x="280" y="105" text-anchor="middle" fill="white" font-weight="bold" font-size="18">함수 (Function)</text>
+                    <text x="280" y="130" text-anchor="middle" fill="white" font-size="11">실행 로직</text>
+                    
+                    <!-- Arrow from Function -->
+                    <line x1="380" y1="105" x2="430" y2="105" stroke="#3776AB" stroke-width="3" marker-end="url(#arrow2)"/>
+                    
+                    <!-- Output -->
+                    <rect x="430" y="80" width="100" height="50" rx="8" fill="#e8f5e9" stroke="#4CAF50" stroke-width="2"/>
+                    <text x="480" y="110" text-anchor="middle" fill="#333" font-weight="bold">출력 (Output)</text>
+                    <text x="480" y="145" text-anchor="middle" fill="#666" font-size="11">반환값</text>
+                    
+                    <defs>
+                        <marker id="arrow2" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                            <polygon points="0 0, 10 3.5, 0 7" fill="#3776AB"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+        </section>
+        
+        <section id="oop">
+            <h2>6. 객체지향 프로그래밍 (OOP)</h2>
+            <span class="level-badge level-intermediate">중급</span>
+            <span class="level-badge level-advanced">고급</span>
+            
+            <p>객체지향 프로그래밍은 데이터를 객체로 표현하고, 그 객체들을 통해 프로그램을 설계하는 패러다임입니다.</p>
+            
+            <h3>클래스와 객체</h3>
+            <div class="code-block">
+<span class="keyword">class</span> <span class="function">Dog</span>:
+    <span class="string">"""개를 나타내는 클래스"""</span>
+    
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, name, age):
+        self.name = name
+        self.age = age
+    
+    <span class="keyword">def</span> <span class="function">bark</span>(self):
+        <span class="keyword">return</span> <span class="string">f"{self.name}가 멍멍짝습니다!"</span>
+
+<span class="comment"># 객체 생성</span>
+my_dog = <span class="function">Dog</span>(<span class="string">"멍이"</span>, <span class="number">3</span>)
+<span class="keyword">print</span>(my_dog.<span class="function">bark</span>())  <span class="comment"># 멍이가 멍멍짝습니다!</span>
+            </div>
+            
+            <h3>상속 (Inheritance)</h3>
+            <div class="code-block">
+<span class="keyword">class</span> <span class="function">Animal</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, name):
+        self.name = name
+    
+    <span class="keyword">def</span> <span class="function">speak</span>(self):
+        <span class="keyword">pass</span>
+
+<span class="keyword">class</span> <span class="function">Cat</span>(<span class="function">Animal</span>):  <span class="comment"># Animal 상속</span>
+    <span class="keyword">def</span> <span class="function">speak</span>(self):
+        <span class="keyword">return</span> <span class="string">f"{self.name}가 야옹합니다!"</span>
+
+<span class="keyword">class</span> <span class="function">Dog</span>(<span class="function">Animal</span>):  <span class="comment"># Animal 상속</span>
+    <span class="keyword">def</span> <span class="function">speak</span>(self):
+        <span class="keyword">return</span> <span class="string">f"{self.name}가 멍멍합니다!"</span>
+            </div>
+            
+            <h3>다중 상속</h3>
+            <div class="code-block">
+<span class="keyword">class</span> <span class="function">Flyable</span>:
+    <span class="keyword">def</span> <span class="function">fly</span>(self):
+        <span class="keyword">return</span> <span class="string">"날고 있습니다!"</span>
+
+<span class="keyword">class</span> <span class="function">Swimmable</span>:
+    <span class="keyword">def</span> <span class="function">swim</span>(self):
+        <span class="keyword">return</span> <span class="string">"수영하고 있습니다!"</span>
+
+<span class="keyword">class</span> <span class="function">Duck</span>(Flyable, Swimmable):
+    <span class="keyword">def</span> <span class="function">quack</span>(self):
+        <span class="keyword">return</span> <span class="string">"꽥꽥!"</span>
+
+duck = <span class="function">Duck</span>()
+<span class="keyword">print</span>(duck.fly())   <span class="comment"># 날고 있습니다!</span>
+<span class="keyword">print</span>(duck.swim())  <span class="comment"># 수영하고 있습니다!</span>
+<span class="keyword">print</span>(duck.quack())  <span class="comment"># 꽥꽥!</span>
+            </div>
+            
+            <h3>MRO (Method Resolution Order)</h3>
+            <div class="code-block">
+<span class="keyword">print</span>(Duck.__mro__)
+<span class="comment"># (<class '__main__.Duck'>, <class '__main__.Flyable'>, ...)</span>
+            </div>
+            
+            <h3>super()와 메서드 오버라이드</h3>
+            <div class="code-block">
+<span class="keyword">class</span> <span class="function">Animal</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, name):
+        self.name = name
+    
+    <span class="keyword">def</span> <span class="function">speak</span>(self):
+        <span class="keyword">return</span> <span class="string">"소리"</span>
+
+<span class="keyword">class</span> <span class="function">Dog</span>(Animal):
+    <span class="keyword">def</span> <span class="function">speak</span>(self):
+        <span class="keyword">return</span> <span class="string">f"{self.name}가 멍멍합니다!"</span>
+
+<span class="keyword">class</span> <span class="function">Cat</span>(Animal):
+    <span class="keyword">def</span> <span class="function">speak</span>(self):
+        <span class="keyword">return</span> <span class="string">f"{self.name}가 야옹합니다!"</span>
+            </div>
+            
+            <h3>特殊 메서드 (Dunder Methods)</h3>
+            <div class="code-block">
+<span class="keyword">class</span> <span class="function">Vector</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, x, y):
+        self.x = x
+        self.y = y
+    
+    <span class="keyword">def</span> <span class="function">__add__</span>(self, other):
+        <span class="keyword">return</span> <span class="function">Vector</span>(self.x + other.x, self.y + other.y)
+    
+    <span class="keyword">def</span> <span class="function">__repr__</span>(self):
+        <span class="keyword">return</span> <span class="string">f"Vector({self.x}, {self.y})"</span>
+    
+    <span class="keyword">def</span> <span class="function">__len__</span>(self):
+        <span class="keyword">return</span> <span class="number">2</span>
+    
+    <span class="keyword">def</span> <span class="function">__getitem__</span>(self, index):
+        <span class="keyword">return</span> [self.x, self.y][index]
+
+v1 = <span class="function">Vector</span>(<span class="number">1</span>, <span class="number">2</span>)
+v2 = <span class="function">Vector</span>(<span class="number">3</span>, <span class="number">4</span>)
+<span class="keyword">print</span>(v1 + v2)  <span class="comment"># Vector(4, 6)</span>
+            </div>
+            
+            <h3>속성 (Properties)</h3>
+            <div class="code-block">
+<span class="keyword">class</span> <span class="function">Circle</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, radius):
+        self._radius = radius  <span class="comment"># private 속성</span>
+    
+    <span class="decorator">@property</span>
+    <span class="keyword">def</span> <span class="function">radius</span>(self):
+        <span class="keyword">return</span> self._radius
+    
+    <span class="decorator">@radius.setter</span>
+    <span class="keyword">def</span> <span class="function">radius</span>(self, value):
+        <span class="keyword">if</span> value < <span class="number">0</span>:
+            <span class="keyword">raise</span> ValueError(<span class="string">"반지름은 0 이상이어야 합니다"</span>)
+        self._radius = value
+    
+    <span class="decorator">@property</span>
+    <span class="keyword">def</span> <span class="function">area</span>(self):
+        <span class="keyword">return</span> <span class="number">3.14</span> * self._radius ** <span class="number">2</span>
+
+c = <span class="function">Circle</span>(<span class="number">5</span>)
+<span class="keyword">print</span>(c.area)  <span class="comment"># 78.5</span>
+c.radius = <span class="number">10</span>
+<span class="keyword">print</span>(c.area)  <span class="comment"># 314.0</span>
+            </div>
+            
+            <h3>클래스 변수 vs 인스턴스 변수</h3>
+            <div class="code-block">
+<span class="keyword">class</span> <span class="function">Dog</span>:
+    species = <span class="string">"Canis familiaris"</span>  <span class="comment"># 클래스 변수</span>
+    
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, name):
+        self.name = name  <span class="comment"># 인스턴스 변수</span>
+
+<span class="keyword">print</span>(<span class="function">Dog</span>.species)  <span class="comment"># Canis familiaris</span>
+dog1 = <span class="function">Dog</span>(<span class="string">"Max"</span>)
+dog2 = <span class="function">Dog</span>(<span class="string">"Buddy"</span>)
+<span class="keyword">print</span>(dog1.name, dog2.name)  <span class="comment"># Max Buddy</span>
+            </div>
+            
+            <h3>정적 메서드와 클래스 메서드</h3>
+            <div class="code-block">
+<span class="keyword">class</span> <span class="function">MyClass</span>:
+    <span class="builtin">value</span> = <span class="number">10</span>
+    
+    <span class="decorator">@staticmethod</span>
+    <span class="keyword">def</span> <span class="function">static_method</span>():
+        <span class="keyword">return</span> <span class="string">"정적 메서드"</span>
+    
+    <span class="decorator">@classmethod</span>
+    <span class="keyword">def</span> <span class="function">class_method</span>(cls):
+        <span class="keyword">return</span> f<span class="string">"클래스 메서드: {cls.value}"</span>
+
+<span class="keyword">print</span>(<span class="function">MyClass</span>.static_method())  <span class="comment"># 정적 메서드</span>
+<span class="keyword">print</span>(<span class="function">MyClass</span>.class_method())   <span class="comment"># 클래스 메서드: 10</span>
+            </div>
+            
+            <h3>Private 멤버 (Encapsulation)</h3>
+            <div class="code-block">
+<span class="keyword">class</span> <span class="function">BankAccount</span>:
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, balance):
+        self.__balance = balance  <span class="comment"># name mangling: _BankAccount__balance</span>
+    
+    <span class="decorator">@property</span>
+    <span class="keyword">def</span> <span class="function">balance</span>(self):
+        <span class="keyword">return</span> self.__balance
+    
+    <span class="keyword">def</span> <span class="function">deposit</span>(self, amount):
+        <span class="keyword">if</span> amount > <span class="number">0</span>:
+            self.__balance += amount
+    
+    <span class="keyword">def</span> <span class="function">withdraw</span>(self, amount):
+        <span class="keyword">if</span> amount <= self.__balance:
+            self.__balance -= amount
+            <span class="keyword">return</span> <span class="keyword">True</span>
+        <span class="keyword">return</span> <span class="keyword">False</span>
+
+account = <span class="function">BankAccount</span>(<span class="number">1000</span>)
+<span class="comment"># account.__balance  # 오류!</span>
+<span class="keyword">print</span>(account.balance)  <span class="comment"># 1000</span>
+            </div>
+            
+            <div class="svg-container">
+                <!-- OOP Inheritance SVG -->
+                <svg width="600" height="250" viewBox="0 0 600 250" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Parent Class -->
+                    <rect x="225" y="20" width="150" height="60" rx="10" fill="#667eea"/>
+                    <text x="300" y="55" text-anchor="middle" fill="white" font-weight="bold">Animal (부모)</text>
+                    
+                    <!-- Arrow -->
+                    <line x1="300" y1="80" x2="300" y2="120" stroke="#333" stroke-width="2" marker-end="url(#arrow2)"/>
+                    
+                    <!-- Child Classes -->
+                    <rect x="80" y="140" width="120" height="80" rx="10" fill="#e8f5e9" stroke="#4CAF50" stroke-width="3"/>
+                    <text x="140" y="170" text-anchor="middle" fill="#2E7D32" font-weight="bold">Cat (자식)</text>
+                    <text x="140" y="195" text-anchor="middle" fill="#666" font-size="12">speak()_override</text>
+                    
+                    <rect x="400" y="140" width="120" height="80" rx="10" fill="#fff3e0" stroke="#ff9800" stroke-width="3"/>
+                    <text x="460" y="170" text-anchor="middle" fill="#E65100" font-weight="bold">Dog (자식)</text>
+                    <text x="460" y="195" text-anchor="middle" fill="#666" font-size="12">speak()_override</text>
+                    
+                    <!-- Dotted lines from parent to children -->
+                    <line x1="225" y1="140" x2="140" y2="140" stroke="#999" stroke-width="2" stroke-dasharray="5,5"/>
+                    <line x1="375" y1="140" x2="460" y2="140" stroke="#999" stroke-width="2" stroke-dasharray="5,5"/>
+                </svg>
+            </div>
+        </section>
+        
+        <section id="exception">
+            <h2>7. 예외 처리 (Exception Handling)</h2>
+            <span class="level-badge level-beginner">초급</span>
+            <span class="level-badge level-intermediate">중급</span>
+            
+            <p>예외 처리는 프로그램 실행 중 발생하는 오류를 적절히Handling하여 프로그램이 정상적으로 계속 실행될 수 있도록 합니다.</p>
+            
+            <h3>try-except 구조</h3>
+            <div class="code-block">
+<span class="keyword">try</span>:
+    result = <span class="number">10</span> / <span class="number">0</span>
+<span class="keyword">except</span> ZeroDivisionError:
+    <span class="keyword">print</span>(<span class="string">"0으로 나눌 수 없습니다!"</span>)
+            </div>
+            
+            <h3>여러 예외 처리</h3>
+            <div class="code-block">
+<span class="keyword">try</span>:
+    num = <span class="builtin">int</span>(<span class="string">"abc"</span>)
+<span class="keyword">except</span> ValueError:
+    <span class="keyword">print</span>(<span class="string">"값 오류 발생"</span>)
+<span class="keyword">except</span> TypeError:
+    <span class="keyword">print</span>(<span class="string">"타입 오류 발생"</span>)
+<span class="keyword">finally</span>:
+    <span class="keyword">print</span>(<span class="string">"항상 실행"</span>)
+            </div>
+            
+            <h3>사용자 정의 예외</h3>
+            <div class="code-block">
+<span class="keyword">class</span> <span class="function">CustomError</span>(Exception):
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, message):
+        self.message = message
+        <span class="keyword">super</span>().__init__(self.message)
+
+<span class="keyword">raise</span> <span class="function">CustomError</span>(<span class="string">"사용자 정의 오류"</span>)
+            </div>
+            
+            <div class="svg-container">
+                <svg width="600" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="50" y="30" width="150" height="50" rx="10" fill="#4CAF50"/>
+                    <text x="125" y="60" text-anchor="middle" fill="white" font-weight="bold">try 블록</text>
+                    
+                    <polygon points="250,55 320,55 285,95" fill="#FF9800"/>
+                    <text x="285" y="75" text-anchor="middle" fill="white" font-size="11">예외?</text>
+                    
+                    <rect x="370" y="30" width="150" height="50" rx="10" fill="#2196F3"/>
+                    <text x="445" y="60" text-anchor="middle" fill="white" font-weight="bold">except 블록</text>
+                    
+                    <line x1="200" y1="55" x2="240" y2="55" stroke="#333" stroke-width="2"/>
+                    <line x1="320" y1="55" x2="370" y2="55" stroke="#4CAF50" stroke-width="2"/>
+                    <line x1="320" y1="55" x2="320" y2="150" stroke="#f44336" stroke-width="2"/>
+                    <line x1="320" y1="150" x2="445" y2="150" stroke="#f44336" stroke-width="2"/>
+                    
+                    <rect x="520" y="30" width="60" height="50" rx="10" fill="#9C27B0"/>
+                    <text x="550" y="60" text-anchor="middle" fill="white" font-weight="bold">finally</text>
+                    
+                    <line x1="520" y1="55" x2="580" y2="55" stroke="#333" stroke-width="2"/>
+                </svg>
+            </div>
+        </section>
+        
+        <section id="modules">
+            <h2>8. 모듈과 패키지 (Modules & Packages)</h2>
+            <span class="level-badge level-beginner">초급</span>
+            <span class="level-badge level-intermediate">중급</span>
+            
+            <p>모듈은 파이썬 코드가 포함된 파일(.py)입니다. 패키지는 모듈들을Directory 구조로 묶은 것입니다.</p>
+            
+            <h3>모듈 가져오기</h3>
+            <div class="code-block">
+<span class="comment"># 전체 모듈 가져오기</span>
+<span class="keyword">import</span> math
+
+<span class="keyword">print</span>(math.pi)        <span class="comment"># 3.141592653589793</span>
+<span class="keyword">print</span>(math.<span class="function">sqrt</span>(<span class="number">16</span>))  <span class="comment"># 4.0</span>
+
+<span class="comment"># 특정 함수만 가져오기</span>
+<span class="keyword">from</span> math <span class="keyword">import</span> pi, sqrt
+
+<span class="keyword">print</span>(<span class="function">sqrt</span>(<span class="number">25</span>))  <span class="comment"># 5.0</span>
+
+<span class="comment"># 별칭 사용</span>
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+<span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+            </div>
+            
+            <h3>표준 라이브러리 모듈</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>📅 datetime</h4>
+                    <p>날짜와 시간 처리</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🔢 random</h4>
+                    <p>랜덤 숫자 생성</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📊 json</h4>
+                    <p>JSON 데이터 처리</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🌐 urllib</h4>
+                    <p>네트워크 요청</p>
+                </div>
+            </div>
+            
+            <h3>주요 내장 함수 (Built-in Functions)</h3>
+            <table class="comparison-table">
+                <tr><th>함수</th><th>설명</th></tr>
+                <tr><td>print()</td><td>출력</td></tr>
+                <tr><td>input()</td><td>입력</td></tr>
+                <tr><td>len()</td><td>길이</td></tr>
+                <tr><td>range()</td><td>범위 생성</td></tr>
+                <tr><td>enumerate()</td><td>인덱스와 값</td></tr>
+                <tr><td>zip()</td><td>여러 시퀀스 병합</td></tr>
+                <tr><td>map()</td><td>함수 적용</td></tr>
+                <tr><td>filter()</td><td>조건 필터링</td></tr>
+                <tr><td>sorted()</td><td>정렬</td></tr>
+                <tr><td>reversed()</td><td>역순</td></tr>
+                <tr><td>sum(), min(), max()</td><td>합계, 최소, 최대</td></tr>
+                <tr><td>abs()</td><td>절대값</td></tr>
+                <tr><td>round()</td><td>반올림</td></tr>
+                <tr><td>type()</td><td>타입 확인</td></tr>
+                <tr><td>isinstance()</td><td>타입 확인</td></tr>
+                <tr><td>dir()</td><td>속성 목록</td></tr>
+                <tr><td>help()</td><td>도움말</td></tr>
+            </table>
+            
+            <h3>사용자 정의 모듈</h3>
+            <div class="code-block">
+<span class="comment"># mymodule.py</span>
+<span class="keyword">def</span> <span class="function">greet</span>(name):
+    <span class="keyword">return</span> <span class="string">f"안녕하세요, {name}!"</span>
+
+<span class="comment"># main.py</span>
+<span class="keyword">import</span> mymodule
+
+<span class="keyword">print</span>(mymodule.<span class="function">greet</span>(<span class="string">"민준"</span>))
+            </div>
+            
+            <h3>패키지 설치 (pip)</h3>
+            <div class="code-block">
+<span class="comment"># 패키지 설치</span>
+pip install numpy pandas matplotlib
+
+<span class="comment"># 특정 버전</span>
+pip install numpy==1.24.0
+
+<span class="comment">#requirements.txt 사용</span>
+pip install -r requirements.txt
+
+<span class="comment"># 패키지 목록</span>
+pip list
+
+<span class="comment"># 패키지 검색</span>
+pip search "keyword"
+
+<span class="comment"># 패키지 제거</span>
+pip uninstall package_name
+            </div>
+            
+            <h3>가상 환경 (Virtual Environment)</h3>
+            <div class="code-block">
+<span class="comment"># venv 생성</span>
+python -m venv myenv
+
+<span class="comment"># 활성화 (Windows)</span>
+myenv\Scripts\activate
+
+<span class="comment"># 활성화 (Linux/Mac)</span>
+source myenv/bin/activate
+
+<span class="comment"># 비활성화</span>
+deactivate
+            </div>
+            
+            <h3>주요 표준 라이브러리</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>sys</h4>
+                    <p>시스템 매개변수 및 함수</p>
+                </div>
+                <div class="feature-card">
+                    <h4>os</h4>
+                    <p>운영체제 상호작용</p>
+                </div>
+                <div class="feature-card">
+                    <h4>subprocess</h4>
+                    <p>프로세스 실행</p>
+                </div>
+                <div class="feature-card">
+                    <h4>threading</h4>
+                    <p>스레드 기반 병렬처리</p>
+                </div>
+                <div class="feature-card">
+                    <h4>multiprocessing</h4>
+                    <p>프로세스 기반 병렬처리</p>
+                </div>
+                <div class="feature-card">
+                    <h4>pathlib</h4>
+                    <p>경로 객체 지향 처리</p>
+                </div>
+                <div class="feature-card">
+                    <h4>argparse</h4>
+                    <p>명령행 인자 파싱</p>
+                </div>
+                <div class="feature-card">
+                    <h4>logging</h4>
+                    <p>로깅 프레임워크</p>
+                </div>
+                <div class="feature-card">
+                    <h4>tempfile</h4>
+                    <p>임시 파일/디렉토리</p>
+                </div>
+                <div class="feature-card">
+                    <h4>shutil</h4>
+                    <p>고수준 파일 operations</p>
+                </div>
+            </div>
+            
+            <div class="svg-container">
+                <svg width="600" height="180" viewBox="0 0 600 180" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="50" y="50" width="150" height="80" rx="10" fill="#e3f2fd" stroke="#2196F3" stroke-width="2"/>
+                    <text x="125" y="80" text-anchor="middle" font-weight="bold" fill="#333">mypackage/</text>
+                    <text x="125" y="105" text-anchor="middle" fill="#666" font-size="12">패키지 폴더</text>
+                    
+                    <rect x="220" y="20" width="120" height="40" rx="5" fill="#e8f5e9" stroke="#4CAF50"/>
+                    <text x="280" y="45" text-anchor="middle" fill="#333">__init__.py</text>
+                    
+                    <rect x="220" y="70" width="120" height="40" rx="5" fill="#fff3e0" stroke="#ff9800"/>
+                    <text x="280" y="95" text-anchor="middle" fill="#333">module1.py</text>
+                    
+                    <rect x="220" y="120" width="120" height="40" rx="5" fill="#fce4ec" stroke="#e91e63"/>
+                    <text x="280" y="145" text-anchor="middle" fill="#333">module2.py</text>
+                    
+                    <line x1="170" y1="90" x2="220" y2="40" stroke="#667eea" stroke-width="2"/>
+                    <line x1="170" y1="90" x2="220" y2="90" stroke="#667eea" stroke-width="2"/>
+                    <line x1="170" y1="90" x2="220" y2="140" stroke="#667eea" stroke-width="2"/>
+                </svg>
+            </div>
+        </section>
+        
+        <section id="fileio">
+            <h2>9. 파일 입출력 (File I/O)</h2>
+            <span class="level-badge level-beginner">초급</span>
+            <span class="level-badge level-intermediate">중급</span>
+            
+            <p>파일 입출력은 데이터를 영구적으로 저장하고 읽어오는 기능입니다.</p>
+            
+            <h3>파일 읽기</h3>
+            <div class="code-block">
+<span class="comment"># 전체 읽기</span>
+<span class="keyword">with</span> <span class="builtin">open</span>(<span class="string">"file.txt"</span>, <span class="string">"r"</span>, encoding=<span class="string">"utf-8"</span>) <span class="keyword">as</span> f:
+    content = f.read()
+    <span class="keyword">print</span>(content)
+
+<span class="comment"># 줄 단위 읽기</span>
+<span class="keyword">with</span> <span class="builtin">open</span>(<span class="string">"file.txt"</span>, <span class="string">"r"</span>) <span class="keyword">as</span> f:
+    <span class="keyword">for</span> line <span class="keyword">in</span> f:
+        <span class="keyword">print</span>(line.strip())
+
+<span class="comment"># readlines()로 목록获取</span>
+<span class="keyword">with</span> <span class="builtin">open</span>(<span class="string">"file.txt"</span>) <span class="keyword">as</span> f:
+    lines = f.readlines()
+
+<span class="comment"># seek()로 위치 이동</span>
+<span class="keyword">with</span> <span class="builtin">open</span>(<span class="string">"file.txt"</span>) <span class="keyword">as</span> f:
+    f.seek(<span class="number">0</span>)  <span class="comment"># 처음으로</span>
+    <span class="keyword">print</span>(f.read(<span class="number">10</span>))  <span class="comment"># 첫 10자</span>
+            </div>
+            
+            <h3>파일 쓰기</h3>
+            <div class="code-block">
+<span class="comment"># 새 파일 작성 (w: overwrite, a: append)</span>
+<span class="keyword">with</span> <span class="builtin">open</span>(<span class="string">"output.txt"</span>, <span class="string">"w"</span>, encoding=<span class="string">"utf-8"</span>) <span class="keyword">as</span> f:
+    f.write(<span class="string">"첫 번째 줄\n"</span>)
+    f.write(<span class="string">"두 번째 줄\n"</span>)
+
+<span class="comment"># 여러 줄 쓰기</span>
+lines = [<span class="string">"줄 1"</span>, <span class="string">"줄 2"</span>, <span class="string">"줄 3"</span>]
+<span class="keyword">with</span> <span class="builtin">open</span>(<span class="string">"output.txt"</span>, <span class="string">"w"</span>) <span class="keyword">as</span> f:
+    f.writelines(<span class="string">"</span><span class="keyword">\n</span><span class="string">"</span>.join(lines))
+            </div>
+            
+            <h3>파일 모드 (Modes)</h3>
+            <table class="comparison-table">
+                <tr><th>모드</th><th>설명</th></tr>
+                <tr><td>r</td><td>읽기 (기본)</td></tr>
+                <tr><td>w</td><td>쓰기 (덮어쓰기)</td></tr>
+                <tr><td>a</td><td>추가 (末尾)</td></tr>
+                <tr><td>r+</td><td>읽기+쓰기</td></tr>
+                <tr><td>w+</td><td>읽기+쓰기 (덮어쓰기)</td></tr>
+                <tr><td>a+</td><td>읽기+추가</td></tr>
+                <tr><td>b</td><td>바이너리 모드</td></tr>
+                <tr><td>t</td><td>텍스트 모드 (기본)</td></tr>
+            </table>
+            
+            <h3>pickle (객체 직렬화)</h3>
+            <div class="code-block">
+<span class="keyword">import</span> pickle
+
+<span class="comment"># 객체 저장</span>
+data = {<span class="string">"name"</span>: <span class="string">"민준"</span>, <span class="string">"age"</span>: <span class="number">25</span>}
+<span class="keyword">with</span> <span class="builtin">open</span>(<span class="string">"data.pkl"</span>, <span class="string">"wb"</span>) <span class="keyword">as</span> f:
+    pickle.dump(data, f)
+
+<span class="comment"># 객체 읽기</span>
+<span class="keyword">with</span> <span class="builtin">open</span>(<span class="string">"data.pkl"</span>, <span class="string">"rb"</span>) <span class="keyword">as</span> f:
+    loaded_data = pickle.load(f)
+            </div>
+            
+            <h3>pathlib (객체 지향 경로)</h3>
+            <div class="code-block">
+<span class="keyword">from</span> pathlib <span class="keyword">import</span> Path
+
+p = Path(<span class="string">"myproject"</span>)
+
+<span class="comment"># 경로 생성</span>
+(p / <span class="string">"src"</span> / <span class="string">"main.py"</span>)
+
+<span class="comment"># 파일 존재 확인</span>
+p.exists()
+p.is_file()
+p.is_dir()
+
+<span class="comment">#.glob()로 파일 찾기</span>
+<span class="keyword">for</span> f <span class="keyword">in</span> Path(<span class="string">"."</span>).glob(<span class="string">"*.py"</span>):
+    <span class="keyword">print</span>(f)
+
+<span class="comment"># 파일 읽기</span>
+content = Path(<span class="string">"file.txt"</span>).read_text()
+
+<span class="comment"># 파일 쓰기</span>
+Path(<span class="string">"new.txt"</span>).write_text(<span class="string">"Hello"</span>)
+            </div>
+            
+            <h3>tempfile (임시 파일)</h3>
+            <div class="code-block">
+<span class="keyword">import</span> tempfile
+
+<span class="comment"># 임시 파일</span>
+<span class="keyword">with</span> tempfile.NamedTemporaryFile(mode=<span class="string">"w"</span>, delete=<span class="keyword">False</span>) <span class="keyword">as</span> f:
+    f.write(<span class="string">"임시 내용"</span>)
+    temp_name = f.name
+
+<span class="comment"># 임시 디렉토리</span>
+<span class="keyword">with</span> tempfile.TemporaryDirectory() <span class="keyword">as</span> tmpdir:
+    <span class="keyword">print</span>(tmpdir)
+            </div>
+            
+            <h3>JSON 파일 처리</h3>
+            <div class="code-block">
+<span class="keyword">import</span> json
+
+<span class="comment"># 쓰기</span>
+data = {<span class="string">"name"</span>: <span class="string">"민준"</span>, <span class="string">"age"</span>: <span class="number">25</span>}
+<span class="keyword">with</span> <span class="builtin">open</span>(<span class="string">"data.json"</span>, <span class="string">"w"</span>) <span class="keyword">as</span> f:
+    json.dump(data, f, ensure_ascii=False, indent=<span class="number">2</span>)
+
+<span class="comment"># 읽기</span>
+<span class="keyword">with</span> <span class="builtin">open</span>(<span class="string">"data.json"</span>, <span class="string">"r"</span>) <span class="keyword">as</span> f:
+    data = json.load(f)
+            </div>
+            
+            <h3>CSV 파일 처리</h3>
+            <div class="code-block">
+<span class="keyword">import</span> csv
+
+<span class="comment"># CSV 쓰기</span>
+<span class="keyword">with</span> <span class="builtin">open</span>(<span class="string">"data.csv"</span>, <span class="string">"w"</span>, newline=<span class="string">""</span>, encoding=<span class="string">"utf-8"</span>) <span class="keyword">as</span> f:
+    writer = csv.writer(f)
+    writer.writerow([<span class="string">"이름"</span>, <span class="string">"나이"</span>])
+    writer.writerow([<span class="string">"민준"</span>, <span class="number">25</span>])
+    writer.writerow([<span class="string">"서연"</span>, <span class="number">23</span>])
+
+<span class="comment"># CSV 읽기</span>
+<span class="keyword">with</span> <span class="builtin">open</span>(<span class="string">"data.csv"</span>, <span class="string">"r"</span>, encoding=<span class="string">"utf-8"</span>) <span class="keyword">as</span> f:
+    reader = csv.reader(f)
+    <span class="keyword">for</span> row <span class="keyword">in</span> reader:
+        <span class="keyword">print</span>(row)
+            </div>
+            
+            <div class="tip-box">
+                <strong>💡 팁:</strong> 항상 <code>with</code>문을 사용하여 파일을 다루세요.这样的话 파일이 자동으로 닫힙니 다.
+            </div>
+        </section>
+        
+        <section id="regex">
+            <h2>10. 정규표현식 (Regular Expressions)</h2>
+            <span class="level-badge level-intermediate">중급</span>
+            <span class="level-badge level-advanced">고급</span>
+            
+            <p>정규표현식은 문자열에서 특정 패턴을 찾거나 대체할 때 사용하는 강력한 도구입니다.</p>
+            
+            <h3>기본 매칭</h3>
+            <div class="code-block">
+<span class="keyword">import</span> re
+
+<span class="comment"># 매칭 여부 확인</span>
+pattern = <span class="string">r"\d+"</span>
+text = <span class="string">"내 번호는 010-1234-5678입니다"</span>
+
+<span class="keyword">if</span> re.search(pattern, text):
+    <span class="keyword">print</span>(<span class="string">"숫자 발견!"</span>)
+            </div>
+            
+            <h3>패턴 매칭 함수</h3>
+            <div class="code-block">
+<span class="comment"># findall: 모든 매칭 찾기</span>
+result = re.findall(r<span class="string">"\d+"</span>, <span class="string">"123 abc 456 def 789"</span>)
+<span class="keyword">print</span>(result)  <span class="comment"># ['123', '456', '789']</span>
+
+<span class="comment"># sub: 대체</span>
+new_text = re.sub(r<span class="string">"\d+"</span>, <span class="string">"X"</span>, <span class="string">"123 abc 456"</span>)
+<span class="keyword">print</span>(new_text)  <span class="comment"># X abc X</span>
+
+<span class="comment"># split: 분리</span>
+words = re.split(r<span class="string">"\s+"</span>, <span class="string">"hello   world  python"</span>)
+<span class="keyword">print</span>(words)  <span class="comment"># ['hello', 'world', 'python']</span>
+            </div>
+            
+            <h3>자주 사용하는 패턴</h3>
+            <table class="comparison-table">
+                <tr><th>패턴</th><th>의미</th><th>예시</th></tr>
+                <tr><td><code>\d</code></td><td>숫자</td><td>0-9</td></tr>
+                <tr><td><code>\w</code></td><td>단어 문자</td><td>a-z, A-Z, 0-9, _</td></tr>
+                <tr><td><code>\s</code></td><td>공백</td><td>스페이스, 탭, 줄바꿈</td></tr>
+                <tr><td><code>.</code></td><td>모든 문자</td><td>줄바꿈 제외</td></tr>
+                <tr><td><code>*</code></td><td>0회 이상</td><td>ab* = a, ab, abb...</td></tr>
+                <tr><td><code>+</code></td><td>1회 이상</td><td>ab+ = ab, abb...</td></tr>
+                <tr><td><code>?</code></td><td>0회 또는 1회</td><td>ab? = a, ab</td></tr>
+                <tr><td><code>^</code></td><td>시작</td><td>^hello</td></tr>
+                <tr><td><code>$</code></td><td>끝</td><td>world$</td></tr>
+            </table>
+            
+            <h3>이메일 검증 예제</h3>
+            <div class="code-block">
+email_pattern = <span class="string">r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"</span>
+
+emails = [<span class="string">"test@example.com"</span>, <span class="string">"invalid-email"</span>, <span class="string">"user@domain.co.kr"</span>]
+<span class="keyword">for</span> email <span class="keyword">in</span> emails:
+    <span class="keyword">if</span> re.match(email_pattern, email):
+        <span class="keyword">print</span>(<span class="string">f"{email}: 유효함"</span>)
+    <span class="keyword">else</span>:
+        <span class="keyword">print</span>(<span class="string">f"{email}: 무효함"</span>)
+            </div>
+        </section>
+        
+        <section id="testing">
+            <h2>11. 테스트 (Testing)</h2>
+            <span class="level-badge level-intermediate">중급</span>
+            <span class="level-badge level-advanced">고급</span>
+            
+            <p>테스트는 코드의 품질을 보장하고 버그를 early에 발견하는 데 중요합니다.</p>
+            
+            <h3>단위 테스트 (unittest)</h3>
+            <div class="code-block">
+<span class="keyword">import</span> unittest
+
+<span class="keyword">class</span> <span class="function">TestMathOperations</span>(unittest.TestCase):
+    
+    <span class="keyword">def</span> <span class="function">test_add</span>(self):
+        self.assertEqual(<span class="number">2</span> + <span class="number">2</span>, <span class="number">4</span>)
+    
+    <span class="keyword">def</span> <span class="function">test_divide</span>(self):
+        self.assertEqual(<span class="number">10</span> / <span class="number">2</span>, <span class="number">5</span>)
+    
+    <span class="keyword">def</span> <span class="function">test_negative</span>(self):
+        self.assertTrue(<span class="number">-5</span> < <span class="number">0</span>)
+
+<span class="keyword">if</span> __name__ == <span class="string">"__main__"</span>:
+    unittest.main()
+            </div>
+            
+            <h3>pytest 사용</h3>
+            <div class="code-block">
+<span class="comment"># pytest 설치</span>
+pip install pytest
+
+<span class="comment"># 테스트 파일 작성 (test_*.py)</span>
+<span class="comment"># test_calculator.py</span>
+
+<span class="keyword">def</span> <span class="function">test_addition</span>():
+    assert <span class="number">1</span> + <span class="number">1</span> == <span class="number">2</span>
+
+<span class="keyword">def</span> <span class="function">test_subtraction</span>():
+    assert <span class="number">5</span> - <span class="number">3</span> == <span class="number">2</span>
+
+<span class="comment"># 실행</span>
+pytest test_calculator.py -v
+            </div>
+            
+            <h3>테스트.raises()</h3>
+            <div class="code-block">
+<span class="keyword">import</span> pytest
+
+<span class="keyword">def</span> <span class="function">test_divide_by_zero</span>():
+    <span class="keyword">with</span> pytest.raises(ZeroDivisionError):
+        <span class="number">1</span> / <span class="number">0</span>
+
+<span class="keyword">def</span> <span class="function">test_value_error</span>():
+    <span class="keyword">with</span> pytest.raises(ValueError):
+        <span class="builtin">int</span>(<span class="string">"not a number"</span>)
+            </div>
+            
+            <h3> Fixture와 Mock</h3>
+            <div class="code-block">
+<span class="keyword">import</span> pytest
+<span class="keyword">from</span> unittest.mock <span class="keyword">import</span> Mock, patch
+
+<span class="decorator">@pytest.fixture</span>
+<span class="keyword">def</span> <span class="function">sample_data</span>():
+    <span class="keyword">return</span> {<span class="string">"name"</span>: <span class="string">"테스트"</span>, <span class="string">"value"</span>: <span class="number">100</span>}
+
+<span class="keyword">def</span> <span class="function">test_with_fixture</span>(sample_data):
+    assert sample_data[<span class="string">"value"</span>] == <span class="number">100</span>
+
+<span class="decorator">@patch</span>(<span class="string">"module.function"</span>)
+<span class="keyword">def</span> <span class="function">test_mock</span>(mock_func):
+    mock_func.return_value = <span class="string">"mocked"</span>
+    result = mock_func()
+    assert result == <span class="string">"mocked"</span>
+            </div>
+            
+            <div class="tip-box">
+                <strong>💡 팁:</strong> TDD(Test-Driven Development) 방식: 테스트를 먼저 작성하고, 그 다음에 실제 코드를 구현하세요.
+            </div>
+            
+            <div class="svg-container">
+                <svg width="600" height="180" viewBox="0 0 600 180" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="20" y="50" width="150" height="60" rx="10" fill="#f44336"/>
+                    <text x="95" y="85" text-anchor="middle" fill="white" font-weight="bold">1. 테스트 작성</text>
+                    
+                    <line x1="170" y1="80" x2="210" y2="80" stroke="#333" stroke-width="2" marker-end="url(#arrow3)"/>
+                    
+                    <rect x="210" y="150" height="60" rx="50" width="10" fill="#FF9800"/>
+                    <text x="285" y="85" text-anchor="middle" fill="white" font-weight="bold">2. 실패 확인</text>
+                    
+                    <line x1="360" y1="80" x2="400" y2="80" stroke="#333" stroke-width="2" marker-end="url(#arrow3)"/>
+                    
+                    <rect x="400" y="50" width="150" height="60" rx="10" fill="#4CAF50"/>
+                    <text x="475" y="85" text-anchor="middle" fill="white" font-weight="bold">3. 코드 구현</text>
+                    
+                    <line x1="520" y1="110" x2="520" y2="140" stroke="#333" stroke-width="2"/>
+                    <line x1="520" y1="140" x2="95" y2="140" stroke="#333" stroke-width="2"/>
+                    <line x1="95" y1="140" x2="95" y2="110" stroke="#333" stroke-width="2"/>
+                    
+                    <defs>
+                        <marker id="arrow3" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                            <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+        </section>
+        
+        <section id="advanced">
+            <h2>12. 고급 주제</h2>
+            <span class="level-badge level-advanced">고급</span>
+            
+            <h3>데코레이터 (Decorators)</h3>
+            <p>데코레이터는 함수의 동작을 수정하지 않고 기능을 추가할 수 있게 해줍니다.</p>
+            
+            <div class="code-block">
+<span class="keyword">def</span> <span class="function">timer_decorator</span>(func):
+    <span class="keyword">def</span> <span class="function">wrapper</span>(*args, **kwargs):
+        <span class="keyword">import</span> time
+        start = time.time()
+        result = func(*args, **kwargs)
+        end = time.time()
+        <span class="keyword">print</span>(<span class="string">f"{func.__name__} 실행 시간: {end-start:.2f}초"</span>)
+        <span class="keyword">return</span> result
+    <span class="keyword">return</span> wrapper
+
+<span class="decorator">@timer_decorator</span>
+<span class="keyword">def</span> <span class="function">slow_function</span>():
+    <span class="keyword">import</span> time
+    time.sleep(<span class="number">1</span>)
+    <span class="keyword">return</span> <span class="string">"완료"</span>
+
+<span class="function">slow_function</span>()
+            </div>
+            
+            <h3>제너레이터 (Generators)</h3>
+            <p>제너레이터는 메모리를 효율적으로 사용하면서 큰 시퀀스를 생성합니다.</p>
+            
+            <div class="code-block">
+<span class="keyword">def</span> <span class="function">count_up_to</span>(n):
+    i = <span class="number">1</span>
+    <span class="keyword">while</span> i <= n:
+        <span class="keyword">yield</span> i  <span class="comment"># yield로 값 반환</span>
+        i += <span class="number">1</span>
+
+<span class="keyword">for</span> num <span class="keyword">in</span> <span class="function">count_up_to</span>(<span class="number">5</span>):
+    <span class="keyword">print</span>(num)  <span class="comment"># 1, 2, 3, 4, 5</span>
+            </div>
+            
+            <h3>컨텍스트 매니저 (Context Manager)</h3>
+            <p>with 문을 사용하여 리소스를 안전하게 관리합니다.</p>
+            
+            <div class="code-block">
+<span class="keyword">with</span> <span class="builtin">open</span>(<span class="string">"test.txt"</span>, <span class="string">"w"</span>) <span class="keyword">as</span> f:
+    f.<span class="function">write</span>(<span class="string">"안녕하세요!"</span>)
+<span class="comment"># 파일이 자동으로 닫힘</span>
+            </div>
+            
+            <h3>async/await (비동기 프로그래밍)</h3>
+            <p>비동기 프로그래밍으로 Concurrent한 작업을 효율적으로 처리합니다.</p>
+            
+            <div class="code-block">
+<span class="keyword">import</span> asyncio
+
+<span class="keyword">async</span> <span class="function">def</span> <span class="function">fetch_data</span>():
+    <span class="keyword">print</span>(<span class="string">"데이터 가져오는 중..."</span>)
+    <span class="keyword">await</span> asyncio.sleep(<span class="number">2</span>)
+    <span class="keyword">return</span> {<span class="string">"data"</span>: <span class="string">"some data"</span>}
+
+<span class="keyword">async</span> <span class="function">def</span> <span class="function">main</span>():
+    result = <span class="keyword">await</span> <span class="function">fetch_data</span>()
+    <span class="keyword">print</span>(result)
+
+asyncio.run(<span class="function">main</span>())
+            </div>
+            
+            <h3> walrus operator (:= )</h3>
+            <p>Python 3.8부터 도입된 Walrus 연산자로 변수 할당과 반환을 동시에.</p>
+            
+            <div class="code-block">
+<span class="comment"># 기존 방식</span>
+result = <span class="function">some_function</span>()
+<span class="keyword">if</span> result:
+    <span class="keyword">print</span>(result)
+
+<span class="comment"># Walrus 연산자 사용</span>
+<span class="keyword">if</span> (result := <span class="function">some_function</span>()):
+    <span class="keyword">print</span>(result)
+
+<span class="comment"># 리스트 comprehension에서의 사용</span>
+<span class="keyword">if</span> (n := <span class="builtin">int</span>(<span class="string">"42"</span>)) > <span class="number">40</span>:
+    <span class="keyword">print</span>(<span class="string">f"숫자는 {n}입니다"</span>)
+            </div>
+            
+            <h3>Type Hints (타입 힌트)</h3>
+            <p>함수와 변수의 타입을 명시적으로 지정하여 코드 가독성과 도구 지원.</p>
+            
+            <div class="code-block">
+<span class="keyword">def</span> <span class="function">greet</span>(name: <span class="builtin">str</span>) -> <span class="builtin">str</span>:
+    <span class="keyword">return</span> <span class="string">f"안녕하세요, {name}님!"</span>
+
+<span class="keyword">def</span> <span class="function">add_numbers</span>(a: <span class="builtin">int</span>, b: <span class="builtin">int</span>) -> <span class="builtin">int</span>:
+    <span class="keyword">return</span> a + b
+
+<span class="comment"># 복잡한 타입</span>
+<span class="keyword">from</span> typing <span class="keyword">import</span> List, Dict, Optional
+
+<span class="keyword">def</span> <span class="function">process_data</span>(
+    items: List[<span class="builtin">int</span>], 
+    config: Optional[Dict[<span class="builtin">str</span>, <span class="builtin">str</span>]] = None
+) -> Dict[<span class="builtin">str</span>, <span class="builtin">int</span>]:
+    <span class="keyword">return</span> {<span class="string">"sum"</span>: <span class="builtin">sum</span>(items), <span class="string">"count"</span>: <span class="builtin">len</span>(items)}
+            </div>
+            
+            <h3>Data Classes</h3>
+            <p>데이터를 저장하는 클래스를 더 간결하게 정의합니다.</p>
+            
+            <div class="code-block">
+<span class="keyword">from</span> dataclasses <span class="keyword">import</span> dataclass, field
+
+<span class="decorator">@dataclass</span>
+<span class="keyword">class</span> <span class="function">User</span>:
+    name: <span class="builtin">str</span>
+    age: <span class="builtin">int</span>
+    email: <span class="builtin">str</span> = <span class="string">"unknown@example.com"</span>
+    active: <span class="builtin">bool</span> = field(default=<span class="keyword">True</span>)
+
+<span class="comment"># 사용</span>
+user = <span class="function">User</span>(<span class="string">"민준"</span>, <span class="number">25</span>)
+<span class="keyword">print</span>(user)  <span class="comment"># User(name='민준', age=25, ...)</span>
+            </div>
+            
+            <h3>NamedTuple</h3>
+            <p>불변 객체이고 이름이 있는 필드를 가진 튜플</p>
+            
+            <div class="code-block">
+<span class="keyword">from</span> collections <span class="keyword">import</span> namedtuple
+
+Point = namedtuple(<span class="string">"Point"</span>, [<span class="string">"x"</span>, <span class="string">"y"</span>])
+p = Point(<span class="number">10</span>, <span class="number">20</span>)
+<span class="keyword">print</span>(p.x, p.y)  <span class="comment"># 10 20</span>
+<span class="keyword">print</span>(p[<span class="number">0</span>], p[<span class="number">1</span>])  <span class="comment"># 10 20</span>
+            </div>
+            
+            <h3>Enum (열거형)</h3>
+            <div class="code-block">
+<span class="keyword">from</span> enum <span class="keyword">import</span> Enum, auto
+
+<span class="keyword">class</span> <span class="function">Color</span>(Enum):
+    RED = <span class="number">1</span>
+    GREEN = <span class="number">2</span>
+    BLUE = <span class="number">3</span>
+
+<span class="keyword">print</span>(Color.RED)  <span class="comment"># Color.RED</span>
+<span class="keyword">print</span>(Color.RED.name)  <span class="comment"># RED</span>
+<span class="keyword">print</span>(Color.RED.value)  <span class="comment"># 1</span>
+            </div>
+            
+            <h3>ABC (추상基底 클래스)</h3>
+            <div class="code-block">
+<span class="keyword">from</span> abc <span class="keyword">import</span> ABC, abstractmethod
+
+<span class="keyword">class</span> <span class="function">Shape</span>(ABC):
+    <span class="decorator">@abstractmethod</span>
+    <span class="keyword">def</span> <span class="function">area</span>(self):
+        <span class="keyword">pass</span>
+
+<span class="keyword">class</span> <span class="function">Circle</span>(Shape):
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, radius):
+        self.radius = radius
+    
+    <span class="keyword">def</span> <span class="function">area</span>(self):
+        <span class="keyword">return</span> <span class="number">3.14</span> * self.radius ** <span class="number">2</span>
+            </div>
+            
+            <h3>Protocol (구조적 타이핑)</h3>
+            <div class="code-block">
+<span class="keyword">from</span> typing <span class="keyword">import</span> Protocol
+
+<span class="keyword">class</span> <span class="function">Drawble</span>(Protocol):
+    <span class="keyword">def</span> <span class="function">draw</span>(self) -> <span class="builtin">str</span>: ...
+
+<span class="keyword">class</span> <span class="function">Circle</span>:
+    <span class="keyword">def</span> <span class="function">draw</span>(self) -> <span class="builtin">str</span>:
+        <span class="keyword">return</span> <span class="string">"Circle drawn"</span>
+
+<span class="comment"># 타입 체크에서 Drawble로 처리됨</span>
+<span class="keyword">def</span> <span class="function">render</span>(shape: Drawble) -> <span class="builtin">None</span>:
+    <span class="keyword">print</span>(shape.draw())
+            </div>
+            
+            <div class="svg-container">
+                <!-- Advanced Topics Mind Map SVG -->
+                <svg width="700" height="300" viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Center -->
+                    <circle cx="350" cy="150" r="40" fill="#667eea"/>
+                    <text x="350" y="155" text-anchor="middle" fill="white" font-weight="bold">고급</text>
+                    
+                    <!-- Decorator -->
+                    <rect x="50" y="50" width="120" height="60" rx="10" fill="#e3f2fd" stroke="#2196F3" stroke-width="2"/>
+                    <text x="110" y="85" text-anchor="middle" fill="#1565C0" font-weight="bold">데코레이터</text>
+                    <line x1="170" y1="80" x2="290" y2="130" stroke="#667eea" stroke-width="2"/>
+                    
+                    <!-- Generator -->
+                    <rect x="50" y="200" width="120" height="60" rx="10" fill="#e8f5e9" stroke="#4CAF50" stroke-width="2"/>
+                    <text x="110" y="235" text-anchor="middle" fill="#2E7D32" font-weight="bold">제너레이터</text>
+                    <line x1="170" y1="230" x2="290" y2="180" stroke="#667eea" stroke-width="2"/>
+                    
+                    <!-- Context Manager -->
+                    <rect x="530" y="50" width="130" height="60" rx="10" fill="#fff3e0" stroke="#ff9800" stroke-width="2"/>
+                    <text x="595" y="85" text-anchor="middle" fill="#E65100" font-weight="bold">컨텍스트 매니저</text>
+                    <line x1="530" y1="80" x2="400" y2="130" stroke="#667eea" stroke-width="2"/>
+                    
+                    <!-- Async -->
+                    <rect x="530" y="200" width="120" height="60" rx="10" fill="#fce4ec" stroke="#e91e63" stroke-width="2"/>
+                    <text x="590" y="235" text-anchor="middle" fill="#c2185b" font-weight="bold">비동기 프로그래밍</text>
+                    <line x1="530" y1="230" x2="400" y2="180" stroke="#667eea" stroke-width="2"/>
+                </svg>
+            </div>
+            
+            <div class="tip-box">
+                <strong>💡 팁:</strong> async/await는 I/O 집약적인 작업(파일, 네트워크 요청)에서 큰 성능 향상을 제공합니다.
+            </div>
+        </section>
+        
+        <section id="resources">
+            <h2>13. 참고 자료 & 다음 단계</h2>
+            <span class="level-badge level-beginner">초급</span>
+            <span class="level-badge level-intermediate">중급</span>
+            <span class="level-badge level-advanced">고급</span>
+            
+            <h3>추천 학습 리소스</h3>
+            <div class="resource-links">
+                <a href="https://docs.python.org/ko/3/" class="resource-link" target="_blank">
+                    <strong>공식 문서</strong>
+                    <p>Python 공식 문서</p>
+                </a>
+                <a href="https://www.python.org/" class="resource-link" target="_blank">
+                    <strong>Python.org</strong>
+                    <p>파이썬 공식 웹사이트</p>
+                </a>
+                <a href="https://wikidocs.net/" class="resource-link" target="_blank">
+                    <strong>위키독스</strong>
+                    <p>한국어 파이썬教程</p>
+                </a>
+                <a href="https://github.com/" class="resource-link" target="_blank">
+                    <strong>GitHub</strong>
+                    <p>오픈소스 프로젝트</p>
+                </a>
+            </div>
+            
+            <h3>주요 라이브러리</h3>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>🌐 웹 프레임워크</h4>
+                    <ul>
+                        <li><strong>Django</strong> - Full-stack 프레임워크</li>
+                        <li><strong>Flask</strong> - 경량 웹 프레임워크</li>
+                        <li><strong>FastAPI</strong> - 최신 비동기 API</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h4>📊 데이터 분석</h4>
+                    <ul>
+                        <li><strong>NumPy</strong> - 수치 계산</li>
+                        <li><strong>Pandas</strong> - 데이터 처리</li>
+                        <li><strong>Matplotlib</strong> - 시각화</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h4>🤖 머신러닝/AI</h4>
+                    <ul>
+                        <li><strong>TensorFlow</strong> - 딥러닝</li>
+                        <li><strong>PyTorch</strong> - 딥러닝</li>
+                        <li><strong>scikit-learn</strong> - ML 라이브러리</li>
+                    </ul>
+                </div>
+                <div class="feature-card">
+                    <h4>🔧 유틸리티</h4>
+                    <ul>
+                        <li><strong>requests</strong> - HTTP 요청</li>
+                        <li><strong>BeautifulSoup</strong> - 웹 스크래핑</li>
+                        <li><strong>SQLAlchemy</strong> - DB ORM</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h3>학습 로드맵</h3>
+            <div class="svg-container">
+                <svg width="800" height="400" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Stage 1 -->
+                    <rect x="30" y="30" width="170" height="80" rx="15" fill="#4CAF50"/>
+                    <text x="115" y="65" text-anchor="middle" fill="white" font-weight="bold" font-size="14">1단계: 기초</text>
+                    <text x="115" y="90" text-anchor="middle" fill="white" font-size="11">문법, 변수, 제어문</text>
+                    
+                    <!-- Arrow 1 -->
+                    <line x1="200" y1="70" x2="250" y2="70" stroke="#667eea" stroke-width="3" marker-end="url(#arrow3)"/>
+                    
+                    <!-- Stage 2 -->
+                    <rect x="250" y="30" width="170" height="80" rx="15" fill="#2196F3"/>
+                    <text x="335" y="65" text-anchor="middle" fill="white" font-weight="bold" font-size="14">2단계: 함수&자료구조</text>
+                    <text x="335" y="90" text-anchor="middle" fill="white" font-size="11">함수, 리스트, 딕셔너리</text>
+                    
+                    <!-- Arrow 2 -->
+                    <line x1="420" y1="70" x2="470" y2="70" stroke="#667eea" stroke-width="3" marker-end="url(#arrow3)"/>
+                    
+                    <!-- Stage 3 -->
+                    <rect x="470" y="30" width="170" height="80" rx="15" fill="#FF9800"/>
+                    <text x="555" y="65" text-anchor="middle" fill="white" font-weight="bold" font-size="14">3단계: 객체지향</text>
+                    <text x="555" y="90" text-anchor="middle" fill="white" font-size="11">클래스, 상속, 캡슐화</text>
+                    
+                    <!-- Arrow 3 -->
+                    <line x1="640" y1="70" x2="690" y2="70" stroke="#667eea" stroke-width="3" marker-end="url(#arrow3)"/>
+                    
+                    <!-- Stage 4 -->
+                    <rect x="690" y="30" width="80" height="80" rx="15" fill="#9C27B0"/>
+                    <text x="730" y="65" text-anchor="middle" fill="white" font-weight="bold" font-size="14">4단계</text>
+                    <text x="730" y="85" text-anchor="middle" fill="white" font-size="11">실전</text>
+                    
+                    <!-- Middle Section -->
+                    <rect x="250" y="150" width="300" height="60" rx="10" fill="#e3f2fd" stroke="#2196F3" stroke-width="2"/>
+                    <text x="400" y="185" text-anchor="middle" fill="#1565C0" font-weight="bold">실전 프로젝트 진행</text>
+                    
+                    <!-- Bottom Section -->
+                    <rect x="30" y="240" width="740" height="130" rx="15" fill="#f5f5f5" stroke="#ddd" stroke-width="2"/>
+                    <text x="400" y="270" text-anchor="middle" font-weight="bold" fill="#333" font-size="16">专业化 분야 선택</text>
+                    
+                    <rect x="50" y="290" width="150" height="60" rx="10" fill="#e8f5e9" stroke="#4CAF50"/>
+                    <text x="125" y="325" text-anchor="middle" fill="#2E7D32" font-weight="bold">웹 개발</text>
+                    
+                    <rect x="220" y="290" width="150" height="60" rx="10" fill="#fff3e0" stroke="#ff9800"/>
+                    <text x="295" y="325" text-anchor="middle" fill="#E65100" font-weight="bold">데이터 분석</text>
+                    
+                    <rect x="390" y="290" width="150" height="60" rx="10" fill="#e3f2fd" stroke="#2196F3"/>
+                    <text x="465" y="325" text-anchor="middle" fill="#1565C0" font-weight="bold">AI/ML</text>
+                    
+                    <rect x="560" y="290" width="150" height="60" rx="10" fill="#fce4ec" stroke="#e91e63"/>
+                    <text x="635" y="325" text-anchor="middle" fill="#c2185b" font-weight="bold">자동화/스크립트</text>
+                </svg>
+            </div>
+            
+            <h3>빠른 참조 Cheat Sheet</h3>
+            <table class="comparison-table">
+                <tr><th>카테고리</th><th>주요 함수/문법</th></tr>
+                <tr><td>문자열</td><td>.upper(), .lower(), .strip(), .split(), .join(), f-string, .replace(), .find()</td></tr>
+                <tr><td>리스트</td><td>.append(), .extend(), .pop(), .sort(), .reverse(), list comprehension</td></tr>
+                <tr><td>딕셔너리</td><td>.keys(), .values(), .items(), .get(), dict comprehension, {**d1, **d2}</td></tr>
+                <tr><td>집합</td><td>.add(), .remove(), | (합집합), & (교집합), - (차집합)</td></tr>
+                <tr><td>파일</td><td>open(), read(), readlines(), write(), with문</td></tr>
+                <tr><td>예외</td><td>try/except/finally, raise, except (Error1, Error2)</td></tr>
+                <tr><td>함수</h2></td><td>def, *args, **kwargs, lambda, map(), filter()</td></tr>
+                <tr><td>클래스</td><td>class, __init__, self, @property, @staticmethod, @classmethod</td></tr>
+                <tr><td>타입힌트</td><td>: int, -> str, List[int], Dict[str, Any], Optional[X]</td></tr>
+            </table>
+            
+            <h3>itertools 예제</h3>
+            <div class="code-block">
+<span class="keyword">from</span> itertools <span class="keyword">import</span> chain, combinations, permutations, accumulate
+
+<span class="comment"># 체인</span>
+list(chain([<span class="number">1</span>,<span class="number">2</span>], [<span class="number">3</span>,<span class="number">4</span>]))  <span class="comment"># [1,2,3,4]</span>
+
+<span class="comment"># 순열</span>
+list(permutations(<span class="string">"ABC"</span>, <span class="number">2</span>))  <span class="comment"># [('A','B'), ('A','C'), ...]</span>
+
+<span class="comment"># 조합</span>
+list(combinations(<span class="string">"ABC"</span>, <span class="number">2</span>))  <span class="comment"># [('A','B'), ('A','C'), ('B','C')]</span>
+
+<span class="comment"># 누적</span>
+list(accumulate([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>]))  <span class="comment"># [1, 3, 6, 10]</span>
+            </div>
+            
+            <h3>functools 예제</h3>
+            <div class="code-block">
+<span class="keyword">from</span> functools <span class="keyword">import</span> lru_cache, partial, reduce
+
+<span class="comment"># 메모이제이션</span>
+<span class="decorator">@lru_cache</span>
+<span class="keyword">def</span> <span class="function">fib</span>(n):
+    <span class="keyword">if</span> n < <span class="number">2</span>: <span class="keyword">return</span> n
+    <span class="keyword">return</span> fib(n-<span class="number">1</span>) + fib(n-<span class="number">2</span>)
+
+<span class="comment"># 부분 함수</span>
+add5 = partial(<span class="keyword">lambda</span> x, y: x + y, <span class="number">5</span>)
+add5(<span class="number">3</span>)  <span class="comment"># 8</span>
+
+<span class="comment"># 누적 계산</span>
+reduce(<span class="keyword">lambda</span> x, y: x + y, [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>])  <span class="comment"># 10</span>
+            </div>
+            
+            <h3>collections 예제</h3>
+            <div class="code-block">
+<span class="keyword">from</span> collections <span class="keyword">import</span> Counter, defaultdict, OrderedDict
+
+<span class="comment"># 카운터</span>
+Counter(<span class="string">"hello"</span>)  <span class="comment"># Counter({'l':2, 'h':1, 'e':1, 'o':1})</span>
+
+<span class="comment"># 기본값 딕셔너리</span>
+d = defaultdict(<span class="builtin">int</span>)
+d[<span class="string">"count"</span>] += <span class="number">1</span>  <span class="comment"># 오류 없이 1</span>
+            </div>
+            
+            <h3>PEP 주요 규칙</h3>
+            <ul>
+                <li><strong>PEP 8</strong>: Python 스타일 가이드</li>
+                <li><strong>PEP 20</strong>: Python 철학 (import this)</li>
+                <li><strong>PEP 257</strong>: Docstring 규칙</li>
+                <li><strong>PEP 484</strong>: 타입 힌트</li>
+                <li><strong>PEP 498</strong>: f-string</li>
+                <li><strong>PEP 572</strong>: Walrus 연산자 (:=)</li>
+                <li><strong>PEP 622</strong>: Structural Pattern Matching</li>
+            </ul>
+            
+            <div class="quiz-box">
+                <h3>🎓 마무리 퀴즈</h3>
+                <p>파이썬 학습을 시작하셨습니다! 다음 중 어느 분야에 가장 관심이 있으신가요?</p>
+                <div class="quiz-option" onclick="alert('웹 개발은 Django, Flask, FastAPI를 배우보세요!')">🌐 웹 개발</div>
+                <div class="quiz-option" onclick="alert('데이터 분석은 Pandas, NumPy, Matplotlib을 배우보세요!')">📊 데이터 분석</div>
+                <div class="quiz-option" onclick="alert('AI/ML은 TensorFlow, PyTorch, scikit-learn을 배우보세요!')">🤖 머신러닝/AI</div>
+                <div class="quiz-option" onclick="alert('자동화는 Selenium, BeautifulSoup, requests를 배우보세요!')">⚡ 자동화/스크립트</div>
+            </div>
+        </section>
+        
+        <footer>
+            <p>© 2024 Python Complete Guide | Made with ❤️ for Python Learners</p>
+            <p>본 가이드는 파이썬을 처음 접하는 분부터 고급 개발자까지 모두에게 유용합니다.</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Scroll progress bar
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        });
+        
+        // Smooth scroll for navigation
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+        
+        // Accordion functionality
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const content = header.nextElementSibling;
+                content.classList.toggle('active');
+            });
+        });
+        
+        // Copy code button
+        document.querySelectorAll('.copy-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const code = btn.closest('.code-demo').querySelector('code').innerText;
+                navigator.clipboard.writeText(code);
+                btn.textContent = '복사됨!';
+                setTimeout(() => btn.textContent = '복사', 2000);
+            });
+        });
+        
+        // Scroll spy - highlight current section in nav
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('nav a');
+        
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+        
+        // Add active class style for nav
+        const style = document.createElement('style');
+        style.textContent = `
+            nav a.active {
+                background: #3776AB !important;
+                color: white !important;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
