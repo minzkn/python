@@ -643,7 +643,7 @@ not, or, pass, raise, return, try, while, with, yield, True, False, None</div>
             </div>
             
             <div class="tip-box">
-                <strong>💡 팁:</strong> 파이썬에서 print()는 함수의 일종입니다.括号 안에 넣은 내용을 화면에 출력해줍니다.
+                <strong>💡 팁:</strong> 파이썬에서 print()는 함수의 일종입니다. 괄호 안에 넣은 내용을 화면에 출력해줍니다.
             </div>
             
             <h3>변수와 주석</h3>
@@ -757,10 +757,10 @@ complex_num = <span class="number">3 + 4j</span>
 <span class="keyword">print</span>(complex_num.imag)  <span class="comment"># 4.0 (허수부)</span>
 <span class="keyword">print</span>(complex_num.conjugate())  <span class="comment"># (3-4j) (켤레복소수)</span>
 
-<span class="comment"># 8진수 (0o开头)</span>
+<span class="comment"># 8진수 (0o으로 시작)</span>
 octal = <span class="number">0o34</span>
 
-<span class="comment"># 16진수 (0x开头)</span>
+<span class="comment"># 16진수 (0x로 시작)</span>
 hex_num = <span class="number">0xFF</span>
             </div>
             
@@ -834,7 +834,7 @@ coordinates = (<span class="number">10</span>, <span class="number">20</span>, <
             <h3>리스트 주요 메서드</h3>
             <table class="comparison-table">
                 <tr><th>메서드</th><th>설명</th><th>예시</th></tr>
-                <tr><td>.append(x)</td><td>末尾 추가</td><td>[1,2].append(3) → [1,2,3]</td></tr>
+                <tr><td>.append(x)</td><td>끝에 추가</td><td>[1,2].append(3) → [1,2,3]</td></tr>
                 <tr><td>.extend(iterable)</td><td>iterable 추가</td><td>[1].extend([2,3]) → [1,2,3]</td></tr>
                 <tr><td>.insert(i, x)</td><td>위치에 삽입</td><td>[1,3].insert(1,2) → [1,2,3]</td></tr>
                 <tr><td>.remove(x)</td><td>첫 번째 x 제거</td><td>[1,2,3].remove(2) → [1,3]</td></tr>
@@ -1296,7 +1296,7 @@ duck = <span class="function">Duck</span>()
         <span class="keyword">return</span> <span class="string">f"{self.name}가 야옹합니다!"</span>
             </div>
             
-            <h3>特殊 메서드 (Dunder Methods)</h3>
+            <h3>특수 메서드 (Dunder Methods)</h3>
             <div class="code-block">
 <span class="keyword">class</span> <span class="function">Vector</span>:
     <span class="keyword">def</span> <span class="function">__init__</span>(self, x, y):
@@ -1689,7 +1689,7 @@ deactivate
     <span class="keyword">for</span> line <span class="keyword">in</span> f:
         <span class="keyword">print</span>(line.strip())
 
-<span class="comment"># readlines()로 목록获取</span>
+<span class="comment"># readlines()로 목록 가져오기</span>
 <span class="keyword">with</span> <span class="builtin">open</span>(<span class="string">"file.txt"</span>) <span class="keyword">as</span> f:
     lines = f.readlines()
 
@@ -1717,7 +1717,7 @@ lines = [<span class="string">"줄 1"</span>, <span class="string">"줄 2"</span
                 <tr><th>모드</th><th>설명</th></tr>
                 <tr><td>r</td><td>읽기 (기본)</td></tr>
                 <tr><td>w</td><td>쓰기 (덮어쓰기)</td></tr>
-                <tr><td>a</td><td>추가 (末尾)</td></tr>
+                <tr><td>a</td><td>추가 (끝에)</td></tr>
                 <tr><td>r+</td><td>읽기+쓰기</td></tr>
                 <tr><td>w+</td><td>읽기+쓰기 (덮어쓰기)</td></tr>
                 <tr><td>a+</td><td>읽기+추가</td></tr>
@@ -1811,7 +1811,7 @@ data = {<span class="string">"name"</span>: <span class="string">"민준"</span>
             </div>
             
             <div class="tip-box">
-                <strong>💡 팁:</strong> 항상 <code>with</code>문을 사용하여 파일을 다루세요.这样的话 파일이 자동으로 닫힙니 다.
+                <strong>💡 팁:</strong> 항상 <code>with</code>문을 사용하여 파일을 다루세요. 파일이 자동으로 닫힙니다.
             </div>
         </section>
         
@@ -2134,7 +2134,7 @@ p = Point(<span class="number">10</span>, <span class="number">20</span>)
 <span class="keyword">print</span>(Color.RED.value)  <span class="comment"># 1</span>
             </div>
             
-            <h3>ABC (추상基底 클래스)</h3>
+            <h3>ABC (추상 베이스 클래스)</h3>
             <div class="code-block">
 <span class="keyword">from</span> abc <span class="keyword">import</span> ABC, abstractmethod
 
@@ -2219,7 +2219,7 @@ p = Point(<span class="number">10</span>, <span class="number">20</span>)
                 </a>
                 <a href="https://wikidocs.net/" class="resource-link" target="_blank">
                     <strong>위키독스</strong>
-                    <p>한국어 파이썬教程</p>
+                    <p>한국어 파이썬 튜토리얼</p>
                 </a>
                 <a href="https://github.com/" class="resource-link" target="_blank">
                     <strong>GitHub</strong>
@@ -2301,7 +2301,7 @@ p = Point(<span class="number">10</span>, <span class="number">20</span>)
                     
                     <!-- Bottom Section -->
                     <rect x="30" y="240" width="740" height="130" rx="15" fill="#f5f5f5" stroke="#ddd" stroke-width="2"/>
-                    <text x="400" y="270" text-anchor="middle" font-weight="bold" fill="#333" font-size="16">专业化 분야 선택</text>
+                    <text x="400" y="270" text-anchor="middle" font-weight="bold" fill="#333" font-size="16">전문 분야 선택</text>
                     
                     <rect x="50" y="290" width="150" height="60" rx="10" fill="#e8f5e9" stroke="#4CAF50"/>
                     <text x="125" y="325" text-anchor="middle" fill="#2E7D32" font-weight="bold">웹 개발</text>
