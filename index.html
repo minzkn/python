@@ -498,6 +498,7 @@
                 <li><a href="#regex">정규식</a></li>
                 <li><a href="#testing">테스팅</a></li>
                 <li><a href="#advanced">고급 주제</a></li>
+                <li><a href="#ai-ml">AI/ML</a></li>
                 <li><a href="#resources">참고 자료</a></li>
             </ul>
         </nav>
@@ -618,11 +619,11 @@ not, or, pass, raise, return, try, while, with, yield, True, False, None</div>
                 <tr><td>2</td><td>~, +, -,</td><td>단항 연산</td></tr>
                 <tr><td>3</td><td>*, /, %, //</td><td>산술 연산</td></tr>
                 <tr><td>4</td><td>+, -</td><td>산술 연산</td></tr>
-                <tr><td>5</td><td>>, <<</td><td>비트 쉬프트</td></tr>
+                <tr><td>5</td><td>>>, <<</td><td>비트 쉬프트</td></tr>
                 <tr><td>6</td><td>&</td><td>비트 AND</td></tr>
                 <tr><td>7</td><td>^, |</td><td>비트 XOR, OR</td></tr>
                 <tr><td>8</td><td><=, <, >, >=</td><td>비교 연산</td></tr>
-                <tr><td>9</td><td><>, ==, !=</td><td>평등 연산</td></tr>
+                <tr><td>9</td><td>==, !=</td><td>평등 연산</td></tr>
                 <tr><td>10</td><td>=, %=, /=, //=</td><td>할당 연산</td></tr>
                 <tr><td>11</td><td>is, is not</td><td>식별 연산</td></tr>
                 <tr><td>12</td><td>in, not in</td><td>멤버 연산</td></tr>
@@ -861,6 +862,53 @@ evens = [x <span class="keyword">for</span> x <span class="keyword">in</span> <s
 matrix = [[j <span class="keyword">for</span> j <span class="keyword">in</span> <span class="builtin">range</span>(<span class="number">3</span>)] <span class="keyword">for</span> i <span class="keyword">in</span> <span class="builtin">range</span>(<span class="number">3</span>)]
             </div>
             
+            <h3>딕셔너리 (Dictionary)</h3>
+            <div class="code-block">
+<span class="comment"># 딕셔너리 생성 (키-값 쌍)</span>
+person = {<span class="string">"이름"</span>: <span class="string">"민준"</span>, <span class="string">"나이"</span>: <span class="number">25</span>, <span class="string">"도시"</span>: <span class="string">"서울"</span>}
+
+<span class="comment"># 값 접근</span>
+<span class="keyword">print</span>(person[<span class="string">"이름"</span>])          <span class="comment"># 민준</span>
+<span class="keyword">print</span>(person.get(<span class="string">"나이"</span>))      <span class="comment"># 25 (키 없을 때 None 반환)</span>
+<span class="keyword">print</span>(person.get(<span class="string">"직업"</span>, <span class="string">"미정"</span>))  <span class="comment"># 미정 (기본값 지정)</span>
+
+<span class="comment"># 추가 / 수정</span>
+person[<span class="string">"직업"</span>] = <span class="string">"개발자"</span>
+person.update({<span class="string">"나이"</span>: <span class="number">26</span>, <span class="string">"취미"</span>: <span class="string">"독서"</span>})
+
+<span class="comment"># 삭제</span>
+<span class="keyword">del</span> person[<span class="string">"취미"</span>]
+person.pop(<span class="string">"직업"</span>, <span class="keyword">None</span>)   <span class="comment"># 키 없어도 오류 없음</span>
+
+<span class="comment"># 순회</span>
+<span class="keyword">for</span> key <span class="keyword">in</span> person.keys():
+    <span class="keyword">print</span>(key)
+<span class="keyword">for</span> value <span class="keyword">in</span> person.values():
+    <span class="keyword">print</span>(value)
+<span class="keyword">for</span> key, value <span class="keyword">in</span> person.items():
+    <span class="keyword">print</span>(<span class="string">f"{key}: {value}"</span>)
+
+<span class="comment"># 딕셔너리 컴프리헨션</span>
+squares = {x: x**<span class="number">2</span> <span class="keyword">for</span> x <span class="keyword">in</span> <span class="builtin">range</span>(<span class="number">5</span>)}
+<span class="comment"># {0: 0, 1: 1, 2: 4, 3: 9, 4: 16}</span>
+
+<span class="comment"># 딕셔너리 병합 (Python 3.9+)</span>
+d1 = {<span class="string">"a"</span>: <span class="number">1</span>}
+d2 = {<span class="string">"b"</span>: <span class="number">2</span>}
+merged = d1 | d2    <span class="comment"># {"a": 1, "b": 2}</span>
+            </div>
+
+            <h3>집합 컴프리헨션 (Set Comprehension)</h3>
+            <div class="code-block">
+<span class="comment"># 집합 컴프리헨션</span>
+unique_squares = {x**<span class="number">2</span> <span class="keyword">for</span> x <span class="keyword">in</span> [-<span class="number">2</span>, -<span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>]}
+<span class="comment"># {0, 1, 4}</span>
+
+<span class="comment"># 제너레이터 표현식 (메모리 효율)</span>
+gen = (x**<span class="number">2</span> <span class="keyword">for</span> x <span class="keyword">in</span> <span class="builtin">range</span>(<span class="number">10</span>))
+<span class="comment"># next(gen)으로 하나씩 꺼냄</span>
+            </div>
+
             <div class="svg-container">
                 <!-- Data Types Comparison SVG -->
                 <svg width="700" height="250" viewBox="0 0 700 250" xmlns="http://www.w3.org/2000/svg">
@@ -1433,7 +1481,7 @@ account = <span class="function">BankAccount</span>(<span class="number">1000</s
             <span class="level-badge level-beginner">초급</span>
             <span class="level-badge level-intermediate">중급</span>
             
-            <p>예외 처리는 프로그램 실행 중 발생하는 오류를 적절히Handling하여 프로그램이 정상적으로 계속 실행될 수 있도록 합니다.</p>
+            <p>예외 처리는 프로그램 실행 중 발생하는 오류를 적절히 처리(handling)하여 프로그램이 정상적으로 계속 실행될 수 있도록 합니다.</p>
             
             <h3>try-except 구조</h3>
             <div class="code-block">
@@ -1494,7 +1542,7 @@ account = <span class="function">BankAccount</span>(<span class="number">1000</s
             <span class="level-badge level-beginner">초급</span>
             <span class="level-badge level-intermediate">중급</span>
             
-            <p>모듈은 파이썬 코드가 포함된 파일(.py)입니다. 패키지는 모듈들을Directory 구조로 묶은 것입니다.</p>
+            <p>모듈은 파이썬 코드가 포함된 파일(.py)입니다. 패키지는 모듈들을 디렉터리(Directory) 구조로 묶은 것입니다.</p>
             
             <h3>모듈 가져오기</h3>
             <div class="code-block">
@@ -2202,7 +2250,7 @@ p = Point(<span class="number">10</span>, <span class="number">20</span>)
         </section>
         
         <section id="ai-ml">
-            <h2>AI/ML 핵심 구현</h2>
+            <h2>13. AI/ML 핵심 구현</h2>
             <span class="level-badge level-intermediate">중급</span>
             <span class="level-badge level-advanced">고급</span>
             <span class="level-badge level-expert">전문가</span>
@@ -2625,7 +2673,7 @@ opencv-python>=4.8.0
         </section>
         
         <section id="resources">
-            <h2>13. 참고 자료 & 다음 단계</h2>
+            <h2>14. 참고 자료 & 다음 단계</h2>
             <span class="level-badge level-beginner">초급</span>
             <span class="level-badge level-intermediate">중급</span>
             <span class="level-badge level-advanced">고급</span>
@@ -2823,7 +2871,7 @@ d[<span class="string">"count"</span>] += <span class="number">1</span>  <span c
         </section>
         
         <footer>
-            <p>© 2024 Python Complete Guide | Made with ❤️ for Python Learners</p>
+            <p>© 2025 Python Complete Guide | Made with ❤️ for Python Learners</p>
             <p>본 가이드는 파이썬을 처음 접하는 분부터 고급 개발자까지 모두에게 유용합니다.</p>
         </footer>
     </div>

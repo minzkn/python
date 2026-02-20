@@ -37,6 +37,16 @@
 - Data Classes
 - asyncio
 
+### AI/ML 핵심 구현
+- NumPy (수치 계산)
+- Pandas (데이터 처리)
+- Matplotlib (시각화)
+- scikit-learn (머신러닝)
+- TensorFlow/Keras (딥러닝)
+- PyTorch (딥러닝)
+- CNN, RNN/LSTM, Transformer
+- 전이 학습 (Transfer Learning)
+
 ### 최신 기능 (Python 3.14)
 - PEP 750: Template Strings
 - PEP 734: Multiple Interpreters
@@ -55,10 +65,12 @@ git clone https://github.com/minzkn/python.git
 ## 📝 학습 로드맵
 
 ```
-1단계: 기초 → 문법, 변수, 제어문
-2단계: 함수/자료구조 → 함수, 리스트, 딕셔너리
-3단계: 객체지향 → 클래스, 상속, 캡슐화
-4단계: 실전 → 프로젝트 진행
+1단계: 기초      → 문법, 변수, 제어문
+2단계: 자료구조  → 함수, 리스트, 딕셔너리
+3단계: 객체지향  → 클래스, 상속, 캡슐화
+4단계: 고급      → 비동기, 데코레이터, 타입 힌트
+5단계: AI/ML    → NumPy, Pandas, 딥러닝
+6단계: 실전      → 프로젝트 진행
 ```
 
 ## 🤝 기여
