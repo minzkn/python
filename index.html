@@ -4169,44 +4169,628 @@ plt.show()
             </table>
 
             <h3>scikit-learn (머신러닝)</h3>
-            <div class="code-block">
-<span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split
-<span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> StandardScaler, LabelEncoder
-<span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LinearRegression, LogisticRegression
-<span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> RandomForestClassifier
-<span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> accuracy_score, mean_squared_error
 
-<span class="comment"># 데이터 분할</span>
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=<span class="number">0.2</span>, random_state=<span class="number">42</span>
+            <p>
+                scikit-learn은 파이썬의 대표적인 머신러닝 라이브러리로, 분류·회귀·클러스터링·차원 축소·전처리·모델 선택 등
+                전통적 ML 알고리즘을 일관된 <strong>Estimator API</strong>로 제공합니다.
+                <code>fit / transform / predict</code> 세 메서드 패턴만 익히면 모든 모델을 같은 방식으로 사용할 수 있습니다.
+            </p>
+
+            <div class="tip-box">
+                <strong>설치:</strong> <code>pip install scikit-learn</code> &nbsp;|&nbsp;
+                버전 확인: <code>sklearn.__version__</code>
+            </div>
+
+            <h4>Estimator API 핵심 패턴</h4>
+            <div class="code-block">
+<span class="comment"># 모든 scikit-learn 객체는 동일한 인터페이스</span>
+<span class="comment">#  fit(X, y)        — 학습 (파라미터 추정)</span>
+<span class="comment">#  transform(X)     — 변환 (전처리기)</span>
+<span class="comment">#  fit_transform(X) — 학습 + 변환 (훈련 데이터에만)</span>
+<span class="comment">#  predict(X)       — 예측 (지도학습 모델)</span>
+<span class="comment">#  predict_proba(X) — 클래스 확률 반환</span>
+<span class="comment">#  score(X, y)      — 기본 평가 지표 (분류: accuracy, 회귀: R²)</span>
+
+<span class="comment"># 중요 규칙: fit은 반드시 훈련 데이터로만, transform은 전체에 적용</span>
+<span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> StandardScaler
+
+scaler = StandardScaler()
+X_train_sc = scaler.fit_transform(X_train)   <span class="comment"># 훈련: 평균·표준편차 학습 + 변환</span>
+X_test_sc  = scaler.transform(X_test)        <span class="comment"># 테스트: 학습된 값으로만 변환</span>
+<span class="comment"># ❌ X_test_sc = scaler.fit_transform(X_test)  # 데이터 누수(leakage)!</span>
+            </div>
+
+            <h4>내장 데이터셋 &amp; 데이터 분할</h4>
+            <div class="code-block">
+<span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> (
+    load_iris,          <span class="comment"># 붓꽃 분류 (150×4, 3클래스)</span>
+    load_digits,        <span class="comment"># 손글씨 숫자 (1797×64, 10클래스)</span>
+    load_breast_cancer, <span class="comment"># 유방암 (569×30, 이진분류)</span>
+    load_boston,        <span class="comment"># 보스턴 집값 — deprecated, 아래 대체</span>
+    fetch_california_housing,  <span class="comment"># 캘리포니아 주택가 (회귀)</span>
+    make_classification,       <span class="comment"># 합성 분류 데이터</span>
+    make_regression,           <span class="comment"># 합성 회귀 데이터</span>
+    make_blobs,                <span class="comment"># 클러스터링용 합성 데이터</span>
+    make_moons, make_circles,  <span class="comment"># 비선형 경계 데이터</span>
 )
 
-<span class="comment"># 전처리 - 스케일링</span>
-scaler = StandardScaler()
-X_train_scaled = scaler.fit_transform(X_train)
-X_test_scaled = scaler.transform(X_test)
+<span class="comment"># 데이터 로드</span>
+iris = load_iris()
+X, y = iris.data, iris.target   <span class="comment"># numpy 배열</span>
+iris.feature_names              <span class="comment"># ['sepal length (cm)', ...]</span>
+iris.target_names               <span class="comment"># ['setosa', 'versicolor', 'virginica']</span>
 
-<span class="comment"># 전처리 - 레이블 인코딩</span>
+<span class="comment"># 합성 데이터 생성</span>
+X, y = make_classification(
+    n_samples=<span class="number">1000</span>,
+    n_features=<span class="number">20</span>,
+    n_informative=<span class="number">10</span>,    <span class="comment"># 실제 유효 특성 수</span>
+    n_redundant=<span class="number">5</span>,
+    n_classes=<span class="number">3</span>,
+    random_state=<span class="number">42</span>
+)
+
+<span class="comment"># 데이터 분할</span>
+<span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y,
+    test_size=<span class="number">0.2</span>,        <span class="comment"># 테스트 비율 (0~1)</span>
+    random_state=<span class="number">42</span>,     <span class="comment"># 재현성</span>
+    stratify=y            <span class="comment"># 클래스 비율 유지 (분류에서 권장)</span>
+)
+
+<span class="comment"># 3-way 분할 (훈련 / 검증 / 테스트)</span>
+X_tr, X_tmp, y_tr, y_tmp = train_test_split(X, y, test_size=<span class="number">0.3</span>, stratify=y, random_state=<span class="number">42</span>)
+X_val, X_test, y_val, y_test = train_test_split(X_tmp, y_tmp, test_size=<span class="number">0.5</span>, stratify=y_tmp, random_state=<span class="number">42</span>)
+            </div>
+
+            <h4>전처리 — 스케일링 (Scaling)</h4>
+            <table class="comparison-table">
+                <tr><th>스케일러</th><th>변환 공식</th><th>특징 / 적합 상황</th></tr>
+                <tr><td><code>StandardScaler</code></td><td>(x−μ)/σ</td><td>평균 0, 표준편차 1. 이상치에 민감. 대부분의 모델에 기본</td></tr>
+                <tr><td><code>MinMaxScaler</code></td><td>(x−min)/(max−min)</td><td>[0,1] 범위. 이상치에 취약. 신경망·이미지</td></tr>
+                <tr><td><code>RobustScaler</code></td><td>(x−중앙값)/IQR</td><td>이상치에 강건. 이상치 많은 데이터</td></tr>
+                <tr><td><code>MaxAbsScaler</code></td><td>x/|max(x)|</td><td>[-1,1]. 희소 행렬(Sparse matrix)에 적합</td></tr>
+                <tr><td><code>Normalizer</code></td><td>행 단위 L2 정규화</td><td>각 샘플을 단위 벡터로. 텍스트·코사인 유사도</td></tr>
+            </table>
+            <div class="code-block">
+<span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> (
+    StandardScaler, MinMaxScaler, RobustScaler,
+    MaxAbsScaler, Normalizer, PowerTransformer, QuantileTransformer
+)
+
+<span class="comment"># PowerTransformer — 비정규 분포를 정규분포에 가깝게</span>
+pt = PowerTransformer(method=<span class="string">"yeo-johnson"</span>)  <span class="comment"># 음수 허용</span>
+pt = PowerTransformer(method=<span class="string">"box-cox"</span>)       <span class="comment"># 양수만</span>
+X_train_pt = pt.fit_transform(X_train)
+
+<span class="comment"># QuantileTransformer — 균등/정규 분포로 매핑</span>
+qt = QuantileTransformer(output_distribution=<span class="string">"normal"</span>, random_state=<span class="number">42</span>)
+X_train_qt = qt.fit_transform(X_train)
+            </div>
+
+            <h4>전처리 — 인코딩 (Encoding)</h4>
+            <div class="code-block">
+<span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> (
+    LabelEncoder, OrdinalEncoder,
+    OneHotEncoder, LabelBinarizer
+)
+
+<span class="comment"># LabelEncoder — 타깃(y) 인코딩. 순서 있는 이진 변수</span>
 le = LabelEncoder()
-y_encoded = le.fit_transform(y)
+y_enc = le.fit_transform([<span class="string">"cat"</span>, <span class="string">"dog"</span>, <span class="string">"cat"</span>, <span class="string">"fish"</span>])
+<span class="comment"># → [0, 1, 0, 2]</span>
+le.inverse_transform([<span class="number">0</span>, <span class="number">2</span>])   <span class="comment"># → ['cat', 'fish']</span>
+
+<span class="comment"># OrdinalEncoder — 특성(X) 순서형 인코딩</span>
+oe = OrdinalEncoder(categories=[[<span class="string">"low"</span>, <span class="string">"mid"</span>, <span class="string">"high"</span>]])
+oe.fit_transform([[<span class="string">"low"</span>], [<span class="string">"high"</span>], [<span class="string">"mid"</span>]])  <span class="comment"># → [[0.],[2.],[1.]]</span>
+
+<span class="comment"># OneHotEncoder — 명목형(순서 없는) 인코딩 (권장)</span>
+ohe = OneHotEncoder(sparse_output=<span class="keyword">False</span>,       <span class="comment"># dense 배열 반환</span>
+                    handle_unknown=<span class="string">"ignore"</span>,    <span class="comment"># 미지 카테고리 → 0</span>
+                    drop=<span class="string">"first"</span>)               <span class="comment"># 더미 변수 함정 방지</span>
+X_ohe = ohe.fit_transform(X_cat)
+ohe.get_feature_names_out()                      <span class="comment"># 새 열 이름</span>
+            </div>
+
+            <h4>전처리 — 결측치 &amp; 특성 생성</h4>
+            <div class="code-block">
+<span class="keyword">from</span> sklearn.impute <span class="keyword">import</span> SimpleImputer, KNNImputer, IterativeImputer
+<span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> PolynomialFeatures
+<span class="keyword">from</span> sklearn.feature_selection <span class="keyword">import</span> VarianceThreshold
+
+<span class="comment"># SimpleImputer — 통계값으로 채우기</span>
+imp_mean   = SimpleImputer(strategy=<span class="string">"mean"</span>)       <span class="comment"># 수치형 (기본)</span>
+imp_median = SimpleImputer(strategy=<span class="string">"median"</span>)     <span class="comment"># 이상치 있을 때</span>
+imp_mode   = SimpleImputer(strategy=<span class="string">"most_frequent"</span>) <span class="comment"># 범주형</span>
+imp_const  = SimpleImputer(strategy=<span class="string">"constant"</span>, fill_value=<span class="number">0</span>)
+
+<span class="comment"># KNNImputer — K-최근접 이웃으로 추정</span>
+knn_imp = KNNImputer(n_neighbors=<span class="number">5</span>)
+
+<span class="comment"># IterativeImputer — 반복 회귀 추정 (MICE 알고리즘)</span>
+<span class="keyword">from</span> sklearn.experimental <span class="keyword">import</span> enable_iterative_imputer  <span class="comment"># noqa</span>
+iter_imp = IterativeImputer(max_iter=<span class="number">10</span>, random_state=<span class="number">42</span>)
+
+<span class="comment"># PolynomialFeatures — 다항 특성 생성 (비선형 관계 포착)</span>
+poly = PolynomialFeatures(degree=<span class="number">2</span>, include_bias=<span class="keyword">False</span>,
+                           interaction_only=<span class="keyword">False</span>)
+<span class="comment"># [a, b] → [a, b, a², ab, b²]</span>
+X_poly = poly.fit_transform(X_train)
+poly.get_feature_names_out([<span class="string">"x1"</span>, <span class="string">"x2"</span>])
+
+<span class="comment"># VarianceThreshold — 분산 0인 특성(상수) 제거</span>
+vt = VarianceThreshold(threshold=<span class="number">0.01</span>)
+X_sel = vt.fit_transform(X)
+            </div>
+
+            <h4>지도학습 — 회귀 (Regression)</h4>
+            <div class="code-block">
+<span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> (
+    LinearRegression,
+    Ridge, Lasso, ElasticNet,   <span class="comment"># 정규화 선형 모델</span>
+    HuberRegressor,             <span class="comment"># 이상치에 강건</span>
+    BayesianRidge,
+)
+<span class="keyword">from</span> sklearn.tree     <span class="keyword">import</span> DecisionTreeRegressor
+<span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> (
+    RandomForestRegressor,
+    GradientBoostingRegressor,
+    HistGradientBoostingRegressor,  <span class="comment"># 대용량·결측치 허용</span>
+    AdaBoostRegressor,
+)
+<span class="keyword">from</span> sklearn.svm      <span class="keyword">import</span> SVR
+<span class="keyword">from</span> sklearn.neighbors <span class="keyword">import</span> KNeighborsRegressor
 
 <span class="comment"># 선형 회귀</span>
-model = LinearRegression()
-model.fit(X_train, y_train)
-predictions = model.predict(X_test)
-mse = mean_squared_error(y_test, predictions)
+lr = LinearRegression(fit_intercept=<span class="keyword">True</span>)
+lr.fit(X_train, y_train)
+lr.coef_        <span class="comment"># 계수</span>
+lr.intercept_   <span class="comment"># 절편</span>
 
-<span class="comment"># 로지스틱 회귀 (분류)</span>
-clf = LogisticRegression()
-clf.fit(X_train, y_train)
-y_pred = clf.predict(X_test)
-accuracy = accuracy_score(y_test, y_pred)
+<span class="comment"># Ridge (L2 정규화) — 다중공선성, 과적합 완화</span>
+ridge = Ridge(alpha=<span class="number">1.0</span>)     <span class="comment"># alpha ↑ → 정규화 강도 ↑</span>
+
+<span class="comment"># Lasso (L1 정규화) — 특성 선택 효과 (계수 → 0)</span>
+lasso = Lasso(alpha=<span class="number">0.1</span>, max_iter=<span class="number">5000</span>)
+
+<span class="comment"># ElasticNet (L1+L2) — Lasso와 Ridge 혼합</span>
+en = ElasticNet(alpha=<span class="number">0.1</span>, l1_ratio=<span class="number">0.5</span>)
+
+<span class="comment"># GradientBoosting — 순차 부스팅, 높은 정확도</span>
+gbr = GradientBoostingRegressor(
+    n_estimators=<span class="number">200</span>,
+    learning_rate=<span class="number">0.05</span>,
+    max_depth=<span class="number">4</span>,
+    subsample=<span class="number">0.8</span>,
+    random_state=<span class="number">42</span>
+)
+gbr.fit(X_train, y_train)
+            </div>
+
+            <h4>지도학습 — 분류 (Classification)</h4>
+            <div class="code-block">
+<span class="keyword">from</span> sklearn.linear_model <span class="keyword">import</span> LogisticRegression, SGDClassifier
+<span class="keyword">from</span> sklearn.svm          <span class="keyword">import</span> SVC, LinearSVC
+<span class="keyword">from</span> sklearn.neighbors    <span class="keyword">import</span> KNeighborsClassifier
+<span class="keyword">from</span> sklearn.tree         <span class="keyword">import</span> DecisionTreeClassifier
+<span class="keyword">from</span> sklearn.ensemble     <span class="keyword">import</span> (
+    RandomForestClassifier,
+    GradientBoostingClassifier,
+    HistGradientBoostingClassifier,
+    AdaBoostClassifier,
+    ExtraTreesClassifier,
+)
+<span class="keyword">from</span> sklearn.naive_bayes  <span class="keyword">import</span> GaussianNB, MultinomialNB
+<span class="keyword">from</span> sklearn.discriminant_analysis <span class="keyword">import</span> LinearDiscriminantAnalysis
+
+<span class="comment"># 로지스틱 회귀</span>
+lr = LogisticRegression(C=<span class="number">1.0</span>,             <span class="comment"># C=1/alpha (C↑ → 정규화 약해짐)</span>
+                        penalty=<span class="string">"l2"</span>,        <span class="comment"># "l1","l2","elasticnet"</span>
+                        solver=<span class="string">"lbfgs"</span>,      <span class="comment"># 다중분류: "lbfgs","saga"</span>
+                        multi_class=<span class="string">"auto"</span>,
+                        max_iter=<span class="number">1000</span>)
+
+<span class="comment"># SVM (Support Vector Machine)</span>
+svc = SVC(C=<span class="number">1.0</span>,
+          kernel=<span class="string">"rbf"</span>,       <span class="comment"># "linear","poly","rbf","sigmoid"</span>
+          gamma=<span class="string">"scale"</span>,     <span class="comment"># "scale"=1/(n_features*X.var())</span>
+          probability=<span class="keyword">True</span>)  <span class="comment"># predict_proba 활성화 (속도 저하)</span>
+
+<span class="comment"># K-최근접 이웃</span>
+knn = KNeighborsClassifier(n_neighbors=<span class="number">5</span>,
+                            weights=<span class="string">"distance"</span>,  <span class="comment"># "uniform" or "distance"</span>
+                            metric=<span class="string">"minkowski"</span>)   <span class="comment"># "euclidean","manhattan"</span>
 
 <span class="comment"># 랜덤 포레스트</span>
-rf = RandomForestClassifier(n_estimators=<span class="number">100</span>, random_state=<span class="number">42</span>)
+rf = RandomForestClassifier(
+    n_estimators=<span class="number">200</span>,         <span class="comment"># 트리 수 (많을수록 안정, 느려짐)</span>
+    max_depth=<span class="keyword">None</span>,           <span class="comment"># None이면 완전 성장</span>
+    max_features=<span class="string">"sqrt"</span>,     <span class="comment"># 분기 시 고려 특성 수</span>
+    min_samples_leaf=<span class="number">1</span>,
+    class_weight=<span class="string">"balanced"</span>, <span class="comment"># 클래스 불균형 처리</span>
+    n_jobs=-<span class="number">1</span>,                <span class="comment"># 모든 CPU 코어 사용</span>
+    random_state=<span class="number">42</span>
+)
 rf.fit(X_train, y_train)
+rf.feature_importances_      <span class="comment"># 특성 중요도</span>
+
+<span class="comment"># Gradient Boosting</span>
+hgb = HistGradientBoostingClassifier(
+    max_iter=<span class="number">200</span>,
+    learning_rate=<span class="number">0.05</span>,
+    max_leaf_nodes=<span class="number">31</span>,
+    min_samples_leaf=<span class="number">20</span>
+)
+<span class="comment"># HistGradientBoosting은 결측치(NaN)를 자체 처리</span>
             </div>
-            
+
+            <h4>비지도학습 — 클러스터링</h4>
+            <div class="code-block">
+<span class="keyword">from</span> sklearn.cluster <span class="keyword">import</span> (
+    KMeans, MiniBatchKMeans,
+    DBSCAN, HDBSCAN,
+    AgglomerativeClustering,
+    SpectralClustering,
+)
+
+<span class="comment"># K-Means</span>
+km = KMeans(n_clusters=<span class="number">3</span>,
+            init=<span class="string">"k-means++"</span>,  <span class="comment"># 초기 중심 선택 (수렴 빠름)</span>
+            n_init=<span class="number">10</span>,          <span class="comment"># 시작 횟수 (최선 결과 반환)</span>
+            max_iter=<span class="number">300</span>,
+            random_state=<span class="number">42</span>)
+km.fit(X)
+km.labels_          <span class="comment"># 각 샘플의 클러스터 번호</span>
+km.cluster_centers_ <span class="comment"># 클러스터 중심 좌표</span>
+km.inertia_         <span class="comment"># Within-cluster sum of squares (낮을수록 좋음)</span>
+
+<span class="comment"># 최적 K 찾기 — 엘보우 방법</span>
+inertias = []
+<span class="keyword">for</span> k <span class="keyword">in</span> range(<span class="number">1</span>, <span class="number">11</span>):
+    inertias.append(KMeans(n_clusters=k, random_state=<span class="number">42</span>, n_init=<span class="number">10</span>)
+                    .fit(X).inertia_)
+
+<span class="comment"># DBSCAN — 밀도 기반, 이상치 자동 감지</span>
+db = DBSCAN(eps=<span class="number">0.5</span>,         <span class="comment"># 이웃 반경</span>
+            min_samples=<span class="number">5</span>,     <span class="comment"># 핵심 포인트 최소 이웃 수</span>
+            metric=<span class="string">"euclidean"</span>)
+db.fit(X)
+db.labels_   <span class="comment"># -1 = 이상치(noise)</span>
+
+<span class="comment"># 계층적 클러스터링</span>
+agg = AgglomerativeClustering(n_clusters=<span class="number">3</span>,
+                               linkage=<span class="string">"ward"</span>)  <span class="comment"># "average","complete","single"</span>
+agg.fit(X)
+            </div>
+
+            <h4>비지도학습 — 차원 축소</h4>
+            <div class="code-block">
+<span class="keyword">from</span> sklearn.decomposition <span class="keyword">import</span> PCA, TruncatedSVD, NMF
+<span class="keyword">from</span> sklearn.manifold    <span class="keyword">import</span> TSNE
+<span class="keyword">from</span> sklearn.preprocessing <span class="keyword">import</span> StandardScaler
+
+<span class="comment"># PCA (Principal Component Analysis)</span>
+pca = PCA(n_components=<span class="number">2</span>)       <span class="comment"># 고정 차원 수</span>
+pca = PCA(n_components=<span class="number">0.95</span>)    <span class="comment"># 분산 95% 보존에 필요한 차원 수</span>
+pca = PCA(n_components=<span class="string">"mle"</span>)   <span class="comment"># MLE로 자동 결정</span>
+X_pca = pca.fit_transform(StandardScaler().fit_transform(X))
+pca.explained_variance_ratio_    <span class="comment"># 각 PC의 설명 분산 비율</span>
+pca.components_                  <span class="comment"># 주성분 벡터 (로딩)</span>
+<span class="builtin">print</span>(<span class="string">f"보존 분산: </span>{pca.explained_variance_ratio_.sum():.3f}<span class="string">"</span>)
+
+<span class="comment"># TruncatedSVD — 희소 행렬에 적합 (PCA 대안)</span>
+svd = TruncatedSVD(n_components=<span class="number">50</span>)
+X_svd = svd.fit_transform(X_sparse)
+
+<span class="comment"># t-SNE — 시각화 전용 (2D/3D), 비볼록 최적화</span>
+tsne = TSNE(n_components=<span class="number">2</span>,
+            perplexity=<span class="number">30</span>,        <span class="comment"># 이웃 수 목표 (5~50)</span>
+            n_iter=<span class="number">1000</span>,
+            learning_rate=<span class="string">"auto"</span>,
+            init=<span class="string">"pca"</span>,           <span class="comment"># PCA 초기화 (안정적)</span>
+            random_state=<span class="number">42</span>)
+X_tsne = tsne.fit_transform(X)   <span class="comment"># fit_transform만 제공 (transform 없음)</span>
+            </div>
+
+            <h4>모델 평가 지표 (Metrics)</h4>
+            <div class="code-block">
+<span class="keyword">from</span> sklearn.metrics <span class="keyword">import</span> (
+    <span class="comment"># 회귀</span>
+    mean_squared_error, root_mean_squared_error,
+    mean_absolute_error, mean_absolute_percentage_error,
+    r2_score, explained_variance_score,
+    <span class="comment"># 분류</span>
+    accuracy_score, balanced_accuracy_score,
+    precision_score, recall_score, f1_score,
+    classification_report, confusion_matrix, ConfusionMatrixDisplay,
+    roc_auc_score, roc_curve, average_precision_score,
+    log_loss,
+    <span class="comment"># 클러스터링</span>
+    silhouette_score, davies_bouldin_score,
+    adjusted_rand_score,
+)
+
+<span class="comment"># ─── 회귀 평가 ────────────────────────────────────────────</span>
+mse  = mean_squared_error(y_test, y_pred)
+rmse = root_mean_squared_error(y_test, y_pred)   <span class="comment"># sklearn 1.4+</span>
+mae  = mean_absolute_error(y_test, y_pred)
+mape = mean_absolute_percentage_error(y_test, y_pred)  <span class="comment"># 비율 오차</span>
+r2   = r2_score(y_test, y_pred)                  <span class="comment"># 1.0 = 완벽, 음수 = 기준선 이하</span>
+
+<span class="comment"># ─── 분류 평가 ────────────────────────────────────────────</span>
+acc  = accuracy_score(y_test, y_pred)
+bacc = balanced_accuracy_score(y_test, y_pred)   <span class="comment"># 클래스 불균형 시 권장</span>
+prec = precision_score(y_test, y_pred, average=<span class="string">"weighted"</span>)
+rec  = recall_score(y_test,  y_pred, average=<span class="string">"macro"</span>)
+f1   = f1_score(y_test, y_pred, average=<span class="string">"macro"</span>)
+<span class="comment"># average: "binary","micro","macro","weighted","samples"</span>
+
+<span class="comment"># 전체 리포트</span>
+<span class="builtin">print</span>(classification_report(y_test, y_pred, target_names=iris.target_names))
+
+<span class="comment"># 혼동 행렬</span>
+cm = confusion_matrix(y_test, y_pred)
+ConfusionMatrixDisplay(cm, display_labels=iris.target_names).plot()
+
+<span class="comment"># ROC-AUC (이진 분류)</span>
+y_prob = clf.predict_proba(X_test)[:, <span class="number">1</span>]
+auc    = roc_auc_score(y_test, y_prob)
+fpr, tpr, thresholds = roc_curve(y_test, y_prob)
+
+<span class="comment"># ROC-AUC (다중 분류)</span>
+y_prob_multi = clf.predict_proba(X_test)
+auc_multi = roc_auc_score(y_test, y_prob_multi, multi_class=<span class="string">"ovr"</span>, average=<span class="string">"macro"</span>)
+            </div>
+
+            <h4>교차 검증 (Cross Validation)</h4>
+            <div class="code-block">
+<span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> (
+    cross_val_score, cross_validate,
+    KFold, StratifiedKFold, RepeatedStratifiedKFold,
+    LeaveOneOut, GroupKFold,
+)
+
+<span class="comment"># cross_val_score — 단일 지표</span>
+scores = cross_val_score(
+    RandomForestClassifier(random_state=<span class="number">42</span>), X, y,
+    cv=<span class="number">5</span>,              <span class="comment"># 5-fold</span>
+    scoring=<span class="string">"f1_macro"</span>,
+    n_jobs=-<span class="number">1</span>
+)
+<span class="builtin">print</span>(<span class="string">f"F1: </span>{scores.mean():.4f}<span class="string"> ± </span>{scores.std():.4f}<span class="string">"</span>)
+
+<span class="comment"># cross_validate — 여러 지표 + 훈련 점수</span>
+cv_res = cross_validate(
+    RandomForestClassifier(random_state=<span class="number">42</span>), X, y,
+    cv=<span class="number">5</span>,
+    scoring=[<span class="string">"accuracy"</span>, <span class="string">"f1_macro"</span>, <span class="string">"roc_auc_ovr"</span>],
+    return_train_score=<span class="keyword">True</span>
+)
+
+<span class="comment"># StratifiedKFold — 클래스 비율 유지 (분류 기본 권장)</span>
+skf = StratifiedKFold(n_splits=<span class="number">5</span>, shuffle=<span class="keyword">True</span>, random_state=<span class="number">42</span>)
+<span class="keyword">for</span> fold, (tr_idx, val_idx) <span class="keyword">in</span> <span class="builtin">enumerate</span>(skf.split(X, y)):
+    X_tr, X_val = X[tr_idx], X[val_idx]
+    y_tr, y_val = y[tr_idx], y[val_idx]
+    <span class="comment"># 모델 학습/평가</span>
+
+<span class="comment"># RepeatedStratifiedKFold — k-fold를 n번 반복</span>
+rskf = RepeatedStratifiedKFold(n_splits=<span class="number">5</span>, n_repeats=<span class="number">3</span>, random_state=<span class="number">42</span>)
+<span class="comment"># → 총 15번 평가로 분산 감소</span>
+
+<span class="comment"># LeaveOneOut — 소규모 데이터</span>
+loo_scores = cross_val_score(clf, X, y, cv=LeaveOneOut(), scoring=<span class="string">"accuracy"</span>)
+            </div>
+
+            <h4>하이퍼파라미터 튜닝</h4>
+            <div class="code-block">
+<span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> (
+    GridSearchCV, RandomizedSearchCV, HalvingGridSearchCV
+)
+<span class="keyword">from</span> scipy.stats <span class="keyword">import</span> randint, uniform, loguniform
+
+<span class="comment"># GridSearchCV — 격자 탐색 (전수 조사)</span>
+param_grid = {
+    <span class="string">"n_estimators"</span> : [<span class="number">100</span>, <span class="number">200</span>, <span class="number">300</span>],
+    <span class="string">"max_depth"</span>    : [<span class="keyword">None</span>, <span class="number">5</span>, <span class="number">10</span>],
+    <span class="string">"max_features"</span> : [<span class="string">"sqrt"</span>, <span class="string">"log2"</span>],
+}
+grid = GridSearchCV(
+    RandomForestClassifier(random_state=<span class="number">42</span>),
+    param_grid,
+    cv=<span class="number">5</span>, scoring=<span class="string">"f1_macro"</span>, n_jobs=-<span class="number">1</span>, verbose=<span class="number">1</span>
+)
+grid.fit(X_train, y_train)
+grid.best_params_   <span class="comment"># 최적 파라미터</span>
+grid.best_score_    <span class="comment"># 교차 검증 최고 점수</span>
+grid.best_estimator_.predict(X_test)
+
+<span class="comment"># RandomizedSearchCV — 무작위 탐색 (시간 절약)</span>
+param_dist = {
+    <span class="string">"n_estimators"</span> : randint(<span class="number">50</span>, <span class="number">500</span>),
+    <span class="string">"max_depth"</span>    : [<span class="keyword">None</span>, <span class="number">5</span>, <span class="number">10</span>, <span class="number">20</span>],
+    <span class="string">"max_features"</span> : uniform(<span class="number">0.1</span>, <span class="number">0.9</span>),
+    <span class="string">"min_samples_leaf"</span>: randint(<span class="number">1</span>, <span class="number">10</span>),
+}
+rand = RandomizedSearchCV(
+    RandomForestClassifier(random_state=<span class="number">42</span>),
+    param_dist,
+    n_iter=<span class="number">50</span>,        <span class="comment"># 시도 횟수</span>
+    cv=<span class="number">5</span>, scoring=<span class="string">"f1_macro"</span>, n_jobs=-<span class="number">1</span>, random_state=<span class="number">42</span>
+)
+rand.fit(X_train, y_train)
+
+<span class="comment"># HalvingGridSearchCV — 예산 절반씩 할당 (빠름, sklearn 0.24+)</span>
+halving = HalvingGridSearchCV(
+    RandomForestClassifier(random_state=<span class="number">42</span>), param_grid,
+    cv=<span class="number">5</span>, factor=<span class="number">2</span>, resource=<span class="string">"n_samples"</span>, random_state=<span class="number">42</span>
+)
+            </div>
+
+            <h4>파이프라인 (Pipeline)</h4>
+            <div class="code-block">
+<span class="keyword">from</span> sklearn.pipeline <span class="keyword">import</span> Pipeline, make_pipeline
+<span class="keyword">from</span> sklearn.compose  <span class="keyword">import</span> ColumnTransformer, make_column_selector
+
+<span class="comment"># 기본 파이프라인 — 전처리 + 모델을 하나로</span>
+pipe = Pipeline([
+    (<span class="string">"scaler"</span>, StandardScaler()),
+    (<span class="string">"pca"</span>,    PCA(n_components=<span class="number">10</span>)),
+    (<span class="string">"clf"</span>,    RandomForestClassifier(random_state=<span class="number">42</span>)),
+])
+pipe.fit(X_train, y_train)
+pipe.predict(X_test)
+pipe.score(X_test, y_test)
+
+<span class="comment"># make_pipeline — 이름 자동 지정 (간편 버전)</span>
+pipe = make_pipeline(StandardScaler(), LogisticRegression())
+
+<span class="comment"># Pipeline + GridSearchCV — 파이프라인 파라미터 탐색</span>
+param_grid = {
+    <span class="string">"pca__n_components"</span>         : [<span class="number">5</span>, <span class="number">10</span>, <span class="number">20</span>],
+    <span class="string">"clf__n_estimators"</span>         : [<span class="number">100</span>, <span class="number">200</span>],
+    <span class="string">"clf__max_depth"</span>            : [<span class="keyword">None</span>, <span class="number">5</span>],
+}   <span class="comment"># 단계명__파라미터명 형식</span>
+grid_pipe = GridSearchCV(pipe, param_grid, cv=<span class="number">5</span>, n_jobs=-<span class="number">1</span>)
+
+<span class="comment"># ColumnTransformer — 열 유형별 전처리</span>
+num_features = [<span class="string">"age"</span>, <span class="string">"income"</span>, <span class="string">"score"</span>]
+cat_features = [<span class="string">"gender"</span>, <span class="string">"city"</span>, <span class="string">"grade"</span>]
+
+preprocessor = ColumnTransformer(transformers=[
+    (<span class="string">"num"</span>, StandardScaler(),                      num_features),
+    (<span class="string">"cat"</span>, OneHotEncoder(handle_unknown=<span class="string">"ignore"</span>), cat_features),
+], remainder=<span class="string">"drop"</span>)    <span class="comment"># 나머지 열 처리: "drop","passthrough"</span>
+
+full_pipe = Pipeline([
+    (<span class="string">"prep"</span>, preprocessor),
+    (<span class="string">"clf"</span>,  RandomForestClassifier(n_jobs=-<span class="number">1</span>, random_state=<span class="number">42</span>)),
+])
+full_pipe.fit(X_train_df, y_train)
+            </div>
+
+            <h4>특성 선택 (Feature Selection)</h4>
+            <div class="code-block">
+<span class="keyword">from</span> sklearn.feature_selection <span class="keyword">import</span> (
+    SelectKBest, SelectPercentile,
+    f_classif, chi2, mutual_info_classif,    <span class="comment"># 분류 점수 함수</span>
+    f_regression, mutual_info_regression,    <span class="comment"># 회귀 점수 함수</span>
+    RFE, RFECV,                              <span class="comment"># 재귀적 특성 제거</span>
+    SelectFromModel,                         <span class="comment"># 모델 기반 선택</span>
+)
+
+<span class="comment"># 통계 기반 — 상위 K개 특성 선택</span>
+skb = SelectKBest(score_func=f_classif, k=<span class="number">10</span>)
+X_new = skb.fit_transform(X_train, y_train)
+skb.get_support()           <span class="comment"># 선택된 특성 bool 마스크</span>
+skb.scores_                 <span class="comment"># 각 특성의 점수</span>
+skb.get_feature_names_out() <span class="comment"># 선택된 특성 이름 (sklearn 1.0+)</span>
+
+<span class="comment"># RFE — 재귀적 특성 제거</span>
+rfe = RFE(estimator=LogisticRegression(), n_features_to_select=<span class="number">10</span>, step=<span class="number">1</span>)
+rfe.fit(X_train, y_train)
+rfe.ranking_    <span class="comment"># 특성 순위 (1 = 선택됨)</span>
+rfe.support_    <span class="comment"># 선택된 특성 bool</span>
+
+<span class="comment"># RFECV — 교차 검증으로 최적 특성 수 자동 결정</span>
+rfecv = RFECV(LogisticRegression(), cv=<span class="number">5</span>, scoring=<span class="string">"accuracy"</span>, n_jobs=-<span class="number">1</span>)
+rfecv.fit(X_train, y_train)
+rfecv.n_features_  <span class="comment"># 선택된 최적 특성 수</span>
+
+<span class="comment"># 모델 기반 — 트리/선형모델 feature_importances_ 활용</span>
+sfm = SelectFromModel(RandomForestClassifier(n_estimators=<span class="number">100</span>, random_state=<span class="number">42</span>),
+                      threshold=<span class="string">"median"</span>)  <span class="comment"># 중앙값 이상 중요도만 선택</span>
+sfm.fit(X_train, y_train)
+X_selected = sfm.transform(X_train)
+            </div>
+
+            <h4>앙상블 (Ensemble)</h4>
+            <div class="code-block">
+<span class="keyword">from</span> sklearn.ensemble <span class="keyword">import</span> (
+    VotingClassifier, VotingRegressor,
+    StackingClassifier, StackingRegressor,
+    BaggingClassifier,
+)
+
+<span class="comment"># VotingClassifier — 여러 모델의 다수결 / 평균</span>
+voting = VotingClassifier(estimators=[
+    (<span class="string">"lr"</span>,  LogisticRegression(max_iter=<span class="number">1000</span>)),
+    (<span class="string">"svc"</span>, SVC(probability=<span class="keyword">True</span>)),
+    (<span class="string">"rf"</span>,  RandomForestClassifier(n_estimators=<span class="number">100</span>, random_state=<span class="number">42</span>)),
+],
+voting=<span class="string">"soft"</span>,    <span class="comment"># "hard"=다수결, "soft"=확률 평균 (일반적으로 성능 우수)</span>
+n_jobs=-<span class="number">1</span>)
+voting.fit(X_train, y_train)
+
+<span class="comment"># StackingClassifier — 메타 학습기 (2단계)</span>
+estimators = [
+    (<span class="string">"lr"</span>,  LogisticRegression(max_iter=<span class="number">1000</span>)),
+    (<span class="string">"rf"</span>,  RandomForestClassifier(n_estimators=<span class="number">100</span>, random_state=<span class="number">42</span>)),
+    (<span class="string">"svc"</span>, SVC(probability=<span class="keyword">True</span>)),
+]
+stacking = StackingClassifier(
+    estimators=estimators,
+    final_estimator=LogisticRegression(),  <span class="comment"># 메타 학습기</span>
+    cv=<span class="number">5</span>,
+    passthrough=<span class="keyword">False</span>  <span class="comment"># True이면 원본 특성도 메타 학습기에 전달</span>
+)
+
+<span class="comment"># BaggingClassifier — 부트스트랩 앙상블</span>
+bag = BaggingClassifier(
+    estimator=DecisionTreeClassifier(),
+    n_estimators=<span class="number">100</span>,
+    max_samples=<span class="number">0.8</span>,   <span class="comment"># 훈련 샘플 비율</span>
+    max_features=<span class="number">0.8</span>,  <span class="comment"># 특성 비율</span>
+    bootstrap=<span class="keyword">True</span>,
+    n_jobs=-<span class="number">1</span>,
+    random_state=<span class="number">42</span>
+)
+            </div>
+
+            <h4>모델 저장 &amp; 불러오기</h4>
+            <div class="code-block">
+<span class="keyword">import</span> joblib
+<span class="keyword">import</span> pickle
+
+<span class="comment"># joblib — sklearn 모델에 권장 (numpy 배열 효율적)</span>
+joblib.dump(model, <span class="string">"model.joblib"</span>)             <span class="comment"># 저장</span>
+loaded_model = joblib.load(<span class="string">"model.joblib"</span>)      <span class="comment"># 불러오기</span>
+loaded_model.predict(X_test)
+
+<span class="comment"># 압축 저장</span>
+joblib.dump(model, <span class="string">"model.joblib.gz"</span>, compress=<span class="number">3</span>)
+
+<span class="comment"># pickle — 표준 라이브러리</span>
+<span class="keyword">with</span> <span class="builtin">open</span>(<span class="string">"model.pkl"</span>, <span class="string">"wb"</span>) <span class="keyword">as</span> f:
+    pickle.dump(model, f)
+<span class="keyword">with</span> <span class="builtin">open</span>(<span class="string">"model.pkl"</span>, <span class="string">"rb"</span>) <span class="keyword">as</span> f:
+    loaded = pickle.load(f)
+
+<span class="comment"># 전처리기 + 모델 파이프라인 통째로 저장</span>
+joblib.dump(full_pipe, <span class="string">"pipeline.joblib"</span>)
+
+<span class="comment"># 모델 메타 정보 확인</span>
+<span class="builtin">print</span>(loaded_model.get_params())   <span class="comment"># 파라미터 딕셔너리</span>
+            </div>
+
+            <h4>주요 알고리즘 선택 가이드</h4>
+            <table class="comparison-table">
+                <tr><th>알고리즘</th><th>유형</th><th>장점</th><th>단점 / 주의</th></tr>
+                <tr><td>LinearRegression / Logistic</td><td>선형</td><td>빠름, 해석 쉬움</td><td>비선형 관계 취약</td></tr>
+                <tr><td>Ridge / Lasso / ElasticNet</td><td>정규화 선형</td><td>과적합 완화, 특성 선택(Lasso)</td><td>alpha 튜닝 필요</td></tr>
+                <tr><td>DecisionTree</td><td>트리</td><td>해석 쉬움, 전처리 불필요</td><td>과적합 심함</td></tr>
+                <tr><td>RandomForest</td><td>배깅 앙상블</td><td>안정적, 중요도 제공, 병렬화</td><td>메모리 사용량, 느린 예측</td></tr>
+                <tr><td>GradientBoosting / HistGB</td><td>부스팅</td><td>높은 정확도, 결측치 허용(Hist)</td><td>튜닝 파라미터 많음</td></tr>
+                <tr><td>SVM / SVC</td><td>커널</td><td>고차원 강점, 마진 최적화</td><td>대용량 느림, 확률 느림</td></tr>
+                <tr><td>KNN</td><td>거리 기반</td><td>구현 간단, 파라미터 적음</td><td>예측 느림, 고차원 취약</td></tr>
+                <tr><td>K-Means</td><td>클러스터링</td><td>빠름, 확장성</td><td>K 사전 지정, 구형 군집만</td></tr>
+                <tr><td>DBSCAN</td><td>밀도 클러스터링</td><td>이상치 감지, K 불필요</td><td>고차원·대용량 어려움</td></tr>
+                <tr><td>PCA</td><td>차원 축소</td><td>빠름, 노이즈 제거</td><td>비선형 관계 포착 불가</td></tr>
+            </table>
+
             <h3>TensorFlow/Keras (딥러닝)</h3>
             <div class="code-block">
 <span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf
