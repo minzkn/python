@@ -5238,49 +5238,601 @@ strategy = tf.distribute.MirroredStrategy()  <span class="comment"># 단일 머�
             </table>
             
             <h3>PyTorch (딥러닝)</h3>
+
+            <p>PyTorch는 Meta(Facebook)가 개발한 오픈소스 딥러닝 프레임워크로,
+            동적 계산 그래프(Define-by-Run) 방식으로 직관적인 디버깅과 유연한 모델 설계가 가능합니다.
+            연구 커뮤니티에서 가장 널리 사용되며, TorchScript/ONNX를 통한 프로덕션 배포도 지원합니다.</p>
+
+            <div class="tip-box">
+                <strong>설치:</strong> <code>pip install torch torchvision torchaudio</code> &nbsp;|&nbsp;
+                CUDA: <a href="https://pytorch.org/get-started/locally/">pytorch.org</a>에서 플랫폼별 명령어 확인 &nbsp;|&nbsp;
+                확인: <code>python -c "import torch; print(torch.__version__); print(torch.cuda.is_available())"</code>
+            </div>
+
+            <h4>텐서(Tensor) 기본 연산</h4>
+            <div class="code-block">
+<span class="keyword">import</span> torch
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
+
+<span class="comment"># 텐서 생성</span>
+a = torch.tensor([[<span class="number">1</span>, <span class="number">2</span>], [<span class="number">3</span>, <span class="number">4</span>]], dtype=torch.float32)  <span class="comment"># 리스트에서</span>
+b = torch.zeros(<span class="number">3</span>, <span class="number">4</span>)                                    <span class="comment"># 영행렬</span>
+c = torch.ones(<span class="number">2</span>, <span class="number">3</span>)                                     <span class="comment"># 1행렬</span>
+d = torch.randn(<span class="number">3</span>, <span class="number">3</span>)                                    <span class="comment"># 표준정규분포 난수</span>
+e = torch.eye(<span class="number">3</span>)                                         <span class="comment"># 단위행렬</span>
+f = torch.arange(<span class="number">0</span>, <span class="number">10</span>, <span class="number">2</span>)                               <span class="comment"># [0, 2, 4, 6, 8]</span>
+g = torch.linspace(<span class="number">0</span>, <span class="number">1</span>, <span class="number">5</span>)                              <span class="comment"># [0, 0.25, 0.5, 0.75, 1]</span>
+h = torch.empty(<span class="number">2</span>, <span class="number">3</span>).uniform_(<span class="number">0</span>, <span class="number">1</span>)                     <span class="comment"># 균일분포 난수 (in-place)</span>
+
+<span class="comment"># 기본 수학 연산 (요소별)</span>
+x = a + a               <span class="comment"># torch.add(a, a)</span>
+x = a * a               <span class="comment"># torch.mul(a, a) — 요소별 곱</span>
+x = a @ a               <span class="comment"># torch.matmul(a, a) — 행렬 곱</span>
+x = a.sum()             <span class="comment"># 전체 합 → 스칼라 tensor(10.)</span>
+x = a.mean(dim=<span class="number">0</span>)       <span class="comment"># 열 평균 → tensor([2., 3.])</span>
+x = a.max(dim=<span class="number">1</span>)        <span class="comment"># 행 최대 → values, indices 반환</span>
+x = torch.clamp(a, <span class="number">0</span>, <span class="number">3</span>)  <span class="comment"># 값 범위 제한 [0, 3]</span>
+
+<span class="comment"># Shape 조작</span>
+t = torch.randn(<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>)
+t.shape                          <span class="comment"># torch.Size([2, 3, 4])</span>
+r = t.view(<span class="number">6</span>, <span class="number">4</span>)                <span class="comment"># reshape (연속 메모리 필요)</span>
+r = t.reshape(<span class="number">6</span>, <span class="number">4</span>)             <span class="comment"># reshape (자동 복사)</span>
+r = t.view(-<span class="number">1</span>)                  <span class="comment"># 평탄화 → (24,)</span>
+r = t.unsqueeze(<span class="number">0</span>)              <span class="comment"># (2,3,4) → (1,2,3,4) — 차원 추가</span>
+r = r.squeeze(<span class="number">0</span>)                <span class="comment"># (1,2,3,4) → (2,3,4) — 차원 제거</span>
+r = t.permute(<span class="number">2</span>, <span class="number">0</span>, <span class="number">1</span>)          <span class="comment"># 축 재배열 (2,3,4) → (4,2,3)</span>
+r = t.transpose(<span class="number">0</span>, <span class="number">1</span>)           <span class="comment"># 두 축 교환 (2,3,4) → (3,2,4)</span>
+
+<span class="comment"># 결합 &amp; 분할</span>
+x = torch.cat([a, a], dim=<span class="number">0</span>)    <span class="comment"># 행 방향 결합 (4,2)</span>
+x = torch.stack([a, a], dim=<span class="number">0</span>)  <span class="comment"># 새 차원으로 쌓기 (2,2,2)</span>
+chunks = t.chunk(<span class="number">3</span>, dim=<span class="number">1</span>)      <span class="comment"># dim=1 기준 3등분</span>
+
+<span class="comment"># 타입 변환 &amp; NumPy 호환</span>
+f = a.to(torch.float64)          <span class="comment"># float32 → float64</span>
+f = a.int()                       <span class="comment"># → int32 (단축형)</span>
+n = a.numpy()                     <span class="comment"># 텐서 → NumPy (CPU, 메모리 공유)</span>
+t = torch.from_numpy(n)           <span class="comment"># NumPy → 텐서 (메모리 공유)</span>
+t = a.clone().detach()            <span class="comment"># 독립 복사본 (그래프 분리)</span>
+            </div>
+
+            <h4>Autograd (자동 미분)</h4>
+            <div class="code-block">
+<span class="comment"># requires_grad=True → 연산 추적, 자동 미분 가능</span>
+x = torch.tensor([<span class="number">2.0</span>, <span class="number">3.0</span>], requires_grad=<span class="keyword">True</span>)
+y = x ** <span class="number">2</span> + <span class="number">3</span> * x + <span class="number">1</span>      <span class="comment"># y = x² + 3x + 1</span>
+loss = y.sum()
+loss.backward()                <span class="comment"># 역전파 — 그래디언트 계산</span>
+<span class="builtin">print</span>(x.grad)                  <span class="comment"># dy/dx = 2x + 3 → tensor([7., 9.])</span>
+
+<span class="comment"># 그래디언트 제어</span>
+x.grad.zero_()                 <span class="comment"># 그래디언트 초기화 (축적 방지)</span>
+
+<span class="comment"># 그래디언트 추적 비활성화 (추론/전처리 시)</span>
+<span class="keyword">with</span> torch.no_grad():
+    y = x * <span class="number">2</span>                  <span class="comment"># 연산 추적 안 함 → 메모리 절약</span>
+
+y = x.detach()                 <span class="comment"># 그래프에서 분리된 새 텐서</span>
+
+<span class="comment"># 고차 미분</span>
+x = torch.tensor([<span class="number">1.0</span>], requires_grad=<span class="keyword">True</span>)
+y = x ** <span class="number">3</span>
+grad1 = torch.autograd.grad(y, x, create_graph=<span class="keyword">True</span>)[<span class="number">0</span>]  <span class="comment"># 3x² = 3</span>
+grad2 = torch.autograd.grad(grad1, x)[<span class="number">0</span>]                  <span class="comment"># 6x  = 6</span>
+            </div>
+
+            <h4>nn.Module 모델 구축</h4>
+            <div class="code-block">
+<span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn
+
+<span class="comment"># 기본 모델 정의</span>
+<span class="keyword">class</span> <span class="function">Net</span>(nn.Module):
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, num_classes=<span class="number">10</span>):
+        <span class="builtin">super</span>().__init__()
+        self.fc1 = nn.Linear(<span class="number">784</span>, <span class="number">256</span>)
+        self.bn1 = nn.BatchNorm1d(<span class="number">256</span>)
+        self.fc2 = nn.Linear(<span class="number">256</span>, <span class="number">128</span>)
+        self.dropout = nn.Dropout(<span class="number">0.3</span>)
+        self.fc3 = nn.Linear(<span class="number">128</span>, num_classes)
+
+    <span class="keyword">def</span> <span class="function">forward</span>(self, x):
+        x = torch.relu(self.bn1(self.fc1(x)))
+        x = torch.relu(self.fc2(x))
+        x = self.dropout(x)      <span class="comment"># training 모드에서만 활성화</span>
+        <span class="keyword">return</span> self.fc3(x)        <span class="comment"># 분류: CrossEntropyLoss가 softmax 포함</span>
+
+model = Net(num_classes=<span class="number">10</span>)
+<span class="builtin">print</span>(model)                      <span class="comment"># 모델 구조 출력</span>
+
+<span class="comment"># 파라미터 확인</span>
+total = <span class="builtin">sum</span>(p.numel() <span class="keyword">for</span> p <span class="keyword">in</span> model.parameters())
+trainable = <span class="builtin">sum</span>(p.numel() <span class="keyword">for</span> p <span class="keyword">in</span> model.parameters() <span class="keyword">if</span> p.requires_grad)
+<span class="builtin">print</span>(f<span class="string">"전체: {total:,} / 학습 가능: {trainable:,}"</span>)
+
+<span class="comment"># 파라미터 순회</span>
+<span class="keyword">for</span> name, param <span class="keyword">in</span> model.named_parameters():
+    <span class="builtin">print</span>(f<span class="string">"{name}: {param.shape}"</span>)
+            </div>
+
+            <h4>nn.Sequential &amp; ModuleList</h4>
+            <div class="code-block">
+<span class="comment"># nn.Sequential — 레이어를 순서대로 쌓기</span>
+model = nn.Sequential(
+    nn.Linear(<span class="number">784</span>, <span class="number">256</span>),
+    nn.ReLU(),
+    nn.BatchNorm1d(<span class="number">256</span>),
+    nn.Dropout(<span class="number">0.3</span>),
+    nn.Linear(<span class="number">256</span>, <span class="number">128</span>),
+    nn.ReLU(),
+    nn.Linear(<span class="number">128</span>, <span class="number">10</span>)
+)
+
+<span class="comment"># OrderedDict로 이름 부여</span>
+<span class="keyword">from</span> collections <span class="keyword">import</span> OrderedDict
+model = nn.Sequential(OrderedDict([
+    (<span class="string">"fc1"</span>, nn.Linear(<span class="number">784</span>, <span class="number">256</span>)),
+    (<span class="string">"relu1"</span>, nn.ReLU()),
+    (<span class="string">"fc2"</span>, nn.Linear(<span class="number">256</span>, <span class="number">10</span>)),
+]))
+model.fc1   <span class="comment"># 이름으로 레이어 접근</span>
+
+<span class="comment"># nn.ModuleList — 동적 레이어 구성</span>
+<span class="keyword">class</span> <span class="function">DynamicNet</span>(nn.Module):
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, layers_sizes):
+        <span class="builtin">super</span>().__init__()
+        self.layers = nn.ModuleList([
+            nn.Linear(in_f, out_f)
+            <span class="keyword">for</span> in_f, out_f <span class="keyword">in</span> <span class="builtin">zip</span>(layers_sizes[:-<span class="number">1</span>], layers_sizes[<span class="number">1</span>:])
+        ])
+
+    <span class="keyword">def</span> <span class="function">forward</span>(self, x):
+        <span class="keyword">for</span> layer <span class="keyword">in</span> self.layers[:-<span class="number">1</span>]:
+            x = torch.relu(layer(x))
+        <span class="keyword">return</span> self.layers[-<span class="number">1</span>](x)
+
+<span class="comment"># nn.ModuleDict — 조건부 레이어 선택</span>
+<span class="keyword">class</span> <span class="function">FlexibleNet</span>(nn.Module):
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, activation=<span class="string">"relu"</span>):
+        <span class="builtin">super</span>().__init__()
+        self.fc = nn.Linear(<span class="number">784</span>, <span class="number">10</span>)
+        self.activations = nn.ModuleDict({
+            <span class="string">"relu"</span>: nn.ReLU(),
+            <span class="string">"gelu"</span>: nn.GELU(),
+            <span class="string">"silu"</span>: nn.SiLU(),
+        })
+        self.act = self.activations[activation]
+            </div>
+
+            <h4>잔차 연결 &amp; 고급 패턴</h4>
+            <div class="code-block">
+<span class="comment"># 잔차 블록 (ResNet 스타일)</span>
+<span class="keyword">class</span> <span class="function">ResidualBlock</span>(nn.Module):
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, dim):
+        <span class="builtin">super</span>().__init__()
+        self.block = nn.Sequential(
+            nn.Linear(dim, dim),
+            nn.BatchNorm1d(dim),
+            nn.ReLU(),
+            nn.Linear(dim, dim),
+            nn.BatchNorm1d(dim),
+        )
+
+    <span class="keyword">def</span> <span class="function">forward</span>(self, x):
+        <span class="keyword">return</span> torch.relu(self.block(x) + x)  <span class="comment"># 잔차 연결</span>
+
+<span class="comment"># 다중 입력 모델</span>
+<span class="keyword">class</span> <span class="function">MultiInputModel</span>(nn.Module):
+    <span class="keyword">def</span> <span class="function">__init__</span>(self):
+        <span class="builtin">super</span>().__init__()
+        self.text_branch = nn.Linear(<span class="number">100</span>, <span class="number">64</span>)
+        self.meta_branch = nn.Linear(<span class="number">5</span>, <span class="number">16</span>)
+        self.classifier = nn.Linear(<span class="number">80</span>, <span class="number">10</span>)
+
+    <span class="keyword">def</span> <span class="function">forward</span>(self, text, meta):
+        t = torch.relu(self.text_branch(text))
+        m = torch.relu(self.meta_branch(meta))
+        merged = torch.cat([t, m], dim=<span class="number">1</span>)  <span class="comment"># 특성 결합</span>
+        <span class="keyword">return</span> self.classifier(merged)
+            </div>
+
+            <h4>주요 레이어 비교</h4>
+            <table class="comparison-table">
+                <tr><th>레이어</th><th>용도</th><th>주요 파라미터</th><th>입력 shape</th></tr>
+                <tr><td>nn.Linear</td><td>완전연결 (MLP)</td><td>in_features, out_features</td><td>(batch, features)</td></tr>
+                <tr><td>nn.Conv2d</td><td>이미지 특징 추출</td><td>in_channels, out_channels, kernel_size</td><td>(batch, C, H, W)</td></tr>
+                <tr><td>nn.MaxPool2d</td><td>공간 다운샘플링</td><td>kernel_size, stride</td><td>(batch, C, H, W)</td></tr>
+                <tr><td>nn.LSTM</td><td>시계열/순차 데이터</td><td>input_size, hidden_size, num_layers</td><td>(seq, batch, features)</td></tr>
+                <tr><td>nn.GRU</td><td>경량 순환 레이어</td><td>input_size, hidden_size</td><td>(seq, batch, features)</td></tr>
+                <tr><td>nn.Embedding</td><td>정수→밀집 벡터</td><td>num_embeddings, embedding_dim</td><td>(batch, seq_len) 정수</td></tr>
+                <tr><td>nn.BatchNorm1d/2d</td><td>학습 안정화, 가속</td><td>num_features</td><td>(batch, features) / (B,C,H,W)</td></tr>
+                <tr><td>nn.Dropout</td><td>과적합 방지</td><td>p (0~1)</td><td>임의</td></tr>
+                <tr><td>nn.LayerNorm</td><td>Transformer 정규화</td><td>normalized_shape</td><td>임의</td></tr>
+                <tr><td>nn.MultiheadAttention</td><td>어텐션 메커니즘</td><td>embed_dim, num_heads</td><td>(seq, batch, embed_dim)</td></tr>
+            </table>
+
+            <div class="tip-box">
+                <strong>TensorFlow vs PyTorch 채널 순서:</strong>
+                TensorFlow/Keras는 <code>(batch, H, W, C)</code> — channels-last,
+                PyTorch는 <code>(batch, C, H, W)</code> — channels-first가 기본입니다.
+                PyTorch에서 <code>.permute(0, 3, 1, 2)</code>로 변환하세요.
+            </div>
+
+            <h4>손실 함수(Loss Function)</h4>
+            <table class="comparison-table">
+                <tr><th>작업</th><th>손실 함수</th><th>출력 형태</th><th>레이블 형태</th></tr>
+                <tr><td>다중 분류</td><td><code>nn.CrossEntropyLoss()</code></td><td>raw logits (N, C)</td><td>정수 (N,)</td></tr>
+                <tr><td>이진 분류</td><td><code>nn.BCEWithLogitsLoss()</code></td><td>raw logits (N, 1)</td><td>float 0/1 (N, 1)</td></tr>
+                <tr><td>이진 분류 (sigmoid 후)</td><td><code>nn.BCELoss()</code></td><td>확률 (N, 1)</td><td>float 0/1 (N, 1)</td></tr>
+                <tr><td>회귀</td><td><code>nn.MSELoss()</code></td><td>(N, *)</td><td>(N, *)</td></tr>
+                <tr><td>회귀 (이상치 강건)</td><td><code>nn.SmoothL1Loss()</code></td><td>(N, *)</td><td>(N, *)</td></tr>
+                <tr><td>회귀 (L1)</td><td><code>nn.L1Loss()</code></td><td>(N, *)</td><td>(N, *)</td></tr>
+                <tr><td>다중 레이블</td><td><code>nn.BCEWithLogitsLoss()</code></td><td>raw logits (N, C)</td><td>multi-hot (N, C)</td></tr>
+            </table>
+            <div class="code-block">
+<span class="comment"># CrossEntropyLoss는 내부에 softmax를 포함 — 모델 출력에 softmax 적용하지 말 것!</span>
+criterion = nn.CrossEntropyLoss()
+logits = model(x)                     <span class="comment"># raw logits, softmax 적용 안 함</span>
+loss = criterion(logits, labels)      <span class="comment"># labels: 정수 텐서 (LongTensor)</span>
+
+<span class="comment"># 클래스 불균형 처리</span>
+weights = torch.tensor([<span class="number">1.0</span>, <span class="number">5.0</span>, <span class="number">1.0</span>])  <span class="comment"># 클래스별 가중치</span>
+criterion = nn.CrossEntropyLoss(weight=weights.to(device))
+
+<span class="comment"># 커스텀 손실 함수</span>
+<span class="keyword">class</span> <span class="function">FocalLoss</span>(nn.Module):
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, alpha=<span class="number">1.0</span>, gamma=<span class="number">2.0</span>):
+        <span class="builtin">super</span>().__init__()
+        self.alpha = alpha
+        self.gamma = gamma
+
+    <span class="keyword">def</span> <span class="function">forward</span>(self, inputs, targets):
+        ce_loss = nn.functional.cross_entropy(inputs, targets, reduction=<span class="string">"none"</span>)
+        pt = torch.exp(-ce_loss)
+        <span class="keyword">return</span> (self.alpha * (<span class="number">1</span> - pt) ** self.gamma * ce_loss).mean()
+            </div>
+
+            <h4>옵티마이저(Optimizer) &amp; 스케줄러</h4>
+            <div class="code-block">
+<span class="keyword">import</span> torch.optim <span class="keyword">as</span> optim
+
+<span class="comment"># 주요 옵티마이저</span>
+optim.SGD(model.parameters(), lr=<span class="number">0.01</span>, momentum=<span class="number">0.9</span>, weight_decay=<span class="number">1e-4</span>)
+optim.Adam(model.parameters(), lr=<span class="number">1e-3</span>, weight_decay=<span class="number">1e-4</span>)
+optim.AdamW(model.parameters(), lr=<span class="number">1e-3</span>, weight_decay=<span class="number">1e-2</span>)  <span class="comment"># 분리된 가중치 감쇠</span>
+optim.RMSprop(model.parameters(), lr=<span class="number">1e-3</span>)
+
+<span class="comment"># 파라미터 그룹별 학습률 설정</span>
+optimizer = optim.Adam([
+    {<span class="string">"params"</span>: model.fc1.parameters(), <span class="string">"lr"</span>: <span class="number">1e-4</span>},    <span class="comment"># 사전학습 레이어 (낮은 lr)</span>
+    {<span class="string">"params"</span>: model.fc3.parameters(), <span class="string">"lr"</span>: <span class="number">1e-3</span>},    <span class="comment"># 새 레이어 (높은 lr)</span>
+], weight_decay=<span class="number">1e-4</span>)
+
+<span class="comment"># 학습률 스케줄러</span>
+scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=<span class="number">10</span>, gamma=<span class="number">0.1</span>)   <span class="comment"># 10 에포크마다 ×0.1</span>
+scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=<span class="number">50</span>)        <span class="comment"># 코사인 감쇠</span>
+scheduler = optim.lr_scheduler.ReduceLROnPlateau(                              <span class="comment"># 정체 시 감소</span>
+    optimizer, mode=<span class="string">"min"</span>, factor=<span class="number">0.5</span>, patience=<span class="number">5</span>
+)
+scheduler = optim.lr_scheduler.OneCycleLR(                                     <span class="comment"># 1-Cycle 정책</span>
+    optimizer, max_lr=<span class="number">0.01</span>, total_steps=<span class="number">1000</span>
+)
+
+<span class="comment"># 스케줄러 사용 (학습 루프 내에서)</span>
+<span class="comment"># scheduler.step()            — 에포크 기반 (StepLR, CosineAnnealing)</span>
+<span class="comment"># scheduler.step(val_loss)    — 메트릭 기반 (ReduceLROnPlateau)</span>
+<span class="comment"># scheduler.step()            — 배치 기반 (OneCycleLR) — 매 배치 후 호출</span>
+            </div>
+
+            <h4>표준 학습 루프</h4>
             <div class="code-block">
 <span class="keyword">import</span> torch
 <span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn
 <span class="keyword">import</span> torch.optim <span class="keyword">as</span> optim
-<span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> DataLoader, TensorDataset
 
-<span class="comment"># 텐서 생성</span>
-x = torch.tensor([[<span class="number">1</span>, <span class="number">2</span>], [<span class="number">3</span>, <span class="number">4</span>]], dtype=torch.float32)
-y = torch.tensor([<span class="number">1</span>, <span class="number">0</span>])
-
-<span class="comment"># GPU 사용</span>
 device = torch.device(<span class="string">"cuda"</span> <span class="keyword">if</span> torch.cuda.is_available() <span class="keyword">else</span> <span class="string">"cpu"</span>)
-x = x.to(device)
-
-<span class="comment"># 모델 정의</span>
-<span class="keyword">class</span> <span class="function">Net</span>(nn.Module):
-    <span class="keyword">def</span> <span class="function">__init__</span>(self):
-        <span class="builtin">super</span>(Net, self).__init__()
-        self.fc1 = nn.Linear(<span class="number">784</span>, <span class="number">128</span>)
-        self.fc2 = nn.Linear(<span class="number">128</span>, <span class="number">10</span>)
-    
-    <span class="keyword">def</span> <span class="function">forward</span>(self, x):
-        x = torch.relu(self.fc1(x))
-        x = self.fc2(x)
-        <span class="keyword">return</span> x
-
 model = Net().to(device)
-
-<span class="comment"># 손실 함수 및 옵티마이저</span>
 criterion = nn.CrossEntropyLoss()
-optimizer = optim.Adam(model.parameters(), lr=<span class="number">0.001</span>)
+optimizer = optim.Adam(model.parameters(), lr=<span class="number">1e-3</span>)
+scheduler = optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=<span class="number">20</span>)
 
-<span class="comment"># 학습 루프</span>
-<span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="builtin">range</span>(<span class="number">10</span>):
-    <span class="keyword">for</span> data, target <span class="keyword">in</span> dataloader:
-        data, target = data.to(device), target.to(device)
-        
-        optimizer.zero_grad()
-        output = model(data)
-        loss = criterion(output, target)
-        loss.backward()
-        optimizer.step()
+<span class="comment"># 학습 함수</span>
+<span class="keyword">def</span> <span class="function">train_one_epoch</span>(model, loader, criterion, optimizer, device):
+    model.train()                       <span class="comment"># Dropout, BatchNorm 학습 모드</span>
+    running_loss = <span class="number">0.0</span>
+    correct = <span class="number">0</span>
+    total = <span class="number">0</span>
+    <span class="keyword">for</span> inputs, labels <span class="keyword">in</span> loader:
+        inputs, labels = inputs.to(device), labels.to(device)
+
+        optimizer.zero_grad()           <span class="comment"># ① 그래디언트 초기화</span>
+        outputs = model(inputs)         <span class="comment"># ② 순전파</span>
+        loss = criterion(outputs, labels)
+        loss.backward()                 <span class="comment"># ③ 역전파</span>
+        optimizer.step()                <span class="comment"># ④ 가중치 갱신</span>
+
+        running_loss += loss.item() * inputs.size(<span class="number">0</span>)
+        _, predicted = outputs.max(<span class="number">1</span>)
+        total += labels.size(<span class="number">0</span>)
+        correct += predicted.eq(labels).sum().item()
+
+    <span class="keyword">return</span> running_loss / total, correct / total
+
+<span class="comment"># 검증 함수</span>
+<span class="decorator">@torch.no_grad()</span>                        <span class="comment"># 그래디언트 비활성화</span>
+<span class="keyword">def</span> <span class="function">evaluate</span>(model, loader, criterion, device):
+    model.eval()                         <span class="comment"># Dropout 비활성화, BatchNorm 고정</span>
+    running_loss = <span class="number">0.0</span>
+    correct = <span class="number">0</span>
+    total = <span class="number">0</span>
+    <span class="keyword">for</span> inputs, labels <span class="keyword">in</span> loader:
+        inputs, labels = inputs.to(device), labels.to(device)
+        outputs = model(inputs)
+        loss = criterion(outputs, labels)
+        running_loss += loss.item() * inputs.size(<span class="number">0</span>)
+        _, predicted = outputs.max(<span class="number">1</span>)
+        total += labels.size(<span class="number">0</span>)
+        correct += predicted.eq(labels).sum().item()
+    <span class="keyword">return</span> running_loss / total, correct / total
+
+<span class="comment"># 학습 루프 (EarlyStopping 포함)</span>
+best_val_loss = <span class="builtin">float</span>(<span class="string">"inf"</span>)
+patience_counter = <span class="number">0</span>
+
+<span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="builtin">range</span>(<span class="number">100</span>):
+    train_loss, train_acc = train_one_epoch(model, train_loader, criterion, optimizer, device)
+    val_loss, val_acc = evaluate(model, val_loader, criterion, device)
+    scheduler.step()
+
+    <span class="builtin">print</span>(f<span class="string">"[{epoch+1:3d}] train_loss={train_loss:.4f} acc={train_acc:.4f} | val_loss={val_loss:.4f} acc={val_acc:.4f}"</span>)
+
+    <span class="keyword">if</span> val_loss &lt; best_val_loss:
+        best_val_loss = val_loss
+        patience_counter = <span class="number">0</span>
+        torch.save(model.state_dict(), <span class="string">"best_model.pt"</span>)  <span class="comment"># 최적 모델 저장</span>
+    <span class="keyword">else</span>:
+        patience_counter += <span class="number">1</span>
+        <span class="keyword">if</span> patience_counter >= <span class="number">10</span>:
+            <span class="builtin">print</span>(<span class="string">"Early stopping!"</span>)
+            <span class="keyword">break</span>
+
+model.load_state_dict(torch.load(<span class="string">"best_model.pt"</span>))  <span class="comment"># 최적 가중치 복원</span>
             </div>
+
+            <h4>DataLoader &amp; Dataset</h4>
+            <div class="code-block">
+<span class="keyword">from</span> torch.utils.data <span class="keyword">import</span> Dataset, DataLoader, TensorDataset, random_split
+
+<span class="comment"># ① TensorDataset — NumPy/텐서에서 바로 생성</span>
+dataset = TensorDataset(
+    torch.tensor(X_train, dtype=torch.float32),
+    torch.tensor(y_train, dtype=torch.long)
+)
+
+<span class="comment"># ② 커스텀 Dataset</span>
+<span class="keyword">class</span> <span class="function">MyDataset</span>(Dataset):
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, data, labels, transform=<span class="keyword">None</span>):
+        self.data = data
+        self.labels = labels
+        self.transform = transform
+
+    <span class="keyword">def</span> <span class="function">__len__</span>(self):
+        <span class="keyword">return</span> <span class="builtin">len</span>(self.data)
+
+    <span class="keyword">def</span> <span class="function">__getitem__</span>(self, idx):
+        sample = self.data[idx]
+        label = self.labels[idx]
+        <span class="keyword">if</span> self.transform:
+            sample = self.transform(sample)
+        <span class="keyword">return</span> sample, label
+
+<span class="comment"># DataLoader — 배치, 셔플, 병렬 로딩</span>
+train_loader = DataLoader(
+    dataset,
+    batch_size=<span class="number">64</span>,
+    shuffle=<span class="keyword">True</span>,            <span class="comment"># 학습 데이터 셔플</span>
+    num_workers=<span class="number">4</span>,           <span class="comment"># 병렬 데이터 로딩 프로세스</span>
+    pin_memory=<span class="keyword">True</span>,          <span class="comment"># GPU 전송 가속 (CUDA)</span>
+    drop_last=<span class="keyword">True</span>,           <span class="comment"># 마지막 불완전 배치 제거</span>
+)
+val_loader = DataLoader(dataset, batch_size=<span class="number">128</span>, shuffle=<span class="keyword">False</span>)
+
+<span class="comment"># 데이터 분할</span>
+train_set, val_set = random_split(dataset, [<span class="number">0.8</span>, <span class="number">0.2</span>])
+
+<span class="comment"># 이미지 데이터: torchvision transforms</span>
+<span class="keyword">from</span> torchvision <span class="keyword">import</span> transforms, datasets
+
+transform_train = transforms.Compose([
+    transforms.RandomResizedCrop(<span class="number">224</span>),
+    transforms.RandomHorizontalFlip(),
+    transforms.ColorJitter(brightness=<span class="number">0.2</span>, contrast=<span class="number">0.2</span>),
+    transforms.ToTensor(),
+    transforms.Normalize(mean=[<span class="number">0.485</span>, <span class="number">0.456</span>, <span class="number">0.406</span>],
+                         std=[<span class="number">0.229</span>, <span class="number">0.224</span>, <span class="number">0.225</span>])
+])
+transform_val = transforms.Compose([
+    transforms.Resize(<span class="number">256</span>),
+    transforms.CenterCrop(<span class="number">224</span>),
+    transforms.ToTensor(),
+    transforms.Normalize(mean=[<span class="number">0.485</span>, <span class="number">0.456</span>, <span class="number">0.406</span>],
+                         std=[<span class="number">0.229</span>, <span class="number">0.224</span>, <span class="number">0.225</span>])
+])
+
+<span class="comment"># 내장 데이터셋 (CIFAR-10, MNIST, ImageNet 등)</span>
+train_ds = datasets.CIFAR10(<span class="string">"./data"</span>, train=<span class="keyword">True</span>, download=<span class="keyword">True</span>, transform=transform_train)
+train_loader = DataLoader(train_ds, batch_size=<span class="number">64</span>, shuffle=<span class="keyword">True</span>, num_workers=<span class="number">4</span>)
+
+<span class="comment"># ImageFolder — 디렉토리 구조에서 자동 로딩 (data/train/cat/*.jpg, data/train/dog/*.jpg)</span>
+train_ds = datasets.ImageFolder(<span class="string">"data/train"</span>, transform=transform_train)
+            </div>
+
+            <h4>모델 저장 및 로드</h4>
+            <div class="code-block">
+<span class="comment"># ① state_dict 저장/로드 (권장 — 가중치만, 코드 유지)</span>
+torch.save(model.state_dict(), <span class="string">"model_weights.pt"</span>)
+
+model = Net()                                       <span class="comment"># 모델 구조 재생성 필요</span>
+model.load_state_dict(torch.load(<span class="string">"model_weights.pt"</span>, weights_only=<span class="keyword">True</span>))
+model.eval()
+
+<span class="comment"># ② 전체 모델 저장 (구조 + 가중치 — pickle 의존)</span>
+torch.save(model, <span class="string">"full_model.pt"</span>)
+model = torch.load(<span class="string">"full_model.pt"</span>, weights_only=<span class="keyword">False</span>)
+
+<span class="comment"># ③ 체크포인트 저장 (학습 재개용)</span>
+torch.save({
+    <span class="string">"epoch"</span>: epoch,
+    <span class="string">"model_state_dict"</span>: model.state_dict(),
+    <span class="string">"optimizer_state_dict"</span>: optimizer.state_dict(),
+    <span class="string">"scheduler_state_dict"</span>: scheduler.state_dict(),
+    <span class="string">"best_val_loss"</span>: best_val_loss,
+}, <span class="string">"checkpoint.pt"</span>)
+
+<span class="comment"># 체크포인트 복원</span>
+ckpt = torch.load(<span class="string">"checkpoint.pt"</span>, weights_only=<span class="keyword">False</span>)
+model.load_state_dict(ckpt[<span class="string">"model_state_dict"</span>])
+optimizer.load_state_dict(ckpt[<span class="string">"optimizer_state_dict"</span>])
+scheduler.load_state_dict(ckpt[<span class="string">"scheduler_state_dict"</span>])
+start_epoch = ckpt[<span class="string">"epoch"</span>] + <span class="number">1</span>
+
+<span class="comment"># ④ TorchScript 변환 (C++/프로덕션 배포)</span>
+scripted = torch.jit.script(model)          <span class="comment"># Python 제어흐름 포함 가능</span>
+scripted.save(<span class="string">"model_scripted.pt"</span>)
+
+traced = torch.jit.trace(model, torch.randn(<span class="number">1</span>, <span class="number">784</span>))  <span class="comment"># 입력 기반 추적</span>
+traced.save(<span class="string">"model_traced.pt"</span>)
+
+loaded = torch.jit.load(<span class="string">"model_scripted.pt"</span>)
+
+<span class="comment"># ⑤ ONNX 변환</span>
+dummy = torch.randn(<span class="number">1</span>, <span class="number">784</span>)
+torch.onnx.export(model, dummy, <span class="string">"model.onnx"</span>,
+                  input_names=[<span class="string">"input"</span>], output_names=[<span class="string">"output"</span>],
+                  dynamic_axes={<span class="string">"input"</span>: {<span class="number">0</span>: <span class="string">"batch"</span>}, <span class="string">"output"</span>: {<span class="number">0</span>: <span class="string">"batch"</span>}})
+            </div>
+
+            <h4>GPU &amp; 디바이스 관리</h4>
+            <div class="code-block">
+<span class="comment"># 디바이스 설정</span>
+device = torch.device(<span class="string">"cuda"</span> <span class="keyword">if</span> torch.cuda.is_available() <span class="keyword">else</span> <span class="string">"cpu"</span>)
+device = torch.device(<span class="string">"cuda:0"</span>)   <span class="comment"># 특정 GPU 지정</span>
+
+<span class="comment"># 텐서/모델을 디바이스로 이동</span>
+x = x.to(device)                   <span class="comment"># 텐서 이동</span>
+model = model.to(device)           <span class="comment"># 모델 이동 (파라미터 + 버퍼)</span>
+
+<span class="comment"># GPU 정보 확인</span>
+torch.cuda.is_available()           <span class="comment"># GPU 사용 가능 여부</span>
+torch.cuda.device_count()           <span class="comment"># GPU 개수</span>
+torch.cuda.get_device_name(<span class="number">0</span>)      <span class="comment"># GPU 이름</span>
+torch.cuda.memory_allocated()       <span class="comment"># 현재 메모리 사용량</span>
+torch.cuda.memory_reserved()        <span class="comment"># 예약된 메모리</span>
+torch.cuda.empty_cache()            <span class="comment"># 미사용 캐시 해제</span>
+
+<span class="comment"># 혼합 정밀도 학습 (AMP) — 속도 2배↑, 메모리 절감</span>
+scaler = torch.amp.GradScaler()
+<span class="keyword">for</span> inputs, labels <span class="keyword">in</span> loader:
+    inputs, labels = inputs.to(device), labels.to(device)
+    optimizer.zero_grad()
+    <span class="keyword">with</span> torch.amp.autocast(device_type=<span class="string">"cuda"</span>):  <span class="comment"># float16 자동 변환</span>
+        outputs = model(inputs)
+        loss = criterion(outputs, labels)
+    scaler.scale(loss).backward()    <span class="comment"># 스케일링된 역전파</span>
+    scaler.step(optimizer)           <span class="comment"># 가중치 갱신</span>
+    scaler.update()                  <span class="comment"># 스케일 조정</span>
+
+<span class="comment"># 멀티 GPU (DataParallel — 간단하지만 비효율)</span>
+<span class="keyword">if</span> torch.cuda.device_count() > <span class="number">1</span>:
+    model = nn.DataParallel(model)   <span class="comment"># 배치를 GPU에 분배</span>
+model = model.to(device)
+
+<span class="comment"># 멀티 GPU (DistributedDataParallel — 권장, 고성능)</span>
+<span class="comment"># torchrun --nproc_per_node=4 train.py</span>
+<span class="keyword">import</span> torch.distributed <span class="keyword">as</span> dist
+<span class="keyword">from</span> torch.nn.parallel <span class="keyword">import</span> DistributedDataParallel <span class="keyword">as</span> DDP
+dist.init_process_group(backend=<span class="string">"nccl"</span>)
+local_rank = <span class="builtin">int</span>(os.environ[<span class="string">"LOCAL_RANK"</span>])
+model = DDP(model.to(local_rank), device_ids=[local_rank])
+            </div>
+
+            <div class="warning-box">
+                <strong>주의사항:</strong>
+                <code>model.train()</code>과 <code>model.eval()</code>을 학습/추론 전에 반드시 호출하세요 —
+                Dropout과 BatchNorm의 동작이 달라집니다.
+                <code>CrossEntropyLoss</code>는 softmax를 내장하므로 모델 출력에 softmax를 중복 적용하면 안 됩니다.
+                <code>loss.backward()</code> 전에 <code>optimizer.zero_grad()</code>를 호출하세요 — PyTorch는 그래디언트를 기본으로 누적합니다.
+            </div>
+
+            <h4>추론 &amp; 배포</h4>
+            <div class="code-block">
+<span class="comment"># 추론 모드 — 메모리 최적화, autograd 완전 비활성화</span>
+model.eval()
+<span class="keyword">with</span> torch.inference_mode():          <span class="comment"># torch.no_grad()보다 빠름</span>
+    predictions = model(x.to(device))
+    probs = torch.softmax(predictions, dim=<span class="number">1</span>)
+    classes = probs.argmax(dim=<span class="number">1</span>)
+
+<span class="comment"># 배치 추론 (대량 데이터)</span>
+all_preds = []
+model.eval()
+<span class="keyword">with</span> torch.inference_mode():
+    <span class="keyword">for</span> batch <span class="keyword">in</span> test_loader:
+        inputs = batch[<span class="number">0</span>].to(device)
+        preds = model(inputs).argmax(dim=<span class="number">1</span>)
+        all_preds.append(preds.cpu())
+all_preds = torch.cat(all_preds)
+
+<span class="comment"># torch.compile — PyTorch 2.0+ 자동 최적화 (JIT 컴파일)</span>
+model = torch.compile(model)         <span class="comment"># 첫 실행 시 컴파일, 이후 가속</span>
+model = torch.compile(model, mode=<span class="string">"reduce-overhead"</span>)  <span class="comment"># 오버헤드 최소화</span>
+            </div>
+
+            <h4>그래디언트 클리핑 &amp; 정규화</h4>
+            <div class="code-block">
+<span class="comment"># 그래디언트 클리핑 — 그래디언트 폭발 방지 (RNN, Transformer 필수)</span>
+loss.backward()
+torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=<span class="number">1.0</span>)  <span class="comment"># L2 norm 기준</span>
+torch.nn.utils.clip_grad_value_(model.parameters(), clip_value=<span class="number">0.5</span>) <span class="comment"># 절대값 기준</span>
+optimizer.step()
+
+<span class="comment"># 가중치 초기화</span>
+<span class="keyword">def</span> <span class="function">init_weights</span>(m):
+    <span class="keyword">if</span> <span class="builtin">isinstance</span>(m, nn.Linear):
+        nn.init.kaiming_normal_(m.weight, mode=<span class="string">"fan_out"</span>, nonlinearity=<span class="string">"relu"</span>)
+        <span class="keyword">if</span> m.bias <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>:
+            nn.init.zeros_(m.bias)
+    <span class="keyword">elif</span> <span class="builtin">isinstance</span>(m, nn.Conv2d):
+        nn.init.kaiming_normal_(m.weight, mode=<span class="string">"fan_out"</span>)
+
+model.apply(init_weights)  <span class="comment"># 모든 하위 모듈에 재귀 적용</span>
+
+<span class="comment"># 레이어 동결 (전이 학습)</span>
+<span class="keyword">for</span> param <span class="keyword">in</span> model.fc1.parameters():
+    param.requires_grad = <span class="keyword">False</span>      <span class="comment"># fc1 레이어 가중치 고정</span>
+
+<span class="comment"># 동결된 파라미터 제외한 옵티마이저</span>
+optimizer = optim.Adam(<span class="builtin">filter</span>(<span class="keyword">lambda</span> p: p.requires_grad, model.parameters()), lr=<span class="number">1e-3</span>)
+            </div>
+
+            <h4>PyTorch 핵심 정리</h4>
+            <table class="comparison-table">
+                <tr><th>작업</th><th>API / 메서드</th><th>비고</th></tr>
+                <tr><td>모델 정의</td><td><code>nn.Module</code> 상속</td><td>__init__ + forward</td></tr>
+                <tr><td>간단한 모델</td><td><code>nn.Sequential</code></td><td>이름 부여 시 OrderedDict</td></tr>
+                <tr><td>학습 모드</td><td><code>model.train()</code></td><td>Dropout/BN 활성화</td></tr>
+                <tr><td>추론 모드</td><td><code>model.eval()</code> + <code>inference_mode()</code></td><td>메모리 최적화</td></tr>
+                <tr><td>역전파</td><td><code>loss.backward()</code></td><td>zero_grad → forward → backward → step</td></tr>
+                <tr><td>데이터 로딩</td><td><code>DataLoader</code></td><td>pin_memory=True (GPU)</td></tr>
+                <tr><td>모델 저장</td><td><code>torch.save(state_dict)</code></td><td>가중치만 저장 권장</td></tr>
+                <tr><td>체크포인트</td><td>dict로 epoch/optimizer 포함 저장</td><td>학습 재개용</td></tr>
+                <tr><td>프로덕션 배포</td><td><code>torch.jit.script/trace</code></td><td>TorchScript C++ 런타임</td></tr>
+                <tr><td>성능 향상</td><td><code>torch.compile()</code></td><td>PyTorch 2.0+ JIT 컴파일</td></tr>
+                <tr><td>혼합 정밀도</td><td><code>torch.amp.autocast</code></td><td>GradScaler 필수</td></tr>
+                <tr><td>멀티 GPU</td><td><code>DistributedDataParallel</code></td><td>torchrun으로 실행</td></tr>
+                <tr><td>그래디언트 클리핑</td><td><code>clip_grad_norm_</code></td><td>RNN/Transformer 필수</td></tr>
+                <tr><td>전이 학습</td><td><code>requires_grad = False</code></td><td>레이어 동결</td></tr>
+            </table>
             
             <h3>데이터 전처리 핵심</h3>
             <div class="code-block">
@@ -5343,95 +5895,819 @@ scores = cross_val_score(model, X, y, cv=<span class="number">5</span>, scoring=
             </div>
             
             <h3>CNN (합성곱 신경망)</h3>
+
+            <p>합성곱 신경망(Convolutional Neural Network)은 이미지 인식, 객체 탐지, 세그멘테이션 등
+            시각적 패턴 인식에 최적화된 아키텍처입니다. 합성곱 레이어가 공간적 특징을 계층적으로 추출하고,
+            풀링으로 차원을 줄인 뒤 완전연결층에서 분류합니다.</p>
+
+            <h4>합성곱 연산 이해</h4>
             <div class="code-block">
+<span class="comment"># Conv2D 핵심 파라미터 이해</span>
+<span class="comment">#</span>
+<span class="comment"># 입력: (batch, H, W, C) — Keras  /  (batch, C, H, W) — PyTorch</span>
+<span class="comment">#</span>
+<span class="comment"># filters/out_channels : 출력 특성맵 수 (학습할 필터 개수)</span>
+<span class="comment"># kernel_size          : 필터 크기 (3×3이 가장 보편적)</span>
+<span class="comment"># strides              : 필터 이동 간격 (2이면 출력 크기 절반)</span>
+<span class="comment"># padding              : "same" → 입출력 크기 동일, "valid" → 패딩 없음</span>
+<span class="comment">#</span>
+<span class="comment"># 출력 크기 계산: O = (I - K + 2P) / S + 1</span>
+<span class="comment">#   I=입력크기, K=커널크기, P=패딩, S=스트라이드</span>
+<span class="comment">#   예: 입력 28×28, kernel=3, padding=0, stride=1 → 26×26</span>
+<span class="comment">#   예: 입력 28×28, kernel=3, padding=1, stride=1 → 28×28 (same)</span>
+<span class="comment">#   예: 입력 28×28, kernel=3, padding=0, stride=2 → 13×13</span>
+            </div>
+
+            <h4>CNN — Keras 구현</h4>
+            <div class="code-block">
+<span class="keyword">from</span> tensorflow <span class="keyword">import</span> keras
 <span class="keyword">from</span> tensorflow.keras <span class="keyword">import</span> layers
 
+<span class="comment"># 기본 CNN (MNIST 분류)</span>
 model = keras.Sequential([
-    <span class="comment"># 합성곱 층</span>
-    layers.Conv2D(<span class="number">32</span>, (<span class="number">3</span>, <span class="number">3</span>), activation=<span class="string">"relu"</span>, input_shape=(<span class="number">28</span>, <span class="number">28</span>, <span class="number">1</span>),
-    layers.MaxPooling2D((<span class="number">2</span>, <span class="number">2</span>)),
-    layers.Conv2D(<span class="number">64</span>, (<span class="number">3</span>, <span class="number">3</span>), activation=<span class="string">"relu"</span>),
-    layers.MaxPooling2D((<span class="number">2</span>, <span class="number">2</span>)),
-    
-    <span class="comment"># 완전 연결 층</span>
-    layers.Flatten(),
-    layers.Dense(<span class="number">64</span>, activation=<span class="string">"relu"</span>),
+    <span class="comment"># 블록 1: 합성곱 → 정규화 → 활성화 → 풀링</span>
+    layers.Conv2D(<span class="number">32</span>, (<span class="number">3</span>, <span class="number">3</span>), padding=<span class="string">"same"</span>, input_shape=(<span class="number">28</span>, <span class="number">28</span>, <span class="number">1</span>)),
+    layers.BatchNormalization(),
+    layers.ReLU(),
+    layers.MaxPooling2D((<span class="number">2</span>, <span class="number">2</span>)),         <span class="comment"># 28×28 → 14×14</span>
+
+    <span class="comment"># 블록 2</span>
+    layers.Conv2D(<span class="number">64</span>, (<span class="number">3</span>, <span class="number">3</span>), padding=<span class="string">"same"</span>),
+    layers.BatchNormalization(),
+    layers.ReLU(),
+    layers.MaxPooling2D((<span class="number">2</span>, <span class="number">2</span>)),         <span class="comment"># 14×14 → 7×7</span>
+
+    <span class="comment"># 블록 3</span>
+    layers.Conv2D(<span class="number">128</span>, (<span class="number">3</span>, <span class="number">3</span>), padding=<span class="string">"same"</span>),
+    layers.BatchNormalization(),
+    layers.ReLU(),
+    layers.GlobalAveragePooling2D(),     <span class="comment"># 7×7×128 → 128 (Flatten 대신 권장)</span>
+
+    <span class="comment"># 분류 헤드</span>
     layers.Dropout(<span class="number">0.5</span>),
     layers.Dense(<span class="number">10</span>, activation=<span class="string">"softmax"</span>)
 ])
+
+model.compile(optimizer=<span class="string">"adam"</span>, loss=<span class="string">"sparse_categorical_crossentropy"</span>, metrics=[<span class="string">"accuracy"</span>])
+
+<span class="comment"># 1D 합성곱 (텍스트, 시계열)</span>
+text_cnn = keras.Sequential([
+    layers.Embedding(<span class="number">10000</span>, <span class="number">128</span>, input_length=<span class="number">200</span>),
+    layers.Conv1D(<span class="number">64</span>, <span class="number">5</span>, activation=<span class="string">"relu"</span>),   <span class="comment"># 5-gram 특징 추출</span>
+    layers.GlobalMaxPooling1D(),
+    layers.Dense(<span class="number">1</span>, activation=<span class="string">"sigmoid"</span>)
+])
             </div>
-            
+
+            <h4>CNN — PyTorch 구현</h4>
+            <div class="code-block">
+<span class="keyword">import</span> torch
+<span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn
+
+<span class="keyword">class</span> <span class="function">CNN</span>(nn.Module):
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, num_classes=<span class="number">10</span>):
+        <span class="builtin">super</span>().__init__()
+        self.features = nn.Sequential(
+            <span class="comment"># 블록 1</span>
+            nn.Conv2d(<span class="number">1</span>, <span class="number">32</span>, kernel_size=<span class="number">3</span>, padding=<span class="number">1</span>),  <span class="comment"># (1,28,28)→(32,28,28)</span>
+            nn.BatchNorm2d(<span class="number">32</span>),
+            nn.ReLU(inplace=<span class="keyword">True</span>),
+            nn.MaxPool2d(<span class="number">2</span>),                               <span class="comment"># →(32,14,14)</span>
+
+            <span class="comment"># 블록 2</span>
+            nn.Conv2d(<span class="number">32</span>, <span class="number">64</span>, kernel_size=<span class="number">3</span>, padding=<span class="number">1</span>), <span class="comment"># →(64,14,14)</span>
+            nn.BatchNorm2d(<span class="number">64</span>),
+            nn.ReLU(inplace=<span class="keyword">True</span>),
+            nn.MaxPool2d(<span class="number">2</span>),                               <span class="comment"># →(64,7,7)</span>
+
+            <span class="comment"># 블록 3</span>
+            nn.Conv2d(<span class="number">64</span>, <span class="number">128</span>, kernel_size=<span class="number">3</span>, padding=<span class="number">1</span>),
+            nn.BatchNorm2d(<span class="number">128</span>),
+            nn.ReLU(inplace=<span class="keyword">True</span>),
+            nn.AdaptiveAvgPool2d((<span class="number">1</span>, <span class="number">1</span>)),                <span class="comment"># →(128,1,1) 어떤 입력 크기든 OK</span>
+        )
+        self.classifier = nn.Sequential(
+            nn.Flatten(),
+            nn.Dropout(<span class="number">0.5</span>),
+            nn.Linear(<span class="number">128</span>, num_classes),
+        )
+
+    <span class="keyword">def</span> <span class="function">forward</span>(self, x):
+        x = self.features(x)
+        <span class="keyword">return</span> self.classifier(x)
+
+<span class="comment"># Depthwise Separable Convolution (MobileNet 스타일 — 경량화)</span>
+depthwise_sep = nn.Sequential(
+    nn.Conv2d(<span class="number">64</span>, <span class="number">64</span>, <span class="number">3</span>, padding=<span class="number">1</span>, groups=<span class="number">64</span>),  <span class="comment"># depthwise: 채널별 독립 합성곱</span>
+    nn.Conv2d(<span class="number">64</span>, <span class="number">128</span>, <span class="number">1</span>),                       <span class="comment"># pointwise: 1×1 합성곱으로 채널 결합</span>
+)
+
+<span class="comment"># Dilated (Atrous) Convolution — 수용 영역 확장</span>
+dilated = nn.Conv2d(<span class="number">64</span>, <span class="number">64</span>, <span class="number">3</span>, padding=<span class="number">2</span>, dilation=<span class="number">2</span>)  <span class="comment"># 3×3 필터가 5×5 영역 커버</span>
+
+<span class="comment"># Transposed Convolution — 업샘플링 (세그멘테이션, GAN 생성기)</span>
+upsample = nn.ConvTranspose2d(<span class="number">64</span>, <span class="number">32</span>, kernel_size=<span class="number">4</span>, stride=<span class="number">2</span>, padding=<span class="number">1</span>)  <span class="comment"># 크기 2배</span>
+            </div>
+
+            <h4>주요 CNN 아키텍처 비교</h4>
+            <table class="comparison-table">
+                <tr><th>아키텍처</th><th>연도</th><th>핵심 기법</th><th>파라미터</th><th>특징</th></tr>
+                <tr><td>LeNet-5</td><td>1998</td><td>Conv→Pool→FC</td><td>60K</td><td>CNN의 시초, 손글씨 인식</td></tr>
+                <tr><td>AlexNet</td><td>2012</td><td>ReLU, Dropout, GPU</td><td>60M</td><td>딥러닝 붐의 시작</td></tr>
+                <tr><td>VGGNet</td><td>2014</td><td>3×3 필터 반복</td><td>138M</td><td>단순한 구조, 깊은 네트워크</td></tr>
+                <tr><td>GoogLeNet</td><td>2014</td><td>Inception 모듈</td><td>6.8M</td><td>다양한 필터 크기 병렬 적용</td></tr>
+                <tr><td>ResNet</td><td>2015</td><td>잔차 연결 (Skip)</td><td>25M (50)</td><td>100+층 학습 가능, 가장 범용</td></tr>
+                <tr><td>DenseNet</td><td>2017</td><td>밀집 연결</td><td>8M (121)</td><td>모든 이전 층과 연결</td></tr>
+                <tr><td>MobileNet</td><td>2017</td><td>Depthwise Separable</td><td>3.4M</td><td>모바일/엣지 배포용 경량화</td></tr>
+                <tr><td>EfficientNet</td><td>2019</td><td>복합 스케일링</td><td>5.3M (B0)</td><td>깊이×너비×해상도 최적 균형</td></tr>
+                <tr><td>ConvNeXt</td><td>2022</td><td>Transformer 기법 적용</td><td>29M</td><td>현대화된 순수 CNN, ViT 경쟁</td></tr>
+            </table>
+
+            <h4>데이터 증강 (Data Augmentation)</h4>
+            <div class="code-block">
+<span class="comment"># Keras — 레이어 기반 증강 (GPU 가속, 모델에 포함)</span>
+data_augmentation = keras.Sequential([
+    layers.RandomFlip(<span class="string">"horizontal"</span>),
+    layers.RandomRotation(<span class="number">0.1</span>),           <span class="comment"># ±36도</span>
+    layers.RandomZoom(<span class="number">0.2</span>),                <span class="comment"># ±20% 확대/축소</span>
+    layers.RandomTranslation(<span class="number">0.1</span>, <span class="number">0.1</span>),  <span class="comment"># ±10% 이동</span>
+    layers.RandomContrast(<span class="number">0.2</span>),
+])
+
+model = keras.Sequential([
+    data_augmentation,    <span class="comment"># 학습 시에만 적용 (추론 시 자동 비활성화)</span>
+    layers.Conv2D(<span class="number">32</span>, <span class="number">3</span>, activation=<span class="string">"relu"</span>),
+    <span class="comment"># ...</span>
+])
+
+<span class="comment"># PyTorch — torchvision.transforms</span>
+<span class="keyword">from</span> torchvision <span class="keyword">import</span> transforms
+
+transform_train = transforms.Compose([
+    transforms.RandomResizedCrop(<span class="number">224</span>, scale=(<span class="number">0.8</span>, <span class="number">1.0</span>)),
+    transforms.RandomHorizontalFlip(p=<span class="number">0.5</span>),
+    transforms.RandomRotation(<span class="number">15</span>),
+    transforms.ColorJitter(brightness=<span class="number">0.2</span>, contrast=<span class="number">0.2</span>, saturation=<span class="number">0.2</span>, hue=<span class="number">0.1</span>),
+    transforms.RandomErasing(p=<span class="number">0.3</span>),      <span class="comment"># 랜덤 영역 마스킹 (CutOut)</span>
+    transforms.ToTensor(),
+    transforms.Normalize([<span class="number">0.485</span>, <span class="number">0.456</span>, <span class="number">0.406</span>], [<span class="number">0.229</span>, <span class="number">0.224</span>, <span class="number">0.225</span>]),
+])
+
+<span class="comment"># albumentations — 고급 증강 라이브러리 (pip install albumentations)</span>
+<span class="keyword">import</span> albumentations <span class="keyword">as</span> A
+<span class="keyword">from</span> albumentations.pytorch <span class="keyword">import</span> ToTensorV2
+
+aug = A.Compose([
+    A.RandomCrop(<span class="number">224</span>, <span class="number">224</span>),
+    A.HorizontalFlip(p=<span class="number">0.5</span>),
+    A.OneOf([                              <span class="comment"># 셋 중 하나만 적용</span>
+        A.GaussNoise(var_limit=(<span class="number">10</span>, <span class="number">50</span>)),
+        A.GaussianBlur(blur_limit=<span class="number">3</span>),
+        A.MotionBlur(blur_limit=<span class="number">3</span>),
+    ], p=<span class="number">0.3</span>),
+    A.Normalize(mean=[<span class="number">0.485</span>, <span class="number">0.456</span>, <span class="number">0.406</span>], std=[<span class="number">0.229</span>, <span class="number">0.224</span>, <span class="number">0.225</span>]),
+    ToTensorV2(),
+])
+            </div>
+
+            <div class="tip-box">
+                <strong>GlobalAveragePooling vs Flatten:</strong>
+                <code>Flatten</code>은 특성맵을 1차원으로 펴서 파라미터가 폭증하고 과적합 위험이 큽니다.
+                <code>GlobalAveragePooling2D</code>는 각 특성맵의 평균을 내어 파라미터 수를 대폭 줄이며,
+                현대 CNN에서 표준으로 사용합니다.
+            </div>
+
+            <h4>CNN 핵심 정리</h4>
+            <table class="comparison-table">
+                <tr><th>개념</th><th>설명</th><th>권장 설정</th></tr>
+                <tr><td>커널 크기</td><td>필터 크기, 작을수록 깊이로 보상</td><td>3×3 (가장 범용)</td></tr>
+                <tr><td>패딩</td><td>입력 테두리 0 채움</td><td>"same" / padding=1 (크기 유지)</td></tr>
+                <tr><td>스트라이드</td><td>필터 이동 간격</td><td>1 (특징 추출), 2 (다운샘플링)</td></tr>
+                <tr><td>풀링</td><td>공간 다운샘플링</td><td>MaxPool 2×2 또는 stride=2 Conv</td></tr>
+                <tr><td>정규화</td><td>학습 안정화</td><td>BatchNorm (Conv 직후)</td></tr>
+                <tr><td>활성화</td><td>비선형성 도입</td><td>ReLU (기본), GELU (Transformer계열)</td></tr>
+                <tr><td>출력 풀링</td><td>특성맵→벡터 변환</td><td>GlobalAveragePooling (Flatten 대신)</td></tr>
+                <tr><td>필터 수 패턴</td><td>깊어질수록 증가</td><td>32→64→128→256 (2배씩)</td></tr>
+            </table>
+
             <h3>RNN/LSTM (시퀀스 데이터)</h3>
-            <div class="code-block">
-<span class="comment"># LSTM 모델</span>
-model = keras.Sequential([
-    layers.Embedding(<span class="number">10000</span>, <span class="number">128</span>),
-    layers.LSTM(<span class="number">128</span>, dropout=<span class="number">0.2</span>, recurrent_dropout=<span class="number">0.2</span>),
-    layers.Dense(<span class="number">1</span>, activation=<span class="string">"sigmoid"</span>)
-])
 
-<span class="comment"># Bidirectional LSTM</span>
-model = keras.Sequential([
-    layers.Embedding(<span class="number">10000</span>, <span class="number">128</span>),
-    layers.Bidirectional(layers.LSTM(<span class="number">64</span>)),
-    layers.Dense(<span class="number">1</span>, activation=<span class="string">"sigmoid"</span>)
-])
+            <p>순환 신경망(Recurrent Neural Network)은 시퀀스 데이터(텍스트, 시계열, 음성)를 처리하는
+            아키텍처입니다. LSTM과 GRU는 장기 의존성 문제(기울기 소실)를 해결한 발전된 RNN 셀입니다.</p>
 
-<span class="comment"># GRU 모델</span>
-model = keras.Sequential([
-    layers.Embedding(<span class="number">10000</span>, <span class="number">128</span>),
-    layers.GRU(<span class="number">64</span>),
-    layers.Dense(<span class="number">1</span>, activation=<span class="string">"sigmoid"</span>)
-])
-            </div>
-            
-            <h3>Transformer (자연어 처리)</h3>
+            <h4>RNN/LSTM/GRU 비교</h4>
+            <table class="comparison-table">
+                <tr><th>셀 타입</th><th>게이트</th><th>파라미터</th><th>장점</th><th>단점</th></tr>
+                <tr><td>SimpleRNN</td><td>없음</td><td>적음</td><td>간단, 빠름</td><td>기울기 소실 심함, 장기 의존성 불가</td></tr>
+                <tr><td>LSTM</td><td>forget, input, output (3개)</td><td>많음</td><td>장기 의존성 학습, 가장 범용</td><td>느림, 메모리 사용 높음</td></tr>
+                <tr><td>GRU</td><td>reset, update (2개)</td><td>중간</td><td>LSTM과 유사 성능, 더 빠름</td><td>매우 긴 시퀀스에서 LSTM보다 약간 열세</td></tr>
+            </table>
+
+            <h4>LSTM/GRU — Keras 구현</h4>
             <div class="code-block">
+<span class="keyword">from</span> tensorflow <span class="keyword">import</span> keras
 <span class="keyword">from</span> tensorflow.keras <span class="keyword">import</span> layers
 
-<span class="comment"># Self-Attention</span>
-<span class="keyword">class</span> <span class="function">MultiHeadSelfAttention</span>(layers.Layer):
-    <span class="keyword">def</span> <span class="function">__init__</span>(self, embed_dim, num_heads=<span class="number">8</span>):
-        <span class="builtin">super</span>(MultiHeadSelfAttention, self).__init__()
-        self.embed_dim = embed_dim
+<span class="comment"># 텍스트 분류 (감정 분석)</span>
+model = keras.Sequential([
+    layers.Embedding(<span class="number">10000</span>, <span class="number">128</span>),         <span class="comment"># 어휘 10000개 → 128차원 벡터</span>
+    layers.LSTM(<span class="number">128</span>, dropout=<span class="number">0.2</span>),         <span class="comment"># 마지막 타임스텝 출력만 반환</span>
+    layers.Dense(<span class="number">1</span>, activation=<span class="string">"sigmoid"</span>)  <span class="comment"># 이진 분류</span>
+])
+
+<span class="comment"># 양방향 (Bidirectional) — 과거+미래 문맥 모두 활용</span>
+model = keras.Sequential([
+    layers.Embedding(<span class="number">10000</span>, <span class="number">128</span>),
+    layers.Bidirectional(layers.LSTM(<span class="number">64</span>)),   <span class="comment"># 출력 차원: 64×2 = 128</span>
+    layers.Dense(<span class="number">1</span>, activation=<span class="string">"sigmoid"</span>)
+])
+
+<span class="comment"># 다층 (Stacked) LSTM — return_sequences=True로 모든 타임스텝 전달</span>
+model = keras.Sequential([
+    layers.Embedding(<span class="number">10000</span>, <span class="number">128</span>),
+    layers.LSTM(<span class="number">128</span>, return_sequences=<span class="keyword">True</span>, dropout=<span class="number">0.2</span>),  <span class="comment"># (batch, seq, 128)</span>
+    layers.LSTM(<span class="number">64</span>, dropout=<span class="number">0.2</span>),                              <span class="comment"># (batch, 64)</span>
+    layers.Dense(<span class="number">1</span>, activation=<span class="string">"sigmoid"</span>)
+])
+
+<span class="comment"># GRU — LSTM보다 경량, 비슷한 성능</span>
+model = keras.Sequential([
+    layers.Embedding(<span class="number">10000</span>, <span class="number">128</span>),
+    layers.GRU(<span class="number">64</span>, return_sequences=<span class="keyword">True</span>),
+    layers.GRU(<span class="number">32</span>),
+    layers.Dense(<span class="number">1</span>, activation=<span class="string">"sigmoid"</span>)
+])
+
+<span class="comment"># 시계열 예측 (Sequence-to-One)</span>
+model = keras.Sequential([
+    layers.LSTM(<span class="number">64</span>, input_shape=(<span class="number">30</span>, <span class="number">5</span>)),    <span class="comment"># 30 타임스텝, 5 특성</span>
+    layers.Dense(<span class="number">1</span>)                           <span class="comment"># 다음 값 예측 (회귀)</span>
+])
+
+<span class="comment"># 시계열 다중 스텝 예측 (Sequence-to-Sequence)</span>
+model = keras.Sequential([
+    layers.LSTM(<span class="number">64</span>, return_sequences=<span class="keyword">True</span>, input_shape=(<span class="number">30</span>, <span class="number">5</span>)),
+    layers.LSTM(<span class="number">32</span>, return_sequences=<span class="keyword">True</span>),
+    layers.TimeDistributed(layers.Dense(<span class="number">1</span>))  <span class="comment"># 각 타임스텝에 Dense 적용</span>
+])
+            </div>
+
+            <h4>LSTM/GRU — PyTorch 구현</h4>
+            <div class="code-block">
+<span class="keyword">import</span> torch
+<span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn
+
+<span class="keyword">class</span> <span class="function">TextClassifier</span>(nn.Module):
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, vocab_size, embed_dim, hidden_dim, num_classes):
+        <span class="builtin">super</span>().__init__()
+        self.embedding = nn.Embedding(vocab_size, embed_dim, padding_idx=<span class="number">0</span>)
+        self.lstm = nn.LSTM(
+            embed_dim, hidden_dim,
+            num_layers=<span class="number">2</span>,           <span class="comment"># 2층 스택</span>
+            batch_first=<span class="keyword">True</span>,       <span class="comment"># 입력: (batch, seq, features)</span>
+            bidirectional=<span class="keyword">True</span>,     <span class="comment"># 양방향</span>
+            dropout=<span class="number">0.3</span>,             <span class="comment"># 층 간 드롭아웃</span>
+        )
+        self.fc = nn.Linear(hidden_dim * <span class="number">2</span>, num_classes)  <span class="comment"># ×2: 양방향</span>
+        self.dropout = nn.Dropout(<span class="number">0.5</span>)
+
+    <span class="keyword">def</span> <span class="function">forward</span>(self, x):
+        embedded = self.embedding(x)         <span class="comment"># (batch, seq, embed_dim)</span>
+        output, (hidden, cell) = self.lstm(embedded)
+        <span class="comment"># hidden: (num_layers*directions, batch, hidden_dim)</span>
+        <span class="comment"># 마지막 층의 정방향 + 역방향 결합</span>
+        hidden = torch.cat([hidden[-<span class="number">2</span>], hidden[-<span class="number">1</span>]], dim=<span class="number">1</span>)
+        <span class="keyword">return</span> self.fc(self.dropout(hidden))
+
+<span class="comment"># GRU 버전 — cell state 없음</span>
+<span class="keyword">class</span> <span class="function">GRUClassifier</span>(nn.Module):
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, vocab_size, embed_dim, hidden_dim, num_classes):
+        <span class="builtin">super</span>().__init__()
+        self.embedding = nn.Embedding(vocab_size, embed_dim)
+        self.gru = nn.GRU(embed_dim, hidden_dim, batch_first=<span class="keyword">True</span>, bidirectional=<span class="keyword">True</span>)
+        self.fc = nn.Linear(hidden_dim * <span class="number">2</span>, num_classes)
+
+    <span class="keyword">def</span> <span class="function">forward</span>(self, x):
+        embedded = self.embedding(x)
+        output, hidden = self.gru(embedded)   <span class="comment"># GRU는 hidden만 반환 (cell 없음)</span>
+        hidden = torch.cat([hidden[-<span class="number">2</span>], hidden[-<span class="number">1</span>]], dim=<span class="number">1</span>)
+        <span class="keyword">return</span> self.fc(hidden)
+
+<span class="comment"># 시계열 예측</span>
+<span class="keyword">class</span> <span class="function">TimeSeriesLSTM</span>(nn.Module):
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, input_dim, hidden_dim, output_dim):
+        <span class="builtin">super</span>().__init__()
+        self.lstm = nn.LSTM(input_dim, hidden_dim, num_layers=<span class="number">2</span>,
+                            batch_first=<span class="keyword">True</span>, dropout=<span class="number">0.2</span>)
+        self.fc = nn.Linear(hidden_dim, output_dim)
+
+    <span class="keyword">def</span> <span class="function">forward</span>(self, x):
+        out, _ = self.lstm(x)       <span class="comment"># (batch, seq_len, hidden_dim)</span>
+        <span class="keyword">return</span> self.fc(out[:, -<span class="number">1</span>, :])  <span class="comment"># 마지막 타임스텝만 사용</span>
+            </div>
+
+            <h4>패딩 &amp; 패킹 (가변 길이 시퀀스 처리)</h4>
+            <div class="code-block">
+<span class="comment"># Keras — 자동 패딩/마스킹</span>
+padded = keras.utils.pad_sequences(sequences, maxlen=<span class="number">200</span>, padding=<span class="string">"post"</span>)
+<span class="comment"># Embedding의 mask_zero=True로 패딩 위치 자동 무시</span>
+layers.Embedding(<span class="number">10000</span>, <span class="number">128</span>, mask_zero=<span class="keyword">True</span>)
+
+<span class="comment"># PyTorch — pack_padded_sequence (효율적 연산)</span>
+<span class="keyword">from</span> torch.nn.utils.rnn <span class="keyword">import</span> pad_sequence, pack_padded_sequence, pad_packed_sequence
+
+<span class="comment"># 가변 길이 시퀀스 패딩</span>
+sequences = [torch.tensor([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]), torch.tensor([<span class="number">4</span>,<span class="number">5</span>]), torch.tensor([<span class="number">6</span>])]
+padded = pad_sequence(sequences, batch_first=<span class="keyword">True</span>, padding_value=<span class="number">0</span>)
+<span class="comment"># tensor([[1, 2, 3],</span>
+<span class="comment">#         [4, 5, 0],</span>
+<span class="comment">#         [6, 0, 0]])</span>
+
+lengths = torch.tensor([<span class="number">3</span>, <span class="number">2</span>, <span class="number">1</span>])
+packed = pack_padded_sequence(padded, lengths, batch_first=<span class="keyword">True</span>, enforce_sorted=<span class="keyword">False</span>)
+output, hidden = lstm(packed)                         <span class="comment"># 패딩 위치 연산 건너뜀</span>
+output, out_lengths = pad_packed_sequence(output, batch_first=<span class="keyword">True</span>)  <span class="comment"># 다시 패딩</span>
+            </div>
+
+            <div class="warning-box">
+                <strong>주의:</strong>
+                <code>return_sequences=True</code>(Keras) / <code>output</code>(PyTorch)는 모든 타임스텝의 출력을 반환합니다.
+                다층 RNN에서 중간 레이어는 반드시 모든 타임스텝을 다음 레이어에 전달해야 합니다.
+                PyTorch LSTM의 기본 입력은 <code>(seq, batch, features)</code>이며, <code>batch_first=True</code>로
+                <code>(batch, seq, features)</code>로 변경하는 것을 권장합니다.
+            </div>
+
+            <h4>RNN/LSTM 핵심 정리</h4>
+            <table class="comparison-table">
+                <tr><th>작업</th><th>권장 구조</th><th>비고</th></tr>
+                <tr><td>텍스트 분류</td><td>Embedding → BiLSTM → Dense</td><td>양방향이 단방향보다 우수</td></tr>
+                <tr><td>감성 분석</td><td>Embedding → BiGRU → Dense</td><td>GRU가 더 빠르고 비슷한 성능</td></tr>
+                <tr><td>시계열 예측 (단일)</td><td>LSTM → Dense(1)</td><td>마지막 타임스텝 사용</td></tr>
+                <tr><td>시계열 예측 (다중)</td><td>LSTM(return_seq) → TimeDistributed</td><td>모든 타임스텝 예측</td></tr>
+                <tr><td>기계 번역</td><td>Encoder-Decoder + Attention</td><td>Transformer로 대체 추세</td></tr>
+                <tr><td>음성 인식</td><td>BiLSTM + CTC Loss</td><td>가변 길이 정렬 불필요</td></tr>
+                <tr><td>일반 권장</td><td>Transformer</td><td>긴 시퀀스, 병렬화 우수</td></tr>
+            </table>
+
+            <h3>Transformer (자연어 처리)</h3>
+
+            <p>Transformer는 Self-Attention 메커니즘 기반으로 시퀀스를 병렬 처리하는 아키텍처입니다.
+            RNN의 순차 처리 한계를 극복하여 NLP(BERT, GPT), 비전(ViT), 음성 등 거의 모든 분야에서
+            최고 성능을 달성하고 있습니다. "Attention Is All You Need" (2017) 논문에서 제안되었습니다.</p>
+
+            <h4>Self-Attention 메커니즘</h4>
+            <div class="code-block">
+<span class="comment"># Scaled Dot-Product Attention</span>
+<span class="comment">#</span>
+<span class="comment"># Attention(Q, K, V) = softmax(Q·K^T / √d_k) · V</span>
+<span class="comment">#</span>
+<span class="comment"># Q (Query)  : "내가 찾는 것" — 각 토큰이 다른 토큰에게 묻는 질의</span>
+<span class="comment"># K (Key)    : "내가 가진 것" — 각 토큰이 제공하는 키</span>
+<span class="comment"># V (Value)  : "내 내용"     — 실제 전달할 정보</span>
+<span class="comment"># √d_k       : 스케일링 — 내적 값이 커지면 softmax 기울기 소실 방지</span>
+
+<span class="keyword">import</span> torch
+<span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn
+<span class="keyword">import</span> torch.nn.functional <span class="keyword">as</span> F
+<span class="keyword">import</span> math
+
+<span class="keyword">def</span> <span class="function">scaled_dot_product_attention</span>(Q, K, V, mask=<span class="keyword">None</span>):
+    d_k = Q.size(-<span class="number">1</span>)
+    scores = torch.matmul(Q, K.transpose(-<span class="number">2</span>, -<span class="number">1</span>)) / math.sqrt(d_k)  <span class="comment"># (batch, heads, seq, seq)</span>
+    <span class="keyword">if</span> mask <span class="keyword">is not</span> <span class="keyword">None</span>:
+        scores = scores.masked_fill(mask == <span class="number">0</span>, <span class="builtin">float</span>(<span class="string">"-inf"</span>))         <span class="comment"># 마스킹 위치 -∞</span>
+    attn_weights = F.softmax(scores, dim=-<span class="number">1</span>)                          <span class="comment"># 어텐션 가중치</span>
+    output = torch.matmul(attn_weights, V)                             <span class="comment"># 가중 합</span>
+    <span class="keyword">return</span> output, attn_weights
+            </div>
+
+            <h4>Multi-Head Attention (PyTorch 구현)</h4>
+            <div class="code-block">
+<span class="keyword">class</span> <span class="function">MultiHeadAttention</span>(nn.Module):
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, d_model, num_heads):
+        <span class="builtin">super</span>().__init__()
+        <span class="keyword">assert</span> d_model % num_heads == <span class="number">0</span>
+        self.d_model = d_model
         self.num_heads = num_heads
-        self.head_dim = embed_dim // num_heads
-        
-        self.query = layers.Dense(embed_dim)
-        self.key = layers.Dense(embed_dim)
-        self.value = layers.Dense(embed_dim)
-        self.out = layers.Dense(embed_dim)
-    
-    <span class="keyword">def</span> <span class="function">call</span>(self, x):
-        <span class="comment"># Multi-head attention 구현</span>
+        self.d_k = d_model // num_heads
+
+        self.W_q = nn.Linear(d_model, d_model)
+        self.W_k = nn.Linear(d_model, d_model)
+        self.W_v = nn.Linear(d_model, d_model)
+        self.W_o = nn.Linear(d_model, d_model)
+
+    <span class="keyword">def</span> <span class="function">forward</span>(self, query, key, value, mask=<span class="keyword">None</span>):
+        batch_size = query.size(<span class="number">0</span>)
+
+        <span class="comment"># 선형 변환 후 헤드 분할: (batch, seq, d_model) → (batch, heads, seq, d_k)</span>
+        Q = self.W_q(query).view(batch_size, -<span class="number">1</span>, self.num_heads, self.d_k).transpose(<span class="number">1</span>, <span class="number">2</span>)
+        K = self.W_k(key).view(batch_size, -<span class="number">1</span>, self.num_heads, self.d_k).transpose(<span class="number">1</span>, <span class="number">2</span>)
+        V = self.W_v(value).view(batch_size, -<span class="number">1</span>, self.num_heads, self.d_k).transpose(<span class="number">1</span>, <span class="number">2</span>)
+
+        <span class="comment"># Scaled Dot-Product Attention</span>
+        attn_out, attn_weights = scaled_dot_product_attention(Q, K, V, mask)
+
+        <span class="comment"># 헤드 결합: (batch, heads, seq, d_k) → (batch, seq, d_model)</span>
+        attn_out = attn_out.transpose(<span class="number">1</span>, <span class="number">2</span>).contiguous().view(batch_size, -<span class="number">1</span>, self.d_model)
+        <span class="keyword">return</span> self.W_o(attn_out)
+
+<span class="comment"># PyTorch 내장 (권장 — Flash Attention 자동 적용)</span>
+mha = nn.MultiheadAttention(embed_dim=<span class="number">512</span>, num_heads=<span class="number">8</span>, batch_first=<span class="keyword">True</span>)
+attn_output, attn_weights = mha(query, key, value, attn_mask=mask)
+            </div>
+
+            <h4>Positional Encoding</h4>
+            <div class="code-block">
+<span class="comment"># Transformer는 위치 정보가 없으므로 Positional Encoding을 추가</span>
+<span class="comment"># PE(pos, 2i)   = sin(pos / 10000^(2i/d_model))</span>
+<span class="comment"># PE(pos, 2i+1) = cos(pos / 10000^(2i/d_model))</span>
+
+<span class="keyword">class</span> <span class="function">PositionalEncoding</span>(nn.Module):
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, d_model, max_len=<span class="number">5000</span>, dropout=<span class="number">0.1</span>):
+        <span class="builtin">super</span>().__init__()
+        self.dropout = nn.Dropout(dropout)
+
+        pe = torch.zeros(max_len, d_model)
+        position = torch.arange(<span class="number">0</span>, max_len).unsqueeze(<span class="number">1</span>).float()
+        div_term = torch.exp(torch.arange(<span class="number">0</span>, d_model, <span class="number">2</span>).float() * -(math.log(<span class="number">10000.0</span>) / d_model))
+
+        pe[:, <span class="number">0</span>::<span class="number">2</span>] = torch.sin(position * div_term)  <span class="comment"># 짝수 인덱스: sin</span>
+        pe[:, <span class="number">1</span>::<span class="number">2</span>] = torch.cos(position * div_term)  <span class="comment"># 홀수 인덱스: cos</span>
+        pe = pe.unsqueeze(<span class="number">0</span>)  <span class="comment"># (1, max_len, d_model)</span>
+        self.register_buffer(<span class="string">"pe"</span>, pe)
+
+    <span class="keyword">def</span> <span class="function">forward</span>(self, x):
+        x = x + self.pe[:, :x.size(<span class="number">1</span>)]
+        <span class="keyword">return</span> self.dropout(x)
+            </div>
+
+            <h4>Transformer Encoder Block</h4>
+            <div class="code-block">
+<span class="keyword">class</span> <span class="function">TransformerEncoderBlock</span>(nn.Module):
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, d_model, num_heads, d_ff, dropout=<span class="number">0.1</span>):
+        <span class="builtin">super</span>().__init__()
+        self.self_attn = nn.MultiheadAttention(d_model, num_heads, batch_first=<span class="keyword">True</span>)
+        self.ffn = nn.Sequential(
+            nn.Linear(d_model, d_ff),     <span class="comment"># d_ff = d_model × 4 가 일반적</span>
+            nn.GELU(),
+            nn.Dropout(dropout),
+            nn.Linear(d_ff, d_model),
+        )
+        self.norm1 = nn.LayerNorm(d_model)
+        self.norm2 = nn.LayerNorm(d_model)
+        self.dropout = nn.Dropout(dropout)
+
+    <span class="keyword">def</span> <span class="function">forward</span>(self, x, mask=<span class="keyword">None</span>):
+        <span class="comment"># Pre-LayerNorm 구조 (Post-LN보다 학습 안정적)</span>
+        normed = self.norm1(x)
+        attn_out, _ = self.self_attn(normed, normed, normed, attn_mask=mask)
+        x = x + self.dropout(attn_out)     <span class="comment"># 잔차 연결</span>
+
+        normed = self.norm2(x)
+        ffn_out = self.ffn(normed)
+        x = x + self.dropout(ffn_out)      <span class="comment"># 잔차 연결</span>
         <span class="keyword">return</span> x
 
-<span class="comment"># BERT 모델 사용 (Hugging Face)</span>
-<span class="comment"># from transformers import BertTokenizer, TFBertModel</span>
+<span class="comment"># PyTorch 내장 Encoder (권장)</span>
+encoder_layer = nn.TransformerEncoderLayer(
+    d_model=<span class="number">512</span>, nhead=<span class="number">8</span>, dim_feedforward=<span class="number">2048</span>,
+    dropout=<span class="number">0.1</span>, activation=<span class="string">"gelu"</span>, batch_first=<span class="keyword">True</span>, norm_first=<span class="keyword">True</span>
+)
+encoder = nn.TransformerEncoder(encoder_layer, num_layers=<span class="number">6</span>)
             </div>
-            
-            <h3>전이 학습 (Transfer Learning)</h3>
+
+            <h4>Transformer Decoder Block</h4>
             <div class="code-block">
-<span class="comment"># 사전 학습된 모델 로드</span>
-<span class="keyword">from</span> tensorflow.keras.applications <span class="keyword">import</span> ResNet50V2
+<span class="keyword">class</span> <span class="function">TransformerDecoderBlock</span>(nn.Module):
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, d_model, num_heads, d_ff, dropout=<span class="number">0.1</span>):
+        <span class="builtin">super</span>().__init__()
+        self.self_attn = nn.MultiheadAttention(d_model, num_heads, batch_first=<span class="keyword">True</span>)
+        self.cross_attn = nn.MultiheadAttention(d_model, num_heads, batch_first=<span class="keyword">True</span>)
+        self.ffn = nn.Sequential(
+            nn.Linear(d_model, d_ff), nn.GELU(), nn.Dropout(dropout),
+            nn.Linear(d_ff, d_model),
+        )
+        self.norm1 = nn.LayerNorm(d_model)
+        self.norm2 = nn.LayerNorm(d_model)
+        self.norm3 = nn.LayerNorm(d_model)
+        self.dropout = nn.Dropout(dropout)
 
-base_model = ResNet50V2(weights=<span class="string">"imagenet"</span>, include_top=<span class="keyword">False</span>, input_shape=(<span class="number">224</span>, <span class="number">224</span>, <span class="number">3</span>))
+    <span class="keyword">def</span> <span class="function">forward</span>(self, x, encoder_out, tgt_mask=<span class="keyword">None</span>, memory_mask=<span class="keyword">None</span>):
+        <span class="comment"># ① Masked Self-Attention (미래 토큰 참조 방지)</span>
+        normed = self.norm1(x)
+        attn_out, _ = self.self_attn(normed, normed, normed, attn_mask=tgt_mask)
+        x = x + self.dropout(attn_out)
 
-<span class="comment"># 파인튜닝</span>
-base_model.trainable = <span class="keyword">False</span>
+        <span class="comment"># ② Cross-Attention (인코더 출력 참조)</span>
+        normed = self.norm2(x)
+        attn_out, _ = self.cross_attn(normed, encoder_out, encoder_out, attn_mask=memory_mask)
+        x = x + self.dropout(attn_out)
+
+        <span class="comment"># ③ Feed-Forward</span>
+        normed = self.norm3(x)
+        x = x + self.dropout(self.ffn(normed))
+        <span class="keyword">return</span> x
+
+<span class="comment"># Causal Mask 생성 (디코더용 — 미래 토큰 가리기)</span>
+<span class="keyword">def</span> <span class="function">generate_causal_mask</span>(seq_len):
+    <span class="keyword">return</span> torch.triu(torch.ones(seq_len, seq_len), diagonal=<span class="number">1</span>).bool()
+    <span class="comment"># [[False, True,  True ],</span>
+    <span class="comment">#  [False, False, True ],</span>
+    <span class="comment">#  [False, False, False]]</span>
+            </div>
+
+            <h4>완전한 Transformer 모델 (분류)</h4>
+            <div class="code-block">
+<span class="keyword">class</span> <span class="function">TransformerClassifier</span>(nn.Module):
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, vocab_size, d_model=<span class="number">256</span>, num_heads=<span class="number">8</span>,
+                 num_layers=<span class="number">4</span>, d_ff=<span class="number">512</span>, num_classes=<span class="number">2</span>,
+                 max_len=<span class="number">512</span>, dropout=<span class="number">0.1</span>):
+        <span class="builtin">super</span>().__init__()
+        self.embedding = nn.Embedding(vocab_size, d_model)
+        self.pos_encoding = PositionalEncoding(d_model, max_len, dropout)
+
+        encoder_layer = nn.TransformerEncoderLayer(
+            d_model, num_heads, d_ff, dropout,
+            activation=<span class="string">"gelu"</span>, batch_first=<span class="keyword">True</span>, norm_first=<span class="keyword">True</span>
+        )
+        self.encoder = nn.TransformerEncoder(encoder_layer, num_layers)
+        self.classifier = nn.Sequential(
+            nn.LayerNorm(d_model),
+            nn.Linear(d_model, num_classes)
+        )
+
+    <span class="keyword">def</span> <span class="function">forward</span>(self, x, src_mask=<span class="keyword">None</span>):
+        x = self.embedding(x) * math.sqrt(self.d_model)  <span class="comment"># 스케일링</span>
+        x = self.pos_encoding(x)
+        x = self.encoder(x, src_key_padding_mask=src_mask)
+        x = x.mean(dim=<span class="number">1</span>)        <span class="comment"># 평균 풀링 (또는 [CLS] 토큰)</span>
+        <span class="keyword">return</span> self.classifier(x)
+            </div>
+
+            <h4>Hugging Face Transformers 활용</h4>
+            <div class="code-block">
+<span class="comment"># pip install transformers datasets</span>
+
+<span class="comment"># ① Pipeline — 가장 간단한 사용법 (추론 전용)</span>
+<span class="keyword">from</span> transformers <span class="keyword">import</span> pipeline
+
+<span class="comment"># 감성 분석</span>
+classifier = pipeline(<span class="string">"sentiment-analysis"</span>)
+result = classifier(<span class="string">"This movie is amazing!"</span>)
+<span class="comment"># [{'label': 'POSITIVE', 'score': 0.9998}]</span>
+
+<span class="comment"># 텍스트 생성</span>
+generator = pipeline(<span class="string">"text-generation"</span>, model=<span class="string">"gpt2"</span>)
+output = generator(<span class="string">"The future of AI"</span>, max_length=<span class="number">50</span>)
+
+<span class="comment"># 질의응답</span>
+qa = pipeline(<span class="string">"question-answering"</span>)
+result = qa(question=<span class="string">"What is PyTorch?"</span>, context=<span class="string">"PyTorch is a deep learning framework."</span>)
+
+<span class="comment"># 요약</span>
+summarizer = pipeline(<span class="string">"summarization"</span>, model=<span class="string">"facebook/bart-large-cnn"</span>)
+summary = summarizer(long_text, max_length=<span class="number">130</span>, min_length=<span class="number">30</span>)
+
+<span class="comment"># ② 직접 모델 로드 — 토크나이저 + 모델</span>
+<span class="keyword">from</span> transformers <span class="keyword">import</span> AutoTokenizer, AutoModel, AutoModelForSequenceClassification
+
+tokenizer = AutoTokenizer.from_pretrained(<span class="string">"bert-base-uncased"</span>)
+model = AutoModelForSequenceClassification.from_pretrained(<span class="string">"bert-base-uncased"</span>, num_labels=<span class="number">2</span>)
+
+<span class="comment"># 토크나이징</span>
+inputs = tokenizer(
+    <span class="string">"Hello, how are you?"</span>,
+    padding=<span class="keyword">True</span>,
+    truncation=<span class="keyword">True</span>,
+    max_length=<span class="number">128</span>,
+    return_tensors=<span class="string">"pt"</span>     <span class="comment"># "pt"=PyTorch, "tf"=TensorFlow, "np"=NumPy</span>
+)
+<span class="comment"># {'input_ids': tensor([[101, 7592, ...]]), 'attention_mask': tensor([[1, 1, ...]])}</span>
+
+outputs = model(**inputs)
+logits = outputs.logits     <span class="comment"># (batch, num_labels)</span>
+
+<span class="comment"># ③ 파인튜닝 (Hugging Face Trainer)</span>
+<span class="keyword">from</span> transformers <span class="keyword">import</span> TrainingArguments, Trainer
+<span class="keyword">from</span> datasets <span class="keyword">import</span> load_dataset
+
+dataset = load_dataset(<span class="string">"imdb"</span>)
+
+<span class="keyword">def</span> <span class="function">tokenize_fn</span>(examples):
+    <span class="keyword">return</span> tokenizer(examples[<span class="string">"text"</span>], truncation=<span class="keyword">True</span>, max_length=<span class="number">256</span>)
+
+tokenized = dataset.map(tokenize_fn, batched=<span class="keyword">True</span>)
+
+training_args = TrainingArguments(
+    output_dir=<span class="string">"./results"</span>,
+    num_train_epochs=<span class="number">3</span>,
+    per_device_train_batch_size=<span class="number">16</span>,
+    per_device_eval_batch_size=<span class="number">64</span>,
+    learning_rate=<span class="number">2e-5</span>,
+    weight_decay=<span class="number">0.01</span>,
+    eval_strategy=<span class="string">"epoch"</span>,
+    save_strategy=<span class="string">"epoch"</span>,
+    load_best_model_at_end=<span class="keyword">True</span>,
+    fp16=<span class="keyword">True</span>,                <span class="comment"># 혼합 정밀도</span>
+)
+
+trainer = Trainer(
+    model=model,
+    args=training_args,
+    train_dataset=tokenized[<span class="string">"train"</span>],
+    eval_dataset=tokenized[<span class="string">"test"</span>],
+)
+trainer.train()
+            </div>
+
+            <h4>주요 Transformer 모델 비교</h4>
+            <table class="comparison-table">
+                <tr><th>모델</th><th>구조</th><th>특징</th><th>주요 용도</th></tr>
+                <tr><td>BERT</td><td>Encoder</td><td>양방향, MLM+NSP 사전학습</td><td>분류, QA, NER</td></tr>
+                <tr><td>GPT-2/3/4</td><td>Decoder</td><td>단방향, 자기회귀 생성</td><td>텍스트 생성, 대화</td></tr>
+                <tr><td>T5</td><td>Encoder-Decoder</td><td>모든 NLP를 text-to-text로 통합</td><td>번역, 요약, QA</td></tr>
+                <tr><td>BART</td><td>Encoder-Decoder</td><td>노이즈 제거 자기부호화기</td><td>요약, 번역</td></tr>
+                <tr><td>RoBERTa</td><td>Encoder</td><td>BERT 학습 전략 최적화</td><td>분류, NER (BERT 대체)</td></tr>
+                <tr><td>DeBERTa</td><td>Encoder</td><td>분리된 어텐션 + 향상된 디코딩</td><td>SuperGLUE SOTA</td></tr>
+                <tr><td>ViT</td><td>Encoder</td><td>이미지를 패치로 분할하여 처리</td><td>이미지 분류</td></tr>
+                <tr><td>Whisper</td><td>Encoder-Decoder</td><td>음성→텍스트 범용 모델</td><td>음성 인식, 번역</td></tr>
+                <tr><td>LLaMA</td><td>Decoder</td><td>효율적 오픈소스 LLM</td><td>텍스트 생성, 추론</td></tr>
+            </table>
+
+            <div class="tip-box">
+                <strong>Transformer 하이퍼파라미터 가이드:</strong>
+                <code>d_model</code> = 임베딩 차원 (256~1024),
+                <code>num_heads</code> = 어텐션 헤드 수 (d_model의 약수, 보통 8~16),
+                <code>d_ff</code> = FFN 히든 차원 (보통 d_model × 4),
+                <code>num_layers</code> = 블록 수 (6~12).
+                학습률은 워밍업(warmup) 후 감소하는 스케줄이 필수적입니다.
+            </div>
+
+            <h4>Transformer 핵심 정리</h4>
+            <table class="comparison-table">
+                <tr><th>구성 요소</th><th>역할</th><th>핵심 포인트</th></tr>
+                <tr><td>Self-Attention</td><td>토큰 간 관계 모델링</td><td>O(n²) 복잡도, Flash Attention으로 개선</td></tr>
+                <tr><td>Multi-Head</td><td>다양한 관계 패턴 포착</td><td>헤드별 독립 어텐션 후 결합</td></tr>
+                <tr><td>Positional Encoding</td><td>순서 정보 부여</td><td>sin/cos (고정) 또는 학습 가능</td></tr>
+                <tr><td>Feed-Forward</td><td>비선형 변환</td><td>각 위치에 독립 적용 (MLP)</td></tr>
+                <tr><td>LayerNorm</td><td>학습 안정화</td><td>Pre-LN (블록 앞) 이 더 안정적</td></tr>
+                <tr><td>잔차 연결</td><td>그래디언트 흐름 보존</td><td>모든 서브레이어에 적용</td></tr>
+                <tr><td>Causal Mask</td><td>미래 토큰 가리기</td><td>디코더/자기회귀 모델 필수</td></tr>
+                <tr><td>Cross-Attention</td><td>인코더-디코더 연결</td><td>Q=디코더, K/V=인코더</td></tr>
+            </table>
+
+            <h3>전이 학습 (Transfer Learning)</h3>
+
+            <p>전이 학습은 대규모 데이터로 사전학습된 모델의 지식을 새로운 작업에 재활용하는 기법입니다.
+            적은 데이터와 짧은 학습 시간으로 높은 성능을 달성할 수 있어, 실무에서 모델을 처음부터
+            학습하는 경우보다 전이 학습을 사용하는 경우가 훨씬 더 많습니다.</p>
+
+            <h4>전이 학습 전략</h4>
+            <table class="comparison-table">
+                <tr><th>전략</th><th>방법</th><th>데이터 양</th><th>적합한 경우</th></tr>
+                <tr><td>Feature Extraction</td><td>사전학습 레이어 동결, 헤드만 학습</td><td>적음 (&lt;1000)</td><td>새 데이터가 원본과 유사</td></tr>
+                <tr><td>Fine-tuning (전체)</td><td>모든 레이어를 낮은 lr로 학습</td><td>많음 (&gt;10000)</td><td>데이터 충분, 도메인 다름</td></tr>
+                <tr><td>Gradual Unfreezing</td><td>뒤쪽 레이어부터 순차적 해동</td><td>중간</td><td>안정적인 파인튜닝</td></tr>
+                <tr><td>Discriminative LR</td><td>레이어별 다른 학습률</td><td>중간~많음</td><td>앞쪽=낮은lr, 뒤쪽=높은lr</td></tr>
+            </table>
+
+            <h4>이미지 전이 학습 — Keras</h4>
+            <div class="code-block">
+<span class="keyword">from</span> tensorflow <span class="keyword">import</span> keras
+<span class="keyword">from</span> tensorflow.keras <span class="keyword">import</span> layers
+<span class="keyword">from</span> tensorflow.keras.applications <span class="keyword">import</span> EfficientNetV2B0, ResNet50V2
+
+<span class="comment"># ① Feature Extraction (특성 추출) — 사전학습 레이어 동결</span>
+base_model = EfficientNetV2B0(weights=<span class="string">"imagenet"</span>, include_top=<span class="keyword">False</span>, input_shape=(<span class="number">224</span>, <span class="number">224</span>, <span class="number">3</span>))
+base_model.trainable = <span class="keyword">False</span>   <span class="comment"># 모든 레이어 동결</span>
 
 model = keras.Sequential([
     base_model,
     layers.GlobalAveragePooling2D(),
-    layers.Dense(<span class="number">256</span>, activation=<span class="string">"relu"</span>),
-    layers.Dropout(<span class="number">0.5</span>),
+    layers.Dropout(<span class="number">0.3</span>),
+    layers.Dense(<span class="number">128</span>, activation=<span class="string">"relu"</span>),
     layers.Dense(<span class="number">10</span>, activation=<span class="string">"softmax"</span>)
 ])
 
-<span class="comment"># 일정 층만 파인튜닝</span>
-<span class="keyword">for</span> layer <span class="keyword">in</span> base_model.layers[<span class="number">-50</span>:]:
-    layer.trainable = <span class="keyword">True</span>
+model.compile(optimizer=keras.optimizers.Adam(<span class="number">1e-3</span>),  <span class="comment"># 높은 lr OK (헤드만 학습)</span>
+              loss=<span class="string">"sparse_categorical_crossentropy"</span>, metrics=[<span class="string">"accuracy"</span>])
+model.fit(train_ds, epochs=<span class="number">10</span>, validation_data=val_ds)
+
+<span class="comment"># ② Fine-tuning — 헤드 학습 후 일부 레이어 해동</span>
+base_model.trainable = <span class="keyword">True</span>
+<span class="keyword">for</span> layer <span class="keyword">in</span> base_model.layers[:-<span class="number">30</span>]:   <span class="comment"># 앞쪽 레이어는 동결 유지</span>
+    layer.trainable = <span class="keyword">False</span>
+
+model.compile(optimizer=keras.optimizers.Adam(<span class="number">1e-5</span>),  <span class="comment"># 매우 낮은 lr (기존 가중치 보호)</span>
+              loss=<span class="string">"sparse_categorical_crossentropy"</span>, metrics=[<span class="string">"accuracy"</span>])
+model.fit(train_ds, epochs=<span class="number">10</span>, validation_data=val_ds)
+
+<span class="comment"># 사용 가능한 사전학습 모델</span>
+<span class="comment"># keras.applications.EfficientNetV2B0~L  — 효율적, 최신 권장</span>
+<span class="comment"># keras.applications.ResNet50V2          — 범용, 검증된 성능</span>
+<span class="comment"># keras.applications.MobileNetV3Large    — 모바일/엣지용</span>
+<span class="comment"># keras.applications.ConvNeXtTiny        — 최신 순수 CNN</span>
             </div>
+
+            <h4>이미지 전이 학습 — PyTorch</h4>
+            <div class="code-block">
+<span class="keyword">import</span> torch
+<span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn
+<span class="keyword">from</span> torchvision <span class="keyword">import</span> models
+
+<span class="comment"># ① Feature Extraction</span>
+model = models.efficientnet_v2_s(weights=<span class="string">"IMAGENET1K_V1"</span>)
+
+<span class="comment"># 모든 레이어 동결</span>
+<span class="keyword">for</span> param <span class="keyword">in</span> model.parameters():
+    param.requires_grad = <span class="keyword">False</span>
+
+<span class="comment"># 분류 헤드 교체</span>
+model.classifier = nn.Sequential(
+    nn.Dropout(<span class="number">0.3</span>),
+    nn.Linear(model.classifier[<span class="number">1</span>].in_features, <span class="number">10</span>)
+)
+
+<span class="comment"># 교체된 헤드만 학습됨 (requires_grad=True 기본)</span>
+optimizer = torch.optim.Adam(model.classifier.parameters(), lr=<span class="number">1e-3</span>)
+
+<span class="comment"># ② Fine-tuning — Discriminative Learning Rate</span>
+<span class="keyword">for</span> param <span class="keyword">in</span> model.parameters():
+    param.requires_grad = <span class="keyword">True</span>       <span class="comment"># 전체 해동</span>
+
+optimizer = torch.optim.AdamW([
+    {<span class="string">"params"</span>: model.features[:<span class="number">5</span>].parameters(), <span class="string">"lr"</span>: <span class="number">1e-6</span>},   <span class="comment"># 앞쪽: 아주 낮은 lr</span>
+    {<span class="string">"params"</span>: model.features[<span class="number">5</span>:].parameters(), <span class="string">"lr"</span>: <span class="number">1e-5</span>},   <span class="comment"># 중간: 낮은 lr</span>
+    {<span class="string">"params"</span>: model.classifier.parameters(), <span class="string">"lr"</span>: <span class="number">1e-3</span>},     <span class="comment"># 헤드: 높은 lr</span>
+], weight_decay=<span class="number">0.01</span>)
+
+<span class="comment"># ResNet 헤드 교체</span>
+resnet = models.resnet50(weights=<span class="string">"IMAGENET1K_V2"</span>)
+resnet.fc = nn.Linear(resnet.fc.in_features, <span class="number">10</span>)  <span class="comment"># 마지막 FC 교체</span>
+
+<span class="comment"># ViT (Vision Transformer) 전이 학습</span>
+vit = models.vit_b_16(weights=<span class="string">"IMAGENET1K_V1"</span>)
+vit.heads = nn.Linear(vit.heads[<span class="number">0</span>].in_features, <span class="number">10</span>)
+            </div>
+
+            <h4>NLP 전이 학습 — Hugging Face</h4>
+            <div class="code-block">
+<span class="keyword">from</span> transformers <span class="keyword">import</span> AutoTokenizer, AutoModelForSequenceClassification
+
+<span class="comment"># 사전학습 모델 + 분류 헤드</span>
+model_name = <span class="string">"bert-base-uncased"</span>
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = AutoModelForSequenceClassification.from_pretrained(model_name, num_labels=<span class="number">3</span>)
+
+<span class="comment"># Layer-wise Learning Rate Decay (LLRD)</span>
+<span class="keyword">from</span> transformers <span class="keyword">import</span> AdamW
+
+no_decay = [<span class="string">"bias"</span>, <span class="string">"LayerNorm.weight"</span>]
+optimizer_grouped = []
+lr = <span class="number">2e-5</span>
+decay_rate = <span class="number">0.9</span>
+
+<span class="keyword">for</span> i <span class="keyword">in</span> <span class="builtin">range</span>(<span class="number">12</span>, -<span class="number">1</span>, -<span class="number">1</span>):   <span class="comment"># BERT 12층 → 0층</span>
+    layer_lr = lr * (decay_rate ** (<span class="number">12</span> - i))
+    layer_params = [(n, p) <span class="keyword">for</span> n, p <span class="keyword">in</span> model.named_parameters() <span class="keyword">if</span> f<span class="string">"layer.{i}."</span> <span class="keyword">in</span> n]
+    optimizer_grouped.append({
+        <span class="string">"params"</span>: [p <span class="keyword">for</span> n, p <span class="keyword">in</span> layer_params <span class="keyword">if</span> <span class="keyword">not</span> <span class="builtin">any</span>(nd <span class="keyword">in</span> n <span class="keyword">for</span> nd <span class="keyword">in</span> no_decay)],
+        <span class="string">"lr"</span>: layer_lr, <span class="string">"weight_decay"</span>: <span class="number">0.01</span>
+    })
+
+<span class="comment"># 한국어 모델 예시</span>
+<span class="comment"># tokenizer = AutoTokenizer.from_pretrained("klue/bert-base")</span>
+<span class="comment"># model = AutoModelForSequenceClassification.from_pretrained("klue/bert-base", num_labels=5)</span>
+            </div>
+
+            <h4>사전학습 모델 비교 (이미지)</h4>
+            <table class="comparison-table">
+                <tr><th>모델</th><th>파라미터</th><th>ImageNet Top-1</th><th>추론 속도</th><th>적합한 용도</th></tr>
+                <tr><td>MobileNetV3-Small</td><td>2.5M</td><td>67.5%</td><td>매우 빠름</td><td>모바일, 엣지</td></tr>
+                <tr><td>EfficientNet-B0</td><td>5.3M</td><td>77.1%</td><td>빠름</td><td>경량 서버</td></tr>
+                <tr><td>ResNet-50</td><td>25M</td><td>80.9%</td><td>보통</td><td>범용 베이스라인</td></tr>
+                <tr><td>EfficientNetV2-S</td><td>21M</td><td>84.2%</td><td>보통</td><td>서버 권장</td></tr>
+                <tr><td>ConvNeXt-Tiny</td><td>29M</td><td>82.1%</td><td>보통</td><td>현대 CNN</td></tr>
+                <tr><td>ViT-B/16</td><td>86M</td><td>84.5%</td><td>느림</td><td>대규모 데이터</td></tr>
+                <tr><td>EfficientNetV2-L</td><td>118M</td><td>85.7%</td><td>느림</td><td>최고 정확도</td></tr>
+            </table>
+
+            <div class="warning-box">
+                <strong>전이 학습 주의사항:</strong>
+                Feature extraction 단계에서는 높은 학습률(1e-3)을 사용해도 되지만,
+                fine-tuning 단계에서는 반드시 낮은 학습률(1e-5~1e-4)을 사용하세요 — 사전학습 가중치가 파괴됩니다.
+                입력 이미지의 전처리(정규화 값)는 사전학습 시 사용된 것과 동일해야 합니다.
+                데이터가 매우 적으면(&lt;500) fine-tuning 대신 feature extraction만 사용하세요.
+            </div>
+
+            <h4>전이 학습 핵심 정리</h4>
+            <table class="comparison-table">
+                <tr><th>단계</th><th>동결 범위</th><th>학습률</th><th>에포크</th></tr>
+                <tr><td>1. Feature Extraction</td><td>사전학습 전체 동결</td><td>1e-3</td><td>5~10</td></tr>
+                <tr><td>2. Fine-tuning (뒤쪽)</td><td>앞쪽 동결, 뒤쪽 30% 해동</td><td>1e-5</td><td>5~15</td></tr>
+                <tr><td>3. Fine-tuning (전체)</td><td>전체 해동 (선택)</td><td>1e-5~1e-6</td><td>3~5</td></tr>
+                <tr><td>NLP Fine-tuning</td><td>전체 해동 + LLRD</td><td>2e-5 (상위) ~2e-6 (하위)</td><td>3~5</td></tr>
+            </table>
             
             <h3>AI 프레임워크 설치</h3>
             <div class="code-block">
