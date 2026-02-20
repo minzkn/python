@@ -61,6 +61,18 @@
 
             --shadow:    rgba(0, 0, 0, 0.5);
             --shadow-sm: rgba(0, 0, 0, 0.25);
+
+            /* SVG 테마 적응 색상 */
+            --svg-blue:        rgba(33, 150, 243, 0.15);
+            --svg-green:       rgba(76, 175, 80, 0.15);
+            --svg-orange:      rgba(255, 152, 0, 0.15);
+            --svg-pink:        rgba(233, 30, 99, 0.15);
+            --svg-gray:        rgba(139, 148, 158, 0.1);
+            --svg-inner:       #2d333b;
+            --svg-blue-text:   #58a6ff;
+            --svg-green-text:  #56d364;
+            --svg-orange-text: #d29922;
+            --svg-pink-text:   #f778ba;
         }
 
         [data-theme="light"] {
@@ -89,6 +101,18 @@
 
             --shadow:    rgba(0, 0, 0, 0.1);
             --shadow-sm: rgba(0, 0, 0, 0.05);
+
+            /* SVG 테마 적응 색상 */
+            --svg-blue:        #e3f2fd;
+            --svg-green:       #e8f5e9;
+            --svg-orange:      #fff3e0;
+            --svg-pink:        #fce4ec;
+            --svg-gray:        #f0f0f0;
+            --svg-inner:       #ffffff;
+            --svg-blue-text:   #1565C0;
+            --svg-green-text:  #2E7D32;
+            --svg-orange-text: #E65100;
+            --svg-pink-text:   #c2185b;
         }
 
         /* ====================================================
@@ -1148,17 +1172,17 @@ x = <span class="number">1</span>; y = <span class="number">2</span>; <span clas
             <div class="svg-container">
                 <!-- Variable Concept SVG -->
                 <svg width="600" height="180" viewBox="0 0 600 180" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="50" y="50" width="150" height="80" rx="10" fill="#e3f2fd" stroke="#2196F3" stroke-width="2"/>
-                    <text x="125" y="95" text-anchor="middle" font-weight="bold" fill="#333">name</text>
-                    
-                    <polygon points="200,90 230,70 230,110" fill="#667eea"/>
-                    <line x1="200" y1="90" x2="300" y2="90" stroke="#667eea" stroke-width="2"/>
-                    
-                    <rect x="300" y="50" width="150" height="80" rx="10" fill="#fff3e0" stroke="#ff9800" stroke-width="2"/>
-                    <text x="375" y="95" text-anchor="middle" font-weight="bold" fill="#333">"민준"</text>
-                    
-                    <text x="375" y="150" text-anchor="middle" fill="#666" font-size="14">메모리 공간</text>
-                    
+                    <rect x="50" y="50" width="150" height="80" rx="10" fill="var(--svg-blue)" stroke="#2196F3" stroke-width="2"/>
+                    <text x="125" y="95" text-anchor="middle" font-weight="bold" fill="var(--text-primary)">name</text>
+
+                    <line x1="200" y1="90" x2="270" y2="90" stroke="#667eea" stroke-width="2"/>
+                    <polygon points="270,70 300,90 270,110" fill="#667eea"/>
+
+                    <rect x="300" y="50" width="150" height="80" rx="10" fill="var(--svg-orange)" stroke="#ff9800" stroke-width="2"/>
+                    <text x="375" y="95" text-anchor="middle" font-weight="bold" fill="var(--text-primary)">"민준"</text>
+
+                    <text x="375" y="150" text-anchor="middle" fill="var(--text-secondary)" font-size="14">메모리 공간</text>
+
                     <rect x="500" y="20" width="80" height="40" rx="5" fill="#4CAF50"/>
                     <text x="540" y="45" text-anchor="middle" fill="white" font-weight="bold">값</text>
                 </svg>
@@ -1359,39 +1383,39 @@ gen = (x**<span class="number">2</span> <span class="keyword">for</span> x <span
                 <!-- Data Types Comparison SVG -->
                 <svg width="700" height="250" viewBox="0 0 700 250" xmlns="http://www.w3.org/2000/svg">
                     <!-- List Box -->
-                    <rect x="30" y="30" width="180" height="180" rx="15" fill="#e8f5e9" stroke="#4CAF50" stroke-width="3"/>
-                    <text x="120" y="60" text-anchor="middle" font-weight="bold" fill="#2E7D32" font-size="16">List (리스트)</text>
-                    <text x="120" y="85" text-anchor="middle" fill="#666" font-size="12">[]</text>
-                    <rect x="50" y="100" width="140" height="30" rx="5" fill="white" stroke="#4CAF50"/>
-                    <text x="120" y="120" text-anchor="middle" fill="#333">"사과"</text>
-                    <rect x="50" y="135" width="140" height="30" rx="5" fill="white" stroke="#4CAF50"/>
-                    <text x="120" y="155" text-anchor="middle" fill="#333">"바나나"</text>
-                    <rect x="50" y="170" width="140" height="30" rx="5" fill="white" stroke="#4CAF50"/>
-                    <text x="120" y="190" text-anchor="middle" fill="#333">"딸기"</text>
+                    <rect x="30" y="30" width="180" height="180" rx="15" fill="var(--svg-green)" stroke="#4CAF50" stroke-width="3"/>
+                    <text x="120" y="60" text-anchor="middle" font-weight="bold" fill="var(--svg-green-text)" font-size="16">List (리스트)</text>
+                    <text x="120" y="85" text-anchor="middle" fill="var(--text-secondary)" font-size="12">[]</text>
+                    <rect x="50" y="100" width="140" height="30" rx="5" fill="var(--svg-inner)" stroke="#4CAF50"/>
+                    <text x="120" y="120" text-anchor="middle" fill="var(--text-primary)">"사과"</text>
+                    <rect x="50" y="135" width="140" height="30" rx="5" fill="var(--svg-inner)" stroke="#4CAF50"/>
+                    <text x="120" y="155" text-anchor="middle" fill="var(--text-primary)">"바나나"</text>
+                    <rect x="50" y="170" width="140" height="30" rx="5" fill="var(--svg-inner)" stroke="#4CAF50"/>
+                    <text x="120" y="190" text-anchor="middle" fill="var(--text-primary)">"딸기"</text>
                     <text x="120" y="225" text-anchor="middle" fill="#4CAF50" font-size="12">✏️ 수정 가능</text>
-                    
+
                     <!-- Tuple Box -->
-                    <rect x="260" y="30" width="180" height="180" rx="15" fill="#fff3e0" stroke="#ff9800" stroke-width="3"/>
-                    <text x="350" y="60" text-anchor="middle" font-weight="bold" fill="#E65100" font-size="16">Tuple (튜플)</text>
-                    <text x="350" y="85" text-anchor="middle" fill="#666" font-size="12">()</text>
-                    <rect x="280" y="100" width="140" height="30" rx="5" fill="white" stroke="#ff9800"/>
-                    <text x="350" y="120" text-anchor="middle" fill="#333">"사과"</text>
-                    <rect x="280" y="135" width="140" height="30" rx="5" fill="white" stroke="#ff9800"/>
-                    <text x="350" y="155" text-anchor="middle" fill="#333">"바나나"</text>
-                    <rect x="280" y="170" width="140" height="30" rx="5" fill="white" stroke="#ff9800"/>
-                    <text x="350" y="190" text-anchor="middle" fill="#333">"딸기"</text>
+                    <rect x="260" y="30" width="180" height="180" rx="15" fill="var(--svg-orange)" stroke="#ff9800" stroke-width="3"/>
+                    <text x="350" y="60" text-anchor="middle" font-weight="bold" fill="var(--svg-orange-text)" font-size="16">Tuple (튜플)</text>
+                    <text x="350" y="85" text-anchor="middle" fill="var(--text-secondary)" font-size="12">()</text>
+                    <rect x="280" y="100" width="140" height="30" rx="5" fill="var(--svg-inner)" stroke="#ff9800"/>
+                    <text x="350" y="120" text-anchor="middle" fill="var(--text-primary)">"사과"</text>
+                    <rect x="280" y="135" width="140" height="30" rx="5" fill="var(--svg-inner)" stroke="#ff9800"/>
+                    <text x="350" y="155" text-anchor="middle" fill="var(--text-primary)">"바나나"</text>
+                    <rect x="280" y="170" width="140" height="30" rx="5" fill="var(--svg-inner)" stroke="#ff9800"/>
+                    <text x="350" y="190" text-anchor="middle" fill="var(--text-primary)">"딸기"</text>
                     <text x="350" y="225" text-anchor="middle" fill="#ff9800" font-size="12">🔒 수정 불가</text>
-                    
+
                     <!-- Dict Box -->
-                    <rect x="490" y="30" width="180" height="180" rx="15" fill="#e3f2fd" stroke="#2196F3" stroke-width="3"/>
-                    <text x="580" y="60" text-anchor="middle" font-weight="bold" fill="#1565C0" font-size="16">Dict (사전)</text>
-                    <text x="580" y="85" text-anchor="middle" fill="#666" font-size="12">{"key": "value"}</text>
-                    <rect x="510" y="100" width="140" height="25" rx="5" fill="white" stroke="#2196F3"/>
-                    <text x="580" y="118" text-anchor="middle" fill="#333" font-size="13">"이름": "민준"</text>
-                    <rect x="510" y="130" width="140" height="25" rx="5" fill="white" stroke="#2196F3"/>
-                    <text x="580" y="148" text-anchor="middle" fill="#333" font-size="13">"나이": 25</text>
-                    <rect x="510" y="160" width="140" height="25" rx="5" fill="white" stroke="#2196F3"/>
-                    <text x="580" y="178" text-anchor="middle" fill="#333" font-size="13">"도시": "서울"</text>
+                    <rect x="490" y="30" width="180" height="180" rx="15" fill="var(--svg-blue)" stroke="#2196F3" stroke-width="3"/>
+                    <text x="580" y="60" text-anchor="middle" font-weight="bold" fill="var(--svg-blue-text)" font-size="16">Dict (사전)</text>
+                    <text x="580" y="85" text-anchor="middle" fill="var(--text-secondary)" font-size="12">{"key": "value"}</text>
+                    <rect x="510" y="100" width="140" height="25" rx="5" fill="var(--svg-inner)" stroke="#2196F3"/>
+                    <text x="580" y="118" text-anchor="middle" fill="var(--text-primary)" font-size="13">"이름": "민준"</text>
+                    <rect x="510" y="130" width="140" height="25" rx="5" fill="var(--svg-inner)" stroke="#2196F3"/>
+                    <text x="580" y="148" text-anchor="middle" fill="var(--text-primary)" font-size="13">"나이": 25</text>
+                    <rect x="510" y="160" width="140" height="25" rx="5" fill="var(--svg-inner)" stroke="#2196F3"/>
+                    <text x="580" y="178" text-anchor="middle" fill="var(--text-primary)" font-size="13">"도시": "서울"</text>
                     <text x="580" y="215" text-anchor="middle" fill="#2196F3" font-size="12">🔑 키-값 쌍</text>
                 </svg>
             </div>
@@ -1504,36 +1528,36 @@ count = <span class="number">0</span>
                     <!-- Start -->
                     <ellipse cx="250" cy="30" rx="60" ry="25" fill="#4CAF50"/>
                     <text x="250" y="35" text-anchor="middle" fill="white" font-weight="bold">시작</text>
-                    
+
                     <!-- Condition -->
                     <polygon points="250,80 320,130 250,180 180,130" fill="#FF9800"/>
                     <text x="250" y="135" text-anchor="middle" fill="white" font-weight="bold">조건</text>
                     <text x="250" y="155" text-anchor="middle" fill="white" font-size="11">확인?</text>
-                    
+
                     <!-- Arrow down from Start -->
-                    <line x1="250" y1="55" x2="250" y2="80" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
-                    
+                    <line x1="250" y1="55" x2="250" y2="80" stroke="var(--text-secondary)" stroke-width="2" marker-end="url(#arrowhead)"/>
+
                     <!-- Yes path -->
                     <line x1="320" y1="130" x2="400" y2="130" stroke="#4CAF50" stroke-width="2"/>
                     <text x="360" y="120" fill="#4CAF50" font-weight="bold">Yes</text>
                     <line x1="400" y1="130" x2="400" y2="200" stroke="#4CAF50" stroke-width="2"/>
                     <rect x="330" y="200" width="140" height="40" rx="8" fill="#4CAF50"/>
                     <text x="400" y="225" text-anchor="middle" fill="white" font-weight="bold">실행</text>
-                    
+
                     <!-- No path -->
                     <line x1="180" y1="130" x2="100" y2="130" stroke="#f44336" stroke-width="2"/>
                     <text x="140" y="120" fill="#f44336" font-weight="bold">No</text>
                     <line x1="100" y1="130" x2="100" y2="250" stroke="#f44336" stroke-width="2"/>
                     <ellipse cx="100" cy="265" rx="50" ry="20" fill="#f44336"/>
                     <text x="100" y="270" text-anchor="middle" fill="white" font-weight="bold">종료</text>
-                    
+
                     <!-- Arrow from execute back to condition -->
                     <path d="M 400 240 Q 400 280 320 280 Q 250 280 250 180" stroke="#3776AB" stroke-width="2" fill="none" stroke-dasharray="5,5"/>
-                    
+
                     <!-- Arrow definitions -->
                     <defs>
                         <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-                            <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
+                            <polygon points="0 0, 10 3.5, 0 7" fill="var(--text-secondary)"/>
                         </marker>
                     </defs>
                 </svg>
@@ -1674,32 +1698,32 @@ gen = <span class="function">fibonacci</span>(<span class="number">5</span>)
             <div class="svg-container">
                 <!-- Function Concept SVG -->
                 <svg width="600" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Input -->
-                    <rect x="30" y="80" width="100" height="50" rx="8" fill="#e3f2fd" stroke="#2196F3" stroke-width="2"/>
-                    <text x="80" y="110" text-anchor="middle" fill="#333" font-weight="bold">입력 (Input)</text>
-                    <text x="80" y="145" text-anchor="middle" fill="#666" font-size="11">매개변수</text>
-                    
-                    <!-- Arrow to Function -->
-                    <line x1="130" y1="105" x2="180" y2="105" stroke="#3776AB" stroke-width="3" marker-end="url(#arrow2)"/>
-                    
-                    <!-- Function Box -->
-                    <rect x="180" y="50" width="200" height="100" rx="15" fill="#667eea"/>
-                    <text x="280" y="105" text-anchor="middle" fill="white" font-weight="bold" font-size="18">함수 (Function)</text>
-                    <text x="280" y="130" text-anchor="middle" fill="white" font-size="11">실행 로직</text>
-                    
-                    <!-- Arrow from Function -->
-                    <line x1="380" y1="105" x2="430" y2="105" stroke="#3776AB" stroke-width="3" marker-end="url(#arrow2)"/>
-                    
-                    <!-- Output -->
-                    <rect x="430" y="80" width="100" height="50" rx="8" fill="#e8f5e9" stroke="#4CAF50" stroke-width="2"/>
-                    <text x="480" y="110" text-anchor="middle" fill="#333" font-weight="bold">출력 (Output)</text>
-                    <text x="480" y="145" text-anchor="middle" fill="#666" font-size="11">반환값</text>
-                    
                     <defs>
                         <marker id="arrow2" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
                             <polygon points="0 0, 10 3.5, 0 7" fill="#3776AB"/>
                         </marker>
                     </defs>
+
+                    <!-- Input -->
+                    <rect x="10" y="75" width="130" height="55" rx="8" fill="var(--svg-blue)" stroke="#2196F3" stroke-width="2"/>
+                    <text x="75" y="107" text-anchor="middle" fill="var(--text-primary)" font-weight="bold">입력 (Input)</text>
+                    <text x="75" y="148" text-anchor="middle" fill="var(--text-secondary)" font-size="11">매개변수</text>
+
+                    <!-- Arrow to Function -->
+                    <line x1="140" y1="103" x2="185" y2="103" stroke="#3776AB" stroke-width="3" marker-end="url(#arrow2)"/>
+
+                    <!-- Function Box -->
+                    <rect x="190" y="50" width="190" height="100" rx="15" fill="#667eea"/>
+                    <text x="285" y="103" text-anchor="middle" fill="white" font-weight="bold" font-size="18">함수 (Function)</text>
+                    <text x="285" y="128" text-anchor="middle" fill="white" font-size="11">실행 로직</text>
+
+                    <!-- Arrow from Function -->
+                    <line x1="380" y1="103" x2="425" y2="103" stroke="#3776AB" stroke-width="3" marker-end="url(#arrow2)"/>
+
+                    <!-- Output -->
+                    <rect x="430" y="75" width="130" height="55" rx="8" fill="var(--svg-green)" stroke="#4CAF50" stroke-width="2"/>
+                    <text x="495" y="107" text-anchor="middle" fill="var(--text-primary)" font-weight="bold">출력 (Output)</text>
+                    <text x="495" y="148" text-anchor="middle" fill="var(--text-secondary)" font-size="11">반환값</text>
                 </svg>
             </div>
             <h3>데코레이터 (Decorators)</h3>
@@ -1934,22 +1958,24 @@ account = <span class="function">BankAccount</span>(<span class="number">1000</s
                     <!-- Parent Class -->
                     <rect x="225" y="20" width="150" height="60" rx="10" fill="#667eea"/>
                     <text x="300" y="55" text-anchor="middle" fill="white" font-weight="bold">Animal (부모)</text>
-                    
-                    <!-- Arrow -->
-                    <line x1="300" y1="80" x2="300" y2="120" stroke="#333" stroke-width="2" marker-end="url(#arrow2)"/>
-                    
+
+                    <!-- Vertical line from parent to branch -->
+                    <line x1="300" y1="80" x2="300" y2="115" stroke="var(--text-secondary)" stroke-width="2"/>
+                    <!-- Horizontal branch line -->
+                    <line x1="140" y1="115" x2="460" y2="115" stroke="var(--text-secondary)" stroke-width="2"/>
+                    <!-- Left drop to Cat -->
+                    <line x1="140" y1="115" x2="140" y2="140" stroke="var(--text-secondary)" stroke-width="2"/>
+                    <!-- Right drop to Dog -->
+                    <line x1="460" y1="115" x2="460" y2="140" stroke="var(--text-secondary)" stroke-width="2"/>
+
                     <!-- Child Classes -->
-                    <rect x="80" y="140" width="120" height="80" rx="10" fill="#e8f5e9" stroke="#4CAF50" stroke-width="3"/>
-                    <text x="140" y="170" text-anchor="middle" fill="#2E7D32" font-weight="bold">Cat (자식)</text>
-                    <text x="140" y="195" text-anchor="middle" fill="#666" font-size="12">speak()_override</text>
-                    
-                    <rect x="400" y="140" width="120" height="80" rx="10" fill="#fff3e0" stroke="#ff9800" stroke-width="3"/>
-                    <text x="460" y="170" text-anchor="middle" fill="#E65100" font-weight="bold">Dog (자식)</text>
-                    <text x="460" y="195" text-anchor="middle" fill="#666" font-size="12">speak()_override</text>
-                    
-                    <!-- Dotted lines from parent to children -->
-                    <line x1="225" y1="140" x2="140" y2="140" stroke="#999" stroke-width="2" stroke-dasharray="5,5"/>
-                    <line x1="375" y1="140" x2="460" y2="140" stroke="#999" stroke-width="2" stroke-dasharray="5,5"/>
+                    <rect x="80" y="140" width="120" height="80" rx="10" fill="var(--svg-green)" stroke="#4CAF50" stroke-width="3"/>
+                    <text x="140" y="170" text-anchor="middle" fill="var(--svg-green-text)" font-weight="bold">Cat (자식)</text>
+                    <text x="140" y="195" text-anchor="middle" fill="var(--text-secondary)" font-size="12">speak()_override</text>
+
+                    <rect x="400" y="140" width="120" height="80" rx="10" fill="var(--svg-orange)" stroke="#ff9800" stroke-width="3"/>
+                    <text x="460" y="170" text-anchor="middle" fill="var(--svg-orange-text)" font-weight="bold">Dog (자식)</text>
+                    <text x="460" y="195" text-anchor="middle" fill="var(--text-secondary)" font-size="12">speak()_override</text>
                 </svg>
             </div>
             <h3>Type Hints (타입 힌트)</h3>
@@ -2055,26 +2081,26 @@ p = Point(<span class="number">10</span>, <span class="number">20</span>)
                     <!-- Center -->
                     <circle cx="350" cy="150" r="40" fill="#667eea"/>
                     <text x="350" y="155" text-anchor="middle" fill="white" font-weight="bold">고급</text>
-                    
+
                     <!-- Decorator -->
-                    <rect x="50" y="50" width="120" height="60" rx="10" fill="#e3f2fd" stroke="#2196F3" stroke-width="2"/>
-                    <text x="110" y="85" text-anchor="middle" fill="#1565C0" font-weight="bold">데코레이터</text>
+                    <rect x="50" y="50" width="120" height="60" rx="10" fill="var(--svg-blue)" stroke="#2196F3" stroke-width="2"/>
+                    <text x="110" y="85" text-anchor="middle" fill="var(--svg-blue-text)" font-weight="bold">데코레이터</text>
                     <line x1="170" y1="80" x2="290" y2="130" stroke="#667eea" stroke-width="2"/>
-                    
+
                     <!-- Generator -->
-                    <rect x="50" y="200" width="120" height="60" rx="10" fill="#e8f5e9" stroke="#4CAF50" stroke-width="2"/>
-                    <text x="110" y="235" text-anchor="middle" fill="#2E7D32" font-weight="bold">제너레이터</text>
+                    <rect x="50" y="200" width="120" height="60" rx="10" fill="var(--svg-green)" stroke="#4CAF50" stroke-width="2"/>
+                    <text x="110" y="235" text-anchor="middle" fill="var(--svg-green-text)" font-weight="bold">제너레이터</text>
                     <line x1="170" y1="230" x2="290" y2="180" stroke="#667eea" stroke-width="2"/>
-                    
+
                     <!-- Context Manager -->
-                    <rect x="530" y="50" width="130" height="60" rx="10" fill="#fff3e0" stroke="#ff9800" stroke-width="2"/>
-                    <text x="595" y="85" text-anchor="middle" fill="#E65100" font-weight="bold">컨텍스트 매니저</text>
-                    <line x1="530" y1="80" x2="400" y2="130" stroke="#667eea" stroke-width="2"/>
-                    
+                    <rect x="520" y="50" width="155" height="60" rx="10" fill="var(--svg-orange)" stroke="#ff9800" stroke-width="2"/>
+                    <text x="598" y="85" text-anchor="middle" fill="var(--svg-orange-text)" font-weight="bold">컨텍스트 매니저</text>
+                    <line x1="520" y1="80" x2="400" y2="130" stroke="#667eea" stroke-width="2"/>
+
                     <!-- Async -->
-                    <rect x="530" y="200" width="120" height="60" rx="10" fill="#fce4ec" stroke="#e91e63" stroke-width="2"/>
-                    <text x="590" y="235" text-anchor="middle" fill="#c2185b" font-weight="bold">비동기 프로그래밍</text>
-                    <line x1="530" y1="230" x2="400" y2="180" stroke="#667eea" stroke-width="2"/>
+                    <rect x="520" y="200" width="155" height="60" rx="10" fill="var(--svg-pink)" stroke="#e91e63" stroke-width="2"/>
+                    <text x="598" y="235" text-anchor="middle" fill="var(--svg-pink-text)" font-weight="bold">비동기 프로그래밍</text>
+                    <line x1="520" y1="230" x2="400" y2="180" stroke="#667eea" stroke-width="2"/>
                 </svg>
             </div>
             
@@ -2122,24 +2148,34 @@ p = Point(<span class="number">10</span>, <span class="number">20</span>)
             
             <div class="svg-container">
                 <svg width="600" height="200" viewBox="0 0 600 200" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="50" y="30" width="150" height="50" rx="10" fill="#4CAF50"/>
-                    <text x="125" y="60" text-anchor="middle" fill="white" font-weight="bold">try 블록</text>
-                    
-                    <polygon points="250,55 320,55 285,95" fill="#FF9800"/>
-                    <text x="285" y="75" text-anchor="middle" fill="white" font-size="11">예외?</text>
-                    
-                    <rect x="370" y="30" width="150" height="50" rx="10" fill="#2196F3"/>
-                    <text x="445" y="60" text-anchor="middle" fill="white" font-weight="bold">except 블록</text>
-                    
-                    <line x1="200" y1="55" x2="240" y2="55" stroke="#333" stroke-width="2"/>
-                    <line x1="320" y1="55" x2="370" y2="55" stroke="#4CAF50" stroke-width="2"/>
-                    <line x1="320" y1="55" x2="320" y2="150" stroke="#f44336" stroke-width="2"/>
-                    <line x1="320" y1="150" x2="445" y2="150" stroke="#f44336" stroke-width="2"/>
-                    
-                    <rect x="520" y="30" width="60" height="50" rx="10" fill="#9C27B0"/>
-                    <text x="550" y="60" text-anchor="middle" fill="white" font-weight="bold">finally</text>
-                    
-                    <line x1="520" y1="55" x2="580" y2="55" stroke="#333" stroke-width="2"/>
+                    <!-- try -->
+                    <rect x="20" y="30" width="120" height="50" rx="10" fill="#4CAF50"/>
+                    <text x="80" y="60" text-anchor="middle" fill="white" font-weight="bold">try 블록</text>
+
+                    <!-- try → triangle -->
+                    <line x1="140" y1="55" x2="175" y2="55" stroke="var(--text-secondary)" stroke-width="2"/>
+
+                    <!-- exception check -->
+                    <polygon points="175,35 245,35 210,80" fill="#FF9800"/>
+                    <text x="210" y="60" text-anchor="middle" fill="white" font-size="11">예외?</text>
+
+                    <!-- triangle → except -->
+                    <line x1="245" y1="55" x2="275" y2="55" stroke="#4CAF50" stroke-width="2"/>
+
+                    <!-- except -->
+                    <rect x="275" y="30" width="130" height="50" rx="10" fill="#2196F3"/>
+                    <text x="340" y="60" text-anchor="middle" fill="white" font-weight="bold">except 블록</text>
+
+                    <!-- except → finally -->
+                    <line x1="405" y1="55" x2="440" y2="55" stroke="var(--text-secondary)" stroke-width="2"/>
+
+                    <!-- finally -->
+                    <rect x="440" y="30" width="100" height="50" rx="10" fill="#9C27B0"/>
+                    <text x="490" y="60" text-anchor="middle" fill="white" font-weight="bold">finally</text>
+
+                    <!-- error path (red) -->
+                    <line x1="210" y1="80" x2="210" y2="150" stroke="#f44336" stroke-width="2"/>
+                    <line x1="210" y1="150" x2="340" y2="150" stroke="#f44336" stroke-width="2"/>
                 </svg>
             </div>
         </section>
@@ -2305,19 +2341,19 @@ deactivate
             
             <div class="svg-container">
                 <svg width="600" height="180" viewBox="0 0 600 180" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="50" y="50" width="150" height="80" rx="10" fill="#e3f2fd" stroke="#2196F3" stroke-width="2"/>
-                    <text x="125" y="80" text-anchor="middle" font-weight="bold" fill="#333">mypackage/</text>
-                    <text x="125" y="105" text-anchor="middle" fill="#666" font-size="12">패키지 폴더</text>
-                    
-                    <rect x="220" y="20" width="120" height="40" rx="5" fill="#e8f5e9" stroke="#4CAF50"/>
-                    <text x="280" y="45" text-anchor="middle" fill="#333">__init__.py</text>
-                    
-                    <rect x="220" y="70" width="120" height="40" rx="5" fill="#fff3e0" stroke="#ff9800"/>
-                    <text x="280" y="95" text-anchor="middle" fill="#333">module1.py</text>
-                    
-                    <rect x="220" y="120" width="120" height="40" rx="5" fill="#fce4ec" stroke="#e91e63"/>
-                    <text x="280" y="145" text-anchor="middle" fill="#333">module2.py</text>
-                    
+                    <rect x="50" y="50" width="150" height="80" rx="10" fill="var(--svg-blue)" stroke="#2196F3" stroke-width="2"/>
+                    <text x="125" y="80" text-anchor="middle" font-weight="bold" fill="var(--text-primary)">mypackage/</text>
+                    <text x="125" y="105" text-anchor="middle" fill="var(--text-secondary)" font-size="12">패키지 폴더</text>
+
+                    <rect x="220" y="20" width="120" height="40" rx="5" fill="var(--svg-green)" stroke="#4CAF50"/>
+                    <text x="280" y="45" text-anchor="middle" fill="var(--text-primary)">__init__.py</text>
+
+                    <rect x="220" y="70" width="120" height="40" rx="5" fill="var(--svg-orange)" stroke="#ff9800"/>
+                    <text x="280" y="95" text-anchor="middle" fill="var(--text-primary)">module1.py</text>
+
+                    <rect x="220" y="120" width="120" height="40" rx="5" fill="var(--svg-pink)" stroke="#e91e63"/>
+                    <text x="280" y="145" text-anchor="middle" fill="var(--text-primary)">module2.py</text>
+
                     <line x1="170" y1="90" x2="220" y2="40" stroke="#667eea" stroke-width="2"/>
                     <line x1="170" y1="90" x2="220" y2="90" stroke="#667eea" stroke-width="2"/>
                     <line x1="170" y1="90" x2="220" y2="140" stroke="#667eea" stroke-width="2"/>
@@ -2633,24 +2669,24 @@ pytest test_calculator.py -v
                 <svg width="600" height="180" viewBox="0 0 600 180" xmlns="http://www.w3.org/2000/svg">
                     <rect x="20" y="50" width="150" height="60" rx="10" fill="#f44336"/>
                     <text x="95" y="85" text-anchor="middle" fill="white" font-weight="bold">1. 테스트 작성</text>
-                    
-                    <line x1="170" y1="80" x2="210" y2="80" stroke="#333" stroke-width="2" marker-end="url(#arrow3)"/>
-                    
-                    <rect x="210" y="150" height="60" rx="50" width="10" fill="#FF9800"/>
+
+                    <line x1="170" y1="80" x2="210" y2="80" stroke="var(--text-secondary)" stroke-width="2" marker-end="url(#arrow3)"/>
+
+                    <rect x="210" y="50" width="150" height="60" rx="10" fill="#FF9800"/>
                     <text x="285" y="85" text-anchor="middle" fill="white" font-weight="bold">2. 실패 확인</text>
-                    
-                    <line x1="360" y1="80" x2="400" y2="80" stroke="#333" stroke-width="2" marker-end="url(#arrow3)"/>
-                    
+
+                    <line x1="360" y1="80" x2="400" y2="80" stroke="var(--text-secondary)" stroke-width="2" marker-end="url(#arrow3)"/>
+
                     <rect x="400" y="50" width="150" height="60" rx="10" fill="#4CAF50"/>
                     <text x="475" y="85" text-anchor="middle" fill="white" font-weight="bold">3. 코드 구현</text>
-                    
-                    <line x1="520" y1="110" x2="520" y2="140" stroke="#333" stroke-width="2"/>
-                    <line x1="520" y1="140" x2="95" y2="140" stroke="#333" stroke-width="2"/>
-                    <line x1="95" y1="140" x2="95" y2="110" stroke="#333" stroke-width="2"/>
-                    
+
+                    <line x1="520" y1="110" x2="520" y2="140" stroke="var(--text-secondary)" stroke-width="2"/>
+                    <line x1="520" y1="140" x2="95" y2="140" stroke="var(--text-secondary)" stroke-width="2"/>
+                    <line x1="95" y1="140" x2="95" y2="110" stroke="var(--text-secondary)" stroke-width="2"/>
+
                     <defs>
                         <marker id="arrow3" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-                            <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
+                            <polygon points="0 0, 10 3.5, 0 7" fill="var(--text-secondary)"/>
                         </marker>
                     </defs>
                 </svg>
@@ -6815,54 +6851,60 @@ decay_rate = <span class="number">0.9</span>
             <h3>학습 로드맵</h3>
             <div class="svg-container">
                 <svg width="800" height="400" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <marker id="arrow-roadmap" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                            <polygon points="0 0, 10 3.5, 0 7" fill="#667eea"/>
+                        </marker>
+                    </defs>
+
                     <!-- Stage 1 -->
                     <rect x="30" y="30" width="170" height="80" rx="15" fill="#4CAF50"/>
                     <text x="115" y="65" text-anchor="middle" fill="white" font-weight="bold" font-size="14">1단계: 기초</text>
                     <text x="115" y="90" text-anchor="middle" fill="white" font-size="11">문법, 변수, 제어문</text>
-                    
+
                     <!-- Arrow 1 -->
-                    <line x1="200" y1="70" x2="250" y2="70" stroke="#667eea" stroke-width="3" marker-end="url(#arrow3)"/>
-                    
+                    <line x1="200" y1="70" x2="250" y2="70" stroke="#667eea" stroke-width="3" marker-end="url(#arrow-roadmap)"/>
+
                     <!-- Stage 2 -->
                     <rect x="250" y="30" width="170" height="80" rx="15" fill="#2196F3"/>
                     <text x="335" y="65" text-anchor="middle" fill="white" font-weight="bold" font-size="14">2단계: 함수&자료구조</text>
                     <text x="335" y="90" text-anchor="middle" fill="white" font-size="11">함수, 리스트, 딕셔너리</text>
-                    
+
                     <!-- Arrow 2 -->
-                    <line x1="420" y1="70" x2="470" y2="70" stroke="#667eea" stroke-width="3" marker-end="url(#arrow3)"/>
-                    
+                    <line x1="420" y1="70" x2="470" y2="70" stroke="#667eea" stroke-width="3" marker-end="url(#arrow-roadmap)"/>
+
                     <!-- Stage 3 -->
                     <rect x="470" y="30" width="170" height="80" rx="15" fill="#FF9800"/>
                     <text x="555" y="65" text-anchor="middle" fill="white" font-weight="bold" font-size="14">3단계: 객체지향</text>
                     <text x="555" y="90" text-anchor="middle" fill="white" font-size="11">클래스, 상속, 캡슐화</text>
-                    
+
                     <!-- Arrow 3 -->
-                    <line x1="640" y1="70" x2="690" y2="70" stroke="#667eea" stroke-width="3" marker-end="url(#arrow3)"/>
-                    
+                    <line x1="640" y1="70" x2="690" y2="70" stroke="#667eea" stroke-width="3" marker-end="url(#arrow-roadmap)"/>
+
                     <!-- Stage 4 -->
                     <rect x="690" y="30" width="80" height="80" rx="15" fill="#9C27B0"/>
                     <text x="730" y="65" text-anchor="middle" fill="white" font-weight="bold" font-size="14">4단계</text>
                     <text x="730" y="85" text-anchor="middle" fill="white" font-size="11">실전</text>
-                    
+
                     <!-- Middle Section -->
-                    <rect x="250" y="150" width="300" height="60" rx="10" fill="#e3f2fd" stroke="#2196F3" stroke-width="2"/>
-                    <text x="400" y="185" text-anchor="middle" fill="#1565C0" font-weight="bold">실전 프로젝트 진행</text>
-                    
+                    <rect x="250" y="150" width="300" height="60" rx="10" fill="var(--svg-blue)" stroke="#2196F3" stroke-width="2"/>
+                    <text x="400" y="185" text-anchor="middle" fill="var(--svg-blue-text)" font-weight="bold">실전 프로젝트 진행</text>
+
                     <!-- Bottom Section -->
-                    <rect x="30" y="240" width="740" height="130" rx="15" fill="#f5f5f5" stroke="#ddd" stroke-width="2"/>
-                    <text x="400" y="270" text-anchor="middle" font-weight="bold" fill="#333" font-size="16">전문 분야 선택</text>
-                    
-                    <rect x="50" y="290" width="150" height="60" rx="10" fill="#e8f5e9" stroke="#4CAF50"/>
-                    <text x="125" y="325" text-anchor="middle" fill="#2E7D32" font-weight="bold">웹 개발</text>
-                    
-                    <rect x="220" y="290" width="150" height="60" rx="10" fill="#fff3e0" stroke="#ff9800"/>
-                    <text x="295" y="325" text-anchor="middle" fill="#E65100" font-weight="bold">데이터 분석</text>
-                    
-                    <rect x="390" y="290" width="150" height="60" rx="10" fill="#e3f2fd" stroke="#2196F3"/>
-                    <text x="465" y="325" text-anchor="middle" fill="#1565C0" font-weight="bold">AI/ML</text>
-                    
-                    <rect x="560" y="290" width="150" height="60" rx="10" fill="#fce4ec" stroke="#e91e63"/>
-                    <text x="635" y="325" text-anchor="middle" fill="#c2185b" font-weight="bold">자동화/스크립트</text>
+                    <rect x="30" y="240" width="740" height="130" rx="15" fill="var(--svg-gray)" stroke="var(--border)" stroke-width="2"/>
+                    <text x="400" y="270" text-anchor="middle" font-weight="bold" fill="var(--text-primary)" font-size="16">전문 분야 선택</text>
+
+                    <rect x="50" y="290" width="150" height="60" rx="10" fill="var(--svg-green)" stroke="#4CAF50"/>
+                    <text x="125" y="325" text-anchor="middle" fill="var(--svg-green-text)" font-weight="bold">웹 개발</text>
+
+                    <rect x="220" y="290" width="150" height="60" rx="10" fill="var(--svg-orange)" stroke="#ff9800"/>
+                    <text x="295" y="325" text-anchor="middle" fill="var(--svg-orange-text)" font-weight="bold">데이터 분석</text>
+
+                    <rect x="390" y="290" width="150" height="60" rx="10" fill="var(--svg-blue)" stroke="#2196F3"/>
+                    <text x="465" y="325" text-anchor="middle" fill="var(--svg-blue-text)" font-weight="bold">AI/ML</text>
+
+                    <rect x="560" y="290" width="150" height="60" rx="10" fill="var(--svg-pink)" stroke="#e91e63"/>
+                    <text x="635" y="325" text-anchor="middle" fill="var(--svg-pink-text)" font-weight="bold">자동화/스크립트</text>
                 </svg>
             </div>
             
