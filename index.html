@@ -961,13 +961,70 @@
                 <span class="highlight">파이썬(Python)</span>은 1991년 네덜란드 CWI의 <strong>귀도 반 로섬(Guido van Rossum)</strong>이 발표한 고급 프로그래밍 언어입니다.
                 파이썬이라는 이름은 자신이 좋아하던 코미디 쇼 "몬티 파이썬의 날아다니는 서커스"에서 따왔다고 합니다.
             </p>
+            <p>
+                파이썬은 <strong>TIOBE Index</strong>에서 꾸준히 1위를 차지하며, 전 세계에서 가장 인기 있는 프로그래밍 언어로 자리 잡았습니다.
+                웹 개발(Django, Flask), 데이터 과학(NumPy, Pandas), 인공지능/머신러닝(TensorFlow, PyTorch), 자동화 스크립팅, 게임 개발, IoT 등
+                거의 모든 소프트웨어 분야에서 활용됩니다. 특히 <strong>간결하고 읽기 쉬운 문법</strong>은 프로그래밍 입문자부터 숙련 개발자까지 폭넓은 사용자층을 형성하는 핵심 이유입니다.
+            </p>
+
+            <div class="svg-container">
+                <!-- Python 활용 분야 다이어그램 -->
+                <svg width="700" height="380" viewBox="0 0 700 380" xmlns="http://www.w3.org/2000/svg">
+                    <!-- 중앙 Python 원 -->
+                    <circle cx="350" cy="190" r="65" fill="#667eea" stroke="#4a5ae0" stroke-width="3"/>
+                    <text x="350" y="185" text-anchor="middle" fill="white" font-weight="bold" font-size="18">Python</text>
+                    <text x="350" y="205" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="11">범용 언어</text>
+
+                    <!-- 웹 개발 -->
+                    <rect x="30" y="20" width="140" height="70" rx="12" fill="var(--svg-blue)" stroke="#2196F3" stroke-width="2"/>
+                    <text x="100" y="50" text-anchor="middle" font-weight="bold" fill="var(--svg-blue-text)" font-size="14">웹 개발</text>
+                    <text x="100" y="70" text-anchor="middle" fill="var(--text-secondary)" font-size="11">Django, Flask, FastAPI</text>
+                    <line x1="170" y1="55" x2="290" y2="155" stroke="#2196F3" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+                    <!-- 데이터 과학 -->
+                    <rect x="530" y="20" width="140" height="70" rx="12" fill="var(--svg-green)" stroke="#4CAF50" stroke-width="2"/>
+                    <text x="600" y="50" text-anchor="middle" font-weight="bold" fill="var(--svg-green-text)" font-size="14">데이터 과학</text>
+                    <text x="600" y="70" text-anchor="middle" fill="var(--text-secondary)" font-size="11">NumPy, Pandas</text>
+                    <line x1="530" y1="55" x2="410" y2="155" stroke="#4CAF50" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+                    <!-- AI / ML -->
+                    <rect x="530" y="155" width="140" height="70" rx="12" fill="var(--svg-orange)" stroke="#ff9800" stroke-width="2"/>
+                    <text x="600" y="185" text-anchor="middle" font-weight="bold" fill="var(--svg-orange-text)" font-size="14">AI / ML</text>
+                    <text x="600" y="205" text-anchor="middle" fill="var(--text-secondary)" font-size="11">TensorFlow, PyTorch</text>
+                    <line x1="530" y1="190" x2="415" y2="190" stroke="#ff9800" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+                    <!-- 자동화 -->
+                    <rect x="30" y="155" width="140" height="70" rx="12" fill="var(--svg-pink)" stroke="#e91e63" stroke-width="2"/>
+                    <text x="100" y="185" text-anchor="middle" font-weight="bold" fill="var(--svg-pink-text)" font-size="14">자동화</text>
+                    <text x="100" y="205" text-anchor="middle" fill="var(--text-secondary)" font-size="11">스크립팅, 크롤링</text>
+                    <line x1="170" y1="190" x2="285" y2="190" stroke="#e91e63" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+                    <!-- 시각화 -->
+                    <rect x="30" y="290" width="140" height="70" rx="12" fill="var(--svg-green)" stroke="#4CAF50" stroke-width="2"/>
+                    <text x="100" y="320" text-anchor="middle" font-weight="bold" fill="var(--svg-green-text)" font-size="14">시각화</text>
+                    <text x="100" y="340" text-anchor="middle" fill="var(--text-secondary)" font-size="11">Matplotlib, Seaborn</text>
+                    <line x1="170" y1="325" x2="310" y2="245" stroke="#4CAF50" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+                    <!-- DevOps / 인프라 -->
+                    <rect x="280" y="300" width="140" height="70" rx="12" fill="var(--svg-blue)" stroke="#2196F3" stroke-width="2"/>
+                    <text x="350" y="330" text-anchor="middle" font-weight="bold" fill="var(--svg-blue-text)" font-size="14">DevOps</text>
+                    <text x="350" y="350" text-anchor="middle" fill="var(--text-secondary)" font-size="11">Ansible, Fabric</text>
+                    <line x1="350" y1="300" x2="350" y2="255" stroke="#2196F3" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+                    <!-- 게임 / IoT -->
+                    <rect x="530" y="290" width="140" height="70" rx="12" fill="var(--svg-orange)" stroke="#ff9800" stroke-width="2"/>
+                    <text x="600" y="320" text-anchor="middle" font-weight="bold" fill="var(--svg-orange-text)" font-size="14">게임 / IoT</text>
+                    <text x="600" y="340" text-anchor="middle" fill="var(--text-secondary)" font-size="11">Pygame, RPi</text>
+                    <line x1="530" y1="325" x2="390" y2="245" stroke="#ff9800" stroke-width="1.5" stroke-dasharray="4,3"/>
+                </svg>
+            </div>
             
             <h3>파이썬의 핵심 철학 (PEP 20)</h3>
             <p>파이썬의 설계 원칙은 <strong>PEP 20 (The Zen of Python)</strong>에 담겨 있으며, 인터프리터에서 <code>import this</code>를 실행하면 확인할 수 있습니다. 이 철학은 코드 작성 시 가독성과 단순함을 최우선으로 두라는 메시지를 전달합니다.</p>
             <div class="tip-box">
                 <ul>
-                    <li>"아름다운게 추한 것보다 낫다." (Beautiful is better than ugly)</li>
-                    <li>"명시적인 것이 암시적인 것 보다 낫다." (Explicit is better than implicit)</li>
+                    <li>"아름다운 게 추한 것보다 낫다." (Beautiful is better than ugly)</li>
+                    <li>"명시적인 것이 암시적인 것보다 낫다." (Explicit is better than implicit)</li>
                     <li>"단순함이 복잡함보다 낫다." (Simple is better than complex)</li>
                     <li>"복잡함이 난해한 것보다 낫다." (Complex is better than complicated)</li>
                     <li>"가독성은 중요하다." (Readability counts)</li>
@@ -981,7 +1038,7 @@
             <div class="feature-grid">
                 <div class="feature-card">
                     <h4>CPython</h4>
-                    <p>C로 작성된 공식 인터프리터. Reference 구현체로 사실상 표준이며, python.org에서 다운로드하는 것이 바로 CPython입니다. GIL(Global Interpreter Lock)을 사용합니다.</p>
+                    <p>C로 작성된 공식 인터프리터. Reference 구현체로 사실상 표준이며, python.org에서 다운로드하는 것이 바로 CPython입니다. <strong>GIL(Global Interpreter Lock)</strong>을 사용하는데, 이는 한 번에 하나의 스레드만 Python 바이트코드를 실행하도록 제한하는 뮤텍스입니다. 메모리 관리의 안전성을 보장하지만, CPU 집약적 작업에서 멀티스레드 병렬 실행이 제한되는 단점이 있습니다.</p>
                 </div>
                 <div class="feature-card">
                     <h4>PyPy</h4>
@@ -1047,7 +1104,7 @@
                 <tr><th>옵션</th><th>설명</th></tr>
                 <tr><td><code>python</code></td><td>인자 없이 실행: 대화형 인터프리터</td></tr>
                 <tr><td><code>-d</code></td><td>디버그 출력</td></tr>
-                <tr><td><code>-O</code></td><td>최적화 (pyo 파일 생성)</td></tr>
+                <tr><td><code>-O</code></td><td>최적화 모드 (assert 제거, __pycache__에 최적화된 .pyc 생성)</td></tr>
                 <tr><td><code>-v</code></td><td>자세한 출력 (import 추적)</td></tr>
                 <tr><td><code>-c "cmd"</code></td><td>명령어 실행</td></tr>
                 <tr><td><code>-S</code></td><td>시작 시 import site 건너뛰기</td></tr>
@@ -1064,35 +1121,47 @@
             </table>
             
             <h3>예약어 (Keywords)</h3>
-            <p>다음 예약어는 변수나 식별자로 사용할 수 없습니다:</p>
-            <div class="code-block">and, assert, break, class, continue, def, del, elif, else, except,
-exec, finally, for, from, global, if, import, in, is, lambda,
-not, or, pass, raise, return, try, while, with, yield, True, False, None</div>
+            <p>다음 예약어는 변수나 식별자로 사용할 수 없습니다 (Python 3.10+ 기준):</p>
+            <div class="code-block">False, None, True, and, as, assert, async, await, break, class,
+continue, def, del, elif, else, except, finally, for, from, global,
+if, import, in, is, lambda, match, case, nonlocal, not, or, pass,
+raise, return, try, while, with, yield</div>
             
             <h3>연산자 우선순위</h3>
-            <p>여러 연산자가 하나의 표현식에 함께 사용될 때, 어떤 연산이 먼저 수행되는지를 결정하는 규칙입니다. 숫자가 작을수록 우선순위가 높습니다. 괄호 <code>()</code>를 사용하면 우선순위를 명시적으로 지정할 수 있습니다.</p>
+            <p>여러 연산자가 하나의 표현식에 함께 사용될 때, 어떤 연산이 먼저 수행되는지를 결정하는 규칙입니다. 숫자가 작을수록 우선순위가 높습니다. 괄호 <code>()</code>를 사용하면 우선순위를 명시적으로 지정할 수 있습니다. 할당 연산자(<code>=, +=</code> 등)는 표현식이 아닌 <strong>문(statement)</strong>이므로 이 표에 포함되지 않습니다.</p>
             <table class="comparison-table">
                 <tr><th>우선순위</th><th>연산자</th><th>설명</th></tr>
-                <tr><td>1</td><td>**</td><td>지수 제곱</td></tr>
-                <tr><td>2</td><td>~, +, -,</td><td>단항 연산</td></tr>
-                <tr><td>3</td><td>*, /, %, //</td><td>산술 연산</td></tr>
-                <tr><td>4</td><td>+, -</td><td>산술 연산</td></tr>
-                <tr><td>5</td><td>>>, <<</td><td>비트 쉬프트</td></tr>
-                <tr><td>6</td><td>&</td><td>비트 AND</td></tr>
-                <tr><td>7</td><td>^, |</td><td>비트 XOR, OR</td></tr>
-                <tr><td>8</td><td><=, <, >, >=</td><td>비교 연산</td></tr>
-                <tr><td>9</td><td>==, !=</td><td>평등 연산</td></tr>
-                <tr><td>10</td><td>=, %=, /=, //=</td><td>할당 연산</td></tr>
-                <tr><td>11</td><td>is, is not</td><td>식별 연산</td></tr>
-                <tr><td>12</td><td>in, not in</td><td>멤버 연산</td></tr>
-                <tr><td>13</td><td>not, or, and</td><td>논리 연산</td></tr>
+                <tr><td>1 (최고)</td><td>(expr), [list], {dict}, {set}</td><td>괄호, 리터럴</td></tr>
+                <tr><td>2</td><td>x[i], x.attr, x()</td><td>인덱싱, 속성 참조, 호출</td></tr>
+                <tr><td>3</td><td>await x</td><td>Await 표현식</td></tr>
+                <tr><td>4</td><td>**</td><td>지수 (거듭제곱)</td></tr>
+                <tr><td>5</td><td>+x, -x, ~x</td><td>단항 양수, 음수, 비트 NOT</td></tr>
+                <tr><td>6</td><td>*, /, //, %, @</td><td>곱셈, 나눗셈, 나머지, 행렬곱</td></tr>
+                <tr><td>7</td><td>+, -</td><td>덧셈, 뺄셈</td></tr>
+                <tr><td>8</td><td>&lt;&lt;, &gt;&gt;</td><td>비트 시프트</td></tr>
+                <tr><td>9</td><td>&amp;</td><td>비트 AND</td></tr>
+                <tr><td>10</td><td>^</td><td>비트 XOR</td></tr>
+                <tr><td>11</td><td>|</td><td>비트 OR</td></tr>
+                <tr><td>12</td><td>==, !=, &lt;, &lt;=, &gt;, &gt;=, is, is not, in, not in</td><td>비교, 식별, 멤버십</td></tr>
+                <tr><td>13</td><td>not</td><td>논리 NOT</td></tr>
+                <tr><td>14</td><td>and</td><td>논리 AND</td></tr>
+                <tr><td>15</td><td>or</td><td>논리 OR</td></tr>
+                <tr><td>16</td><td>if – else</td><td>조건 표현식</td></tr>
+                <tr><td>17</td><td>lambda</td><td>람다 표현식</td></tr>
+                <tr><td>18 (최저)</td><td>:=</td><td>Walrus 연산자</td></tr>
             </table>
         </section>
         
         <section id="basics">
             <h2>2. 기초 문법</h2>
             <span class="level-badge level-beginner">초급</span>
-            
+
+            <p>
+                파이썬의 기초 문법은 다른 언어에 비해 <strong>직관적이고 자연어에 가깝게</strong> 설계되어 있습니다.
+                중괄호(<code>{}</code>) 대신 <strong>들여쓰기</strong>로 코드 블록을 구분하고, 세미콜론(<code>;</code>) 없이도 한 줄이 하나의 문장이 됩니다.
+                이런 설계 덕분에 파이썬 코드는 마치 영어 문장을 읽는 것처럼 읽히며, 초보자도 빠르게 프로그래밍의 핵심 개념을 익힐 수 있습니다.
+            </p>
+
             <h3>Hello, World! 출력하기</h3>
             <p>프로그래밍의 첫걸음은 언제나 "Hello, World!"를 출력하는 것입니다.</p>
             
@@ -1118,19 +1187,20 @@ height = <span class="number">175.5</span>
 <span class="keyword">print</span>(age)   <span class="comment"># 25</span>
             </div>
             
-            <h3>주석 (Comments)</h3>
-            <p>주석은 코드에 설명을 추가하여 가독성을 높이는 데 사용됩니다. 인터프리터는 주석을 무시하므로 프로그램 실행에 영향을 주지 않습니다. <code>#</code>은 한 줄 주석, 삼중 따옴표(<code>"""</code> 또는 <code>'''</code>)는 여러 줄 주석(Docstring)에 사용됩니다.</p>
+            <h3>주석 (Comments)과 독스트링 (Docstrings)</h3>
+            <p><code>#</code>으로 시작하는 <strong>주석(comment)</strong>은 인터프리터가 완전히 무시하는 메모입니다. 반면, 삼중 따옴표(<code>"""</code> 또는 <code>'''</code>)로 작성하는 <strong>독스트링(docstring)</strong>은 실제로는 <strong>문자열 리터럴</strong>이며, 함수·클래스·모듈의 첫 줄에 오면 <code>__doc__</code> 속성에 저장되어 <code>help()</code>로 조회할 수 있습니다. 독스트링은 주석처럼 보이지만 런타임에 존재하는 문자열이라는 점이 핵심 차이입니다.</p>
             <div class="code-block">
-<span class="comment"># 한 줄 주석입니다</span>
+<span class="comment"># 한 줄 주석입니다 (인터프리터가 무시)</span>
 
-<span class="string">""" 
-여러 줄 주석 (Docstring)
-함수나 클래스의 설명을 작성할 때 사용
-"""</span>
+<span class="keyword">def</span> <span class="function">greet</span>(name):
+    <span class="string">"""인사말을 반환합니다.
 
-<span class="string">'''
-역시 여러 줄 주석입니다
-'''</span>
+    이것은 독스트링(docstring)으로, 함수의 __doc__ 속성에 저장됩니다.
+    help(greet)로 확인할 수 있습니다.
+    """</span>
+    <span class="keyword">return</span> <span class="string">f"안녕, {name}!"</span>
+
+<span class="keyword">print</span>(greet.<span class="function">__doc__</span>)  <span class="comment"># 독스트링 출력</span>
             </div>
             
             <h3>여러 줄로 구문 작성</h3>
@@ -1152,11 +1222,13 @@ x = <span class="number">1</span>; y = <span class="number">2</span>; <span clas
             <h3>식별자 (Identifiers)</h3>
             <p>식별자는 변수, 함수, 클래스 등에 붙이는 이름입니다. 파이썬의 명명 규칙은 PEP 8을 따르며, 언더스코어의 개수에 따라 특별한 의미를 가집니다.</p>
             <ul>
-                <li>영문자, 숫자, _(밑줄) 사용 가능</li>
+                <li>영문자, 숫자, _(밑줄) 사용 가능 (숫자로 시작 불가)</li>
                 <li>대소문자 엄격히 구분</li>
                 <li>Python 3.x부터 한글 변수명 사용 가능</li>
-                <li><code>_</code>로 시작: 내부 사용</li>
-                <li><code>__</code>로 시작: 더 내부적인 용도</li>
+                <li><code>_var</code> : 관례적으로 내부 사용(private)을 의미하며, <code>from module import *</code>에서 제외됩니다.</li>
+                <li><code>__var</code> : 이름 맹글링(name mangling) 적용. 클래스 내에서 <code>_ClassName__var</code>로 변환되어 하위 클래스와의 이름 충돌을 방지합니다.</li>
+                <li><code>__var__</code> : <strong>던더(dunder, double underscore)</strong> 또는 <strong>매직 메서드/속성</strong>이라 불립니다. <code>__init__</code>, <code>__str__</code>, <code>__len__</code> 등 Python이 특별한 용도로 예약한 이름입니다. 직접 새로 정의하지 않는 것이 좋습니다.</li>
+                <li><code>var_</code> : Python 예약어와의 충돌을 피하기 위한 관례 (예: <code>class_</code>, <code>type_</code>)</li>
             </ul>
             
             <h3>들여쓰기 (Indentation)</h3>
@@ -1191,14 +1263,16 @@ x = <span class="number">1</span>; y = <span class="number">2</span>; <span clas
                     <rect x="300" y="50" width="150" height="80" rx="10" fill="var(--svg-orange)" stroke="#ff9800" stroke-width="2"/>
                     <text x="375" y="95" text-anchor="middle" font-weight="bold" fill="var(--text-primary)">"민준"</text>
 
-                    <text x="375" y="150" text-anchor="middle" fill="var(--text-secondary)" font-size="14">메모리 공간</text>
+                    <text x="375" y="150" text-anchor="middle" fill="var(--text-secondary)" font-size="14">메모리 공간 (객체)</text>
 
-                    <rect x="500" y="20" width="80" height="40" rx="5" fill="#4CAF50"/>
-                    <text x="540" y="45" text-anchor="middle" fill="white" font-weight="bold">값</text>
+                    <!-- 범례 -->
+                    <text x="125" y="30" text-anchor="middle" fill="var(--text-secondary)" font-size="12">변수 (이름표)</text>
+                    <text x="375" y="30" text-anchor="middle" fill="var(--text-secondary)" font-size="12">값 (객체)</text>
+                    <text x="240" y="75" text-anchor="middle" fill="#667eea" font-size="12">참조</text>
                 </svg>
             </div>
-            <h3> walrus operator (:= )</h3>
-            <p>Python 3.8부터 도입된 Walrus 연산자로 변수 할당과 반환을 동시에.</p>
+            <h3>Walrus 연산자 (:=)</h3>
+            <p>Python 3.8부터 도입된 <strong>Walrus 연산자(:=)</strong>는 표현식 내에서 변수에 값을 할당하면서 동시에 그 값을 반환합니다. <code>:=</code> 기호가 바다코끼리(walrus)의 눈과 엄니를 닮았다고 하여 이 이름이 붙었습니다. 조건문이나 반복문에서 중복 호출을 줄이는 데 유용합니다.</p>
             
             <div class="code-block">
 <span class="comment"># 기존 방식</span>
@@ -1221,7 +1295,65 @@ result = <span class="function">some_function</span>()
             <h2>3. 자료형 (Data Types)</h2>
             <span class="level-badge level-beginner">초급</span>
             
-            <p>파이썬은 <strong>동적 타이핑(Dynamic Typing)</strong> 언어로, 변수를 선언할 때 자료형을 명시하지 않아도 됩니다. 인터프리터가 대입된 값에 따라 자동으로 자료형을 결정합니다. 파이썬의 모든 데이터는 객체(object)이며, <code>type()</code> 함수로 자료형을 확인할 수 있습니다.</p>
+            <p>
+                파이썬은 <strong>동적 타이핑(Dynamic Typing)</strong> 언어로, 변수를 선언할 때 자료형을 명시하지 않아도 됩니다.
+                인터프리터가 대입된 값에 따라 자동으로 자료형을 결정합니다. 파이썬의 모든 데이터는 객체(object)이며, <code>type()</code> 함수로 자료형을 확인할 수 있습니다.
+                기본 자료형은 크게 <strong>숫자형</strong>(int, float, complex), <strong>시퀀스형</strong>(str, list, tuple), <strong>매핑형</strong>(dict), <strong>집합형</strong>(set, frozenset), <strong>불리언형</strong>(bool), <strong>None</strong>으로 분류됩니다.
+            </p>
+
+            <div class="svg-container">
+                <!-- 파이썬 자료형 분류 다이어그램 -->
+                <svg width="700" height="220" viewBox="0 0 700 220" xmlns="http://www.w3.org/2000/svg">
+                    <!-- 중앙 제목 -->
+                    <rect x="260" y="10" width="180" height="35" rx="8" fill="#667eea" stroke="#4a5ae0" stroke-width="2"/>
+                    <text x="350" y="33" text-anchor="middle" fill="white" font-weight="bold" font-size="13">Python 자료형</text>
+
+                    <!-- 분기선 -->
+                    <line x1="350" y1="45" x2="350" y2="60" stroke="var(--text-secondary)" stroke-width="1.5"/>
+                    <line x1="70" y1="60" x2="630" y2="60" stroke="var(--text-secondary)" stroke-width="1.5"/>
+
+                    <!-- 숫자형 -->
+                    <line x1="70" y1="60" x2="70" y2="80" stroke="var(--text-secondary)" stroke-width="1.5"/>
+                    <rect x="15" y="80" width="110" height="35" rx="7" fill="var(--svg-blue)" stroke="#2196F3" stroke-width="1.5"/>
+                    <text x="70" y="103" text-anchor="middle" fill="var(--svg-blue-text)" font-weight="bold" font-size="11">숫자형</text>
+                    <text x="70" y="135" text-anchor="middle" fill="var(--text-secondary)" font-size="10">int, float</text>
+                    <text x="70" y="150" text-anchor="middle" fill="var(--text-secondary)" font-size="10">complex, bool</text>
+
+                    <!-- 시퀀스형 -->
+                    <line x1="210" y1="60" x2="210" y2="80" stroke="var(--text-secondary)" stroke-width="1.5"/>
+                    <rect x="155" y="80" width="110" height="35" rx="7" fill="var(--svg-green)" stroke="#4CAF50" stroke-width="1.5"/>
+                    <text x="210" y="103" text-anchor="middle" fill="var(--svg-green-text)" font-weight="bold" font-size="11">시퀀스형</text>
+                    <text x="210" y="135" text-anchor="middle" fill="var(--text-secondary)" font-size="10">str, list</text>
+                    <text x="210" y="150" text-anchor="middle" fill="var(--text-secondary)" font-size="10">tuple, range</text>
+
+                    <!-- 매핑형 -->
+                    <line x1="350" y1="60" x2="350" y2="80" stroke="var(--text-secondary)" stroke-width="1.5"/>
+                    <rect x="295" y="80" width="110" height="35" rx="7" fill="var(--svg-orange)" stroke="#ff9800" stroke-width="1.5"/>
+                    <text x="350" y="103" text-anchor="middle" fill="var(--svg-orange-text)" font-weight="bold" font-size="11">매핑형</text>
+                    <text x="350" y="140" text-anchor="middle" fill="var(--text-secondary)" font-size="10">dict</text>
+
+                    <!-- 집합형 -->
+                    <line x1="490" y1="60" x2="490" y2="80" stroke="var(--text-secondary)" stroke-width="1.5"/>
+                    <rect x="435" y="80" width="110" height="35" rx="7" fill="var(--svg-pink)" stroke="#e91e63" stroke-width="1.5"/>
+                    <text x="490" y="103" text-anchor="middle" fill="var(--svg-pink-text)" font-weight="bold" font-size="11">집합형</text>
+                    <text x="490" y="135" text-anchor="middle" fill="var(--text-secondary)" font-size="10">set</text>
+                    <text x="490" y="150" text-anchor="middle" fill="var(--text-secondary)" font-size="10">frozenset</text>
+
+                    <!-- 기타 -->
+                    <line x1="630" y1="60" x2="630" y2="80" stroke="var(--text-secondary)" stroke-width="1.5"/>
+                    <rect x="575" y="80" width="110" height="35" rx="7" fill="var(--svg-gray)" stroke="var(--border)" stroke-width="1.5"/>
+                    <text x="630" y="103" text-anchor="middle" fill="var(--text-secondary)" font-weight="bold" font-size="11">기타</text>
+                    <text x="630" y="135" text-anchor="middle" fill="var(--text-secondary)" font-size="10">None, bytes</text>
+                    <text x="630" y="150" text-anchor="middle" fill="var(--text-secondary)" font-size="10">bytearray</text>
+
+                    <!-- 불변/가변 범례 -->
+                    <rect x="80" y="175" width="260" height="25" rx="5" fill="none" stroke="#4CAF50" stroke-width="1.5" stroke-dasharray="4,2"/>
+                    <text x="210" y="192" text-anchor="middle" fill="var(--svg-green-text)" font-size="10" font-weight="bold">불변(Immutable): int, str, tuple, frozenset</text>
+
+                    <rect x="370" y="175" width="240" height="25" rx="5" fill="none" stroke="#ff9800" stroke-width="1.5" stroke-dasharray="4,2"/>
+                    <text x="490" y="192" text-anchor="middle" fill="var(--svg-orange-text)" font-size="10" font-weight="bold">가변(Mutable): list, dict, set, bytearray</text>
+                </svg>
+            </div>
 
             <h3>숫자 (Numbers)</h3>
             <p>파이썬은 정수(int), 실수(float), 복소수(complex) 세 가지 숫자 자료형을 지원합니다. 정수는 크기 제한이 없어 아무리 큰 수도 표현할 수 있으며(메모리가 허용하는 한), 2진수(<code>0b</code>), 8진수(<code>0o</code>), 16진수(<code>0x</code>) 리터럴도 사용 가능합니다.</p>
@@ -1478,7 +1610,15 @@ x = <span class="keyword">None</span>
             <h2>4. 제어문</h2>
             <span class="level-badge level-beginner">초급</span>
             <span class="level-badge level-intermediate">중급</span>
-            
+
+            <p>
+                제어문은 프로그램의 <strong>실행 흐름을 제어</strong>하는 구문입니다.
+                <strong>조건문(if-elif-else)</strong>으로 조건에 따라 다른 코드를 실행하고,
+                <strong>반복문(for, while)</strong>으로 코드를 반복 실행합니다.
+                Python 3.10부터는 <strong>Match-Case</strong>(구조적 패턴 매칭)를 통해 복잡한 데이터 구조의 형태를 매칭하여 분기할 수 있습니다.
+                <code>break</code>, <code>continue</code>, <code>pass</code> 등의 키워드로 반복 흐름을 세밀하게 제어합니다.
+            </p>
+
             <h3>조건문 (if-elif-else)</h3>
             <p>조건문은 주어진 조건의 참/거짓에 따라 코드 실행 흐름을 분기합니다. <code>if</code>로 시작하고, 추가 조건은 <code>elif</code>(else if의 축약), 모든 조건에 해당하지 않는 경우 <code>else</code>를 사용합니다. 파이썬에는 C/Java의 삼항 연산자 대신 <code>값1 if 조건 else 값2</code> 형태의 조건부 표현식이 있습니다.</p>
             <div class="code-block">
@@ -1577,13 +1717,17 @@ count = <span class="number">0</span>
                     <ellipse cx="100" cy="265" rx="50" ry="20" fill="#f44336"/>
                     <text x="100" y="270" text-anchor="middle" fill="white" font-weight="bold">종료</text>
 
-                    <!-- Arrow from execute back to condition -->
-                    <path d="M 400 240 Q 400 280 320 280 Q 250 280 250 180" stroke="#3776AB" stroke-width="2" fill="none" stroke-dasharray="5,5"/>
+                    <!-- Arrow from execute back to condition (루프백) -->
+                    <path d="M 400 240 Q 400 280 320 280 Q 250 280 250 180" stroke="#3776AB" stroke-width="2" fill="none" stroke-dasharray="5,5" marker-end="url(#loopArrow)"/>
+                    <text x="340" y="270" fill="#3776AB" font-size="11" font-weight="bold">반복</text>
 
                     <!-- Arrow definitions -->
                     <defs>
                         <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
                             <polygon points="0 0, 10 3.5, 0 7" fill="var(--text-secondary)"/>
+                        </marker>
+                        <marker id="loopArrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                            <polygon points="0 0, 10 3.5, 0 7" fill="#3776AB"/>
                         </marker>
                     </defs>
                 </svg>
@@ -1598,8 +1742,13 @@ count = <span class="number">0</span>
             <h2>5. 함수 (Functions)</h2>
             <span class="level-badge level-beginner">초급</span>
             <span class="level-badge level-intermediate">중급</span>
-            
-            <p>함수는 반복적으로 사용되는 코드를 하나로 묶은 것입니다. 함수를 사용하면 코드를 재사용하고 관리하기 쉬워집니다.</p>
+
+            <p>
+                함수는 특정 작업을 수행하는 코드 블록을 하나로 묶어 <strong>이름을 부여</strong>한 것입니다. 함수를 사용하면 동일한 코드를 여러 번 작성할 필요 없이 <strong>호출만으로 재사용</strong>할 수 있고,
+                프로그램을 논리적 단위로 분리하여 <strong>가독성과 유지보수성</strong>을 크게 높일 수 있습니다.
+                파이썬에서 함수는 <strong>일급 객체(First-class Object)</strong>로, 변수에 할당하거나 다른 함수의 인자로 전달하는 등 유연하게 활용할 수 있습니다.
+                또한 <code>lambda</code>, 클로저(closure), 데코레이터(decorator), 제너레이터(generator) 등 다양한 고급 기법을 지원합니다.
+            </p>
             
             <h3>기본 함수 정의</h3>
             <p>함수는 <code>def</code> 키워드로 정의하며, 함수명 뒤 괄호 안에 매개변수를 선언합니다. 함수 본문 첫 줄에 문자열을 작성하면 <strong>docstring</strong>(문서 문자열)이 되어 <code>help()</code> 함수로 확인할 수 있습니다. <code>return</code>으로 값을 반환하며, 생략 시 <code>None</code>이 반환됩니다.</p>
@@ -1649,7 +1798,7 @@ pairs.sort(key=<span class="keyword">lambda</span> x: x[<span class="number">0</
             </div>
             
             <h3>고급 함수 기법</h3>
-            <p><strong>클로저(Closure)</strong>는 외부 함수의 변수를 기억하는 내부 함수이며, 상태를 유지하는 함수를 만들 때 유용합니다. <strong>데코레이터(Decorator)</strong>는 <code>@</code> 문법으로 함수를 감싸서 기존 기능을 변경하지 않으면서 새로운 동작을 추가하는 패턴입니다.</p>
+            <p><strong>클로저(Closure)</strong>는 외부 함수의 변수를 기억하는 내부 함수이며, 상태를 유지하는 함수를 만들 때 유용합니다. <strong>데코레이터(Decorator)</strong>는 <code>@</code> 문법으로 함수를 감싸서 기존 기능을 변경하지 않으면서 새로운 동작을 추가하는 패턴입니다. (더 실전적인 데코레이터 활용은 아래 <em>데코레이터 (Decorators)</em> 섹션에서 다룹니다.)</p>
             <div class="code-block">
 <span class="comment"># 클로저 (Closure)</span>
 <span class="keyword">def</span> <span class="function">make_counter</span>():
@@ -1738,9 +1887,9 @@ gen = <span class="function">fibonacci</span>(<span class="number">5</span>)
                     </defs>
 
                     <!-- Input -->
-                    <rect x="10" y="75" width="130" height="55" rx="8" fill="var(--svg-blue)" stroke="#2196F3" stroke-width="2"/>
-                    <text x="75" y="107" text-anchor="middle" fill="var(--text-primary)" font-weight="bold">입력 (Input)</text>
-                    <text x="75" y="148" text-anchor="middle" fill="var(--text-secondary)" font-size="11">매개변수</text>
+                    <rect x="10" y="65" width="130" height="70" rx="8" fill="var(--svg-blue)" stroke="#2196F3" stroke-width="2"/>
+                    <text x="75" y="97" text-anchor="middle" fill="var(--text-primary)" font-weight="bold">입력 (Input)</text>
+                    <text x="75" y="118" text-anchor="middle" fill="var(--text-secondary)" font-size="11">매개변수</text>
 
                     <!-- Arrow to Function -->
                     <line x1="140" y1="103" x2="185" y2="103" stroke="#3776AB" stroke-width="3" marker-end="url(#arrow2)"/>
@@ -1754,9 +1903,9 @@ gen = <span class="function">fibonacci</span>(<span class="number">5</span>)
                     <line x1="380" y1="103" x2="425" y2="103" stroke="#3776AB" stroke-width="3" marker-end="url(#arrow2)"/>
 
                     <!-- Output -->
-                    <rect x="430" y="75" width="130" height="55" rx="8" fill="var(--svg-green)" stroke="#4CAF50" stroke-width="2"/>
-                    <text x="495" y="107" text-anchor="middle" fill="var(--text-primary)" font-weight="bold">출력 (Output)</text>
-                    <text x="495" y="148" text-anchor="middle" fill="var(--text-secondary)" font-size="11">반환값</text>
+                    <rect x="430" y="65" width="130" height="70" rx="8" fill="var(--svg-green)" stroke="#4CAF50" stroke-width="2"/>
+                    <text x="495" y="97" text-anchor="middle" fill="var(--text-primary)" font-weight="bold">출력 (Output)</text>
+                    <text x="495" y="118" text-anchor="middle" fill="var(--text-secondary)" font-size="11">반환값</text>
                 </svg>
             </div>
             <h3>데코레이터 (Decorators)</h3>
@@ -1790,15 +1939,38 @@ gen = <span class="function">fibonacci</span>(<span class="number">5</span>)
     f.<span class="function">write</span>(<span class="string">"안녕하세요!"</span>)
 <span class="comment"># 파일이 자동으로 닫힘</span>
             </div>
-            
+
+            <h3>async/await (비동기 프로그래밍)</h3>
+            <p>비동기 프로그래밍은 I/O 대기 시간(네트워크 요청, 파일 읽기 등)에 다른 작업을 수행하여 효율성을 극대화합니다. <code>async def</code>로 코루틴(coroutine) 함수를 정의하고, <code>await</code>로 비동기 작업의 완료를 기다립니다. <code>asyncio</code>는 Python 표준 라이브러리의 비동기 I/O 프레임워크로, <code>asyncio.run()</code>으로 이벤트 루프를 시작하며, <code>asyncio.gather()</code>로 여러 코루틴을 동시에 실행할 수 있습니다.</p>
+
+            <div class="code-block">
+<span class="keyword">import</span> asyncio
+
+<span class="keyword">async</span> <span class="function">def</span> <span class="function">fetch_data</span>():
+    <span class="keyword">print</span>(<span class="string">"데이터 가져오는 중..."</span>)
+    <span class="keyword">await</span> asyncio.sleep(<span class="number">2</span>)
+    <span class="keyword">return</span> {<span class="string">"data"</span>: <span class="string">"some data"</span>}
+
+<span class="keyword">async</span> <span class="function">def</span> <span class="function">main</span>():
+    result = <span class="keyword">await</span> <span class="function">fetch_data</span>()
+    <span class="keyword">print</span>(result)
+
+asyncio.run(<span class="function">main</span>())
+            </div>
+
         </section>
-        
+
         <section id="oop">
             <h2>6. 객체지향 프로그래밍 (OOP)</h2>
             <span class="level-badge level-intermediate">중급</span>
             <span class="level-badge level-advanced">고급</span>
             
-            <p>객체지향 프로그래밍은 데이터를 객체로 표현하고, 그 객체들을 통해 프로그램을 설계하는 패러다임입니다.</p>
+            <p>
+                <strong>객체지향 프로그래밍(OOP)</strong>은 관련 데이터와 동작을 하나의 <strong>객체(Object)</strong>로 묶어 프로그램을 설계하는 패러다임입니다.
+                <strong>캡슐화(Encapsulation)</strong>로 데이터를 보호하고, <strong>상속(Inheritance)</strong>으로 코드를 재사용하며,
+                <strong>다형성(Polymorphism)</strong>으로 같은 인터페이스에 다른 구현을 제공합니다.
+                파이썬은 모든 것이 객체이며, 클래스 기반 OOP를 <code>class</code> 키워드, 특수 메서드(dunder methods), <code>@property</code>, ABC, Protocol 등으로 풍부하게 지원합니다.
+            </p>
             
             <h3>클래스와 객체</h3>
             <p><strong>클래스</strong>는 객체를 만들기 위한 설계도(blueprint)이고, <strong>객체</strong>는 클래스로부터 생성된 실체(instance)입니다. <code>__init__</code> 메서드는 생성자로, 객체 초기화 시 자동 호출됩니다. <code>self</code>는 인스턴스 자신을 가리키며, 모든 인스턴스 메서드의 첫 번째 매개변수입니다.</p>
@@ -1811,11 +1983,11 @@ gen = <span class="function">fibonacci</span>(<span class="number">5</span>)
         self.age = age
     
     <span class="keyword">def</span> <span class="function">bark</span>(self):
-        <span class="keyword">return</span> <span class="string">f"{self.name}가 멍멍짝습니다!"</span>
+        <span class="keyword">return</span> <span class="string">f"{self.name}가 멍멍짖습니다!"</span>
 
 <span class="comment"># 객체 생성</span>
 my_dog = <span class="function">Dog</span>(<span class="string">"멍이"</span>, <span class="number">3</span>)
-<span class="keyword">print</span>(my_dog.<span class="function">bark</span>())  <span class="comment"># 멍이가 멍멍짝습니다!</span>
+<span class="keyword">print</span>(my_dog.<span class="function">bark</span>())  <span class="comment"># 멍이가 멍멍짖습니다!</span>
             </div>
             
             <h3>상속 (Inheritance)</h3>
@@ -2109,49 +2281,50 @@ p = Point(<span class="number">10</span>, <span class="number">20</span>)
             <div class="code-block">
 <span class="keyword">from</span> typing <span class="keyword">import</span> Protocol
 
-<span class="keyword">class</span> <span class="function">Drawble</span>(Protocol):
+<span class="keyword">class</span> <span class="function">Drawable</span>(Protocol):
     <span class="keyword">def</span> <span class="function">draw</span>(self) -> <span class="builtin">str</span>: ...
 
 <span class="keyword">class</span> <span class="function">Circle</span>:
     <span class="keyword">def</span> <span class="function">draw</span>(self) -> <span class="builtin">str</span>:
         <span class="keyword">return</span> <span class="string">"Circle drawn"</span>
 
-<span class="comment"># 타입 체크에서 Drawble로 처리됨</span>
-<span class="keyword">def</span> <span class="function">render</span>(shape: Drawble) -> <span class="builtin">None</span>:
+<span class="comment"># 타입 체크에서 Drawable로 처리됨</span>
+<span class="keyword">def</span> <span class="function">render</span>(shape: Drawable) -> <span class="builtin">None</span>:
     <span class="keyword">print</span>(shape.draw())
             </div>
             
             <div class="svg-container">
-                <!-- Advanced Topics Mind Map SVG -->
+                <!-- OOP 고급 개념 마인드맵 SVG -->
                 <svg width="700" height="300" viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg">
                     <!-- Center -->
-                    <circle cx="350" cy="150" r="40" fill="#667eea"/>
-                    <text x="350" y="155" text-anchor="middle" fill="white" font-weight="bold">고급</text>
+                    <circle cx="350" cy="150" r="50" fill="#667eea"/>
+                    <text x="350" y="145" text-anchor="middle" fill="white" font-weight="bold" font-size="13">OOP</text>
+                    <text x="350" y="163" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="11">고급 개념</text>
 
-                    <!-- Decorator -->
-                    <rect x="50" y="50" width="120" height="60" rx="10" fill="var(--svg-blue)" stroke="#2196F3" stroke-width="2"/>
-                    <text x="110" y="85" text-anchor="middle" fill="var(--svg-blue-text)" font-weight="bold">데코레이터</text>
-                    <line x1="170" y1="80" x2="290" y2="130" stroke="#667eea" stroke-width="2"/>
+                    <!-- 메타클래스 -->
+                    <rect x="50" y="40" width="130" height="55" rx="10" fill="var(--svg-blue)" stroke="#2196F3" stroke-width="2"/>
+                    <text x="115" y="65" text-anchor="middle" fill="var(--svg-blue-text)" font-weight="bold" font-size="12">메타클래스</text>
+                    <text x="115" y="82" text-anchor="middle" fill="var(--text-secondary)" font-size="10">type, __new__</text>
+                    <line x1="180" y1="68" x2="300" y2="135" stroke="#667eea" stroke-width="1.5"/>
 
-                    <!-- Generator -->
-                    <rect x="50" y="200" width="120" height="60" rx="10" fill="var(--svg-green)" stroke="#4CAF50" stroke-width="2"/>
-                    <text x="110" y="235" text-anchor="middle" fill="var(--svg-green-text)" font-weight="bold">제너레이터</text>
-                    <line x1="170" y1="230" x2="290" y2="180" stroke="#667eea" stroke-width="2"/>
+                    <!-- 디스크립터 -->
+                    <rect x="50" y="210" width="130" height="55" rx="10" fill="var(--svg-green)" stroke="#4CAF50" stroke-width="2"/>
+                    <text x="115" y="235" text-anchor="middle" fill="var(--svg-green-text)" font-weight="bold" font-size="12">디스크립터</text>
+                    <text x="115" y="252" text-anchor="middle" fill="var(--text-secondary)" font-size="10">__get__, __set__</text>
+                    <line x1="180" y1="238" x2="300" y2="170" stroke="#667eea" stroke-width="1.5"/>
 
-                    <!-- Context Manager -->
-                    <rect x="520" y="50" width="155" height="60" rx="10" fill="var(--svg-orange)" stroke="#ff9800" stroke-width="2"/>
-                    <text x="598" y="85" text-anchor="middle" fill="var(--svg-orange-text)" font-weight="bold">컨텍스트 매니저</text>
-                    <line x1="520" y1="80" x2="400" y2="130" stroke="#667eea" stroke-width="2"/>
+                    <!-- MRO / 다중상속 -->
+                    <rect x="520" y="40" width="150" height="55" rx="10" fill="var(--svg-orange)" stroke="#ff9800" stroke-width="2"/>
+                    <text x="595" y="65" text-anchor="middle" fill="var(--svg-orange-text)" font-weight="bold" font-size="12">다중상속 / MRO</text>
+                    <text x="595" y="82" text-anchor="middle" fill="var(--text-secondary)" font-size="10">C3 선형화</text>
+                    <line x1="520" y1="68" x2="400" y2="135" stroke="#667eea" stroke-width="1.5"/>
 
-                    <!-- Async -->
-                    <rect x="520" y="200" width="155" height="60" rx="10" fill="var(--svg-pink)" stroke="#e91e63" stroke-width="2"/>
-                    <text x="598" y="235" text-anchor="middle" fill="var(--svg-pink-text)" font-weight="bold">비동기 프로그래밍</text>
-                    <line x1="520" y1="230" x2="400" y2="180" stroke="#667eea" stroke-width="2"/>
+                    <!-- ABC / Protocol -->
+                    <rect x="520" y="210" width="150" height="55" rx="10" fill="var(--svg-pink)" stroke="#e91e63" stroke-width="2"/>
+                    <text x="595" y="235" text-anchor="middle" fill="var(--svg-pink-text)" font-weight="bold" font-size="12">ABC / Protocol</text>
+                    <text x="595" y="252" text-anchor="middle" fill="var(--text-secondary)" font-size="10">추상화, 덕 타이핑</text>
+                    <line x1="520" y1="238" x2="400" y2="170" stroke="#667eea" stroke-width="1.5"/>
                 </svg>
-            </div>
-            
-            <div class="tip-box">
-                <strong>💡 팁:</strong> async/await는 I/O 집약적인 작업(파일, 네트워크 요청)에서 큰 성능 향상을 제공합니다.
             </div>
         </section>
 
@@ -2159,8 +2332,63 @@ p = Point(<span class="number">10</span>, <span class="number">20</span>)
             <h2>7. 예외 처리 (Exception Handling)</h2>
             <span class="level-badge level-beginner">초급</span>
             <span class="level-badge level-intermediate">중급</span>
-            
-            <p>예외 처리는 프로그램 실행 중 발생하는 오류를 적절히 처리(handling)하여 프로그램이 정상적으로 계속 실행될 수 있도록 합니다.</p>
+
+            <p>
+                예외(Exception)는 프로그램 실행 중 발생하는 오류 상황을 나타내는 객체입니다.
+                파이썬의 <strong>예외 처리 메커니즘</strong>을 사용하면 오류가 발생하더라도 프로그램이 비정상적으로 종료되지 않고, 적절한 복구 로직을 수행한 뒤 계속 실행할 수 있습니다.
+                파이썬은 <code>ZeroDivisionError</code>, <code>TypeError</code>, <code>ValueError</code>, <code>FileNotFoundError</code> 등 <strong>60개 이상의 내장 예외 클래스</strong>를 제공하며,
+                이들은 모두 <code>BaseException</code>을 최상위 부모로 하는 <strong>계층 구조</strong>를 이룹니다.
+                <code>try-except-else-finally</code> 구문으로 예외를 처리하고, <code>raise</code>로 의도적으로 예외를 발생시킬 수 있습니다.
+            </p>
+
+            <div class="svg-container">
+                <!-- 예외 계층 구조 다이어그램 -->
+                <svg width="600" height="220" viewBox="0 0 600 220" xmlns="http://www.w3.org/2000/svg">
+                    <!-- BaseException -->
+                    <rect x="220" y="10" width="160" height="35" rx="8" fill="#9C27B0" stroke="#7B1FA2" stroke-width="2"/>
+                    <text x="300" y="33" text-anchor="middle" fill="white" font-weight="bold" font-size="13">BaseException</text>
+
+                    <line x1="300" y1="45" x2="300" y2="65" stroke="var(--text-secondary)" stroke-width="1.5"/>
+
+                    <!-- Exception -->
+                    <rect x="220" y="65" width="160" height="35" rx="8" fill="#667eea" stroke="#4a5ae0" stroke-width="2"/>
+                    <text x="300" y="88" text-anchor="middle" fill="white" font-weight="bold" font-size="13">Exception</text>
+
+                    <!-- 분기선 -->
+                    <line x1="300" y1="100" x2="300" y2="120" stroke="var(--text-secondary)" stroke-width="1.5"/>
+                    <line x1="80" y1="120" x2="520" y2="120" stroke="var(--text-secondary)" stroke-width="1.5"/>
+
+                    <!-- ValueError -->
+                    <line x1="80" y1="120" x2="80" y2="140" stroke="var(--text-secondary)" stroke-width="1.5"/>
+                    <rect x="20" y="140" width="120" height="30" rx="6" fill="var(--svg-orange)" stroke="#ff9800" stroke-width="1.5"/>
+                    <text x="80" y="160" text-anchor="middle" fill="var(--svg-orange-text)" font-size="11" font-weight="bold">ValueError</text>
+
+                    <!-- TypeError -->
+                    <line x1="190" y1="120" x2="190" y2="140" stroke="var(--text-secondary)" stroke-width="1.5"/>
+                    <rect x="130" y="140" width="120" height="30" rx="6" fill="var(--svg-blue)" stroke="#2196F3" stroke-width="1.5"/>
+                    <text x="190" y="160" text-anchor="middle" fill="var(--svg-blue-text)" font-size="11" font-weight="bold">TypeError</text>
+
+                    <!-- KeyError -->
+                    <line x1="300" y1="120" x2="300" y2="140" stroke="var(--text-secondary)" stroke-width="1.5"/>
+                    <rect x="240" y="140" width="120" height="30" rx="6" fill="var(--svg-green)" stroke="#4CAF50" stroke-width="1.5"/>
+                    <text x="300" y="160" text-anchor="middle" fill="var(--svg-green-text)" font-size="11" font-weight="bold">KeyError</text>
+
+                    <!-- IOError -->
+                    <line x1="410" y1="120" x2="410" y2="140" stroke="var(--text-secondary)" stroke-width="1.5"/>
+                    <rect x="350" y="140" width="120" height="30" rx="6" fill="var(--svg-pink)" stroke="#e91e63" stroke-width="1.5"/>
+                    <text x="410" y="160" text-anchor="middle" fill="var(--svg-pink-text)" font-size="11" font-weight="bold">OSError</text>
+
+                    <!-- CustomError -->
+                    <line x1="520" y1="120" x2="520" y2="140" stroke="var(--text-secondary)" stroke-width="1.5"/>
+                    <rect x="460" y="140" width="120" height="30" rx="6" fill="var(--svg-gray)" stroke="var(--border)" stroke-width="1.5"/>
+                    <text x="520" y="160" text-anchor="middle" fill="var(--text-secondary)" font-size="11" font-weight="bold">사용자 정의</text>
+
+                    <!-- FileNotFoundError (OSError 하위) -->
+                    <line x1="410" y1="170" x2="410" y2="185" stroke="var(--text-secondary)" stroke-width="1"/>
+                    <rect x="340" y="185" width="140" height="25" rx="5" fill="var(--svg-pink)" stroke="#e91e63" stroke-width="1"/>
+                    <text x="410" y="202" text-anchor="middle" fill="var(--svg-pink-text)" font-size="10">FileNotFoundError</text>
+                </svg>
+            </div>
             
             <h3>try-except 구조</h3>
             <p><code>try</code> 블록에서 예외가 발생하면 해당 예외 타입과 일치하는 <code>except</code> 블록이 실행됩니다. 예외를 잡지 않으면 프로그램이 비정상 종료됩니다. <code>except Exception as e</code>로 예외 객체를 변수에 바인딩하여 에러 메시지를 확인할 수 있습니다.</p>
@@ -2233,8 +2461,14 @@ p = Point(<span class="number">10</span>, <span class="number">20</span>)
             <h2>8. 모듈과 패키지 (Modules & Packages)</h2>
             <span class="level-badge level-beginner">초급</span>
             <span class="level-badge level-intermediate">중급</span>
-            
-            <p>모듈은 파이썬 코드가 포함된 파일(.py)입니다. 패키지는 모듈들을 디렉터리(Directory) 구조로 묶은 것입니다.</p>
+
+            <p>
+                <strong>모듈(Module)</strong>은 파이썬 코드(함수, 클래스, 변수 등)가 담긴 <code>.py</code> 파일 하나를 의미합니다.
+                <strong>패키지(Package)</strong>는 관련 모듈들을 디렉터리 구조로 묶어 체계적으로 관리하는 방법입니다.
+                파이썬은 <strong>"배터리 포함(Batteries Included)"</strong> 철학에 따라 <code>os</code>, <code>sys</code>, <code>json</code>, <code>datetime</code>, <code>pathlib</code> 등
+                300개 이상의 표준 라이브러리 모듈을 제공하며, <strong>PyPI(Python Package Index)</strong>를 통해 50만 개 이상의 서드파티 패키지를 <code>pip</code>로 쉽게 설치할 수 있습니다.
+                이러한 방대한 생태계가 파이썬의 강력한 경쟁력입니다.
+            </p>
             
             <h3>모듈 가져오기</h3>
             <p><code>import</code> 문으로 모듈을 가져옵니다. <code>import 모듈</code>은 전체 모듈을 가져오고, <code>from 모듈 import 함수</code>는 특정 항목만 가져옵니다. <code>as</code>를 사용하면 별칭을 지정할 수 있어 코드를 간결하게 만듭니다. <code>from 모듈 import *</code>는 이름 충돌 위험이 있으므로 일반적으로 권장되지 않습니다.</p>
@@ -2415,32 +2649,67 @@ deactivate
                     <line x1="170" y1="90" x2="220" y2="140" stroke="#667eea" stroke-width="2"/>
                 </svg>
             </div>
-            <h3>async/await (비동기 프로그래밍)</h3>
-            <p>비동기 프로그래밍은 I/O 대기 시간(네트워크 요청, 파일 읽기 등)에 다른 작업을 수행하여 효율성을 극대화합니다. <code>async def</code>로 코루틴 함수를 정의하고, <code>await</code>로 비동기 작업의 완료를 기다립니다. <code>asyncio.run()</code>으로 이벤트 루프를 시작하며, <code>asyncio.gather()</code>로 여러 코루틴을 동시 실행할 수 있습니다.</p>
-            
-            <div class="code-block">
-<span class="keyword">import</span> asyncio
-
-<span class="keyword">async</span> <span class="function">def</span> <span class="function">fetch_data</span>():
-    <span class="keyword">print</span>(<span class="string">"데이터 가져오는 중..."</span>)
-    <span class="keyword">await</span> asyncio.sleep(<span class="number">2</span>)
-    <span class="keyword">return</span> {<span class="string">"data"</span>: <span class="string">"some data"</span>}
-
-<span class="keyword">async</span> <span class="function">def</span> <span class="function">main</span>():
-    result = <span class="keyword">await</span> <span class="function">fetch_data</span>()
-    <span class="keyword">print</span>(result)
-
-asyncio.run(<span class="function">main</span>())
-            </div>
-            
         </section>
-        
+
         <section id="fileio">
             <h2>9. 파일 입출력 (File I/O)</h2>
             <span class="level-badge level-beginner">초급</span>
             <span class="level-badge level-intermediate">중급</span>
-            
-            <p>파일 입출력은 데이터를 영구적으로 저장하고 읽어오는 기능입니다.</p>
+
+            <p>
+                파일 입출력(File I/O)은 프로그램의 데이터를 <strong>디스크에 영구적으로 저장</strong>하고, 저장된 데이터를 <strong>다시 읽어오는</strong> 핵심 기능입니다.
+                프로그램이 종료되면 메모리의 데이터는 사라지지만, 파일에 기록한 데이터는 유지됩니다.
+                파이썬은 <code>open()</code> 내장 함수와 <code>with</code> 컨텍스트 매니저를 통해 안전하고 간결한 파일 처리를 지원하며,
+                텍스트 파일뿐 아니라 JSON, CSV, 바이너리 파일, pickle 직렬화 등 다양한 형식을 다룰 수 있습니다.
+                Python 3.4 이후에는 <code>pathlib</code> 모듈로 경로를 객체 지향적으로 다루는 방법도 제공합니다.
+            </p>
+
+            <div class="svg-container">
+                <!-- 파일 입출력 흐름 다이어그램 -->
+                <svg width="650" height="200" viewBox="0 0 650 200" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <marker id="arrow-fileio" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                            <polygon points="0 0, 10 3.5, 0 7" fill="#667eea"/>
+                        </marker>
+                    </defs>
+
+                    <!-- Python 프로그램 -->
+                    <rect x="20" y="55" width="130" height="70" rx="12" fill="#667eea" stroke="#4a5ae0" stroke-width="2"/>
+                    <text x="85" y="85" text-anchor="middle" fill="white" font-weight="bold" font-size="13">Python</text>
+                    <text x="85" y="105" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="11">프로그램</text>
+
+                    <!-- 쓰기 화살표 -->
+                    <line x1="150" y1="75" x2="225" y2="75" stroke="#4CAF50" stroke-width="2.5" marker-end="url(#arrow-fileio)"/>
+                    <text x="188" y="67" text-anchor="middle" fill="#4CAF50" font-size="11" font-weight="bold">write</text>
+
+                    <!-- 읽기 화살표 -->
+                    <line x1="225" y1="110" x2="150" y2="110" stroke="#2196F3" stroke-width="2.5" marker-end="url(#arrow-fileio)"/>
+                    <text x="188" y="130" text-anchor="middle" fill="#2196F3" font-size="11" font-weight="bold">read</text>
+
+                    <!-- open() 함수 박스 -->
+                    <rect x="230" y="55" width="110" height="70" rx="10" fill="var(--svg-orange)" stroke="#ff9800" stroke-width="2"/>
+                    <text x="285" y="85" text-anchor="middle" fill="var(--svg-orange-text)" font-weight="bold" font-size="13">open()</text>
+                    <text x="285" y="105" text-anchor="middle" fill="var(--text-secondary)" font-size="10">파일 핸들러</text>
+
+                    <!-- 화살표 to 파일 -->
+                    <line x1="340" y1="90" x2="395" y2="90" stroke="var(--text-secondary)" stroke-width="2" marker-end="url(#arrow-fileio)"/>
+
+                    <!-- 파일 아이콘 형태 -->
+                    <path d="M405,40 L470,40 L500,65 L500,140 Q500,145 495,145 L405,145 Q400,145 400,140 L400,45 Q400,40 405,40 Z" fill="var(--svg-blue)" stroke="#2196F3" stroke-width="2"/>
+                    <path d="M470,40 L470,60 Q470,65 475,65 L500,65" fill="var(--svg-blue)" stroke="#2196F3" stroke-width="1.5"/>
+                    <text x="450" y="85" text-anchor="middle" fill="var(--svg-blue-text)" font-weight="bold" font-size="13">파일</text>
+                    <text x="450" y="105" text-anchor="middle" fill="var(--text-secondary)" font-size="10">.txt .json</text>
+                    <text x="450" y="120" text-anchor="middle" fill="var(--text-secondary)" font-size="10">.csv .pkl</text>
+
+                    <!-- with문 설명 -->
+                    <rect x="530" y="60" width="100" height="55" rx="8" fill="var(--svg-green)" stroke="#4CAF50" stroke-width="1.5"/>
+                    <text x="580" y="82" text-anchor="middle" fill="var(--svg-green-text)" font-weight="bold" font-size="11">with 문</text>
+                    <text x="580" y="100" text-anchor="middle" fill="var(--text-secondary)" font-size="10">자동 close()</text>
+
+                    <!-- 레이블 -->
+                    <text x="325" y="175" text-anchor="middle" fill="var(--text-muted)" font-size="12">파일은 열기(open) → 읽기/쓰기 → 닫기(close) 순서로 처리</text>
+                </svg>
+            </div>
             
             <h3>파일 읽기</h3>
             <p>파일 읽기는 <code>open()</code> 함수로 파일을 열고 <code>read()</code>, <code>readline()</code>, <code>readlines()</code> 메서드로 내용을 가져옵니다. <code>with</code> 문을 사용하면 파일이 자동으로 닫히므로 리소스 누수를 방지할 수 있습니다. 한글 파일은 <code>encoding="utf-8"</code>을 명시하는 것이 안전합니다.</p>
@@ -2651,8 +2920,71 @@ emails = [<span class="string">"test@example.com"</span>, <span class="string">"
     <span class="keyword">else</span>:
         <span class="keyword">print</span>(<span class="string">f"{email}: 무효함"</span>)
             </div>
+
+            <div class="svg-container">
+                <!-- 정규표현식 패턴 구조 시각화 -->
+                <svg width="700" height="280" viewBox="0 0 700 280" xmlns="http://www.w3.org/2000/svg">
+                    <!-- 제목 -->
+                    <text x="350" y="25" text-anchor="middle" fill="var(--text-primary)" font-weight="bold" font-size="14">정규표현식 패턴 구조 예시: \d{3}-\d{4}-\d{4}</text>
+
+                    <!-- 입력 문자열 -->
+                    <text x="350" y="55" text-anchor="middle" fill="var(--text-secondary)" font-size="12">입력: "010-1234-5678"</text>
+
+                    <!-- 패턴 박스들 -->
+                    <!-- \d{3} -->
+                    <rect x="80" y="75" width="120" height="55" rx="8" fill="var(--svg-blue)" stroke="#2196F3" stroke-width="2"/>
+                    <text x="140" y="98" text-anchor="middle" fill="var(--svg-blue-text)" font-weight="bold" font-size="13">\d{3}</text>
+                    <text x="140" y="118" text-anchor="middle" fill="var(--text-secondary)" font-size="10">숫자 3자리</text>
+
+                    <!-- 매칭 표시 010 -->
+                    <rect x="95" y="140" width="90" height="28" rx="5" fill="#4CAF50" opacity="0.2" stroke="#4CAF50" stroke-width="1"/>
+                    <text x="140" y="160" text-anchor="middle" fill="var(--svg-green-text)" font-weight="bold" font-size="14">010</text>
+
+                    <!-- 하이픈 리터럴 -->
+                    <rect x="230" y="75" width="60" height="55" rx="8" fill="var(--svg-gray)" stroke="var(--border)" stroke-width="2"/>
+                    <text x="260" y="98" text-anchor="middle" fill="var(--text-primary)" font-weight="bold" font-size="16">-</text>
+                    <text x="260" y="118" text-anchor="middle" fill="var(--text-secondary)" font-size="10">리터럴</text>
+
+                    <!-- 매칭 - -->
+                    <text x="260" y="160" text-anchor="middle" fill="var(--text-muted)" font-size="14">-</text>
+
+                    <!-- \d{4} 첫번째 -->
+                    <rect x="320" y="75" width="120" height="55" rx="8" fill="var(--svg-orange)" stroke="#ff9800" stroke-width="2"/>
+                    <text x="380" y="98" text-anchor="middle" fill="var(--svg-orange-text)" font-weight="bold" font-size="13">\d{4}</text>
+                    <text x="380" y="118" text-anchor="middle" fill="var(--text-secondary)" font-size="10">숫자 4자리</text>
+
+                    <!-- 매칭 1234 -->
+                    <rect x="340" y="140" width="80" height="28" rx="5" fill="#ff9800" opacity="0.2" stroke="#ff9800" stroke-width="1"/>
+                    <text x="380" y="160" text-anchor="middle" fill="var(--svg-orange-text)" font-weight="bold" font-size="14">1234</text>
+
+                    <!-- 하이픈 -->
+                    <rect x="470" y="75" width="60" height="55" rx="8" fill="var(--svg-gray)" stroke="var(--border)" stroke-width="2"/>
+                    <text x="500" y="98" text-anchor="middle" fill="var(--text-primary)" font-weight="bold" font-size="16">-</text>
+                    <text x="500" y="118" text-anchor="middle" fill="var(--text-secondary)" font-size="10">리터럴</text>
+
+                    <text x="500" y="160" text-anchor="middle" fill="var(--text-muted)" font-size="14">-</text>
+
+                    <!-- \d{4} 두번째 -->
+                    <rect x="560" y="75" width="120" height="55" rx="8" fill="var(--svg-pink)" stroke="#e91e63" stroke-width="2"/>
+                    <text x="620" y="98" text-anchor="middle" fill="var(--svg-pink-text)" font-weight="bold" font-size="13">\d{4}</text>
+                    <text x="620" y="118" text-anchor="middle" fill="var(--text-secondary)" font-size="10">숫자 4자리</text>
+
+                    <!-- 매칭 5678 -->
+                    <rect x="580" y="140" width="80" height="28" rx="5" fill="#e91e63" opacity="0.2" stroke="#e91e63" stroke-width="1"/>
+                    <text x="620" y="160" text-anchor="middle" fill="var(--svg-pink-text)" font-weight="bold" font-size="14">5678</text>
+
+                    <!-- 결과 -->
+                    <rect x="180" y="195" width="340" height="40" rx="10" fill="#4CAF50" opacity="0.15" stroke="#4CAF50" stroke-width="1.5"/>
+                    <text x="350" y="220" text-anchor="middle" fill="var(--svg-green-text)" font-weight="bold" font-size="13">Match! "010-1234-5678"</text>
+
+                    <!-- 주요 메타문자 범례 -->
+                    <text x="100" y="260" fill="var(--text-secondary)" font-size="11">\d = 숫자(0-9)</text>
+                    <text x="250" y="260" fill="var(--text-secondary)" font-size="11">{n} = 정확히 n회 반복</text>
+                    <text x="440" y="260" fill="var(--text-secondary)" font-size="11">리터럴 = 해당 문자 그대로 매칭</text>
+                </svg>
+            </div>
         </section>
-        
+
         <section id="testing">
             <h2>11. 테스트 (Testing)</h2>
             <span class="level-badge level-intermediate">중급</span>
@@ -2771,6 +3103,54 @@ pytest test_calculator.py -v
             <span class="level-badge level-advanced">고급</span>
 
             <p>파이썬은 데이터 과학 분야에서 가장 널리 사용되는 언어입니다. NumPy로 고성능 수치 연산을, Pandas로 데이터 조작을, Matplotlib/Seaborn으로 시각화를 수행합니다. 이 생태계는 R, MATLAB 등의 대안보다 범용성과 확장성이 뛰어나 산업 표준으로 자리잡았습니다.</p>
+
+            <div class="svg-container">
+                <!-- 데이터 과학 파이프라인 다이어그램 -->
+                <svg width="750" height="180" viewBox="0 0 750 180" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <marker id="arrow-ds" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+                            <polygon points="0 0, 8 3, 0 6" fill="#667eea"/>
+                        </marker>
+                    </defs>
+
+                    <!-- Step 1: 데이터 수집 -->
+                    <rect x="10" y="40" width="120" height="65" rx="10" fill="var(--svg-blue)" stroke="#2196F3" stroke-width="2"/>
+                    <text x="70" y="65" text-anchor="middle" fill="var(--svg-blue-text)" font-weight="bold" font-size="12">데이터 수집</text>
+                    <text x="70" y="85" text-anchor="middle" fill="var(--text-secondary)" font-size="10">CSV, API, DB</text>
+
+                    <line x1="130" y1="72" x2="150" y2="72" stroke="#667eea" stroke-width="2" marker-end="url(#arrow-ds)"/>
+
+                    <!-- Step 2: 전처리 -->
+                    <rect x="155" y="40" width="120" height="65" rx="10" fill="var(--svg-orange)" stroke="#ff9800" stroke-width="2"/>
+                    <text x="215" y="65" text-anchor="middle" fill="var(--svg-orange-text)" font-weight="bold" font-size="12">전처리</text>
+                    <text x="215" y="85" text-anchor="middle" fill="var(--text-secondary)" font-size="10">Pandas, NumPy</text>
+
+                    <line x1="275" y1="72" x2="295" y2="72" stroke="#667eea" stroke-width="2" marker-end="url(#arrow-ds)"/>
+
+                    <!-- Step 3: 탐색적 분석 -->
+                    <rect x="300" y="40" width="120" height="65" rx="10" fill="var(--svg-green)" stroke="#4CAF50" stroke-width="2"/>
+                    <text x="360" y="65" text-anchor="middle" fill="var(--svg-green-text)" font-weight="bold" font-size="12">탐색적 분석</text>
+                    <text x="360" y="85" text-anchor="middle" fill="var(--text-secondary)" font-size="10">Matplotlib</text>
+
+                    <line x1="420" y1="72" x2="440" y2="72" stroke="#667eea" stroke-width="2" marker-end="url(#arrow-ds)"/>
+
+                    <!-- Step 4: 모델링 -->
+                    <rect x="445" y="40" width="120" height="65" rx="10" fill="var(--svg-pink)" stroke="#e91e63" stroke-width="2"/>
+                    <text x="505" y="65" text-anchor="middle" fill="var(--svg-pink-text)" font-weight="bold" font-size="12">모델링</text>
+                    <text x="505" y="85" text-anchor="middle" fill="var(--text-secondary)" font-size="10">scikit-learn</text>
+
+                    <line x1="565" y1="72" x2="585" y2="72" stroke="#667eea" stroke-width="2" marker-end="url(#arrow-ds)"/>
+
+                    <!-- Step 5: 평가/배포 -->
+                    <rect x="590" y="40" width="120" height="65" rx="10" fill="#667eea"/>
+                    <text x="650" y="65" text-anchor="middle" fill="white" font-weight="bold" font-size="12">평가 / 배포</text>
+                    <text x="650" y="85" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="10">검증, 서빙</text>
+
+                    <!-- 하단 레이블 -->
+                    <text x="375" y="145" text-anchor="middle" fill="var(--text-muted)" font-size="12">데이터 과학 워크플로우 (Data Science Pipeline)</text>
+                    <text x="375" y="165" text-anchor="middle" fill="var(--text-muted)" font-size="11">각 단계는 반복적(iterative)으로 수행됩니다</text>
+                </svg>
+            </div>
 
             <h3>AI 개발 환경 설정 &amp; 설치</h3>
             <p>데이터 과학과 AI 개발을 위해 필요한 핵심 패키지들을 설치합니다. GPU를 활용한 딥러닝 학습에는 CUDA 호환 GPU와 드라이버가 필요하며, 가상 환경에서 패키지를 관리하는 것이 권장됩니다.</p>
@@ -4348,6 +4728,77 @@ plt.show()
 
             <p>머신러닝(Machine Learning)은 데이터로부터 패턴을 학습하여 예측이나 의사결정을 자동화하는 AI의 핵심 분야입니다. <strong>지도 학습</strong>(분류, 회귀), <strong>비지도 학습</strong>(군집화, 차원 축소), <strong>강화 학습</strong> 세 가지 범주로 나뉘며, 파이썬에서는 scikit-learn이 전통적 ML의 표준 라이브러리입니다.</p>
 
+            <div class="svg-container">
+                <!-- 머신러닝 학습 워크플로우 다이어그램 -->
+                <svg width="700" height="260" viewBox="0 0 700 260" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <marker id="arrow-ml" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+                            <polygon points="0 0, 8 3, 0 6" fill="#667eea"/>
+                        </marker>
+                    </defs>
+
+                    <!-- 전체 데이터 -->
+                    <rect x="20" y="30" width="120" height="55" rx="10" fill="var(--svg-blue)" stroke="#2196F3" stroke-width="2"/>
+                    <text x="80" y="55" text-anchor="middle" fill="var(--svg-blue-text)" font-weight="bold" font-size="12">전체 데이터</text>
+                    <text x="80" y="72" text-anchor="middle" fill="var(--text-secondary)" font-size="10">Dataset</text>
+
+                    <!-- 분할 화살표 -->
+                    <line x1="140" y1="45" x2="175" y2="30" stroke="#667eea" stroke-width="1.5" marker-end="url(#arrow-ml)"/>
+                    <line x1="140" y1="65" x2="175" y2="80" stroke="#667eea" stroke-width="1.5" marker-end="url(#arrow-ml)"/>
+
+                    <!-- 훈련 데이터 -->
+                    <rect x="180" y="10" width="105" height="40" rx="8" fill="var(--svg-green)" stroke="#4CAF50" stroke-width="1.5"/>
+                    <text x="232" y="35" text-anchor="middle" fill="var(--svg-green-text)" font-weight="bold" font-size="11">훈련 데이터</text>
+
+                    <!-- 테스트 데이터 -->
+                    <rect x="180" y="60" width="105" height="40" rx="8" fill="var(--svg-orange)" stroke="#ff9800" stroke-width="1.5"/>
+                    <text x="232" y="85" text-anchor="middle" fill="var(--svg-orange-text)" font-weight="bold" font-size="11">테스트 데이터</text>
+
+                    <!-- 훈련 → 모델 -->
+                    <line x1="285" y1="30" x2="330" y2="60" stroke="#4CAF50" stroke-width="1.5" marker-end="url(#arrow-ml)"/>
+
+                    <!-- 모델 학습 -->
+                    <rect x="335" y="40" width="130" height="55" rx="12" fill="#667eea" stroke="#4a5ae0" stroke-width="2"/>
+                    <text x="400" y="63" text-anchor="middle" fill="white" font-weight="bold" font-size="13">모델 학습</text>
+                    <text x="400" y="82" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="10">fit(X_train, y_train)</text>
+
+                    <!-- 모델 → 예측 -->
+                    <line x1="465" y1="67" x2="510" y2="67" stroke="#667eea" stroke-width="2" marker-end="url(#arrow-ml)"/>
+
+                    <!-- 예측 -->
+                    <rect x="515" y="40" width="110" height="55" rx="10" fill="var(--svg-pink)" stroke="#e91e63" stroke-width="2"/>
+                    <text x="570" y="63" text-anchor="middle" fill="var(--svg-pink-text)" font-weight="bold" font-size="12">예측</text>
+                    <text x="570" y="82" text-anchor="middle" fill="var(--text-secondary)" font-size="10">predict(X_test)</text>
+
+                    <!-- 테스트 → 평가 -->
+                    <line x1="285" y1="80" x2="510" y2="130" stroke="#ff9800" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+                    <!-- 평가 -->
+                    <rect x="515" y="110" width="110" height="55" rx="10" fill="var(--svg-green)" stroke="#4CAF50" stroke-width="2"/>
+                    <text x="570" y="133" text-anchor="middle" fill="var(--svg-green-text)" font-weight="bold" font-size="12">평가</text>
+                    <text x="570" y="152" text-anchor="middle" fill="var(--text-secondary)" font-size="10">score, metrics</text>
+
+                    <!-- 예측 → 평가 -->
+                    <line x1="570" y1="95" x2="570" y2="110" stroke="var(--text-secondary)" stroke-width="1.5" marker-end="url(#arrow-ml)"/>
+
+                    <!-- 머신러닝 분류 범례 -->
+                    <rect x="30" y="135" width="170" height="35" rx="6" fill="var(--svg-green)" stroke="#4CAF50" stroke-width="1"/>
+                    <text x="115" y="158" text-anchor="middle" fill="var(--svg-green-text)" font-size="11" font-weight="bold">지도 학습 (Supervised)</text>
+                    <text x="115" y="185" text-anchor="middle" fill="var(--text-secondary)" font-size="10">분류(Classification), 회귀(Regression)</text>
+
+                    <rect x="220" y="135" width="170" height="35" rx="6" fill="var(--svg-orange)" stroke="#ff9800" stroke-width="1"/>
+                    <text x="305" y="158" text-anchor="middle" fill="var(--svg-orange-text)" font-size="11" font-weight="bold">비지도 학습 (Unsupervised)</text>
+                    <text x="305" y="185" text-anchor="middle" fill="var(--text-secondary)" font-size="10">군집화(Clustering), 차원 축소</text>
+
+                    <rect x="410" y="135" width="170" height="35" rx="6" fill="var(--svg-pink)" stroke="#e91e63" stroke-width="1"/>
+                    <text x="495" y="158" text-anchor="middle" fill="var(--svg-pink-text)" font-size="11" font-weight="bold">강화 학습 (RL)</text>
+                    <text x="495" y="185" text-anchor="middle" fill="var(--text-secondary)" font-size="10">에이전트, 보상 기반 학습</text>
+
+                    <!-- 하단 설명 -->
+                    <text x="350" y="225" text-anchor="middle" fill="var(--text-muted)" font-size="12">scikit-learn의 fit → predict → score 패턴으로 통일된 머신러닝 워크플로우</text>
+                </svg>
+            </div>
+
             <h3>scikit-learn (머신러닝)</h3>
 
             <p>
@@ -5007,6 +5458,84 @@ scores = cross_val_score(model, X, y, cv=<span class="number">5</span>, scoring=
             <span class="level-badge level-expert">전문가</span>
 
             <p>딥러닝(Deep Learning)은 다층 신경망을 사용하여 데이터의 복잡한 패턴을 학습하는 머신러닝의 하위 분야입니다. 이미지 인식, 자연어 처리, 음성 인식, 생성 AI 등에서 혁신적인 성과를 이루고 있으며, TensorFlow와 PyTorch가 양대 프레임워크입니다.</p>
+
+            <div class="svg-container">
+                <!-- 신경망 구조 다이어그램 -->
+                <svg width="700" height="320" viewBox="0 0 700 320" xmlns="http://www.w3.org/2000/svg">
+                    <!-- 입력층 노드 -->
+                    <text x="90" y="25" text-anchor="middle" fill="var(--svg-blue-text)" font-weight="bold" font-size="13">입력층</text>
+                    <text x="90" y="42" text-anchor="middle" fill="var(--text-secondary)" font-size="10">Input Layer</text>
+                    <circle cx="90" cy="80" r="20" fill="var(--svg-blue)" stroke="#2196F3" stroke-width="2"/>
+                    <text x="90" y="85" text-anchor="middle" fill="var(--svg-blue-text)" font-size="11">x1</text>
+                    <circle cx="90" cy="150" r="20" fill="var(--svg-blue)" stroke="#2196F3" stroke-width="2"/>
+                    <text x="90" y="155" text-anchor="middle" fill="var(--svg-blue-text)" font-size="11">x2</text>
+                    <circle cx="90" cy="220" r="20" fill="var(--svg-blue)" stroke="#2196F3" stroke-width="2"/>
+                    <text x="90" y="225" text-anchor="middle" fill="var(--svg-blue-text)" font-size="11">x3</text>
+
+                    <!-- 은닉층1 노드 -->
+                    <text x="280" y="25" text-anchor="middle" fill="var(--svg-orange-text)" font-weight="bold" font-size="13">은닉층 1</text>
+                    <text x="280" y="42" text-anchor="middle" fill="var(--text-secondary)" font-size="10">Hidden Layer</text>
+                    <circle cx="280" cy="65" r="18" fill="var(--svg-orange)" stroke="#ff9800" stroke-width="2"/>
+                    <circle cx="280" cy="120" r="18" fill="var(--svg-orange)" stroke="#ff9800" stroke-width="2"/>
+                    <circle cx="280" cy="175" r="18" fill="var(--svg-orange)" stroke="#ff9800" stroke-width="2"/>
+                    <circle cx="280" cy="230" r="18" fill="var(--svg-orange)" stroke="#ff9800" stroke-width="2"/>
+
+                    <!-- 은닉층2 노드 -->
+                    <text x="440" y="25" text-anchor="middle" fill="var(--svg-green-text)" font-weight="bold" font-size="13">은닉층 2</text>
+                    <text x="440" y="42" text-anchor="middle" fill="var(--text-secondary)" font-size="10">Hidden Layer</text>
+                    <circle cx="440" cy="90" r="18" fill="var(--svg-green)" stroke="#4CAF50" stroke-width="2"/>
+                    <circle cx="440" cy="150" r="18" fill="var(--svg-green)" stroke="#4CAF50" stroke-width="2"/>
+                    <circle cx="440" cy="210" r="18" fill="var(--svg-green)" stroke="#4CAF50" stroke-width="2"/>
+
+                    <!-- 출력층 노드 -->
+                    <text x="600" y="25" text-anchor="middle" fill="var(--svg-pink-text)" font-weight="bold" font-size="13">출력층</text>
+                    <text x="600" y="42" text-anchor="middle" fill="var(--text-secondary)" font-size="10">Output Layer</text>
+                    <circle cx="600" cy="120" r="20" fill="var(--svg-pink)" stroke="#e91e63" stroke-width="2"/>
+                    <text x="600" y="125" text-anchor="middle" fill="var(--svg-pink-text)" font-size="11">y1</text>
+                    <circle cx="600" cy="190" r="20" fill="var(--svg-pink)" stroke="#e91e63" stroke-width="2"/>
+                    <text x="600" y="195" text-anchor="middle" fill="var(--svg-pink-text)" font-size="11">y2</text>
+
+                    <!-- 입력 → 은닉1 연결선 -->
+                    <line x1="110" y1="80" x2="262" y2="65" stroke="var(--text-muted)" stroke-width="0.8" opacity="0.5"/>
+                    <line x1="110" y1="80" x2="262" y2="120" stroke="var(--text-muted)" stroke-width="0.8" opacity="0.5"/>
+                    <line x1="110" y1="80" x2="262" y2="175" stroke="var(--text-muted)" stroke-width="0.8" opacity="0.5"/>
+                    <line x1="110" y1="80" x2="262" y2="230" stroke="var(--text-muted)" stroke-width="0.8" opacity="0.5"/>
+                    <line x1="110" y1="150" x2="262" y2="65" stroke="var(--text-muted)" stroke-width="0.8" opacity="0.5"/>
+                    <line x1="110" y1="150" x2="262" y2="120" stroke="var(--text-muted)" stroke-width="0.8" opacity="0.5"/>
+                    <line x1="110" y1="150" x2="262" y2="175" stroke="var(--text-muted)" stroke-width="0.8" opacity="0.5"/>
+                    <line x1="110" y1="150" x2="262" y2="230" stroke="var(--text-muted)" stroke-width="0.8" opacity="0.5"/>
+                    <line x1="110" y1="220" x2="262" y2="65" stroke="var(--text-muted)" stroke-width="0.8" opacity="0.5"/>
+                    <line x1="110" y1="220" x2="262" y2="120" stroke="var(--text-muted)" stroke-width="0.8" opacity="0.5"/>
+                    <line x1="110" y1="220" x2="262" y2="175" stroke="var(--text-muted)" stroke-width="0.8" opacity="0.5"/>
+                    <line x1="110" y1="220" x2="262" y2="230" stroke="var(--text-muted)" stroke-width="0.8" opacity="0.5"/>
+
+                    <!-- 은닉1 → 은닉2 연결선 -->
+                    <line x1="298" y1="65" x2="422" y2="90" stroke="var(--text-muted)" stroke-width="0.8" opacity="0.5"/>
+                    <line x1="298" y1="65" x2="422" y2="150" stroke="var(--text-muted)" stroke-width="0.8" opacity="0.5"/>
+                    <line x1="298" y1="65" x2="422" y2="210" stroke="var(--text-muted)" stroke-width="0.8" opacity="0.5"/>
+                    <line x1="298" y1="120" x2="422" y2="90" stroke="var(--text-muted)" stroke-width="0.8" opacity="0.5"/>
+                    <line x1="298" y1="120" x2="422" y2="150" stroke="var(--text-muted)" stroke-width="0.8" opacity="0.5"/>
+                    <line x1="298" y1="120" x2="422" y2="210" stroke="var(--text-muted)" stroke-width="0.8" opacity="0.5"/>
+                    <line x1="298" y1="175" x2="422" y2="90" stroke="var(--text-muted)" stroke-width="0.8" opacity="0.5"/>
+                    <line x1="298" y1="175" x2="422" y2="150" stroke="var(--text-muted)" stroke-width="0.8" opacity="0.5"/>
+                    <line x1="298" y1="175" x2="422" y2="210" stroke="var(--text-muted)" stroke-width="0.8" opacity="0.5"/>
+                    <line x1="298" y1="230" x2="422" y2="90" stroke="var(--text-muted)" stroke-width="0.8" opacity="0.5"/>
+                    <line x1="298" y1="230" x2="422" y2="150" stroke="var(--text-muted)" stroke-width="0.8" opacity="0.5"/>
+                    <line x1="298" y1="230" x2="422" y2="210" stroke="var(--text-muted)" stroke-width="0.8" opacity="0.5"/>
+
+                    <!-- 은닉2 → 출력 연결선 -->
+                    <line x1="458" y1="90" x2="580" y2="120" stroke="var(--text-muted)" stroke-width="0.8" opacity="0.5"/>
+                    <line x1="458" y1="90" x2="580" y2="190" stroke="var(--text-muted)" stroke-width="0.8" opacity="0.5"/>
+                    <line x1="458" y1="150" x2="580" y2="120" stroke="var(--text-muted)" stroke-width="0.8" opacity="0.5"/>
+                    <line x1="458" y1="150" x2="580" y2="190" stroke="var(--text-muted)" stroke-width="0.8" opacity="0.5"/>
+                    <line x1="458" y1="210" x2="580" y2="120" stroke="var(--text-muted)" stroke-width="0.8" opacity="0.5"/>
+                    <line x1="458" y1="210" x2="580" y2="190" stroke="var(--text-muted)" stroke-width="0.8" opacity="0.5"/>
+
+                    <!-- 하단 설명 -->
+                    <text x="350" y="275" text-anchor="middle" fill="var(--text-muted)" font-size="12">다층 퍼셉트론(MLP) 구조 - 각 연결선은 학습 가능한 가중치(weight)를 가짐</text>
+                    <text x="350" y="295" text-anchor="middle" fill="var(--text-muted)" font-size="11">은닉층이 깊어질수록(Deep) 더 복잡한 패턴을 학습할 수 있음</text>
+                </svg>
+            </div>
 
             <h3>TensorFlow/Keras (딥러닝)</h3>
 
@@ -7002,7 +7531,7 @@ decay_rate = <span class="number">0.9</span>
                 <tr><td>집합</td><td>.add(), .remove(), | (합집합), & (교집합), - (차집합)</td></tr>
                 <tr><td>파일</td><td>open(), read(), readlines(), write(), with문</td></tr>
                 <tr><td>예외</td><td>try/except/finally, raise, except (Error1, Error2)</td></tr>
-                <tr><td>함수</h2></td><td>def, *args, **kwargs, lambda, map(), filter()</td></tr>
+                <tr><td>함수</td><td>def, *args, **kwargs, lambda, map(), filter()</td></tr>
                 <tr><td>클래스</td><td>class, __init__, self, @property, @staticmethod, @classmethod</td></tr>
                 <tr><td>타입힌트</td><td>: int, -> str, List[int], Dict[str, Any], Optional[X]</td></tr>
             </table>
