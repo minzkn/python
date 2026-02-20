@@ -27,10 +27,10 @@
         }
         
         header {
-            background: rgba(255, 255, 255, 0.85);
+            background: rgba(255, 255, 255, 0.97);
             border-radius: 0;
             padding: 40px;
-            margin-bottom: 0;
+            margin-bottom: 4px;
             box-shadow: none;
             text-align: center;
         }
@@ -53,11 +53,13 @@
         }
         
         nav {
-            background: rgba(255, 255, 255, 0.85);
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border-radius: 0;
             padding: 15px 20px;
             margin: 0;
-            box-shadow: none;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
             position: sticky;
             top: 0;
             z-index: 100;
@@ -87,12 +89,22 @@
             color: white;
             transform: translateY(-2px);
         }
+
+        nav a.active {
+            background: #3776AB;
+            color: white;
+        }
+
+        nav a:focus-visible {
+            outline: 3px solid #3776AB;
+            outline-offset: 2px;
+        }
         
         section {
-            background: rgba(255, 255, 255, 0.85);
+            background: rgba(255, 255, 255, 0.97);
             border-radius: 0;
             padding: 40px 50px;
-            margin: 0;
+            margin: 0 0 4px 0;
             box-shadow: none;
         }
         
@@ -272,7 +284,7 @@
         }
         
         footer {
-            background: rgba(255, 255, 255, 0.85);
+            background: rgba(255, 255, 255, 0.97);
             border-radius: 0;
             padding: 30px;
             text-align: center;
@@ -355,6 +367,11 @@
             border-radius: 5px;
             cursor: pointer;
             font-size: 0.8em;
+            transition: background 0.2s;
+        }
+
+        .code-demo .copy-btn:hover {
+            background: #667eea;
         }
         
         .comparison-table {
@@ -374,8 +391,12 @@
             color: white;
         }
         
+        .comparison-table tr:nth-child(even) {
+            background: #f4f7fb;
+        }
+
         .comparison-table tr:hover {
-            background: #f5f5f5;
+            background: #e3eef9;
         }
         
         .accordion {
@@ -465,6 +486,11 @@
             section { padding: 25px; }
             nav ul { flex-direction: column; align-items: center; }
             .toc ul { columns: 1; }
+            .comparison-table {
+                display: block;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
         }
     </style>
 </head>
@@ -2933,15 +2959,7 @@ d[<span class="string">"count"</span>] += <span class="number">1</span>  <span c
             });
         });
         
-        // Add active class style for nav
-        const style = document.createElement('style');
-        style.textContent = `
-            nav a.active {
-                background: #3776AB !important;
-                color: white !important;
-            }
-        `;
-        document.head.appendChild(style);
+        // nav a.active 스타일은 CSS에 정의됨
     </script>
 </body>
 </html>
