@@ -12,46 +12,30 @@
 - CSS3
 - JavaScript (vanilla)
 
-## 📚 내용 포함
+## 📚 목차
 
-### 기초
-- 파이썬이란?
-- 개발환경 설정
-- 기초 문법 (변수, 주석, 들여쓰기)
-- 자료형 (숫자, 문자열, 리스트, 튜플, 딕셔너리, 집합)
-- 제어문 (if, for, while, match-case)
+### 기초 (1~4장)
+1. 파이썬이란? — 철학, 인터프리터, 3.14 새 기능, CLI, 환경변수
+2. 기초 문법 — 변수, 주석, 들여쓰기, walrus operator
+3. 자료형 — 숫자, 문자열, 리스트, 튜플, 딕셔너리, 집합
+4. 제어문 — if/elif/else, for, while, match-case
 
-### 중급
-- 함수 (def, lambda, 데코레이터, 클로저)
-- 객체지향 프로그래밍 (클래스, 상속, 캡슐화)
-- 예외 처리
-- 모듈과 패키지
-- 파일 입출력
-- 정규표현식
+### 중급 (5~11장)
+5. 함수 — def, lambda, *args/**kwargs, 데코레이터, 제너레이터, 컨텍스트 매니저
+6. 객체지향 프로그래밍 — 클래스, 상속, MRO, Type Hints, Data Classes, ABC, Protocol
+7. 예외 처리 — try/except, 사용자 정의 예외
+8. 모듈과 패키지 — import, pip, 가상 환경, 표준 라이브러리, async/await
+9. 파일 입출력 — 파일 읽기/쓰기, pickle, pathlib, JSON, CSV
+10. 정규표현식 — 패턴 매칭, 자주 쓰는 패턴
+11. 테스트 — unittest, pytest, fixture, mock
 
-### 고급
-- 비동기 프로그래밍 (async/await)
-- 제너레이터
-- 컨텍스트 매니저
-- 타입 힌트
-- Data Classes
-- asyncio
+### 데이터 과학 & AI (12~14장)
+12. 데이터 과학 도구 — NumPy, Pandas, 데이터 전처리, Matplotlib
+13. 머신러닝 — scikit-learn, 모델 평가 및 검증
+14. 딥러닝 — TensorFlow/Keras, PyTorch, CNN, RNN/LSTM, Transformer, 전이 학습
 
-### AI/ML 핵심 구현
-- NumPy (수치 계산)
-- Pandas (데이터 처리)
-- Matplotlib (시각화)
-- scikit-learn (머신러닝)
-- TensorFlow/Keras (딥러닝)
-- PyTorch (딥러닝)
-- CNN, RNN/LSTM, Transformer
-- 전이 학습 (Transfer Learning)
-
-### 최신 기능 (Python 3.14)
-- PEP 750: Template Strings
-- PEP 734: Multiple Interpreters
-- PEP 649: Deferred Annotations
-- PEP 768: Debugger Interface
+### 부록 (15장)
+15. 참고 자료 & 다음 단계 — 추천 리소스, 학습 로드맵, Cheat Sheet
 
 ## 🚀 사용 방법
 
@@ -65,12 +49,12 @@ git clone https://github.com/minzkn/python.git
 ## 📝 학습 로드맵
 
 ```
-1단계: 기초      → 문법, 변수, 제어문
-2단계: 자료구조  → 함수, 리스트, 딕셔너리
-3단계: 객체지향  → 클래스, 상속, 캡슐화
-4단계: 고급      → 비동기, 데코레이터, 타입 힌트
-5단계: AI/ML    → NumPy, Pandas, 딥러닝
-6단계: 실전      → 프로젝트 진행
+1단계: 기초        → 문법, 변수, 제어문 (1~4장)
+2단계: 함수/OOP    → 함수, 클래스, 상속 (5~6장)
+3단계: 실전 기초   → 예외, 모듈, 파일, 정규식, 테스트 (7~11장)
+4단계: 데이터 과학 → NumPy, Pandas, Matplotlib (12장)
+5단계: ML/DL      → scikit-learn, TensorFlow, PyTorch (13~14장)
+6단계: 실전        → 프로젝트 진행
 ```
 
 ## 🤝 기여
@@ -79,7 +63,9 @@ git clone https://github.com/minzkn/python.git
 
 ## 📄 라이선스
 
-MIT License
+이 프로젝트는 [MIT License](LICENSE)로 배포됩니다.
+
+Copyright (c) 2025 MINZKN.COM
 
 ---
 
