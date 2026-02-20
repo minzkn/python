@@ -4792,17 +4792,74 @@ joblib.dump(full_pipe, <span class="string">"pipeline.joblib"</span>)
             </table>
 
             <h3>TensorFlow/Keras (딥러닝)</h3>
+
+            <p>TensorFlow는 Google이 개발한 오픈소스 딥러닝 프레임워크이며,
+            Keras는 TensorFlow의 고수준 API로 모델을 직관적으로 구축·학습·배포할 수 있습니다.
+            TensorFlow 2.x부터 Keras가 기본 통합되어 <code>tf.keras</code>로 사용합니다.</p>
+
+            <div class="tip-box">
+                <strong>설치:</strong> <code>pip install tensorflow</code> &nbsp;|&nbsp;
+                GPU: <code>pip install tensorflow[and-cuda]</code> &nbsp;|&nbsp;
+                확인: <code>python -c "import tensorflow as tf; print(tf.__version__); print(tf.config.list_physical_devices('GPU'))"</code>
+            </div>
+
+            <h4>텐서(Tensor) 기본 연산</h4>
             <div class="code-block">
 <span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf
-<span class="keyword">from</span> tensorflow <span class="keyword">import</span> keras
-<span class="keyword">from</span> tensorflow.keras <span class="keyword">import</span> layers, models
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
 
-<span class="comment"># Sequential 모델</span>
+<span class="comment"># 텐서 생성</span>
+a = tf.constant([[<span class="number">1</span>, <span class="number">2</span>], [<span class="number">3</span>, <span class="number">4</span>]], dtype=tf.float32)   <span class="comment"># 불변 텐서</span>
+b = tf.Variable([[<span class="number">5</span>, <span class="number">6</span>], [<span class="number">7</span>, <span class="number">8</span>]], dtype=tf.float32)   <span class="comment"># 변경 가능 (학습 가중치용)</span>
+z = tf.zeros([<span class="number">3</span>, <span class="number">4</span>])                                   <span class="comment"># 영행렬</span>
+o = tf.ones([<span class="number">2</span>, <span class="number">3</span>])                                    <span class="comment"># 1행렬</span>
+r = tf.random.normal([<span class="number">3</span>, <span class="number">3</span>], mean=<span class="number">0.0</span>, stddev=<span class="number">1.0</span>)  <span class="comment"># 정규분포 난수</span>
+e = tf.eye(<span class="number">3</span>)                                           <span class="comment"># 단위행렬</span>
+
+<span class="comment"># 기본 수학 연산 (요소별)</span>
+c = a + b               <span class="comment"># tf.add(a, b)</span>
+c = a * b               <span class="comment"># tf.multiply(a, b) — 요소별 곱</span>
+c = a @ b               <span class="comment"># tf.matmul(a, b) — 행렬 곱</span>
+c = tf.reduce_sum(a)    <span class="comment"># 전체 합  → 스칼라 10</span>
+c = tf.reduce_mean(a, axis=<span class="number">0</span>)  <span class="comment"># 열 평균 → [2. 3.]</span>
+
+<span class="comment"># Shape 조작</span>
+t = tf.constant([[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]])
+t.shape                          <span class="comment"># TensorShape([2, 3])</span>
+r = tf.reshape(t, [<span class="number">3</span>, <span class="number">2</span>])       <span class="comment"># (2,3) → (3,2)</span>
+r = tf.reshape(t, [-<span class="number">1</span>])          <span class="comment"># 평탄화 → (6,)</span>
+r = tf.expand_dims(t, axis=<span class="number">0</span>)   <span class="comment"># (2,3) → (1,2,3) — 배치 차원 추가</span>
+r = tf.squeeze(r)                <span class="comment"># 크기 1인 차원 제거</span>
+r = tf.transpose(t)              <span class="comment"># 전치 (2,3) → (3,2)</span>
+
+<span class="comment"># 타입 변환 &amp; NumPy 호환</span>
+f = tf.cast(t, tf.float32)      <span class="comment"># int → float</span>
+n = t.numpy()                    <span class="comment"># 텐서 → NumPy 배열</span>
+t = tf.convert_to_tensor(n)     <span class="comment"># NumPy → 텐서</span>
+            </div>
+
+            <h4>Sequential API</h4>
+            <div class="code-block">
+<span class="keyword">from</span> tensorflow <span class="keyword">import</span> keras
+<span class="keyword">from</span> tensorflow.keras <span class="keyword">import</span> layers
+
+<span class="comment"># Sequential 모델 — 레이어를 순서대로 쌓는 가장 간단한 방식</span>
 model = keras.Sequential([
     layers.Dense(<span class="number">64</span>, activation=<span class="string">"relu"</span>, input_shape=(<span class="number">784</span>,)),
     layers.Dense(<span class="number">32</span>, activation=<span class="string">"relu"</span>),
+    layers.Dropout(<span class="number">0.3</span>),           <span class="comment"># 과적합 방지: 30% 뉴런 비활성화</span>
     layers.Dense(<span class="number">10</span>, activation=<span class="string">"softmax"</span>)
 ])
+
+model.summary()  <span class="comment"># 모델 구조 및 파라미터 수 확인</span>
+
+<span class="comment"># add()로 레이어 추가 (동적 구성)</span>
+model = keras.Sequential()
+model.add(layers.Dense(<span class="number">128</span>, activation=<span class="string">"relu"</span>, input_shape=(<span class="number">784</span>,)))
+model.add(layers.BatchNormalization())  <span class="comment"># 배치 정규화</span>
+model.add(layers.Dense(<span class="number">64</span>, activation=<span class="string">"relu"</span>))
+model.add(layers.Dropout(<span class="number">0.5</span>))
+model.add(layers.Dense(<span class="number">10</span>, activation=<span class="string">"softmax"</span>))
 
 <span class="comment"># 모델 컴파일</span>
 model.compile(
@@ -4811,19 +4868,374 @@ model.compile(
     metrics=[<span class="string">"accuracy"</span>]
 )
 
-<span class="comment"># 모델 학습</span>
-model.fit(X_train, y_train, epochs=<span class="number">10</span>, batch_size=<span class="number">32</span>, validation_split=<span class="number">0.2</span>)
+<span class="comment"># 학습</span>
+history = model.fit(
+    X_train, y_train,
+    epochs=<span class="number">10</span>,
+    batch_size=<span class="number">32</span>,
+    validation_split=<span class="number">0.2</span>,
+    verbose=<span class="number">1</span>             <span class="comment"># 0=무출력, 1=진행바, 2=에포크 요약</span>
+)
+
+<span class="comment"># 학습 기록 활용</span>
+history.history[<span class="string">"loss"</span>]          <span class="comment"># 에포크별 손실값 리스트</span>
+history.history[<span class="string">"val_accuracy"</span>]  <span class="comment"># 에포크별 검증 정확도</span>
 
 <span class="comment"># 평가 및 예측</span>
 test_loss, test_acc = model.evaluate(X_test, y_test)
-predictions = model.predict(X_test)
-
-<span class="comment"># 함수형 API</span>
-inputs = keras.Input(shape=(<span class="number">784</span>,))
-x = layers.Dense(<span class="number">64</span>, activation=<span class="string">"relu"</span>)(inputs)
-outputs = layers.Dense(<span class="number">10</span>, activation=<span class="string">"softmax"</span>)(x)
-model = keras.Model(inputs=inputs, outputs=outputs)
+predictions = model.predict(X_test)   <span class="comment"># (N, 10) 확률 배열</span>
+predicted_classes = tf.argmax(predictions, axis=<span class="number">1</span>)  <span class="comment"># 최대 확률 클래스</span>
             </div>
+
+            <h4>Functional API</h4>
+            <div class="code-block">
+<span class="comment"># Functional API — 다중 입력/출력, 잔차 연결 등 복잡한 구조 지원</span>
+
+<span class="comment"># 기본 사용</span>
+inputs = keras.Input(shape=(<span class="number">784</span>,), name=<span class="string">"input"</span>)
+x = layers.Dense(<span class="number">64</span>, activation=<span class="string">"relu"</span>)(inputs)
+x = layers.Dropout(<span class="number">0.3</span>)(x)
+outputs = layers.Dense(<span class="number">10</span>, activation=<span class="string">"softmax"</span>, name=<span class="string">"output"</span>)(x)
+model = keras.Model(inputs=inputs, outputs=outputs)
+
+<span class="comment"># 잔차 연결 (Residual / Skip Connection)</span>
+inputs = keras.Input(shape=(<span class="number">256</span>,))
+x = layers.Dense(<span class="number">256</span>, activation=<span class="string">"relu"</span>)(inputs)
+x = layers.BatchNormalization()(x)
+x = layers.Dense(<span class="number">256</span>, activation=<span class="string">"relu"</span>)(x)
+x = layers.Add()([x, inputs])   <span class="comment"># 잔차 연결: 입력을 출력에 더함</span>
+outputs = layers.Dense(<span class="number">10</span>, activation=<span class="string">"softmax"</span>)(x)
+res_model = keras.Model(inputs, outputs)
+
+<span class="comment"># 다중 입력 / 다중 출력</span>
+text_input = keras.Input(shape=(<span class="number">100</span>,), name=<span class="string">"text"</span>)
+meta_input = keras.Input(shape=(<span class="number">5</span>,), name=<span class="string">"meta"</span>)
+
+x1 = layers.Dense(<span class="number">64</span>, activation=<span class="string">"relu"</span>)(text_input)
+x2 = layers.Dense(<span class="number">16</span>, activation=<span class="string">"relu"</span>)(meta_input)
+merged = layers.Concatenate()([x1, x2])  <span class="comment"># 특성 결합</span>
+shared = layers.Dense(<span class="number">32</span>, activation=<span class="string">"relu"</span>)(merged)
+
+category_out = layers.Dense(<span class="number">5</span>, activation=<span class="string">"softmax"</span>, name=<span class="string">"category"</span>)(shared)
+score_out = layers.Dense(<span class="number">1</span>, name=<span class="string">"score"</span>)(shared)
+
+multi_model = keras.Model(
+    inputs=[text_input, meta_input],
+    outputs=[category_out, score_out]
+)
+multi_model.compile(
+    optimizer=<span class="string">"adam"</span>,
+    loss={<span class="string">"category"</span>: <span class="string">"sparse_categorical_crossentropy"</span>, <span class="string">"score"</span>: <span class="string">"mse"</span>},
+    loss_weights={<span class="string">"category"</span>: <span class="number">1.0</span>, <span class="string">"score"</span>: <span class="number">0.5</span>}
+)
+            </div>
+
+            <h4>Model Subclassing</h4>
+            <div class="code-block">
+<span class="comment"># 커스텀 모델 클래스 — 최대 유연성, 연구용에 적합</span>
+<span class="keyword">class</span> <span class="function">MyModel</span>(keras.Model):
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, num_classes=<span class="number">10</span>):
+        <span class="builtin">super</span>().__init__()
+        self.dense1 = layers.Dense(<span class="number">128</span>, activation=<span class="string">"relu"</span>)
+        self.bn = layers.BatchNormalization()
+        self.dropout = layers.Dropout(<span class="number">0.3</span>)
+        self.dense2 = layers.Dense(num_classes, activation=<span class="string">"softmax"</span>)
+
+    <span class="keyword">def</span> <span class="function">call</span>(self, inputs, training=<span class="keyword">False</span>):
+        x = self.dense1(inputs)
+        x = self.bn(x, training=training)   <span class="comment"># training 플래그 전달 중요</span>
+        x = self.dropout(x, training=training)
+        <span class="keyword">return</span> self.dense2(x)
+
+model = MyModel(num_classes=<span class="number">10</span>)
+model.compile(optimizer=<span class="string">"adam"</span>, loss=<span class="string">"sparse_categorical_crossentropy"</span>)
+
+<span class="comment"># 커스텀 레이어</span>
+<span class="keyword">class</span> <span class="function">ScaledDense</span>(layers.Layer):
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, units, scale=<span class="number">1.0</span>):
+        <span class="builtin">super</span>().__init__()
+        self.units = units
+        self.scale = scale
+
+    <span class="keyword">def</span> <span class="function">build</span>(self, input_shape):
+        self.w = self.add_weight(shape=(input_shape[-<span class="number">1</span>], self.units), initializer=<span class="string">"random_normal"</span>)
+        self.b = self.add_weight(shape=(self.units,), initializer=<span class="string">"zeros"</span>)
+
+    <span class="keyword">def</span> <span class="function">call</span>(self, inputs):
+        <span class="keyword">return</span> tf.matmul(inputs, self.w) * self.scale + self.b
+            </div>
+
+            <h4>주요 레이어 비교</h4>
+            <table class="comparison-table">
+                <tr><th>레이어</th><th>용도</th><th>주요 파라미터</th><th>입력 shape</th></tr>
+                <tr><td>Dense</td><td>완전연결 (MLP)</td><td>units, activation</td><td>(batch, features)</td></tr>
+                <tr><td>Conv2D</td><td>이미지 특징 추출</td><td>filters, kernel_size, strides, padding</td><td>(batch, H, W, C)</td></tr>
+                <tr><td>MaxPooling2D</td><td>공간 다운샘플링</td><td>pool_size, strides</td><td>(batch, H, W, C)</td></tr>
+                <tr><td>LSTM</td><td>시계열/순차 데이터</td><td>units, return_sequences, dropout</td><td>(batch, timesteps, features)</td></tr>
+                <tr><td>GRU</td><td>경량 순환 레이어</td><td>units, return_sequences</td><td>(batch, timesteps, features)</td></tr>
+                <tr><td>Embedding</td><td>정수→밀집 벡터 변환</td><td>input_dim, output_dim</td><td>(batch, sequence_length)</td></tr>
+                <tr><td>BatchNormalization</td><td>학습 안정화, 가속</td><td>momentum, epsilon</td><td>임의</td></tr>
+                <tr><td>Dropout</td><td>과적합 방지</td><td>rate (0~1)</td><td>임의</td></tr>
+                <tr><td>Flatten</td><td>다차원→1차원 변환</td><td>없음</td><td>(batch, ...)</td></tr>
+                <tr><td>GlobalAveragePooling2D</td><td>특성맵 평균 풀링</td><td>없음</td><td>(batch, H, W, C)</td></tr>
+            </table>
+
+            <h4>옵티마이저(Optimizer)</h4>
+            <div class="code-block">
+<span class="comment"># 문자열 지정 (기본 하이퍼파라미터)</span>
+model.compile(optimizer=<span class="string">"adam"</span>, loss=<span class="string">"mse"</span>)
+
+<span class="comment"># 객체로 지정 (하이퍼파라미터 커스터마이징)</span>
+model.compile(
+    optimizer=keras.optimizers.Adam(learning_rate=<span class="number">1e-3</span>, weight_decay=<span class="number">1e-4</span>),
+    loss=<span class="string">"mse"</span>
+)
+
+<span class="comment"># 주요 옵티마이저 비교</span>
+keras.optimizers.SGD(learning_rate=<span class="number">0.01</span>, momentum=<span class="number">0.9</span>)         <span class="comment"># 안정적, 일반화 우수</span>
+keras.optimizers.Adam(learning_rate=<span class="number">1e-3</span>)                        <span class="comment"># 가장 범용, 빠른 수렴</span>
+keras.optimizers.AdamW(learning_rate=<span class="number">1e-3</span>, weight_decay=<span class="number">1e-4</span>)  <span class="comment"># Adam + 가중치 감쇠</span>
+keras.optimizers.RMSprop(learning_rate=<span class="number">1e-3</span>)                    <span class="comment"># RNN에 적합</span>
+
+<span class="comment"># 학습률 스케줄러</span>
+lr_schedule = keras.optimizers.schedules.CosineDecay(
+    initial_learning_rate=<span class="number">1e-3</span>,
+    decay_steps=<span class="number">10000</span>,
+    alpha=<span class="number">1e-5</span>       <span class="comment"># 최소 학습률</span>
+)
+optimizer = keras.optimizers.Adam(learning_rate=lr_schedule)
+            </div>
+
+            <h4>손실 함수(Loss Function)</h4>
+            <table class="comparison-table">
+                <tr><th>작업</th><th>손실 함수</th><th>출력 활성화</th><th>레이블 형태</th></tr>
+                <tr><td>이진 분류</td><td><code>binary_crossentropy</code></td><td>sigmoid</td><td>0 또는 1</td></tr>
+                <tr><td>다중 분류 (정수 레이블)</td><td><code>sparse_categorical_crossentropy</code></td><td>softmax</td><td>0, 1, 2, ...</td></tr>
+                <tr><td>다중 분류 (원핫 레이블)</td><td><code>categorical_crossentropy</code></td><td>softmax</td><td>[0,1,0,...] 원핫</td></tr>
+                <tr><td>회귀</td><td><code>mse</code> (mean_squared_error)</td><td>없음 (linear)</td><td>연속값</td></tr>
+                <tr><td>회귀 (이상치 강건)</td><td><code>huber</code></td><td>없음</td><td>연속값</td></tr>
+                <tr><td>다중 레이블</td><td><code>binary_crossentropy</code></td><td>sigmoid</td><td>[1,0,1,...] 다중</td></tr>
+            </table>
+            <div class="code-block">
+<span class="comment"># 커스텀 손실 함수</span>
+<span class="keyword">def</span> <span class="function">custom_mse</span>(y_true, y_pred):
+    <span class="keyword">return</span> tf.reduce_mean(tf.square(y_true - y_pred))
+
+model.compile(optimizer=<span class="string">"adam"</span>, loss=custom_mse)
+
+<span class="comment"># 클래스 가중치 (불균형 데이터)</span>
+model.fit(X_train, y_train, class_weight={<span class="number">0</span>: <span class="number">1.0</span>, <span class="number">1</span>: <span class="number">5.0</span>})  <span class="comment"># 소수 클래스에 높은 가중치</span>
+            </div>
+
+            <h4>메트릭(Metrics)</h4>
+            <div class="code-block">
+<span class="comment"># 내장 메트릭</span>
+model.compile(
+    optimizer=<span class="string">"adam"</span>,
+    loss=<span class="string">"sparse_categorical_crossentropy"</span>,
+    metrics=[
+        <span class="string">"accuracy"</span>,
+        keras.metrics.Precision(name=<span class="string">"precision"</span>),
+        keras.metrics.Recall(name=<span class="string">"recall"</span>),
+        keras.metrics.AUC(name=<span class="string">"auc"</span>),
+    ]
+)
+
+<span class="comment"># 커스텀 메트릭</span>
+<span class="keyword">class</span> <span class="function">F1Score</span>(keras.metrics.Metric):
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, name=<span class="string">"f1_score"</span>, **kwargs):
+        <span class="builtin">super</span>().__init__(name=name, **kwargs)
+        self.precision = keras.metrics.Precision()
+        self.recall = keras.metrics.Recall()
+
+    <span class="keyword">def</span> <span class="function">update_state</span>(self, y_true, y_pred, sample_weight=<span class="keyword">None</span>):
+        self.precision.update_state(y_true, y_pred, sample_weight)
+        self.recall.update_state(y_true, y_pred, sample_weight)
+
+    <span class="keyword">def</span> <span class="function">result</span>(self):
+        p = self.precision.result()
+        r = self.recall.result()
+        <span class="keyword">return</span> <span class="number">2</span> * (p * r) / (p + r + keras.backend.epsilon())
+
+    <span class="keyword">def</span> <span class="function">reset_state</span>(self):
+        self.precision.reset_state()
+        self.recall.reset_state()
+            </div>
+
+            <h4>콜백(Callbacks)</h4>
+            <div class="code-block">
+<span class="comment"># 주요 콜백 — 학습 과정을 자동으로 제어</span>
+callbacks = [
+    <span class="comment"># 검증 손실이 5 에포크 동안 개선되지 않으면 학습 중단</span>
+    keras.callbacks.EarlyStopping(
+        monitor=<span class="string">"val_loss"</span>, patience=<span class="number">5</span>, restore_best_weights=<span class="keyword">True</span>
+    ),
+    <span class="comment"># 최적 모델 자동 저장</span>
+    keras.callbacks.ModelCheckpoint(
+        <span class="string">"best_model.keras"</span>, monitor=<span class="string">"val_loss"</span>, save_best_only=<span class="keyword">True</span>
+    ),
+    <span class="comment"># 검증 손실 정체 시 학습률 감소</span>
+    keras.callbacks.ReduceLROnPlateau(
+        monitor=<span class="string">"val_loss"</span>, factor=<span class="number">0.5</span>, patience=<span class="number">3</span>, min_lr=<span class="number">1e-6</span>
+    ),
+    <span class="comment"># TensorBoard 로그</span>
+    keras.callbacks.TensorBoard(log_dir=<span class="string">"./logs"</span>, histogram_freq=<span class="number">1</span>),
+]
+
+model.fit(X_train, y_train, epochs=<span class="number">100</span>, callbacks=callbacks, validation_split=<span class="number">0.2</span>)
+
+<span class="comment"># 커스텀 콜백</span>
+<span class="keyword">class</span> <span class="function">PrintLR</span>(keras.callbacks.Callback):
+    <span class="keyword">def</span> <span class="function">on_epoch_end</span>(self, epoch, logs=<span class="keyword">None</span>):
+        lr = self.model.optimizer.learning_rate
+        <span class="builtin">print</span>(f<span class="string">"\n에포크 {epoch+1} 학습률: {lr:.6f}"</span>)
+            </div>
+
+            <h4>커스텀 학습 루프 (GradientTape)</h4>
+            <div class="code-block">
+<span class="comment"># tf.GradientTape — 학습 과정을 완전히 제어</span>
+model = MyModel()
+optimizer = keras.optimizers.Adam(<span class="number">1e-3</span>)
+loss_fn = keras.losses.SparseCategoricalCrossentropy()
+train_acc = keras.metrics.SparseCategoricalAccuracy()
+
+<span class="decorator">@tf.function</span>  <span class="comment"># 그래프 모드로 컴파일 → 성능 향상</span>
+<span class="keyword">def</span> <span class="function">train_step</span>(x, y):
+    <span class="keyword">with</span> tf.GradientTape() <span class="keyword">as</span> tape:
+        predictions = model(x, training=<span class="keyword">True</span>)
+        loss = loss_fn(y, predictions)
+    gradients = tape.gradient(loss, model.trainable_variables)
+    optimizer.apply_gradients(<span class="builtin">zip</span>(gradients, model.trainable_variables))
+    train_acc.update_state(y, predictions)
+    <span class="keyword">return</span> loss
+
+<span class="comment"># 학습 루프</span>
+<span class="keyword">for</span> epoch <span class="keyword">in</span> <span class="builtin">range</span>(<span class="number">10</span>):
+    train_acc.reset_state()
+    <span class="keyword">for</span> x_batch, y_batch <span class="keyword">in</span> train_dataset:
+        loss = train_step(x_batch, y_batch)
+    <span class="builtin">print</span>(f<span class="string">"에포크 {epoch+1}, 손실: {loss:.4f}, 정확도: {train_acc.result():.4f}"</span>)
+            </div>
+
+            <h4>모델 저장 및 로드</h4>
+            <div class="code-block">
+<span class="comment"># ① Keras 형식 (권장) — 모델 구조 + 가중치 + 옵티마이저 상태</span>
+model.save(<span class="string">"my_model.keras"</span>)
+loaded_model = keras.models.load_model(<span class="string">"my_model.keras"</span>)
+
+<span class="comment"># ② SavedModel 형식 (TF Serving 배포용)</span>
+model.save(<span class="string">"saved_model_dir"</span>)   <span class="comment"># 디렉토리로 저장</span>
+loaded_model = keras.models.load_model(<span class="string">"saved_model_dir"</span>)
+
+<span class="comment"># ③ 가중치만 저장/로드 (모델 구조는 코드로 재생성)</span>
+model.save_weights(<span class="string">"weights.weights.h5"</span>)
+model.load_weights(<span class="string">"weights.weights.h5"</span>)
+
+<span class="comment"># ④ TFLite 변환 (모바일/엣지 배포)</span>
+converter = tf.lite.TFLiteConverter.from_saved_model(<span class="string">"saved_model_dir"</span>)
+converter.optimizations = [tf.lite.Optimize.DEFAULT]  <span class="comment"># 양자화</span>
+tflite_model = converter.convert()
+<span class="keyword">with</span> <span class="builtin">open</span>(<span class="string">"model.tflite"</span>, <span class="string">"wb"</span>) <span class="keyword">as</span> f:
+    f.write(tflite_model)
+
+<span class="comment"># ⑤ ONNX 변환</span>
+<span class="comment"># pip install tf2onnx</span>
+<span class="comment"># python -m tf2onnx.convert --saved-model saved_model_dir --output model.onnx</span>
+            </div>
+
+            <h4>tf.data 입력 파이프라인</h4>
+            <div class="code-block">
+<span class="comment"># tf.data.Dataset — 효율적인 데이터 로딩 &amp; 전처리 파이프라인</span>
+
+<span class="comment"># NumPy 배열에서 생성</span>
+dataset = tf.data.Dataset.from_tensor_slices((X_train, y_train))
+
+<span class="comment"># 파이프라인 구성 (체이닝)</span>
+train_ds = (
+    dataset
+    .shuffle(buffer_size=<span class="number">10000</span>)      <span class="comment"># 데이터 섞기</span>
+    .batch(<span class="number">32</span>)                        <span class="comment"># 배치 크기</span>
+    .map(<span class="keyword">lambda</span> x, y: (x / <span class="number">255.0</span>, y), <span class="comment"># 전처리 (정규화)</span>
+         num_parallel_calls=tf.data.AUTOTUNE)
+    .prefetch(tf.data.AUTOTUNE)       <span class="comment"># GPU 연산 중 다음 배치 준비</span>
+    .cache()                           <span class="comment"># 첫 에포크 후 메모리 캐시</span>
+)
+
+<span class="comment"># 이미지 디렉토리에서 데이터셋 생성</span>
+train_ds = keras.utils.image_dataset_from_directory(
+    <span class="string">"data/train"</span>,
+    image_size=(<span class="number">224</span>, <span class="number">224</span>),
+    batch_size=<span class="number">32</span>,
+    label_mode=<span class="string">"categorical"</span>,       <span class="comment"># "int", "categorical", "binary"</span>
+    validation_split=<span class="number">0.2</span>,
+    subset=<span class="string">"training"</span>,
+    seed=<span class="number">42</span>
+)
+
+<span class="comment"># CSV 파일에서 생성</span>
+csv_ds = tf.data.experimental.make_csv_dataset(
+    <span class="string">"data.csv"</span>,
+    batch_size=<span class="number">32</span>,
+    label_name=<span class="string">"target"</span>,
+    num_epochs=<span class="number">1</span>
+)
+
+<span class="comment"># 커스텀 map 함수 (데이터 증강)</span>
+<span class="keyword">def</span> <span class="function">augment</span>(image, label):
+    image = tf.image.random_flip_left_right(image)
+    image = tf.image.random_brightness(image, max_delta=<span class="number">0.2</span>)
+    <span class="keyword">return</span> image, label
+
+train_ds = train_ds.map(augment, num_parallel_calls=tf.data.AUTOTUNE)
+            </div>
+
+            <h4>GPU 메모리 관리</h4>
+            <div class="code-block">
+<span class="comment"># GPU 메모리 점진적 할당 (필수 설정 — OOM 방지)</span>
+gpus = tf.config.list_physical_devices(<span class="string">"GPU"</span>)
+<span class="keyword">for</span> gpu <span class="keyword">in</span> gpus:
+    tf.config.experimental.set_memory_growth(gpu, <span class="keyword">True</span>)
+
+<span class="comment"># 또는 메모리 한도 설정</span>
+tf.config.set_logical_device_configuration(
+    gpus[<span class="number">0</span>],
+    [tf.config.LogicalDeviceConfiguration(memory_limit=<span class="number">4096</span>)]  <span class="comment"># 4GB</span>
+)
+
+<span class="comment"># 혼합 정밀도 학습 (float16 + float32) — 속도 2배, 메모리 절감</span>
+keras.mixed_precision.set_global_policy(<span class="string">"mixed_float16"</span>)
+
+<span class="comment"># 멀티 GPU 분산 학습</span>
+strategy = tf.distribute.MirroredStrategy()  <span class="comment"># 단일 머신, 다중 GPU</span>
+<span class="keyword">with</span> strategy.scope():
+    model = keras.Sequential([...])
+    model.compile(optimizer=<span class="string">"adam"</span>, loss=<span class="string">"sparse_categorical_crossentropy"</span>)
+            </div>
+
+            <div class="warning-box">
+                <strong>주의사항:</strong>
+                <code>set_memory_growth</code>는 프로그램 시작 시 GPU 사용 전에 호출해야 합니다.
+                혼합 정밀도 사용 시 모델의 마지막 출력 레이어는 반드시 <code>dtype="float32"</code>로 지정하세요.
+                <code>model(x, training=True/False)</code>에서 training 플래그를 정확히 전달해야
+                Dropout과 BatchNormalization이 올바르게 동작합니다.
+            </div>
+
+            <h4>TensorFlow/Keras 핵심 정리</h4>
+            <table class="comparison-table">
+                <tr><th>작업</th><th>API / 메서드</th><th>비고</th></tr>
+                <tr><td>간단한 모델 구축</td><td><code>keras.Sequential</code></td><td>선형 스택 구조</td></tr>
+                <tr><td>복잡한 모델 구축</td><td><code>keras.Model</code> (Functional)</td><td>다중 입출력, 잔차 연결</td></tr>
+                <tr><td>최대 유연성 모델</td><td>Model Subclassing</td><td>동적 로직, 연구용</td></tr>
+                <tr><td>학습</td><td><code>model.fit()</code></td><td>콜백으로 제어</td></tr>
+                <tr><td>세밀한 학습 제어</td><td><code>tf.GradientTape</code></td><td>GAN, 강화학습 등</td></tr>
+                <tr><td>데이터 파이프라인</td><td><code>tf.data.Dataset</code></td><td>shuffle→batch→prefetch</td></tr>
+                <tr><td>모델 저장</td><td><code>model.save(".keras")</code></td><td>Keras 형식 권장</td></tr>
+                <tr><td>배포 변환</td><td><code>TFLiteConverter</code></td><td>모바일/엣지용</td></tr>
+                <tr><td>성능 향상</td><td><code>@tf.function</code></td><td>그래프 모드 컴파일</td></tr>
+                <tr><td>메모리 절감</td><td><code>mixed_float16</code></td><td>Ampere+ GPU 권장</td></tr>
+                <tr><td>분산 학습</td><td><code>MirroredStrategy</code></td><td>멀티 GPU 자동 분배</td></tr>
+                <tr><td>학습 모니터링</td><td><code>TensorBoard</code> 콜백</td><td><code>tensorboard --logdir ./logs</code></td></tr>
+            </table>
             
             <h3>PyTorch (딥러닝)</h3>
             <div class="code-block">
