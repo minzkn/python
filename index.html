@@ -1,11 +1,80 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Python Complete Guide - 완벽한 파이썬 가이드</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <style>
-        * {
+        /* ====================================================
+           CSS Custom Properties - 테마 시스템
+           ==================================================== */
+        :root {
+            --header-height: 60px;
+            --nav-width: 260px;
+
+            /* Dark theme (기본) */
+            --bg-primary:    #0d1117;
+            --bg-secondary:  #161b22;
+            --bg-tertiary:   #1c2128;
+            --bg-card:       #21262d;
+            --border:        #30363d;
+            --border-subtle: #21262d;
+
+            --text-primary:   #e6edf3;
+            --text-secondary: #8b949e;
+            --text-muted:     #6e7681;
+
+            --accent:       #FFD43B;   /* Python yellow */
+            --accent-hover: #ffc107;
+            --accent-blue:  #4584b6;   /* Python blue (다크 배경용) */
+            --link:         #79c0ff;
+            --link-hover:   #a5d6ff;
+
+            --code-bg: #1e1e1e;
+            --code-fg: #d4d4d4;
+
+            --header-bg: rgba(22, 27, 34, 0.95);
+            --nav-bg:    #161b22;
+
+            --shadow:    rgba(0, 0, 0, 0.5);
+            --shadow-sm: rgba(0, 0, 0, 0.25);
+        }
+
+        [data-theme="light"] {
+            --bg-primary:    #f6f8fa;
+            --bg-secondary:  #ffffff;
+            --bg-tertiary:   #eaeef2;
+            --bg-card:       #ffffff;
+            --border:        #d0d7de;
+            --border-subtle: #eaeef2;
+
+            --text-primary:   #24292f;
+            --text-secondary: #57606a;
+            --text-muted:     #6e7781;
+
+            --accent:       #3776AB;   /* Python blue (라이트 배경용) */
+            --accent-hover: #2d5f8a;
+            --accent-blue:  #3776AB;
+            --link:         #0969da;
+            --link-hover:   #0550ae;
+
+            --code-bg: #1e1e1e;
+            --code-fg: #d4d4d4;
+
+            --header-bg: rgba(255, 255, 255, 0.97);
+            --nav-bg:    #ffffff;
+
+            --shadow:    rgba(0, 0, 0, 0.1);
+            --shadow-sm: rgba(0, 0, 0, 0.05);
+        }
+
+        /* ====================================================
+           Reset & Base
+           ==================================================== */
+        *, *::before, *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -13,400 +82,811 @@
 
         html {
             scroll-behavior: smooth;
+            scroll-padding-top: calc(var(--header-height) + 16px);
         }
-        
+
         body {
-            font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+            font-family: "Noto Sans KR", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+            font-size: 16px;
             line-height: 1.8;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            transition: background 0.3s, color 0.3s;
             min-height: 100vh;
-            padding-bottom: 100px;
         }
-        
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 30px 40px;
-        }
-        
-        header {
-            background: rgba(255, 255, 255, 0.97);
-            border-radius: 0;
-            padding: 40px;
-            margin-bottom: 4px;
-            box-shadow: none;
-            text-align: center;
-        }
-        
-        h1 {
-            font-size: 3em;
-            color: #3776AB;
-            margin-bottom: 10px;
-        }
-        
-        .subtitle {
-            font-size: 1.3em;
-            color: #666;
-        }
-        
-        .python-logo {
-            width: 120px;
-            height: 120px;
-            margin: 20px auto;
-        }
-        
-        nav {
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 0;
-            padding: 15px 20px;
-            margin: 0;
-            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        
-        nav ul {
-            list-style: none;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-            margin: 0;
-        }
-        
-        nav a {
+
+        a {
+            color: var(--link);
             text-decoration: none;
-            color: #3776AB;
-            font-weight: bold;
-            padding: 10px 20px;
-            border-radius: 25px;
-            background: #f0f4f8;
-            transition: all 0.3s;
         }
-        
-        nav a:hover {
-            background: #3776AB;
-            color: white;
-            transform: translateY(-2px);
+        a:hover {
+            color: var(--link-hover);
+            text-decoration: underline;
         }
 
-        nav a.active {
-            background: #3776AB;
-            color: white;
-        }
-
-        nav a:focus-visible {
-            outline: 3px solid #3776AB;
-            outline-offset: 2px;
-        }
-        
-        section {
-            background: rgba(255, 255, 255, 0.97);
-            border-radius: 0;
-            padding: 40px 50px;
-            margin: 0 0 4px 0;
-            box-shadow: none;
-        }
-        
-        h2 {
-            color: #3776AB;
-            font-size: 2em;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #3776AB;
-        }
-        
-        h3 {
-            color: #5a4fcf;
-            font-size: 1.5em;
-            margin: 25px 0 15px;
-        }
-        
-        p {
-            margin-bottom: 15px;
-            text-align: justify;
-        }
-        
-        .code-block {
-            background: #1e1e1e;
-            color: #d4d4d4;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-            overflow-x: auto;
-            font-family: 'Consolas', 'Monaco', monospace;
-            font-size: 0.9em;
-            line-height: 1.8;
-            border-left: 4px solid #3776AB;
-            white-space: pre;
-            display: block;
-        }
-        
-        .code-block code {
-            display: block;
-            white-space: pre;
-        }
-        
-        .code-block .keyword { color: #569cd6; }
-        .code-block .string { color: #ce9178; }
-        .code-block .comment { color: #6a9955; }
-        .code-block .function { color: #dcdcaa; }
-        .code-block .number { color: #b5cea8; }
-        .code-block .builtin { color: #4ec9b0; }
-        .code-block .decorator { color: #d7ba7d; }
-        .code-block .class { color: #4ec9b0; }
-        
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            margin: 30px 0;
-        }
-        
-        .feature-card {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            border-radius: 15px;
-            padding: 25px;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-        }
-        
-        .feature-card h4 {
-            color: #3776AB;
-            font-size: 1.3em;
-            margin-bottom: 10px;
-        }
-        
-        .feature-card ul {
-            margin: 10px 0 0 20px;
-            padding: 0;
-        }
-        
-        .feature-card li {
-            margin-bottom: 5px;
-            font-size: 0.9em;
-        }
-        
-        .level-badge {
-            display: inline-block;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.85em;
-            font-weight: bold;
-            margin-bottom: 15px;
-            margin-right: 5px;
-        }
-        
-        .level-badge.level-beginner { background: #4CAF50; color: white; }
-        .level-badge.level-intermediate { background: #FF9800; color: white; }
-        .level-badge.level-advanced { background: #f44336; color: white; }
-        .level-badge.level-expert { background: #9C27B0; color: white; }
-        
-        .svg-container {
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            margin: 20px 0;
-            text-align: center;
-            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        .svg-container svg {
-            max-width: 100%;
-            height: auto;
-        }
-        
-        ul, ol {
-            margin: 15px 0 15px 30px;
-        }
-        
-        li {
-            margin-bottom: 10px;
-        }
-        
-        .highlight {
-            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
-            padding: 2px 8px;
-            border-radius: 4px;
-        }
-        
-        .tip-box, .warning-box {
-            padding: 15px 20px;
-            margin: 20px 0;
-            border-left: 4px solid;
-            border-radius: 0 10px 10px 0;
-        }
-
-        .tip-box     { background: #e3f2fd; border-color: #2196F3; }
-        .warning-box { background: #fff3e0; border-color: #ff9800; }
-
-        .tip-box ul {
-            margin: 10px 0 0 20px;
-        }
-        
-        .two-columns {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin: 20px 0;
-        }
-        
-        @media (max-width: 768px) {
-            .two-columns {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        footer {
-            background: rgba(255, 255, 255, 0.97);
-            border-radius: 0;
-            padding: 30px;
-            text-align: center;
-            box-shadow: none;
-            margin: 0;
-        }
-        
+        /* ====================================================
+           Progress Bar
+           ==================================================== */
         .progress-bar {
             position: fixed;
             top: 0;
             left: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #667eea, #764ba2);
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-blue));
             width: 0%;
             transition: width 0.1s;
-            z-index: 1000;
+            z-index: 2000;
         }
-        
+
+        /* ====================================================
+           Site Header
+           ==================================================== */
+        .site-header {
+            position: sticky;
+            top: 0;
+            height: var(--header-height);
+            background: var(--header-bg);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
+            transition: background 0.3s, border-color 0.3s;
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+            padding: 0 20px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* ====================================================
+           Hamburger
+           ==================================================== */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            width: 36px;
+            height: 36px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 6px;
+            flex-shrink: 0;
+        }
+
+        .hamburger span {
+            display: block;
+            height: 2px;
+            background: var(--text-primary);
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* ====================================================
+           Brand
+           ==================================================== */
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+        .brand:hover { text-decoration: none; }
+
+        .brand-icon {
+            width: 32px;
+            height: 32px;
+            flex-shrink: 0;
+        }
+
+        .brand-name {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: -0.02em;
+            white-space: nowrap;
+        }
+
+        /* ====================================================
+           Header Right / Theme Toggle
+           ==================================================== */
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.2s;
+            color: var(--text-primary);
+        }
+
+        .theme-toggle:hover {
+            background: var(--bg-card);
+            border-color: var(--accent);
+        }
+
+        /* ====================================================
+           Nav Overlay (모바일)
+           ==================================================== */
+        .nav-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 90;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .nav-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* ====================================================
+           Layout (사이드바 + 메인)
+           ==================================================== */
+        .layout {
+            display: grid;
+            grid-template-columns: var(--nav-width) 1fr;
+            min-height: calc(100vh - var(--header-height));
+            align-items: start;
+        }
+
+        /* ====================================================
+           Side Nav
+           ==================================================== */
+        .side-nav {
+            width: var(--nav-width);
+            background: var(--nav-bg);
+            border-right: 1px solid var(--border);
+            position: sticky;
+            top: var(--header-height);
+            height: calc(100vh - var(--header-height));
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 20px 0;
+            transition: background 0.3s, border-color 0.3s, transform 0.3s ease;
+        }
+
+        .side-nav::-webkit-scrollbar { width: 4px; }
+        .side-nav::-webkit-scrollbar-track { background: transparent; }
+        .side-nav::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+        .side-nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .side-nav li { margin: 0; }
+
+        .side-nav a {
+            display: block;
+            padding: 8px 20px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+        }
+
+        .side-nav a:hover {
+            color: var(--text-primary);
+            background: var(--bg-tertiary);
+            border-left-color: var(--accent);
+            text-decoration: none;
+        }
+
+        .side-nav a.active {
+            color: var(--accent);
+            background: var(--bg-tertiary);
+            border-left-color: var(--accent);
+            font-weight: 600;
+        }
+
+        .side-nav a:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: -2px;
+        }
+
+        /* ====================================================
+           Main Content
+           ==================================================== */
+        .main-content {
+            min-width: 0;
+            padding-bottom: 60px;
+        }
+
+        /* ====================================================
+           Content Hero
+           ==================================================== */
+        .content-hero {
+            text-align: center;
+            padding: 60px 48px 50px;
+            border-bottom: 1px solid var(--border);
+            background: var(--bg-secondary);
+        }
+
+        .content-hero .python-logo {
+            width: 96px;
+            height: 96px;
+            margin: 0 auto 20px;
+            display: block;
+        }
+
+        .content-hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 10px;
+            letter-spacing: -0.03em;
+        }
+
+        .content-hero .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+
+        /* ====================================================
+           Sections
+           ==================================================== */
+        section {
+            padding: 48px;
+            border-bottom: 1px solid var(--border);
+            background: var(--bg-secondary);
+            transition: background 0.3s;
+        }
+
+        /* ====================================================
+           Headings
+           ==================================================== */
+        h2 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--accent);
+            line-height: 1.3;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--link);
+            margin: 30px 0 12px;
+            line-height: 1.4;
+        }
+
+        h4 {
+            font-size: 1.0rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 16px 0 8px;
+        }
+
+        p {
+            margin-bottom: 14px;
+            color: var(--text-primary);
+        }
+
+        /* ====================================================
+           Inline Code
+           ==================================================== */
+        code {
+            font-family: "Fira Code", "D2Coding", "D2 Coding", "Consolas", monospace;
+            font-size: 0.875em;
+            background: var(--bg-tertiary);
+            color: var(--link);
+            padding: 0.15em 0.4em;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+        }
+
+        /* ====================================================
+           Code Block
+           ==================================================== */
+        .code-block {
+            background: var(--code-bg);
+            color: var(--code-fg);
+            padding: 20px 24px;
+            border-radius: 8px;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-family: "Fira Code", "D2Coding", "D2 Coding", "Consolas", monospace;
+            font-size: 0.875rem;
+            line-height: 1.7;
+            border-left: 4px solid var(--accent-blue);
+            white-space: pre;
+            display: block;
+        }
+
+        .code-block code {
+            display: block;
+            white-space: pre;
+            background: none;
+            color: inherit;
+            padding: 0;
+            border: none;
+            border-radius: 0;
+            font-size: inherit;
+        }
+
+        .code-block .keyword  { color: #569cd6; }
+        .code-block .string   { color: #ce9178; }
+        .code-block .comment  { color: #6a9955; }
+        .code-block .function { color: #dcdcaa; }
+        .code-block .number   { color: #b5cea8; }
+        .code-block .builtin  { color: #4ec9b0; }
+        .code-block .decorator{ color: #d7ba7d; }
+        .code-block .class    { color: #4ec9b0; }
+
+        /* ====================================================
+           Lists
+           ==================================================== */
+        ul, ol {
+            margin: 12px 0 12px 28px;
+        }
+
+        li {
+            margin-bottom: 6px;
+            color: var(--text-primary);
+        }
+
+        /* ====================================================
+           Feature Grid & Cards
+           ==================================================== */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent);
+            box-shadow: 0 6px 20px var(--shadow-sm);
+        }
+
+        .feature-card h4 {
+            color: var(--accent);
+            margin-bottom: 8px;
+            margin-top: 0;
+        }
+
+        .feature-card ul {
+            margin: 8px 0 0 16px;
+        }
+
+        .feature-card li {
+            font-size: 0.875rem;
+        }
+
+        /* ====================================================
+           Level Badge
+           ==================================================== */
+        .level-badge {
+            display: inline-block;
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            margin-right: 4px;
+        }
+
+        .level-badge.level-beginner     { background: #1a7f37; color: #fff; }
+        .level-badge.level-intermediate { background: #9a6700; color: #fff; }
+        .level-badge.level-advanced     { background: #cf222e; color: #fff; }
+        .level-badge.level-expert       { background: #8250df; color: #fff; }
+
+        /* ====================================================
+           SVG Container
+           ==================================================== */
+        .svg-container {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .svg-container svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* ====================================================
+           Highlight
+           ==================================================== */
+        .highlight {
+            background: rgba(255, 212, 59, 0.2);
+            color: var(--text-primary);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        [data-theme="light"] .highlight {
+            background: rgba(55, 118, 171, 0.15);
+        }
+
+        /* ====================================================
+           Info Boxes
+           ==================================================== */
+        .tip-box, .warning-box {
+            padding: 14px 18px;
+            margin: 18px 0;
+            border-left: 4px solid;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .tip-box {
+            background: rgba(79, 132, 182, 0.12);
+            border-color: var(--accent-blue);
+        }
+
+        .warning-box {
+            background: rgba(154, 103, 0, 0.12);
+            border-color: #e09000;
+        }
+
+        [data-theme="light"] .tip-box    { background: #e3f2fd; border-color: #2196F3; }
+        [data-theme="light"] .warning-box{ background: #fff3e0; border-color: #ff9800; }
+
+        .tip-box ul, .warning-box ul {
+            margin: 8px 0 0 18px;
+        }
+
+        /* ====================================================
+           Two Columns
+           ==================================================== */
+        .two-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin: 18px 0;
+        }
+
+        /* ====================================================
+           Comparison Table
+           ==================================================== */
         .comparison-table {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
-        }
-        
-        .comparison-table th, .comparison-table td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        
-        .comparison-table th {
-            background: #3776AB;
-            color: white;
-        }
-        
-        .comparison-table tr:nth-child(even) {
-            background: #f4f7fb;
+            margin: 18px 0;
+            font-size: 0.9rem;
         }
 
-        .comparison-table tr:hover {
-            background: #e3eef9;
+        .comparison-table th,
+        .comparison-table td {
+            padding: 10px 14px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
         }
-        
+
+        .comparison-table th {
+            background: var(--accent-blue);
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .comparison-table tr:nth-child(even) td {
+            background: var(--bg-tertiary);
+        }
+
+        .comparison-table tbody tr:hover td {
+            background: rgba(79, 132, 182, 0.1);
+        }
+
+        /* ====================================================
+           Quiz Box
+           ==================================================== */
         .quiz-box {
+            background: linear-gradient(135deg, #162032 0%, #1e1040 100%);
+            border: 1px solid var(--accent);
+            border-radius: 12px;
+            padding: 28px;
+            margin: 28px 0;
+            color: var(--text-primary);
+        }
+
+        [data-theme="light"] .quiz-box {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 20px;
-            padding: 30px;
-            margin: 30px 0;
+            border: none;
             color: white;
         }
-        
+
         .quiz-box h3 {
-            margin-bottom: 20px;
+            color: var(--accent);
+            margin-top: 0;
+            margin-bottom: 16px;
         }
-        
+
+        [data-theme="light"] .quiz-box h3 { color: white; }
+
         .quiz-option {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 15px;
-            border-radius: 10px;
-            margin: 10px 0;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin: 8px 0;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.2s;
+            color: var(--text-primary);
         }
-        
+
         .quiz-option:hover {
-            background: rgba(255, 255, 255, 0.3);
+            border-color: var(--accent);
+            background: rgba(255, 212, 59, 0.1);
         }
-        
+
+        [data-theme="light"] .quiz-option {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: transparent;
+            color: white;
+        }
+
+        [data-theme="light"] .quiz-option:hover {
+            background: rgba(255, 255, 255, 0.35);
+        }
+
+        /* ====================================================
+           Resource Links
+           ==================================================== */
         .resource-links {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            margin: 20px 0;
+            grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+            gap: 12px;
+            margin: 18px 0;
         }
-        
+
         .resource-link {
-            background: #f8f9fa;
-            padding: 20px;
-            border-radius: 10px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 16px;
+            border-radius: 8px;
             text-align: center;
             text-decoration: none;
-            color: #3776AB;
-            transition: all 0.3s;
-            border: 2px solid transparent;
+            color: var(--link);
+            transition: all 0.2s;
+            font-size: 0.9rem;
         }
-        
+
         .resource-link:hover {
-            border-color: #3776AB;
-            transform: translateY(-3px);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            text-decoration: none;
+            color: var(--link-hover);
+            box-shadow: 0 4px 12px var(--shadow-sm);
         }
-        
+
+        /* ====================================================
+           Footer
+           ==================================================== */
+        footer {
+            padding: 32px 48px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            background: var(--nav-bg);
+            font-size: 0.875rem;
+        }
+
+        footer p {
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+        }
+
+        /* ====================================================
+           Back to Top Button
+           ==================================================== */
+        .back-to-top {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            width: 44px;
+            height: 44px;
+            background: var(--accent);
+            color: #000;
+            border: none;
+            border-radius: 50%;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            z-index: 500;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s, transform 0.3s, box-shadow 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 14px var(--shadow);
+        }
+
+        /* ====================================================
+           Responsive
+           ==================================================== */
+        @media (max-width: 1024px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+
+            .side-nav {
+                position: fixed;
+                top: var(--header-height);
+                left: 0;
+                height: calc(100vh - var(--header-height));
+                transform: translateX(-100%);
+                z-index: 95;
+                box-shadow: 4px 0 20px var(--shadow);
+            }
+
+            .side-nav.open {
+                transform: translateX(0);
+            }
+
+            .nav-overlay { display: block; }
+
+            .hamburger { display: flex; }
+
+            section { padding: 32px 24px; }
+
+            .content-hero { padding: 40px 24px 32px; }
+
+            footer { padding: 24px; }
+        }
+
         @media (max-width: 768px) {
-            .container { padding: 10px; }
-            header { padding: 25px; }
-            h1 { font-size: 2em; }
-            section { padding: 25px; }
-            nav ul { flex-direction: column; align-items: center; }
+            .brand-name { display: none; }
+
+            .content-hero h1 { font-size: 1.8rem; }
+
+            .two-columns { grid-template-columns: 1fr; }
+
             .comparison-table {
                 display: block;
                 overflow-x: auto;
                 -webkit-overflow-scrolling: touch;
+            }
+
+            .feature-grid { grid-template-columns: 1fr; }
+
+            h2 { font-size: 1.4rem; }
+            h3 { font-size: 1.1rem; }
+
+            .back-to-top {
+                bottom: 16px;
+                right: 16px;
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                transition-duration: 0.01ms !important;
+                animation-duration: 0.01ms !important;
             }
         }
     </style>
 </head>
 <body>
     <div class="progress-bar" id="progressBar"></div>
-    
-    <div class="container">
-        <header>
-            <!-- Python Logo SVG -->
-            <svg class="python-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="50" cy="50" r="45" fill="#3776AB"/>
-                <text x="50" y="65" font-size="50" font-weight="bold" fill="white" text-anchor="middle">Py</text>
-                <circle cx="30" cy="35" r="8" fill="#FFD43B"/>
-                <circle cx="70" cy="35" r="8" fill="#FFD43B"/>
-            </svg>
-            <h1>Python Complete Guide</h1>
-            <p class="subtitle">초급부터 고급까지: 파이썬의 모든 것</p>
-        </header>
-        
-        <nav>
+
+    <!-- 상단 헤더 바 -->
+    <header class="site-header">
+        <div class="header-inner">
+            <div class="header-left">
+                <button class="hamburger" id="hamburger" aria-label="메뉴 열기/닫기">
+                    <span></span><span></span><span></span>
+                </button>
+                <a href="#intro" class="brand">
+                    <svg class="brand-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="45" fill="#3776AB"/>
+                        <text x="50" y="65" font-size="50" font-weight="bold" fill="white" text-anchor="middle">Py</text>
+                        <circle cx="30" cy="35" r="8" fill="#FFD43B"/>
+                        <circle cx="70" cy="35" r="8" fill="#FFD43B"/>
+                    </svg>
+                    <span class="brand-name">Python Complete Guide</span>
+                </a>
+            </div>
+            <div class="header-right">
+                <button class="theme-toggle" id="themeToggle" aria-label="테마 전환">
+                    <span class="theme-icon">☀️</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 모바일 오버레이 -->
+    <div class="nav-overlay" id="navOverlay"></div>
+
+    <!-- 레이아웃: 사이드바 + 메인 -->
+    <div class="layout">
+
+        <!-- 사이드바 네비게이션 -->
+        <nav class="side-nav" id="sideNav" aria-label="목차">
             <ul>
-                <li><a href="#intro">시작하기</a></li>
-                <li><a href="#basics">기초 문법</a></li>
-                <li><a href="#datatypes">자료형</a></li>
-                <li><a href="#control">제어문</a></li>
-                <li><a href="#functions">함수</a></li>
-                <li><a href="#oop">객체지향</a></li>
-                <li><a href="#exception">예외 처리</a></li>
-                <li><a href="#modules">모듈/패키지</a></li>
-                <li><a href="#fileio">파일 입출력</a></li>
-                <li><a href="#regex">정규식</a></li>
-                <li><a href="#testing">테스팅</a></li>
-                <li><a href="#advanced">고급 주제</a></li>
-                <li><a href="#ai-ml">AI/ML</a></li>
-                <li><a href="#resources">참고 자료</a></li>
+                <li><a href="#intro">1. 파이썬이란?</a></li>
+                <li><a href="#basics">2. 기초 문법</a></li>
+                <li><a href="#datatypes">3. 자료형</a></li>
+                <li><a href="#control">4. 제어문</a></li>
+                <li><a href="#functions">5. 함수</a></li>
+                <li><a href="#oop">6. 객체지향</a></li>
+                <li><a href="#exception">7. 예외 처리</a></li>
+                <li><a href="#modules">8. 모듈/패키지</a></li>
+                <li><a href="#fileio">9. 파일 입출력</a></li>
+                <li><a href="#regex">10. 정규식</a></li>
+                <li><a href="#testing">11. 테스팅</a></li>
+                <li><a href="#advanced">12. 고급 주제</a></li>
+                <li><a href="#ai-ml">13. AI/ML</a></li>
+                <li><a href="#resources">14. 참고 자료</a></li>
             </ul>
         </nav>
-        
+
+        <!-- 메인 컨텐츠 -->
+        <main class="main-content">
+
+            <!-- 히어로 섹션 -->
+            <div class="content-hero">
+                <svg class="python-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="45" fill="#3776AB"/>
+                    <text x="50" y="65" font-size="50" font-weight="bold" fill="white" text-anchor="middle">Py</text>
+                    <circle cx="30" cy="35" r="8" fill="#FFD43B"/>
+                    <circle cx="70" cy="35" r="8" fill="#FFD43B"/>
+                </svg>
+                <h1>Python Complete Guide</h1>
+                <p class="subtitle">초급부터 고급까지: 파이썬의 모든 것</p>
+            </div>
+
         <section id="intro">
             <h2>1. 파이썬이란?</h2>
             <p>
@@ -2774,41 +3254,100 @@ d[<span class="string">"count"</span>] += <span class="number">1</span>  <span c
             </div>
         </section>
         
-        <footer>
-            <p>© 2025 Python Complete Guide | Made with ❤️ for Python Learners</p>
-            <p>본 가이드는 파이썬을 처음 접하는 분부터 고급 개발자까지 모두에게 유용합니다.</p>
-        </footer>
-    </div>
-    
+            <footer>
+                <p>© 2025 Python Complete Guide</p>
+                <p>초급부터 고급 개발자까지 모두를 위한 파이썬 레퍼런스</p>
+            </footer>
+
+        </main>
+    </div><!-- /.layout -->
+
+    <!-- 위로가기 버튼 -->
+    <button class="back-to-top" id="backToTop" aria-label="맨 위로 이동">↑</button>
+
     <script>
-        // Scroll progress bar
-        window.addEventListener('scroll', () => {
-            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            document.getElementById('progressBar').style.width = scrolled + '%';
+        // ─── 테마 관리 ────────────────────────────────────────
+        const THEME_KEY = 'pydocs_theme';
+
+        function applyTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            const icon = document.querySelector('.theme-icon');
+            if (icon) icon.textContent = theme === 'dark' ? '☀️' : '🌙';
+        }
+
+        // 저장된 테마 복원 (기본: dark)
+        applyTheme(localStorage.getItem(THEME_KEY) || 'dark');
+
+        document.getElementById('themeToggle').addEventListener('click', () => {
+            const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            localStorage.setItem(THEME_KEY, next);
+            applyTheme(next);
         });
-        
-        // Scroll spy - highlight current section in nav
-        const sections = document.querySelectorAll('section');
-        const navLinks = document.querySelectorAll('nav a');
-        
+
+        // ─── 모바일 사이드바 ──────────────────────────────────
+        const hamburger  = document.getElementById('hamburger');
+        const sideNav    = document.getElementById('sideNav');
+        const navOverlay = document.getElementById('navOverlay');
+
+        function openNav() {
+            sideNav.classList.add('open');
+            navOverlay.classList.add('active');
+            hamburger.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeNav() {
+            sideNav.classList.remove('open');
+            navOverlay.classList.remove('active');
+            hamburger.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        hamburger.addEventListener('click', () =>
+            sideNav.classList.contains('open') ? closeNav() : openNav()
+        );
+        navOverlay.addEventListener('click', closeNav);
+
+        // 링크 클릭 시 모바일 메뉴 닫기
+        sideNav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 1024) closeNav();
+            });
+        });
+
+        // ─── 스크롤 프로그레스 바 + 위로가기 버튼 ────────────
+        const progressBar = document.getElementById('progressBar');
+        const backToTop   = document.getElementById('backToTop');
+
         window.addEventListener('scroll', () => {
-            let current = '';
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop;
-                if (scrollY >= sectionTop - 100) {
-                    current = section.getAttribute('id');
+            const scrolled = document.documentElement.scrollTop;
+            const height   = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            progressBar.style.width = ((scrolled / height) * 100) + '%';
+            backToTop.classList.toggle('visible', scrolled > 400);
+        }, { passive: true });
+
+        backToTop.addEventListener('click', () =>
+            window.scrollTo({ top: 0, behavior: 'smooth' })
+        );
+
+        // ─── 스크롤 스파이 (IntersectionObserver) ─────────────
+        const navLinks = document.querySelectorAll('.side-nav a');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    navLinks.forEach(link =>
+                        link.classList.toggle('active', link.getAttribute('href') === '#' + id)
+                    );
                 }
             });
-            
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === '#' + current) {
-                    link.classList.add('active');
-                }
-            });
+        }, {
+            rootMargin: '-60px 0px -60% 0px',
+            threshold: 0
         });
+
+        document.querySelectorAll('section[id]').forEach(sec => observer.observe(sec));
     </script>
 </body>
 </html>
