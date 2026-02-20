@@ -905,9 +905,11 @@
                 <li><a href="#fileio">9. 파일 입출력</a></li>
                 <li><a href="#regex">10. 정규식</a></li>
                 <li><a href="#testing">11. 테스팅</a></li>
-                <li><a href="#advanced">12. 고급 주제</a></li>
-                <li><a href="#ai-ml">13. AI/ML</a></li>
-                <li><a href="#resources">14. 참고 자료</a></li>
+                
+                <li><a href="#data-science">12. 데이터 과학</a></li>
+                <li><a href="#machine-learning">13. 머신러닝</a></li>
+                <li><a href="#deep-learning">14. 딥러닝</a></li>
+                <li><a href="#resources">15. 참고 자료</a></li>
             </ul>
         </nav>
 
@@ -1158,6 +1160,24 @@ x = <span class="number">1</span>; y = <span class="number">2</span>; <span clas
                     <text x="540" y="45" text-anchor="middle" fill="white" font-weight="bold">값</text>
                 </svg>
             </div>
+            <h3> walrus operator (:= )</h3>
+            <p>Python 3.8부터 도입된 Walrus 연산자로 변수 할당과 반환을 동시에.</p>
+            
+            <div class="code-block">
+<span class="comment"># 기존 방식</span>
+result = <span class="function">some_function</span>()
+<span class="keyword">if</span> result:
+    <span class="keyword">print</span>(result)
+
+<span class="comment"># Walrus 연산자 사용</span>
+<span class="keyword">if</span> (result := <span class="function">some_function</span>()):
+    <span class="keyword">print</span>(result)
+
+<span class="comment"># 리스트 comprehension에서의 사용</span>
+<span class="keyword">if</span> (n := <span class="builtin">int</span>(<span class="string">"42"</span>)) > <span class="number">40</span>:
+    <span class="keyword">print</span>(<span class="string">f"숫자는 {n}입니다"</span>)
+            </div>
+            
         </section>
         
         <section id="datatypes">
@@ -1679,6 +1699,38 @@ gen = <span class="function">fibonacci</span>(<span class="number">5</span>)
                     </defs>
                 </svg>
             </div>
+            <h3>데코레이터 (Decorators)</h3>
+            <p>데코레이터는 함수의 동작을 수정하지 않고 기능을 추가할 수 있게 해줍니다.</p>
+            
+            <div class="code-block">
+<span class="keyword">def</span> <span class="function">timer_decorator</span>(func):
+    <span class="keyword">def</span> <span class="function">wrapper</span>(*args, **kwargs):
+        <span class="keyword">import</span> time
+        start = time.time()
+        result = func(*args, **kwargs)
+        end = time.time()
+        <span class="keyword">print</span>(<span class="string">f"{func.__name__} 실행 시간: {end-start:.2f}초"</span>)
+        <span class="keyword">return</span> result
+    <span class="keyword">return</span> wrapper
+
+<span class="decorator">@timer_decorator</span>
+<span class="keyword">def</span> <span class="function">slow_function</span>():
+    <span class="keyword">import</span> time
+    time.sleep(<span class="number">1</span>)
+    <span class="keyword">return</span> <span class="string">"완료"</span>
+
+<span class="function">slow_function</span>()
+            </div>
+            
+            <h3>컨텍스트 매니저 (Context Manager)</h3>
+            <p>with 문을 사용하여 리소스를 안전하게 관리합니다.</p>
+            
+            <div class="code-block">
+<span class="keyword">with</span> <span class="builtin">open</span>(<span class="string">"test.txt"</span>, <span class="string">"w"</span>) <span class="keyword">as</span> f:
+    f.<span class="function">write</span>(<span class="string">"안녕하세요!"</span>)
+<span class="comment"># 파일이 자동으로 닫힘</span>
+            </div>
+            
         </section>
         
         <section id="oop">
@@ -1897,8 +1949,137 @@ account = <span class="function">BankAccount</span>(<span class="number">1000</s
                     <line x1="375" y1="140" x2="460" y2="140" stroke="#999" stroke-width="2" stroke-dasharray="5,5"/>
                 </svg>
             </div>
+            <h3>Type Hints (타입 힌트)</h3>
+            <p>함수와 변수의 타입을 명시적으로 지정하여 코드 가독성과 도구 지원.</p>
+            
+            <div class="code-block">
+<span class="keyword">def</span> <span class="function">greet</span>(name: <span class="builtin">str</span>) -> <span class="builtin">str</span>:
+    <span class="keyword">return</span> <span class="string">f"안녕하세요, {name}님!"</span>
+
+<span class="keyword">def</span> <span class="function">add_numbers</span>(a: <span class="builtin">int</span>, b: <span class="builtin">int</span>) -> <span class="builtin">int</span>:
+    <span class="keyword">return</span> a + b
+
+<span class="comment"># 복잡한 타입</span>
+<span class="keyword">from</span> typing <span class="keyword">import</span> List, Dict, Optional
+
+<span class="keyword">def</span> <span class="function">process_data</span>(
+    items: List[<span class="builtin">int</span>], 
+    config: Optional[Dict[<span class="builtin">str</span>, <span class="builtin">str</span>]] = None
+) -> Dict[<span class="builtin">str</span>, <span class="builtin">int</span>]:
+    <span class="keyword">return</span> {<span class="string">"sum"</span>: <span class="builtin">sum</span>(items), <span class="string">"count"</span>: <span class="builtin">len</span>(items)}
+            </div>
+            
+            <h3>Data Classes</h3>
+            <p>데이터를 저장하는 클래스를 더 간결하게 정의합니다.</p>
+            
+            <div class="code-block">
+<span class="keyword">from</span> dataclasses <span class="keyword">import</span> dataclass, field
+
+<span class="decorator">@dataclass</span>
+<span class="keyword">class</span> <span class="function">User</span>:
+    name: <span class="builtin">str</span>
+    age: <span class="builtin">int</span>
+    email: <span class="builtin">str</span> = <span class="string">"unknown@example.com"</span>
+    active: <span class="builtin">bool</span> = field(default=<span class="keyword">True</span>)
+
+<span class="comment"># 사용</span>
+user = <span class="function">User</span>(<span class="string">"민준"</span>, <span class="number">25</span>)
+<span class="keyword">print</span>(user)  <span class="comment"># User(name='민준', age=25, ...)</span>
+            </div>
+            
+            <h3>NamedTuple</h3>
+            <p>불변 객체이고 이름이 있는 필드를 가진 튜플</p>
+            
+            <div class="code-block">
+<span class="keyword">from</span> collections <span class="keyword">import</span> namedtuple
+
+Point = namedtuple(<span class="string">"Point"</span>, [<span class="string">"x"</span>, <span class="string">"y"</span>])
+p = Point(<span class="number">10</span>, <span class="number">20</span>)
+<span class="keyword">print</span>(p.x, p.y)  <span class="comment"># 10 20</span>
+<span class="keyword">print</span>(p[<span class="number">0</span>], p[<span class="number">1</span>])  <span class="comment"># 10 20</span>
+            </div>
+            
+            <h3>Enum (열거형)</h3>
+            <div class="code-block">
+<span class="keyword">from</span> enum <span class="keyword">import</span> Enum, auto
+
+<span class="keyword">class</span> <span class="function">Color</span>(Enum):
+    RED = <span class="number">1</span>
+    GREEN = <span class="number">2</span>
+    BLUE = <span class="number">3</span>
+
+<span class="keyword">print</span>(Color.RED)  <span class="comment"># Color.RED</span>
+<span class="keyword">print</span>(Color.RED.name)  <span class="comment"># RED</span>
+<span class="keyword">print</span>(Color.RED.value)  <span class="comment"># 1</span>
+            </div>
+            
+            <h3>ABC (추상 베이스 클래스)</h3>
+            <div class="code-block">
+<span class="keyword">from</span> abc <span class="keyword">import</span> ABC, abstractmethod
+
+<span class="keyword">class</span> <span class="function">Shape</span>(ABC):
+    <span class="decorator">@abstractmethod</span>
+    <span class="keyword">def</span> <span class="function">area</span>(self):
+        <span class="keyword">pass</span>
+
+<span class="keyword">class</span> <span class="function">Circle</span>(Shape):
+    <span class="keyword">def</span> <span class="function">__init__</span>(self, radius):
+        self.radius = radius
+    
+    <span class="keyword">def</span> <span class="function">area</span>(self):
+        <span class="keyword">return</span> <span class="number">3.14</span> * self.radius ** <span class="number">2</span>
+            </div>
+            
+            <h3>Protocol (구조적 타이핑)</h3>
+            <div class="code-block">
+<span class="keyword">from</span> typing <span class="keyword">import</span> Protocol
+
+<span class="keyword">class</span> <span class="function">Drawble</span>(Protocol):
+    <span class="keyword">def</span> <span class="function">draw</span>(self) -> <span class="builtin">str</span>: ...
+
+<span class="keyword">class</span> <span class="function">Circle</span>:
+    <span class="keyword">def</span> <span class="function">draw</span>(self) -> <span class="builtin">str</span>:
+        <span class="keyword">return</span> <span class="string">"Circle drawn"</span>
+
+<span class="comment"># 타입 체크에서 Drawble로 처리됨</span>
+<span class="keyword">def</span> <span class="function">render</span>(shape: Drawble) -> <span class="builtin">None</span>:
+    <span class="keyword">print</span>(shape.draw())
+            </div>
+            
+            <div class="svg-container">
+                <!-- Advanced Topics Mind Map SVG -->
+                <svg width="700" height="300" viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Center -->
+                    <circle cx="350" cy="150" r="40" fill="#667eea"/>
+                    <text x="350" y="155" text-anchor="middle" fill="white" font-weight="bold">고급</text>
+                    
+                    <!-- Decorator -->
+                    <rect x="50" y="50" width="120" height="60" rx="10" fill="#e3f2fd" stroke="#2196F3" stroke-width="2"/>
+                    <text x="110" y="85" text-anchor="middle" fill="#1565C0" font-weight="bold">데코레이터</text>
+                    <line x1="170" y1="80" x2="290" y2="130" stroke="#667eea" stroke-width="2"/>
+                    
+                    <!-- Generator -->
+                    <rect x="50" y="200" width="120" height="60" rx="10" fill="#e8f5e9" stroke="#4CAF50" stroke-width="2"/>
+                    <text x="110" y="235" text-anchor="middle" fill="#2E7D32" font-weight="bold">제너레이터</text>
+                    <line x1="170" y1="230" x2="290" y2="180" stroke="#667eea" stroke-width="2"/>
+                    
+                    <!-- Context Manager -->
+                    <rect x="530" y="50" width="130" height="60" rx="10" fill="#fff3e0" stroke="#ff9800" stroke-width="2"/>
+                    <text x="595" y="85" text-anchor="middle" fill="#E65100" font-weight="bold">컨텍스트 매니저</text>
+                    <line x1="530" y1="80" x2="400" y2="130" stroke="#667eea" stroke-width="2"/>
+                    
+                    <!-- Async -->
+                    <rect x="530" y="200" width="120" height="60" rx="10" fill="#fce4ec" stroke="#e91e63" stroke-width="2"/>
+                    <text x="590" y="235" text-anchor="middle" fill="#c2185b" font-weight="bold">비동기 프로그래밍</text>
+                    <line x1="530" y1="230" x2="400" y2="180" stroke="#667eea" stroke-width="2"/>
+                </svg>
+            </div>
+            
+            <div class="tip-box">
+                <strong>💡 팁:</strong> async/await는 I/O 집약적인 작업(파일, 네트워크 요청)에서 큰 성능 향상을 제공합니다.
+            </div>
         </section>
-        
+
         <section id="exception">
             <h2>7. 예외 처리 (Exception Handling)</h2>
             <span class="level-badge level-beginner">초급</span>
@@ -2139,6 +2320,24 @@ deactivate
                     <line x1="170" y1="90" x2="220" y2="140" stroke="#667eea" stroke-width="2"/>
                 </svg>
             </div>
+            <h3>async/await (비동기 프로그래밍)</h3>
+            <p>비동기 프로그래밍으로 Concurrent한 작업을 효율적으로 처리합니다.</p>
+            
+            <div class="code-block">
+<span class="keyword">import</span> asyncio
+
+<span class="keyword">async</span> <span class="function">def</span> <span class="function">fetch_data</span>():
+    <span class="keyword">print</span>(<span class="string">"데이터 가져오는 중..."</span>)
+    <span class="keyword">await</span> asyncio.sleep(<span class="number">2</span>)
+    <span class="keyword">return</span> {<span class="string">"data"</span>: <span class="string">"some data"</span>}
+
+<span class="keyword">async</span> <span class="function">def</span> <span class="function">main</span>():
+    result = <span class="keyword">await</span> <span class="function">fetch_data</span>()
+    <span class="keyword">print</span>(result)
+
+asyncio.run(<span class="function">main</span>())
+            </div>
+            
         </section>
         
         <section id="fileio">
@@ -2455,229 +2654,11 @@ pytest test_calculator.py -v
             </div>
         </section>
         
-        <section id="advanced">
-            <h2>12. 고급 주제</h2>
-            <span class="level-badge level-advanced">고급</span>
-            
-            <h3>데코레이터 (Decorators)</h3>
-            <p>데코레이터는 함수의 동작을 수정하지 않고 기능을 추가할 수 있게 해줍니다.</p>
-            
-            <div class="code-block">
-<span class="keyword">def</span> <span class="function">timer_decorator</span>(func):
-    <span class="keyword">def</span> <span class="function">wrapper</span>(*args, **kwargs):
-        <span class="keyword">import</span> time
-        start = time.time()
-        result = func(*args, **kwargs)
-        end = time.time()
-        <span class="keyword">print</span>(<span class="string">f"{func.__name__} 실행 시간: {end-start:.2f}초"</span>)
-        <span class="keyword">return</span> result
-    <span class="keyword">return</span> wrapper
-
-<span class="decorator">@timer_decorator</span>
-<span class="keyword">def</span> <span class="function">slow_function</span>():
-    <span class="keyword">import</span> time
-    time.sleep(<span class="number">1</span>)
-    <span class="keyword">return</span> <span class="string">"완료"</span>
-
-<span class="function">slow_function</span>()
-            </div>
-            
-            <h3>제너레이터 (Generators)</h3>
-            <p>제너레이터는 메모리를 효율적으로 사용하면서 큰 시퀀스를 생성합니다.</p>
-            
-            <div class="code-block">
-<span class="keyword">def</span> <span class="function">count_up_to</span>(n):
-    i = <span class="number">1</span>
-    <span class="keyword">while</span> i <= n:
-        <span class="keyword">yield</span> i  <span class="comment"># yield로 값 반환</span>
-        i += <span class="number">1</span>
-
-<span class="keyword">for</span> num <span class="keyword">in</span> <span class="function">count_up_to</span>(<span class="number">5</span>):
-    <span class="keyword">print</span>(num)  <span class="comment"># 1, 2, 3, 4, 5</span>
-            </div>
-            
-            <h3>컨텍스트 매니저 (Context Manager)</h3>
-            <p>with 문을 사용하여 리소스를 안전하게 관리합니다.</p>
-            
-            <div class="code-block">
-<span class="keyword">with</span> <span class="builtin">open</span>(<span class="string">"test.txt"</span>, <span class="string">"w"</span>) <span class="keyword">as</span> f:
-    f.<span class="function">write</span>(<span class="string">"안녕하세요!"</span>)
-<span class="comment"># 파일이 자동으로 닫힘</span>
-            </div>
-            
-            <h3>async/await (비동기 프로그래밍)</h3>
-            <p>비동기 프로그래밍으로 Concurrent한 작업을 효율적으로 처리합니다.</p>
-            
-            <div class="code-block">
-<span class="keyword">import</span> asyncio
-
-<span class="keyword">async</span> <span class="function">def</span> <span class="function">fetch_data</span>():
-    <span class="keyword">print</span>(<span class="string">"데이터 가져오는 중..."</span>)
-    <span class="keyword">await</span> asyncio.sleep(<span class="number">2</span>)
-    <span class="keyword">return</span> {<span class="string">"data"</span>: <span class="string">"some data"</span>}
-
-<span class="keyword">async</span> <span class="function">def</span> <span class="function">main</span>():
-    result = <span class="keyword">await</span> <span class="function">fetch_data</span>()
-    <span class="keyword">print</span>(result)
-
-asyncio.run(<span class="function">main</span>())
-            </div>
-            
-            <h3> walrus operator (:= )</h3>
-            <p>Python 3.8부터 도입된 Walrus 연산자로 변수 할당과 반환을 동시에.</p>
-            
-            <div class="code-block">
-<span class="comment"># 기존 방식</span>
-result = <span class="function">some_function</span>()
-<span class="keyword">if</span> result:
-    <span class="keyword">print</span>(result)
-
-<span class="comment"># Walrus 연산자 사용</span>
-<span class="keyword">if</span> (result := <span class="function">some_function</span>()):
-    <span class="keyword">print</span>(result)
-
-<span class="comment"># 리스트 comprehension에서의 사용</span>
-<span class="keyword">if</span> (n := <span class="builtin">int</span>(<span class="string">"42"</span>)) > <span class="number">40</span>:
-    <span class="keyword">print</span>(<span class="string">f"숫자는 {n}입니다"</span>)
-            </div>
-            
-            <h3>Type Hints (타입 힌트)</h3>
-            <p>함수와 변수의 타입을 명시적으로 지정하여 코드 가독성과 도구 지원.</p>
-            
-            <div class="code-block">
-<span class="keyword">def</span> <span class="function">greet</span>(name: <span class="builtin">str</span>) -> <span class="builtin">str</span>:
-    <span class="keyword">return</span> <span class="string">f"안녕하세요, {name}님!"</span>
-
-<span class="keyword">def</span> <span class="function">add_numbers</span>(a: <span class="builtin">int</span>, b: <span class="builtin">int</span>) -> <span class="builtin">int</span>:
-    <span class="keyword">return</span> a + b
-
-<span class="comment"># 복잡한 타입</span>
-<span class="keyword">from</span> typing <span class="keyword">import</span> List, Dict, Optional
-
-<span class="keyword">def</span> <span class="function">process_data</span>(
-    items: List[<span class="builtin">int</span>], 
-    config: Optional[Dict[<span class="builtin">str</span>, <span class="builtin">str</span>]] = None
-) -> Dict[<span class="builtin">str</span>, <span class="builtin">int</span>]:
-    <span class="keyword">return</span> {<span class="string">"sum"</span>: <span class="builtin">sum</span>(items), <span class="string">"count"</span>: <span class="builtin">len</span>(items)}
-            </div>
-            
-            <h3>Data Classes</h3>
-            <p>데이터를 저장하는 클래스를 더 간결하게 정의합니다.</p>
-            
-            <div class="code-block">
-<span class="keyword">from</span> dataclasses <span class="keyword">import</span> dataclass, field
-
-<span class="decorator">@dataclass</span>
-<span class="keyword">class</span> <span class="function">User</span>:
-    name: <span class="builtin">str</span>
-    age: <span class="builtin">int</span>
-    email: <span class="builtin">str</span> = <span class="string">"unknown@example.com"</span>
-    active: <span class="builtin">bool</span> = field(default=<span class="keyword">True</span>)
-
-<span class="comment"># 사용</span>
-user = <span class="function">User</span>(<span class="string">"민준"</span>, <span class="number">25</span>)
-<span class="keyword">print</span>(user)  <span class="comment"># User(name='민준', age=25, ...)</span>
-            </div>
-            
-            <h3>NamedTuple</h3>
-            <p>불변 객체이고 이름이 있는 필드를 가진 튜플</p>
-            
-            <div class="code-block">
-<span class="keyword">from</span> collections <span class="keyword">import</span> namedtuple
-
-Point = namedtuple(<span class="string">"Point"</span>, [<span class="string">"x"</span>, <span class="string">"y"</span>])
-p = Point(<span class="number">10</span>, <span class="number">20</span>)
-<span class="keyword">print</span>(p.x, p.y)  <span class="comment"># 10 20</span>
-<span class="keyword">print</span>(p[<span class="number">0</span>], p[<span class="number">1</span>])  <span class="comment"># 10 20</span>
-            </div>
-            
-            <h3>Enum (열거형)</h3>
-            <div class="code-block">
-<span class="keyword">from</span> enum <span class="keyword">import</span> Enum, auto
-
-<span class="keyword">class</span> <span class="function">Color</span>(Enum):
-    RED = <span class="number">1</span>
-    GREEN = <span class="number">2</span>
-    BLUE = <span class="number">3</span>
-
-<span class="keyword">print</span>(Color.RED)  <span class="comment"># Color.RED</span>
-<span class="keyword">print</span>(Color.RED.name)  <span class="comment"># RED</span>
-<span class="keyword">print</span>(Color.RED.value)  <span class="comment"># 1</span>
-            </div>
-            
-            <h3>ABC (추상 베이스 클래스)</h3>
-            <div class="code-block">
-<span class="keyword">from</span> abc <span class="keyword">import</span> ABC, abstractmethod
-
-<span class="keyword">class</span> <span class="function">Shape</span>(ABC):
-    <span class="decorator">@abstractmethod</span>
-    <span class="keyword">def</span> <span class="function">area</span>(self):
-        <span class="keyword">pass</span>
-
-<span class="keyword">class</span> <span class="function">Circle</span>(Shape):
-    <span class="keyword">def</span> <span class="function">__init__</span>(self, radius):
-        self.radius = radius
-    
-    <span class="keyword">def</span> <span class="function">area</span>(self):
-        <span class="keyword">return</span> <span class="number">3.14</span> * self.radius ** <span class="number">2</span>
-            </div>
-            
-            <h3>Protocol (구조적 타이핑)</h3>
-            <div class="code-block">
-<span class="keyword">from</span> typing <span class="keyword">import</span> Protocol
-
-<span class="keyword">class</span> <span class="function">Drawble</span>(Protocol):
-    <span class="keyword">def</span> <span class="function">draw</span>(self) -> <span class="builtin">str</span>: ...
-
-<span class="keyword">class</span> <span class="function">Circle</span>:
-    <span class="keyword">def</span> <span class="function">draw</span>(self) -> <span class="builtin">str</span>:
-        <span class="keyword">return</span> <span class="string">"Circle drawn"</span>
-
-<span class="comment"># 타입 체크에서 Drawble로 처리됨</span>
-<span class="keyword">def</span> <span class="function">render</span>(shape: Drawble) -> <span class="builtin">None</span>:
-    <span class="keyword">print</span>(shape.draw())
-            </div>
-            
-            <div class="svg-container">
-                <!-- Advanced Topics Mind Map SVG -->
-                <svg width="700" height="300" viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Center -->
-                    <circle cx="350" cy="150" r="40" fill="#667eea"/>
-                    <text x="350" y="155" text-anchor="middle" fill="white" font-weight="bold">고급</text>
-                    
-                    <!-- Decorator -->
-                    <rect x="50" y="50" width="120" height="60" rx="10" fill="#e3f2fd" stroke="#2196F3" stroke-width="2"/>
-                    <text x="110" y="85" text-anchor="middle" fill="#1565C0" font-weight="bold">데코레이터</text>
-                    <line x1="170" y1="80" x2="290" y2="130" stroke="#667eea" stroke-width="2"/>
-                    
-                    <!-- Generator -->
-                    <rect x="50" y="200" width="120" height="60" rx="10" fill="#e8f5e9" stroke="#4CAF50" stroke-width="2"/>
-                    <text x="110" y="235" text-anchor="middle" fill="#2E7D32" font-weight="bold">제너레이터</text>
-                    <line x1="170" y1="230" x2="290" y2="180" stroke="#667eea" stroke-width="2"/>
-                    
-                    <!-- Context Manager -->
-                    <rect x="530" y="50" width="130" height="60" rx="10" fill="#fff3e0" stroke="#ff9800" stroke-width="2"/>
-                    <text x="595" y="85" text-anchor="middle" fill="#E65100" font-weight="bold">컨텍스트 매니저</text>
-                    <line x1="530" y1="80" x2="400" y2="130" stroke="#667eea" stroke-width="2"/>
-                    
-                    <!-- Async -->
-                    <rect x="530" y="200" width="120" height="60" rx="10" fill="#fce4ec" stroke="#e91e63" stroke-width="2"/>
-                    <text x="590" y="235" text-anchor="middle" fill="#c2185b" font-weight="bold">비동기 프로그래밍</text>
-                    <line x1="530" y1="230" x2="400" y2="180" stroke="#667eea" stroke-width="2"/>
-                </svg>
-            </div>
-            
-            <div class="tip-box">
-                <strong>💡 팁:</strong> async/await는 I/O 집약적인 작업(파일, 네트워크 요청)에서 큰 성능 향상을 제공합니다.
-            </div>
-        </section>
-        
-        <section id="ai-ml">
-            <h2>13. AI/ML 핵심 구현</h2>
+        <section id="data-science">
+            <h2>12. 데이터 과학 도구</h2>
             <span class="level-badge level-intermediate">중급</span>
             <span class="level-badge level-advanced">고급</span>
-            <span class="level-badge level-expert">전문가</span>
-            
+
             <h3>AI 개발 환경 설정 &amp; 설치</h3>
             <div class="code-block">
 <span class="comment"># 필수 패키지 설치</span>
@@ -4243,6 +4224,13 @@ plt.show()
                 <tr><td>3차원 데이터</td><td>3D 곡면 / 산점도</td><td><code>ax.plot_surface()</code></td></tr>
             </table>
 
+        </section>
+
+        <section id="machine-learning">
+            <h2>13. 머신러닝</h2>
+            <span class="level-badge level-intermediate">중급</span>
+            <span class="level-badge level-advanced">고급</span>
+
             <h3>scikit-learn (머신러닝)</h3>
 
             <p>
@@ -4893,6 +4881,13 @@ roc_auc = roc_auc_score(y_test, y_proba, multi_class=<span class="string">"ovr"<
 scores = cross_val_score(model, X, y, cv=<span class="number">5</span>, scoring=<span class="string">"accuracy"</span>)
             </div>
             
+        </section>
+
+        <section id="deep-learning">
+            <h2>14. 딥러닝</h2>
+            <span class="level-badge level-advanced">고급</span>
+            <span class="level-badge level-expert">전문가</span>
+
             <h3>TensorFlow/Keras (딥러닝)</h3>
 
             <p>TensorFlow는 Google이 개발한 오픈소스 딥러닝 프레임워크이며,
@@ -6753,7 +6748,7 @@ decay_rate = <span class="number">0.9</span>
         </section>
 
         <section id="resources">
-            <h2>14. 참고 자료 & 다음 단계</h2>
+            <h2>15. 참고 자료 & 다음 단계</h2>
             <span class="level-badge level-beginner">초급</span>
             <span class="level-badge level-intermediate">중급</span>
             <span class="level-badge level-advanced">고급</span>
