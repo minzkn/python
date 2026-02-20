@@ -10,6 +10,10 @@
             padding: 0;
             box-sizing: border-box;
         }
+
+        html {
+            scroll-behavior: smooth;
+        }
         
         body {
             font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
@@ -234,40 +238,18 @@
             border-radius: 4px;
         }
         
-        .tip-box {
-            background: #e3f2fd;
-            border-left: 4px solid #2196F3;
+        .tip-box, .warning-box {
             padding: 15px 20px;
             margin: 20px 0;
+            border-left: 4px solid;
             border-radius: 0 10px 10px 0;
         }
-        
+
+        .tip-box     { background: #e3f2fd; border-color: #2196F3; }
+        .warning-box { background: #fff3e0; border-color: #ff9800; }
+
         .tip-box ul {
             margin: 10px 0 0 20px;
-        }
-        
-        .warning-box {
-            background: #fff3e0;
-            border-left: 4px solid #ff9800;
-            padding: 15px 20px;
-            margin: 20px 0;
-            border-radius: 0 10px 10px 0;
-        }
-        
-        .info-box {
-            background: #e8f5e9;
-            border-left: 4px solid #4CAF50;
-            padding: 15px 20px;
-            margin: 20px 0;
-            border-radius: 0 10px 10px 0;
-        }
-        
-        .error-box {
-            background: #ffebee;
-            border-left: 4px solid #f44336;
-            padding: 15px 20px;
-            margin: 20px 0;
-            border-radius: 0 10px 10px 0;
         }
         
         .two-columns {
@@ -303,77 +285,6 @@
             z-index: 1000;
         }
         
-        .toc {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 30px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
-        }
-        
-        .toc h3 {
-            color: #3776AB;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-        
-        .toc ul {
-            columns: 2;
-            column-gap: 30px;
-        }
-        
-        .toc a {
-            color: #333;
-            text-decoration: none;
-            display: block;
-            padding: 8px 15px;
-            border-radius: 8px;
-            transition: all 0.3s;
-        }
-        
-        .toc a:hover {
-            background: #e3f2fd;
-            color: #3776AB;
-            transform: translateX(5px);
-        }
-        
-        .code-demo {
-            background: #282c34;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 20px 0;
-            overflow-x: auto;
-        }
-        
-        .code-demo .code-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #444;
-            padding-bottom: 10px;
-            margin-bottom: 15px;
-        }
-        
-        .code-demo .code-language {
-            color: #61afef;
-            font-weight: bold;
-        }
-        
-        .code-demo .copy-btn {
-            background: #4b5363;
-            color: white;
-            border: none;
-            padding: 5px 12px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.8em;
-            transition: background 0.2s;
-        }
-
-        .code-demo .copy-btn:hover {
-            background: #667eea;
-        }
-        
         .comparison-table {
             width: 100%;
             border-collapse: collapse;
@@ -397,38 +308,6 @@
 
         .comparison-table tr:hover {
             background: #e3eef9;
-        }
-        
-        .accordion {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            margin-bottom: 20px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-        }
-        
-        .accordion-header {
-            padding: 20px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #f8f9fa;
-            font-weight: bold;
-            color: #3776AB;
-        }
-        
-        .accordion-header:hover {
-            background: #e3f2fd;
-        }
-        
-        .accordion-content {
-            padding: 20px;
-            display: none;
-        }
-        
-        .accordion-content.active {
-            display: block;
         }
         
         .quiz-box {
@@ -485,7 +364,6 @@
             h1 { font-size: 2em; }
             section { padding: 25px; }
             nav ul { flex-direction: column; align-items: center; }
-            .toc ul { columns: 1; }
             .comparison-table {
                 display: block;
                 overflow-x: auto;
@@ -2911,33 +2789,6 @@ d[<span class="string">"count"</span>] += <span class="number">1</span>  <span c
             document.getElementById('progressBar').style.width = scrolled + '%';
         });
         
-        // Smooth scroll for navigation
-        document.querySelectorAll('nav a').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                target.scrollIntoView({ behavior: 'smooth' });
-            });
-        });
-        
-        // Accordion functionality
-        document.querySelectorAll('.accordion-header').forEach(header => {
-            header.addEventListener('click', () => {
-                const content = header.nextElementSibling;
-                content.classList.toggle('active');
-            });
-        });
-        
-        // Copy code button
-        document.querySelectorAll('.copy-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const code = btn.closest('.code-demo').querySelector('code').innerText;
-                navigator.clipboard.writeText(code);
-                btn.textContent = '복사됨!';
-                setTimeout(() => btn.textContent = '복사', 2000);
-            });
-        });
-        
         // Scroll spy - highlight current section in nav
         const sections = document.querySelectorAll('section');
         const navLinks = document.querySelectorAll('nav a');
@@ -2958,8 +2809,6 @@ d[<span class="string">"count"</span>] += <span class="number">1</span>  <span c
                 }
             });
         });
-        
-        // nav a.active 스타일은 CSS에 정의됨
     </script>
 </body>
 </html>

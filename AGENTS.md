@@ -96,3 +96,17 @@
 - 커밋은 작고 집중적으로 유지
 - 설명적인 커밋 메시지 작성
 - 시크릿이나 자격 증명 커밋 금지
+
+## Git 조작 제한
+
+**에이전트는 사용자의 명시적 지시 없이 아래 git 작업을 수행해서는 안 된다.**
+
+- `git commit` — 커밋 생성 금지
+- `git push` / `git push --force` — 원격 저장소 반영 금지
+- `git reset --hard` / `git checkout .` / `git restore .` — 작업 내용 파괴적 초기화 금지
+- `git branch -D` — 브랜치 강제 삭제 금지
+- `git rebase` / `git merge` — 히스토리 변경 금지
+- `git stash drop` / `git stash clear` — stash 삭제 금지
+- `git tag -d` / `git push origin --delete` — 태그·원격 브랜치 삭제 금지
+
+사용자가 명시적으로 요청한 경우에도, 파괴적이거나 되돌리기 어려운 작업은 실행 전에 반드시 확인을 구해야 한다.
