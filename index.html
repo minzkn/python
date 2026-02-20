@@ -1069,55 +1069,166 @@
                 거의 모든 소프트웨어 분야에서 활용됩니다. 특히 <strong>간결하고 읽기 쉬운 문법</strong>은 프로그래밍 입문자부터 숙련 개발자까지 폭넓은 사용자층을 형성하는 핵심 이유입니다.
             </p>
 
+            <h3>파이썬의 주요 특징</h3>
+            <p>파이썬은 다른 프로그래밍 언어와 비교하여 독보적인 특징을 가지고 있습니다. <strong>인터프리터 언어</strong>로서 컴파일 과정 없이 코드를 한 줄씩 즉시 실행할 수 있고, <strong>동적 타이핑(Dynamic Typing)</strong>으로 변수 선언 시 자료형을 명시하지 않아도 됩니다. 또한 <strong>멀티 패러다임</strong>을 지원하여 절차적, 객체지향, 함수형 프로그래밍 스타일을 모두 사용할 수 있습니다. 특히 <strong>크로스 플랫폼</strong> 지원으로 Windows, macOS, Linux 등 어디서나 동일한 코드를 실행할 수 있다는 점이 큰 장점입니다.</p>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>인터프리터 언어</h4>
+                    <p>소스 코드를 기계어로 미리 컴파일하지 않고, <strong>인터프리터가 한 줄씩 해석하여 실행</strong>합니다. 코드를 작성하고 즉시 실행 결과를 확인할 수 있어 개발 속도가 빠릅니다. 대화형 셸(REPL)에서 실시간으로 코드를 테스트할 수 있는 것도 이 특징 덕분입니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>동적 타이핑</h4>
+                    <p>변수 선언 시 자료형을 명시하지 않아도 됩니다. <code>x = 10</code>이라고 쓰면 자동으로 정수형으로 인식하고, <code>x = "hello"</code>로 바꾸면 문자열형으로 변환됩니다. 이로 인해 코드가 간결해지지만, <strong>런타임 타입 에러</strong>에 주의해야 합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>멀티 패러다임</h4>
+                    <p><strong>절차적 프로그래밍</strong>(함수 단위 순차 실행), <strong>객체지향 프로그래밍</strong>(클래스와 상속), <strong>함수형 프로그래밍</strong>(lambda, map, filter, reduce)을 모두 지원합니다. 문제의 성격에 따라 가장 적합한 스타일을 선택할 수 있습니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>풍부한 표준 라이브러리</h4>
+                    <p>"배터리가 포함된(Batteries Included)" 철학에 따라, 파일 I/O, 네트워킹, 정규식, JSON 처리, 데이터베이스 연동, 멀티스레딩 등을 <strong>별도 설치 없이</strong> 표준 라이브러리만으로 처리할 수 있습니다. 200개 이상의 모듈이 기본 제공됩니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>크로스 플랫폼</h4>
+                    <p>Windows, macOS, Linux, Unix 등 주요 운영체제에서 <strong>동일한 코드</strong>를 수정 없이 실행할 수 있습니다. "Write once, run anywhere" 원칙을 실현하여 개발 환경에 구애받지 않습니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>거대한 생태계</h4>
+                    <p><strong>PyPI(Python Package Index)</strong>에 50만 개 이상의 서드파티 패키지가 등록되어 있으며, <code>pip install</code> 한 줄로 설치할 수 있습니다. 웹, AI, 데이터, 보안, 게임 등 거의 모든 분야의 라이브러리가 존재합니다.</p>
+                </div>
+            </div>
+
             <div class="svg-container">
-                <!-- Python 활용 분야 다이어그램 -->
-                <svg width="700" height="380" viewBox="0 0 700 380" xmlns="http://www.w3.org/2000/svg">
+                <!-- 파이썬 vs 다른 언어 비교 다이어그램 -->
+                <svg width="750" height="340" viewBox="0 0 750 340" xmlns="http://www.w3.org/2000/svg">
+                    <text x="375" y="25" text-anchor="middle" fill="var(--text-primary)" font-weight="bold" font-size="15">Python vs 다른 언어 코드 비교 — "Hello, World!" 출력</text>
+
+                    <rect x="20" y="45" width="220" height="130" rx="10" fill="var(--svg-blue)" stroke="#2196F3" stroke-width="2"/>
+                    <rect x="30" y="50" width="200" height="25" rx="5" fill="#2196F3"/>
+                    <text x="130" y="67" text-anchor="middle" fill="white" font-weight="bold" font-size="13">Python</text>
+                    <rect x="35" y="85" width="190" height="35" rx="6" fill="var(--svg-inner)"/>
+                    <text x="130" y="107" text-anchor="middle" fill="var(--svg-green-text)" font-size="12" font-family="'Fira Code', monospace">print("Hello, World!")</text>
+                    <text x="130" y="155" text-anchor="middle" fill="var(--svg-blue-text)" font-size="11" font-weight="bold">1줄</text>
+
+                    <rect x="265" y="45" width="220" height="130" rx="10" fill="var(--svg-orange)" stroke="#ff9800" stroke-width="2"/>
+                    <rect x="275" y="50" width="200" height="25" rx="5" fill="#ff9800"/>
+                    <text x="375" y="67" text-anchor="middle" fill="white" font-weight="bold" font-size="13">Java</text>
+                    <rect x="280" y="85" width="190" height="70" rx="6" fill="var(--svg-inner)"/>
+                    <text x="375" y="101" text-anchor="middle" fill="var(--svg-orange-text)" font-size="10" font-family="'Fira Code', monospace">public class Hello {</text>
+                    <text x="375" y="115" text-anchor="middle" fill="var(--svg-orange-text)" font-size="10" font-family="'Fira Code', monospace">  public static void</text>
+                    <text x="375" y="129" text-anchor="middle" fill="var(--svg-orange-text)" font-size="10" font-family="'Fira Code', monospace">  main(String[] args) {</text>
+                    <text x="375" y="143" text-anchor="middle" fill="var(--svg-orange-text)" font-size="10" font-family="'Fira Code', monospace">    System.out.println(...</text>
+                    <text x="375" y="155" text-anchor="middle" fill="var(--svg-orange-text)" font-size="11" font-weight="bold">5줄</text>
+
+                    <rect x="510" y="45" width="220" height="130" rx="10" fill="var(--svg-pink)" stroke="#e91e63" stroke-width="2"/>
+                    <rect x="520" y="50" width="200" height="25" rx="5" fill="#e91e63"/>
+                    <text x="620" y="67" text-anchor="middle" fill="white" font-weight="bold" font-size="13">C</text>
+                    <rect x="525" y="85" width="190" height="70" rx="6" fill="var(--svg-inner)"/>
+                    <text x="620" y="101" text-anchor="middle" fill="var(--svg-pink-text)" font-size="10" font-family="'Fira Code', monospace">#include &lt;stdio.h&gt;</text>
+                    <text x="620" y="115" text-anchor="middle" fill="var(--svg-pink-text)" font-size="10" font-family="'Fira Code', monospace">int main() {</text>
+                    <text x="620" y="129" text-anchor="middle" fill="var(--svg-pink-text)" font-size="10" font-family="'Fira Code', monospace">  printf("Hello...");</text>
+                    <text x="620" y="143" text-anchor="middle" fill="var(--svg-pink-text)" font-size="10" font-family="'Fira Code', monospace">  return 0; }</text>
+                    <text x="620" y="155" text-anchor="middle" fill="var(--svg-pink-text)" font-size="11" font-weight="bold">4줄</text>
+
+                    <text x="375" y="200" text-anchor="middle" fill="var(--text-primary)" font-weight="bold" font-size="13">주요 언어 특성 비교</text>
+
+                    <rect x="50" y="215" width="650" height="110" rx="10" fill="var(--svg-gray)" stroke="var(--border)" stroke-width="1"/>
+                    <line x1="50" y1="245" x2="700" y2="245" stroke="var(--border)" stroke-width="1"/>
+                    <line x1="200" y1="215" x2="200" y2="325" stroke="var(--border)" stroke-width="1"/>
+                    <line x1="350" y1="215" x2="350" y2="325" stroke="var(--border)" stroke-width="1"/>
+                    <line x1="500" y1="215" x2="500" y2="325" stroke="var(--border)" stroke-width="1"/>
+                    <line x1="50" y1="270" x2="700" y2="270" stroke="var(--border)" stroke-width="0.5" stroke-dasharray="3,3"/>
+                    <line x1="50" y1="295" x2="700" y2="295" stroke="var(--border)" stroke-width="0.5" stroke-dasharray="3,3"/>
+
+                    <text x="125" y="235" text-anchor="middle" fill="var(--text-secondary)" font-weight="bold" font-size="11">특성</text>
+                    <text x="275" y="235" text-anchor="middle" fill="var(--svg-blue-text)" font-weight="bold" font-size="11">Python</text>
+                    <text x="425" y="235" text-anchor="middle" fill="var(--svg-orange-text)" font-weight="bold" font-size="11">Java</text>
+                    <text x="600" y="235" text-anchor="middle" fill="var(--svg-pink-text)" font-weight="bold" font-size="11">C/C++</text>
+
+                    <text x="125" y="262" text-anchor="middle" fill="var(--text-secondary)" font-size="11">타이핑</text>
+                    <text x="275" y="262" text-anchor="middle" fill="var(--text-primary)" font-size="11">동적</text>
+                    <text x="425" y="262" text-anchor="middle" fill="var(--text-primary)" font-size="11">정적</text>
+                    <text x="600" y="262" text-anchor="middle" fill="var(--text-primary)" font-size="11">정적</text>
+
+                    <text x="125" y="287" text-anchor="middle" fill="var(--text-secondary)" font-size="11">실행 방식</text>
+                    <text x="275" y="287" text-anchor="middle" fill="var(--text-primary)" font-size="11">인터프리터</text>
+                    <text x="425" y="287" text-anchor="middle" fill="var(--text-primary)" font-size="11">컴파일+VM</text>
+                    <text x="600" y="287" text-anchor="middle" fill="var(--text-primary)" font-size="11">네이티브 컴파일</text>
+
+                    <text x="125" y="315" text-anchor="middle" fill="var(--text-secondary)" font-size="11">학습 난이도</text>
+                    <text x="275" y="315" text-anchor="middle" fill="var(--svg-green-text)" font-size="11">쉬움</text>
+                    <text x="425" y="315" text-anchor="middle" fill="var(--svg-orange-text)" font-size="11">보통</text>
+                    <text x="600" y="315" text-anchor="middle" fill="var(--svg-pink-text)" font-size="11">어려움</text>
+                </svg>
+            </div>
+
+            <div class="svg-container">
+                <!-- Python 활용 분야 다이어그램 (개선) -->
+                <svg width="750" height="480" viewBox="0 0 750 480" xmlns="http://www.w3.org/2000/svg">
+                    <text x="375" y="25" text-anchor="middle" fill="var(--text-primary)" font-weight="bold" font-size="15">Python 활용 분야</text>
+
                     <!-- 중앙 Python 원 -->
-                    <circle cx="350" cy="190" r="65" fill="#667eea" stroke="#4a5ae0" stroke-width="3"/>
-                    <text x="350" y="185" text-anchor="middle" fill="white" font-weight="bold" font-size="18">Python</text>
-                    <text x="350" y="205" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="11">범용 언어</text>
+                    <circle cx="375" cy="240" r="75" fill="#667eea" stroke="#4a5ae0" stroke-width="3"/>
+                    <text x="375" y="225" text-anchor="middle" fill="white" font-weight="bold" font-size="22">Python</text>
+                    <text x="375" y="250" text-anchor="middle" fill="rgba(255,255,255,0.85)" font-size="12">범용 프로그래밍 언어</text>
+                    <text x="375" y="268" text-anchor="middle" fill="rgba(255,255,255,0.65)" font-size="10">TIOBE #1 (2024~)</text>
 
                     <!-- 웹 개발 -->
-                    <rect x="30" y="20" width="140" height="70" rx="12" fill="var(--svg-blue)" stroke="#2196F3" stroke-width="2"/>
-                    <text x="100" y="50" text-anchor="middle" font-weight="bold" fill="var(--svg-blue-text)" font-size="14">웹 개발</text>
-                    <text x="100" y="70" text-anchor="middle" fill="var(--text-secondary)" font-size="11">Django, Flask, FastAPI</text>
-                    <line x1="170" y1="55" x2="290" y2="155" stroke="#2196F3" stroke-width="1.5" stroke-dasharray="4,3"/>
+                    <rect x="30" y="50" width="170" height="90" rx="12" fill="var(--svg-blue)" stroke="#2196F3" stroke-width="2"/>
+                    <text x="115" y="75" text-anchor="middle" font-weight="bold" fill="var(--svg-blue-text)" font-size="15">웹 개발</text>
+                    <text x="115" y="95" text-anchor="middle" fill="var(--text-secondary)" font-size="11">Django, Flask, FastAPI</text>
+                    <text x="115" y="112" text-anchor="middle" fill="var(--text-muted)" font-size="10">Instagram, Pinterest, Spotify</text>
+                    <text x="115" y="128" text-anchor="middle" fill="var(--text-muted)" font-size="10">REST API, GraphQL, WebSocket</text>
+                    <line x1="200" y1="100" x2="305" y2="195" stroke="#2196F3" stroke-width="2" stroke-dasharray="5,3" opacity="0.7"/>
 
                     <!-- 데이터 과학 -->
-                    <rect x="530" y="20" width="140" height="70" rx="12" fill="var(--svg-green)" stroke="#4CAF50" stroke-width="2"/>
-                    <text x="600" y="50" text-anchor="middle" font-weight="bold" fill="var(--svg-green-text)" font-size="14">데이터 과학</text>
-                    <text x="600" y="70" text-anchor="middle" fill="var(--text-secondary)" font-size="11">NumPy, Pandas</text>
-                    <line x1="530" y1="55" x2="410" y2="155" stroke="#4CAF50" stroke-width="1.5" stroke-dasharray="4,3"/>
+                    <rect x="550" y="50" width="170" height="90" rx="12" fill="var(--svg-green)" stroke="#4CAF50" stroke-width="2"/>
+                    <text x="635" y="75" text-anchor="middle" font-weight="bold" fill="var(--svg-green-text)" font-size="15">데이터 과학</text>
+                    <text x="635" y="95" text-anchor="middle" fill="var(--text-secondary)" font-size="11">NumPy, Pandas, SciPy</text>
+                    <text x="635" y="112" text-anchor="middle" fill="var(--text-muted)" font-size="10">Jupyter Notebook 기반 분석</text>
+                    <text x="635" y="128" text-anchor="middle" fill="var(--text-muted)" font-size="10">통계, 시각화, 탐색적 분석</text>
+                    <line x1="550" y1="100" x2="445" y2="195" stroke="#4CAF50" stroke-width="2" stroke-dasharray="5,3" opacity="0.7"/>
 
                     <!-- AI / ML -->
-                    <rect x="530" y="155" width="140" height="70" rx="12" fill="var(--svg-orange)" stroke="#ff9800" stroke-width="2"/>
-                    <text x="600" y="185" text-anchor="middle" font-weight="bold" fill="var(--svg-orange-text)" font-size="14">AI / ML</text>
-                    <text x="600" y="205" text-anchor="middle" fill="var(--text-secondary)" font-size="11">TensorFlow, PyTorch</text>
-                    <line x1="530" y1="190" x2="415" y2="190" stroke="#ff9800" stroke-width="1.5" stroke-dasharray="4,3"/>
+                    <rect x="560" y="195" width="170" height="90" rx="12" fill="var(--svg-orange)" stroke="#ff9800" stroke-width="2"/>
+                    <text x="645" y="220" text-anchor="middle" font-weight="bold" fill="var(--svg-orange-text)" font-size="15">AI / 머신러닝</text>
+                    <text x="645" y="240" text-anchor="middle" fill="var(--text-secondary)" font-size="11">TensorFlow, PyTorch</text>
+                    <text x="645" y="257" text-anchor="middle" fill="var(--text-muted)" font-size="10">scikit-learn, Hugging Face</text>
+                    <text x="645" y="274" text-anchor="middle" fill="var(--text-muted)" font-size="10">ChatGPT, Stable Diffusion</text>
+                    <line x1="560" y1="240" x2="450" y2="240" stroke="#ff9800" stroke-width="2" stroke-dasharray="5,3" opacity="0.7"/>
 
-                    <!-- 자동화 -->
-                    <rect x="30" y="155" width="140" height="70" rx="12" fill="var(--svg-pink)" stroke="#e91e63" stroke-width="2"/>
-                    <text x="100" y="185" text-anchor="middle" font-weight="bold" fill="var(--svg-pink-text)" font-size="14">자동화</text>
-                    <text x="100" y="205" text-anchor="middle" fill="var(--text-secondary)" font-size="11">스크립팅, 크롤링</text>
-                    <line x1="170" y1="190" x2="285" y2="190" stroke="#e91e63" stroke-width="1.5" stroke-dasharray="4,3"/>
+                    <!-- 자동화 / 스크립팅 -->
+                    <rect x="20" y="195" width="170" height="90" rx="12" fill="var(--svg-pink)" stroke="#e91e63" stroke-width="2"/>
+                    <text x="105" y="220" text-anchor="middle" font-weight="bold" fill="var(--svg-pink-text)" font-size="15">자동화</text>
+                    <text x="105" y="240" text-anchor="middle" fill="var(--text-secondary)" font-size="11">Selenium, BeautifulSoup</text>
+                    <text x="105" y="257" text-anchor="middle" fill="var(--text-muted)" font-size="10">업무 자동화, 웹 크롤링</text>
+                    <text x="105" y="274" text-anchor="middle" fill="var(--text-muted)" font-size="10">PDF/Excel 자동 처리</text>
+                    <line x1="190" y1="240" x2="300" y2="240" stroke="#e91e63" stroke-width="2" stroke-dasharray="5,3" opacity="0.7"/>
 
                     <!-- 시각화 -->
-                    <rect x="30" y="290" width="140" height="70" rx="12" fill="var(--svg-green)" stroke="#4CAF50" stroke-width="2"/>
-                    <text x="100" y="320" text-anchor="middle" font-weight="bold" fill="var(--svg-green-text)" font-size="14">시각화</text>
-                    <text x="100" y="340" text-anchor="middle" fill="var(--text-secondary)" font-size="11">Matplotlib, Seaborn</text>
-                    <line x1="170" y1="325" x2="310" y2="245" stroke="#4CAF50" stroke-width="1.5" stroke-dasharray="4,3"/>
+                    <rect x="20" y="350" width="170" height="90" rx="12" fill="var(--svg-green)" stroke="#4CAF50" stroke-width="2"/>
+                    <text x="105" y="375" text-anchor="middle" font-weight="bold" fill="var(--svg-green-text)" font-size="15">데이터 시각화</text>
+                    <text x="105" y="395" text-anchor="middle" fill="var(--text-secondary)" font-size="11">Matplotlib, Seaborn</text>
+                    <text x="105" y="412" text-anchor="middle" fill="var(--text-muted)" font-size="10">Plotly, Bokeh (인터랙티브)</text>
+                    <text x="105" y="429" text-anchor="middle" fill="var(--text-muted)" font-size="10">대시보드, 차트, 지도 시각화</text>
+                    <line x1="190" y1="385" x2="330" y2="310" stroke="#4CAF50" stroke-width="2" stroke-dasharray="5,3" opacity="0.7"/>
 
                     <!-- DevOps / 인프라 -->
-                    <rect x="280" y="300" width="140" height="70" rx="12" fill="var(--svg-blue)" stroke="#2196F3" stroke-width="2"/>
-                    <text x="350" y="330" text-anchor="middle" font-weight="bold" fill="var(--svg-blue-text)" font-size="14">DevOps</text>
-                    <text x="350" y="350" text-anchor="middle" fill="var(--text-secondary)" font-size="11">Ansible, Fabric</text>
-                    <line x1="350" y1="300" x2="350" y2="255" stroke="#2196F3" stroke-width="1.5" stroke-dasharray="4,3"/>
+                    <rect x="290" y="370" width="170" height="90" rx="12" fill="var(--svg-blue)" stroke="#2196F3" stroke-width="2"/>
+                    <text x="375" y="395" text-anchor="middle" font-weight="bold" fill="var(--svg-blue-text)" font-size="15">DevOps / 클라우드</text>
+                    <text x="375" y="415" text-anchor="middle" fill="var(--text-secondary)" font-size="11">Ansible, Terraform CDK</text>
+                    <text x="375" y="432" text-anchor="middle" fill="var(--text-muted)" font-size="10">AWS Boto3, Docker SDK</text>
+                    <text x="375" y="449" text-anchor="middle" fill="var(--text-muted)" font-size="10">CI/CD, 모니터링, IaC</text>
+                    <line x1="375" y1="370" x2="375" y2="315" stroke="#2196F3" stroke-width="2" stroke-dasharray="5,3" opacity="0.7"/>
 
-                    <!-- 게임 / IoT -->
-                    <rect x="530" y="290" width="140" height="70" rx="12" fill="var(--svg-orange)" stroke="#ff9800" stroke-width="2"/>
-                    <text x="600" y="320" text-anchor="middle" font-weight="bold" fill="var(--svg-orange-text)" font-size="14">게임 / IoT</text>
-                    <text x="600" y="340" text-anchor="middle" fill="var(--text-secondary)" font-size="11">Pygame, RPi</text>
-                    <line x1="530" y1="325" x2="390" y2="245" stroke="#ff9800" stroke-width="1.5" stroke-dasharray="4,3"/>
+                    <!-- 게임 / IoT / 임베디드 -->
+                    <rect x="560" y="350" width="170" height="90" rx="12" fill="var(--svg-orange)" stroke="#ff9800" stroke-width="2"/>
+                    <text x="645" y="375" text-anchor="middle" font-weight="bold" fill="var(--svg-orange-text)" font-size="15">게임 / IoT</text>
+                    <text x="645" y="395" text-anchor="middle" fill="var(--text-secondary)" font-size="11">Pygame, MicroPython</text>
+                    <text x="645" y="412" text-anchor="middle" fill="var(--text-muted)" font-size="10">Raspberry Pi, Arduino</text>
+                    <text x="645" y="429" text-anchor="middle" fill="var(--text-muted)" font-size="10">프로토타이핑, 센서 제어</text>
+                    <line x1="560" y1="385" x2="420" y2="310" stroke="#ff9800" stroke-width="2" stroke-dasharray="5,3" opacity="0.7"/>
                 </svg>
             </div>
             
@@ -1134,6 +1245,205 @@
             </div>
             
             <p><strong>"인생은 너무 짧다. 그래서 파이썬이 필요하다."</strong> ("Life is short, You need Python.")</p>
+
+            <h3>파이썬의 역사</h3>
+            <p>파이썬은 1989년 크리스마스 주간에 귀도 반 로섬이 취미 프로젝트로 시작하여, 30년 이상의 역사를 거치며 세계에서 가장 영향력 있는 프로그래밍 언어로 성장했습니다. 각 주요 버전은 언어의 방향성을 결정짓는 중요한 이정표가 되었습니다.</p>
+
+            <div class="svg-container">
+                <!-- 파이썬 역사 타임라인 -->
+                <svg width="750" height="400" viewBox="0 0 750 400" xmlns="http://www.w3.org/2000/svg">
+                    <text x="375" y="25" text-anchor="middle" fill="var(--text-primary)" font-weight="bold" font-size="15">Python 역사 타임라인</text>
+
+                    <!-- 타임라인 중앙선 -->
+                    <line x1="80" y1="70" x2="80" y2="380" stroke="#667eea" stroke-width="3" opacity="0.6"/>
+
+                    <!-- 1991 -->
+                    <circle cx="80" cy="80" r="8" fill="#667eea" stroke="#4a5ae0" stroke-width="2"/>
+                    <text x="100" y="78" fill="var(--svg-blue-text)" font-weight="bold" font-size="13">1991 — Python 0.9.0</text>
+                    <text x="100" y="95" fill="var(--text-secondary)" font-size="11">귀도 반 로섬이 최초 공개. 예외 처리, 함수, 모듈 시스템 포함.</text>
+                    <text x="100" y="110" fill="var(--text-muted)" font-size="10">ABC 언어의 후계자로 설계. 들여쓰기 기반 문법 도입.</text>
+
+                    <!-- 1994 -->
+                    <circle cx="80" cy="130" r="8" fill="#2196F3" stroke="#1976D2" stroke-width="2"/>
+                    <text x="100" y="128" fill="var(--svg-blue-text)" font-weight="bold" font-size="13">1994 — Python 1.0</text>
+                    <text x="100" y="145" fill="var(--text-secondary)" font-size="11">lambda, map, filter, reduce 등 함수형 프로그래밍 도구 추가.</text>
+                    <text x="100" y="160" fill="var(--text-muted)" font-size="10">Lisp/Haskell 커뮤니티의 영향. comp.lang.python 뉴스그룹 활성화.</text>
+
+                    <!-- 2000 -->
+                    <circle cx="80" cy="180" r="8" fill="#4CAF50" stroke="#388E3C" stroke-width="2"/>
+                    <text x="100" y="178" fill="var(--svg-green-text)" font-weight="bold" font-size="13">2000 — Python 2.0</text>
+                    <text x="100" y="195" fill="var(--text-secondary)" font-size="11">리스트 컴프리헨션, 가비지 컬렉터(순환 참조 감지), 유니코드 지원.</text>
+                    <text x="100" y="210" fill="var(--text-muted)" font-size="10">커뮤니티 주도 개발(PEP 프로세스) 시작. BeOpen.com으로 이전.</text>
+
+                    <!-- 2008 -->
+                    <circle cx="80" cy="235" r="10" fill="#ff9800" stroke="#F57C00" stroke-width="2"/>
+                    <text x="100" y="233" fill="var(--svg-orange-text)" font-weight="bold" font-size="13">2008 — Python 3.0 (혁명적 변화)</text>
+                    <text x="100" y="250" fill="var(--text-secondary)" font-size="11">하위 호환성을 깨는 대규모 개편. print 함수화, 유니코드 기본 문자열.</text>
+                    <text x="100" y="265" fill="var(--text-muted)" font-size="10">정수 나눗셈 변경, bytes/str 분리. 2.x → 3.x 마이그레이션 시작.</text>
+
+                    <!-- 2020 -->
+                    <circle cx="80" cy="290" r="8" fill="#e91e63" stroke="#C2185B" stroke-width="2"/>
+                    <text x="100" y="288" fill="var(--svg-pink-text)" font-weight="bold" font-size="13">2020 — Python 2.x EOL (지원 종료)</text>
+                    <text x="100" y="305" fill="var(--text-secondary)" font-size="11">Python 2.7 최종 릴리스. 모든 프로젝트가 Python 3로 전환 권장.</text>
+                    <text x="100" y="320" fill="var(--text-muted)" font-size="10">pip, Django, NumPy 등 주요 패키지 Python 2 지원 중단.</text>
+
+                    <!-- 2023 -->
+                    <circle cx="80" cy="340" r="8" fill="#4CAF50" stroke="#388E3C" stroke-width="2"/>
+                    <text x="100" y="338" fill="var(--svg-green-text)" font-weight="bold" font-size="13">2023 — Python 3.12 / TIOBE 1위</text>
+                    <text x="100" y="355" fill="var(--text-secondary)" font-size="11">성능 대폭 개선(3.11 대비 최대 5% 추가 향상). 타입 힌트 강화.</text>
+                    <text x="100" y="370" fill="var(--text-muted)" font-size="10">TIOBE Index 사상 최초 1위 달성. AI 붐과 함께 사용자 급증.</text>
+                </svg>
+            </div>
+
+            <h3>파이썬 실행 구조</h3>
+            <p>파이썬 코드가 실행되는 내부 과정을 이해하면 성능 최적화와 디버깅에 큰 도움이 됩니다. 파이썬은 순수 인터프리터 언어가 아니라, <strong>먼저 소스 코드를 바이트코드로 컴파일한 뒤 가상 머신(PVM)에서 실행</strong>하는 하이브리드 방식을 사용합니다. <code>.pyc</code> 파일은 이 바이트코드가 캐싱된 것이며, <code>__pycache__</code> 디렉터리에 저장됩니다.</p>
+
+            <div class="svg-container">
+                <!-- 파이썬 실행 구조 다이어그램 -->
+                <svg width="750" height="250" viewBox="0 0 750 250" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <marker id="arrow-exec" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+                            <polygon points="0 0, 8 3, 0 6" fill="#667eea"/>
+                        </marker>
+                    </defs>
+
+                    <text x="375" y="25" text-anchor="middle" fill="var(--text-primary)" font-weight="bold" font-size="15">Python 코드 실행 과정</text>
+
+                    <!-- Step 1: 소스코드 -->
+                    <rect x="20" y="55" width="130" height="80" rx="10" fill="var(--svg-blue)" stroke="#2196F3" stroke-width="2"/>
+                    <text x="85" y="80" text-anchor="middle" fill="var(--svg-blue-text)" font-weight="bold" font-size="13">소스 코드</text>
+                    <text x="85" y="100" text-anchor="middle" fill="var(--text-secondary)" font-size="11">.py 파일</text>
+                    <text x="85" y="117" text-anchor="middle" fill="var(--text-muted)" font-size="10">사람이 읽는 코드</text>
+
+                    <line x1="150" y1="95" x2="175" y2="95" stroke="#667eea" stroke-width="2" marker-end="url(#arrow-exec)"/>
+
+                    <!-- Step 2: 렉서/파서 -->
+                    <rect x="180" y="55" width="130" height="80" rx="10" fill="var(--svg-orange)" stroke="#ff9800" stroke-width="2"/>
+                    <text x="245" y="80" text-anchor="middle" fill="var(--svg-orange-text)" font-weight="bold" font-size="13">컴파일러</text>
+                    <text x="245" y="100" text-anchor="middle" fill="var(--text-secondary)" font-size="11">Lexer + Parser</text>
+                    <text x="245" y="117" text-anchor="middle" fill="var(--text-muted)" font-size="10">AST 생성 + 최적화</text>
+
+                    <line x1="310" y1="95" x2="335" y2="95" stroke="#667eea" stroke-width="2" marker-end="url(#arrow-exec)"/>
+
+                    <!-- Step 3: 바이트코드 -->
+                    <rect x="340" y="55" width="130" height="80" rx="10" fill="var(--svg-green)" stroke="#4CAF50" stroke-width="2"/>
+                    <text x="405" y="80" text-anchor="middle" fill="var(--svg-green-text)" font-weight="bold" font-size="13">바이트코드</text>
+                    <text x="405" y="100" text-anchor="middle" fill="var(--text-secondary)" font-size="11">.pyc 파일</text>
+                    <text x="405" y="117" text-anchor="middle" fill="var(--text-muted)" font-size="10">중간 표현 (IR)</text>
+
+                    <line x1="470" y1="95" x2="495" y2="95" stroke="#667eea" stroke-width="2" marker-end="url(#arrow-exec)"/>
+
+                    <!-- Step 4: PVM -->
+                    <rect x="500" y="55" width="130" height="80" rx="10" fill="var(--svg-pink)" stroke="#e91e63" stroke-width="2"/>
+                    <text x="565" y="80" text-anchor="middle" fill="var(--svg-pink-text)" font-weight="bold" font-size="13">PVM</text>
+                    <text x="565" y="100" text-anchor="middle" fill="var(--text-secondary)" font-size="11">Python VM</text>
+                    <text x="565" y="117" text-anchor="middle" fill="var(--text-muted)" font-size="10">바이트코드 해석 실행</text>
+
+                    <line x1="630" y1="95" x2="655" y2="95" stroke="#667eea" stroke-width="2" marker-end="url(#arrow-exec)"/>
+
+                    <!-- Step 5: 결과 -->
+                    <rect x="660" y="55" width="70" height="80" rx="10" fill="#667eea"/>
+                    <text x="695" y="85" text-anchor="middle" fill="white" font-weight="bold" font-size="13">결과</text>
+                    <text x="695" y="105" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="10">Output</text>
+
+                    <!-- 하단 설명 박스 -->
+                    <rect x="55" y="160" width="180" height="70" rx="8" fill="var(--svg-gray)" stroke="var(--border)" stroke-width="1"/>
+                    <text x="145" y="182" text-anchor="middle" fill="var(--svg-blue-text)" font-weight="bold" font-size="11">CPython (기본)</text>
+                    <text x="145" y="198" text-anchor="middle" fill="var(--text-secondary)" font-size="10">C로 구현된 표준 인터프리터</text>
+                    <text x="145" y="214" text-anchor="middle" fill="var(--text-muted)" font-size="10">GIL로 스레드 안전성 보장</text>
+
+                    <rect x="285" y="160" width="180" height="70" rx="8" fill="var(--svg-gray)" stroke="var(--border)" stroke-width="1"/>
+                    <text x="375" y="182" text-anchor="middle" fill="var(--svg-orange-text)" font-weight="bold" font-size="11">PyPy (JIT)</text>
+                    <text x="375" y="198" text-anchor="middle" fill="var(--text-secondary)" font-size="10">JIT 컴파일로 고속 실행</text>
+                    <text x="375" y="214" text-anchor="middle" fill="var(--text-muted)" font-size="10">반복 코드에서 수십 배 향상</text>
+
+                    <rect x="515" y="160" width="180" height="70" rx="8" fill="var(--svg-gray)" stroke="var(--border)" stroke-width="1"/>
+                    <text x="605" y="182" text-anchor="middle" fill="var(--svg-green-text)" font-weight="bold" font-size="11">Cython / Numba</text>
+                    <text x="605" y="198" text-anchor="middle" fill="var(--text-secondary)" font-size="10">네이티브 코드로 컴파일</text>
+                    <text x="605" y="214" text-anchor="middle" fill="var(--text-muted)" font-size="10">C 수준 성능 달성 가능</text>
+                </svg>
+            </div>
+
+            <h3>파이썬 설치 가이드</h3>
+            <p>파이썬은 <strong>python.org</strong>에서 공식 배포판을 다운로드하거나, 운영체제별 패키지 관리자를 통해 설치할 수 있습니다. 데이터 과학 용도라면 <strong>Anaconda</strong> 또는 <strong>Miniconda</strong>가 편리합니다. 설치 후 터미널에서 <code>python --version</code>을 입력하여 정상 설치를 확인하세요.</p>
+
+            <div class="code-block">
+<span class="comment"># Windows — python.org에서 다운로드 후 설치</span>
+<span class="comment"># 설치 시 "Add Python to PATH" 체크 필수!</span>
+
+<span class="comment"># macOS — Homebrew 사용</span>
+brew install python
+
+<span class="comment"># Ubuntu / Debian</span>
+sudo apt update
+sudo apt install python3 python3-pip python3-venv
+
+<span class="comment"># 설치 확인</span>
+python3 --version    <span class="comment"># Python 3.x.x</span>
+pip3 --version       <span class="comment"># pip xx.x.x</span>
+            </div>
+
+            <div class="tip-box">
+                <strong>가상 환경 권장:</strong> 프로젝트마다 독립된 패키지 환경을 만들어야 의존성 충돌을 방지할 수 있습니다. <code>python -m venv myenv</code>로 가상 환경을 생성하고, <code>source myenv/bin/activate</code>(Linux/Mac) 또는 <code>myenv\Scripts\activate</code>(Windows)로 활성화합니다. 최근에는 <code>uv</code>나 <code>poetry</code> 같은 최신 패키지 매니저도 많이 사용됩니다.
+            </div>
+
+            <h3>파이썬 생태계와 커뮤니티</h3>
+            <p>파이썬의 강력함은 언어 자체뿐만 아니라 <strong>거대한 생태계와 활발한 커뮤니티</strong>에서 비롯됩니다. <strong>PyPI(Python Package Index)</strong>에는 50만 개 이상의 패키지가 등록되어 있으며, GitHub에서 가장 많이 사용되는 언어 중 하나입니다. PyCon, DjangoCon 등의 컨퍼런스가 전 세계에서 열리고 있으며, Stack Overflow에서도 파이썬 관련 질문이 가장 활발합니다.</p>
+
+            <div class="svg-container">
+                <!-- 파이썬 생태계 다이어그램 -->
+                <svg width="750" height="300" viewBox="0 0 750 300" xmlns="http://www.w3.org/2000/svg">
+                    <text x="375" y="25" text-anchor="middle" fill="var(--text-primary)" font-weight="bold" font-size="15">Python 생태계 구조</text>
+
+                    <!-- 최상위: 애플리케이션 -->
+                    <rect x="175" y="45" width="400" height="45" rx="10" fill="var(--svg-pink)" stroke="#e91e63" stroke-width="2"/>
+                    <text x="375" y="73" text-anchor="middle" fill="var(--svg-pink-text)" font-weight="bold" font-size="13">애플리케이션 (웹, AI, 자동화, 데이터 분석, IoT, 게임 ...)</text>
+
+                    <!-- 2층: 서드파티 프레임워크 -->
+                    <rect x="50" y="105" width="200" height="45" rx="10" fill="var(--svg-orange)" stroke="#ff9800" stroke-width="2"/>
+                    <text x="150" y="125" text-anchor="middle" fill="var(--svg-orange-text)" font-weight="bold" font-size="12">웹 프레임워크</text>
+                    <text x="150" y="141" text-anchor="middle" fill="var(--text-secondary)" font-size="10">Django, Flask, FastAPI</text>
+
+                    <rect x="275" y="105" width="200" height="45" rx="10" fill="var(--svg-green)" stroke="#4CAF50" stroke-width="2"/>
+                    <text x="375" y="125" text-anchor="middle" fill="var(--svg-green-text)" font-weight="bold" font-size="12">AI / 데이터</text>
+                    <text x="375" y="141" text-anchor="middle" fill="var(--text-secondary)" font-size="10">TensorFlow, Pandas, scikit-learn</text>
+
+                    <rect x="500" y="105" width="200" height="45" rx="10" fill="var(--svg-blue)" stroke="#2196F3" stroke-width="2"/>
+                    <text x="600" y="125" text-anchor="middle" fill="var(--svg-blue-text)" font-weight="bold" font-size="12">DevOps / 테스트</text>
+                    <text x="600" y="141" text-anchor="middle" fill="var(--text-secondary)" font-size="10">Ansible, pytest, Selenium</text>
+
+                    <!-- 3층: 패키지 관리 -->
+                    <rect x="175" y="165" width="400" height="40" rx="10" fill="var(--svg-gray)" stroke="var(--border)" stroke-width="2"/>
+                    <text x="375" y="190" text-anchor="middle" fill="var(--text-primary)" font-weight="bold" font-size="12">PyPI (500,000+ 패키지) &nbsp;&nbsp;|&nbsp;&nbsp; pip / uv / poetry / conda</text>
+
+                    <!-- 4층: 표준 라이브러리 -->
+                    <rect x="100" y="220" width="550" height="35" rx="10" fill="var(--svg-blue)" stroke="#2196F3" stroke-width="2"/>
+                    <text x="375" y="243" text-anchor="middle" fill="var(--svg-blue-text)" font-weight="bold" font-size="12">표준 라이브러리 (200+ 모듈): os, sys, json, re, http, unittest, typing, asyncio ...</text>
+
+                    <!-- 5층: Python 인터프리터 -->
+                    <rect x="175" y="270" width="400" height="25" rx="8" fill="#667eea"/>
+                    <text x="375" y="287" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Python 인터프리터 (CPython / PyPy / GraalPy / ...)</text>
+                </svg>
+            </div>
+
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>PyPI (Python Package Index)</h4>
+                    <p>파이썬의 공식 서드파티 패키지 저장소입니다. <code>pip install 패키지명</code> 한 줄로 전 세계 개발자가 만든 50만 개 이상의 패키지를 즉시 설치할 수 있습니다. 웹 프레임워크, AI 라이브러리, 이미지 처리, 암호화 등 거의 모든 기능의 패키지가 존재합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>Jupyter Notebook</h4>
+                    <p>코드, 시각화, 설명 텍스트를 하나의 문서에 결합할 수 있는 대화형 개발 환경입니다. 데이터 과학, 머신러닝 연구, 교육 분야에서 사실상 표준 도구로 사용됩니다. Google Colab은 클라우드에서 무료로 Jupyter 환경을 제공합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>커뮤니티와 거버넌스</h4>
+                    <p><strong>PSF(Python Software Foundation)</strong>가 언어 발전을 관리하며, <strong>PEP(Python Enhancement Proposals)</strong> 프로세스를 통해 새로운 기능이 제안되고 채택됩니다. 귀도 반 로섬 은퇴 후 <strong>Steering Council</strong>(5인 위원회)이 최종 결정을 내립니다.</p>
+                </div>
+                <div class="feature-card">
+                    <h4>주요 IDE / 에디터</h4>
+                    <p><strong>VS Code</strong>(가장 인기, Python 확장 제공), <strong>PyCharm</strong>(JetBrains, 전문 IDE), <strong>Jupyter</strong>(대화형 분석), <strong>Vim/Neovim</strong>(터미널 기반). 각 도구는 자동 완성, 디버깅, 린팅, 가상환경 관리 등을 지원합니다.</p>
+                </div>
+            </div>
 
             <div class="level-guide beginner">
                 <div class="level-guide-header">초급자 가이드 - 파이썬을 왜 배워야 할까?</div>
@@ -1176,7 +1486,59 @@
             </div>
 
             <h3>파이썬 인터프리터 종류</h3>
-            <p>파이썬은 언어 사양(specification)과 구현체(implementation)가 분리되어 있습니다. 동일한 파이썬 코드를 다양한 인터프리터에서 실행할 수 있으며, 각 인터프리터는 다른 플랫폼이나 성능 요구사항에 최적화되어 있습니다.</p>
+            <p>파이썬은 언어 사양(specification)과 구현체(implementation)가 분리되어 있습니다. 동일한 파이썬 코드를 다양한 인터프리터에서 실행할 수 있으며, 각 인터프리터는 다른 플랫폼이나 성능 요구사항에 최적화되어 있습니다. 이 분리 덕분에 다양한 실행 환경(JVM, .NET, 브라우저 등)에서 파이썬 코드를 재사용할 수 있습니다.</p>
+
+            <div class="svg-container">
+                <!-- 인터프리터 비교 다이어그램 -->
+                <svg width="750" height="200" viewBox="0 0 750 200" xmlns="http://www.w3.org/2000/svg">
+                    <text x="375" y="22" text-anchor="middle" fill="var(--text-primary)" font-weight="bold" font-size="14">Python 인터프리터 생태계</text>
+
+                    <!-- 상단: 파이썬 소스코드 -->
+                    <rect x="275" y="35" width="200" height="30" rx="8" fill="#667eea"/>
+                    <text x="375" y="55" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Python 소스 코드 (.py)</text>
+
+                    <!-- 분기선 -->
+                    <line x1="375" y1="65" x2="375" y2="85" stroke="var(--text-muted)" stroke-width="1.5"/>
+                    <line x1="75" y1="85" x2="675" y2="85" stroke="var(--text-muted)" stroke-width="1.5"/>
+                    <line x1="75" y1="85" x2="75" y2="100" stroke="var(--text-muted)" stroke-width="1.5"/>
+                    <line x1="225" y1="85" x2="225" y2="100" stroke="var(--text-muted)" stroke-width="1.5"/>
+                    <line x1="375" y1="85" x2="375" y2="100" stroke="var(--text-muted)" stroke-width="1.5"/>
+                    <line x1="525" y1="85" x2="525" y2="100" stroke="var(--text-muted)" stroke-width="1.5"/>
+                    <line x1="675" y1="85" x2="675" y2="100" stroke="var(--text-muted)" stroke-width="1.5"/>
+
+                    <!-- CPython -->
+                    <rect x="15" y="100" width="120" height="60" rx="8" fill="var(--svg-blue)" stroke="#2196F3" stroke-width="2"/>
+                    <text x="75" y="122" text-anchor="middle" fill="var(--svg-blue-text)" font-weight="bold" font-size="12">CPython</text>
+                    <text x="75" y="140" text-anchor="middle" fill="var(--text-secondary)" font-size="9">C 기반 | 표준 구현체</text>
+                    <text x="75" y="170" text-anchor="middle" fill="var(--text-muted)" font-size="9">python.org 기본</text>
+
+                    <!-- PyPy -->
+                    <rect x="165" y="100" width="120" height="60" rx="8" fill="var(--svg-orange)" stroke="#ff9800" stroke-width="2"/>
+                    <text x="225" y="122" text-anchor="middle" fill="var(--svg-orange-text)" font-weight="bold" font-size="12">PyPy</text>
+                    <text x="225" y="140" text-anchor="middle" fill="var(--text-secondary)" font-size="9">JIT | 고속 실행</text>
+                    <text x="225" y="170" text-anchor="middle" fill="var(--text-muted)" font-size="9">수~수십 배 빠름</text>
+
+                    <!-- Jython -->
+                    <rect x="315" y="100" width="120" height="60" rx="8" fill="var(--svg-green)" stroke="#4CAF50" stroke-width="2"/>
+                    <text x="375" y="122" text-anchor="middle" fill="var(--svg-green-text)" font-weight="bold" font-size="12">Jython</text>
+                    <text x="375" y="140" text-anchor="middle" fill="var(--text-secondary)" font-size="9">JVM | Java 통합</text>
+                    <text x="375" y="170" text-anchor="middle" fill="var(--text-muted)" font-size="9">Java 라이브러리 호출</text>
+
+                    <!-- IronPython -->
+                    <rect x="465" y="100" width="120" height="60" rx="8" fill="var(--svg-pink)" stroke="#e91e63" stroke-width="2"/>
+                    <text x="525" y="122" text-anchor="middle" fill="var(--svg-pink-text)" font-weight="bold" font-size="12">IronPython</text>
+                    <text x="525" y="140" text-anchor="middle" fill="var(--text-secondary)" font-size="9">.NET CLR | C# 통합</text>
+                    <text x="525" y="170" text-anchor="middle" fill="var(--text-muted)" font-size="9">.NET 생태계 연동</text>
+
+                    <!-- Brython -->
+                    <rect x="615" y="100" width="120" height="60" rx="8" fill="var(--svg-blue)" stroke="#2196F3" stroke-width="2"/>
+                    <text x="675" y="122" text-anchor="middle" fill="var(--svg-blue-text)" font-weight="bold" font-size="12">Brython</text>
+                    <text x="675" y="140" text-anchor="middle" fill="var(--text-secondary)" font-size="9">JS 기반 | 브라우저용</text>
+                    <text x="675" y="170" text-anchor="middle" fill="var(--text-muted)" font-size="9">웹 프론트엔드 실행</text>
+
+                    <text x="375" y="195" text-anchor="middle" fill="var(--text-muted)" font-size="10">하나의 Python 소스 코드를 다양한 플랫폼에서 실행할 수 있습니다</text>
+                </svg>
+            </div>
             <div class="feature-grid">
                 <div class="feature-card">
                     <h4>CPython</h4>
@@ -1202,14 +1564,50 @@
             
             <h3>Python 2.x vs 3.x 차이점</h3>
             <div class="warning-box">
-                <strong>권장:</strong> 이제 Python 3.x 이상을 기준으로 학습하세요. Python 2.x는 2020년에 지원이 종료되었습니다.
+                <strong>권장:</strong> 이제 Python 3.x 이상을 기준으로 학습하세요. Python 2.x는 2020년 1월 1일에 공식 지원이 종료(EOL)되었으며, 보안 패치도 더 이상 제공되지 않습니다. 모든 주요 라이브러리(Django, NumPy, Pandas 등)가 Python 2 지원을 중단했습니다.
             </div>
-            <ul>
-                <li><strong>print</strong>: 2.x는 <code>print "hello"</code>, 3.x는 <code>print("hello")</code></li>
-                <li><strong>나눗셈</strong>: 2.x는 정수나누기 결과가 정수, 3.x는 실수</li>
-                <li><strong>유니코드</strong>: 2.x는 <code>u"문자열"</code>, 3.x는 기본이 유니코드</li>
-                <li><strong>한글 변수</strong>: 3.x부터 한글 변수명 사용 가능</li>
-            </ul>
+
+            <div class="svg-container">
+                <!-- Python 2 vs 3 비교 다이어그램 -->
+                <svg width="750" height="280" viewBox="0 0 750 280" xmlns="http://www.w3.org/2000/svg">
+                    <text x="375" y="25" text-anchor="middle" fill="var(--text-primary)" font-weight="bold" font-size="15">Python 2 vs Python 3 주요 차이</text>
+
+                    <!-- Python 2 영역 -->
+                    <rect x="30" y="45" width="320" height="220" rx="12" fill="var(--svg-pink)" stroke="#e91e63" stroke-width="2" opacity="0.5"/>
+                    <rect x="40" y="50" width="300" height="30" rx="6" fill="#e91e63"/>
+                    <text x="190" y="70" text-anchor="middle" fill="white" font-weight="bold" font-size="13">Python 2.x (지원 종료)</text>
+
+                    <text x="55" y="105" fill="var(--text-secondary)" font-size="11">print "hello"</text>
+                    <text x="55" y="128" fill="var(--text-secondary)" font-size="11">5 / 2 = 2 (정수 나눗셈)</text>
+                    <text x="55" y="151" fill="var(--text-secondary)" font-size="11">u"유니코드 문자열"</text>
+                    <text x="55" y="174" fill="var(--text-secondary)" font-size="11">xrange() (메모리 절약)</text>
+                    <text x="55" y="197" fill="var(--text-secondary)" font-size="11">raw_input() (사용자 입력)</text>
+                    <text x="55" y="220" fill="var(--text-secondary)" font-size="11">except Error, e: (구문)</text>
+                    <text x="55" y="243" fill="var(--text-secondary)" font-size="11">has_key() 딕셔너리 메서드</text>
+
+                    <!-- 화살표들 -->
+                    <text x="370" y="105" text-anchor="middle" fill="#667eea" font-weight="bold" font-size="14">&rarr;</text>
+                    <text x="370" y="128" text-anchor="middle" fill="#667eea" font-weight="bold" font-size="14">&rarr;</text>
+                    <text x="370" y="151" text-anchor="middle" fill="#667eea" font-weight="bold" font-size="14">&rarr;</text>
+                    <text x="370" y="174" text-anchor="middle" fill="#667eea" font-weight="bold" font-size="14">&rarr;</text>
+                    <text x="370" y="197" text-anchor="middle" fill="#667eea" font-weight="bold" font-size="14">&rarr;</text>
+                    <text x="370" y="220" text-anchor="middle" fill="#667eea" font-weight="bold" font-size="14">&rarr;</text>
+                    <text x="370" y="243" text-anchor="middle" fill="#667eea" font-weight="bold" font-size="14">&rarr;</text>
+
+                    <!-- Python 3 영역 -->
+                    <rect x="400" y="45" width="320" height="220" rx="12" fill="var(--svg-green)" stroke="#4CAF50" stroke-width="2" opacity="0.5"/>
+                    <rect x="410" y="50" width="300" height="30" rx="6" fill="#4CAF50"/>
+                    <text x="560" y="70" text-anchor="middle" fill="white" font-weight="bold" font-size="13">Python 3.x (현재 표준)</text>
+
+                    <text x="415" y="105" fill="var(--svg-green-text)" font-size="11" font-weight="bold">print("hello") 함수 호출</text>
+                    <text x="415" y="128" fill="var(--svg-green-text)" font-size="11" font-weight="bold">5 / 2 = 2.5 (실수 나눗셈)</text>
+                    <text x="415" y="151" fill="var(--svg-green-text)" font-size="11" font-weight="bold">"기본이 유니코드 문자열"</text>
+                    <text x="415" y="174" fill="var(--svg-green-text)" font-size="11" font-weight="bold">range() (이터레이터 반환)</text>
+                    <text x="415" y="197" fill="var(--svg-green-text)" font-size="11" font-weight="bold">input() (항상 문자열 반환)</text>
+                    <text x="415" y="220" fill="var(--svg-green-text)" font-size="11" font-weight="bold">except Error as e: (구문)</text>
+                    <text x="415" y="243" fill="var(--svg-green-text)" font-size="11" font-weight="bold">key in dict (in 연산자)</text>
+                </svg>
+            </div>
             
             <h3>Python 3.14 새로운 기능 (2025년 10월 출시)</h3>
             <p>Python 3.14는 성능 개선, 새로운 문법, 디버깅 도구 등 다양한 혁신을 포함합니다. 특히 GIL 제거를 향한 Free-threaded 모드와 Template Strings는 파이썬 생태계에 큰 변화를 가져올 핵심 기능입니다.</p>
