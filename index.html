@@ -2679,78 +2679,913 @@ p = Point(<span class="number">10</span>, <span class="number">20</span>)
             <span class="level-badge level-expert">전문가</span>
             
             <h3>NumPy (수치 계산)</h3>
+
+            <p>
+                NumPy(Numerical Python)는 파이썬 과학 계산의 핵심 라이브러리입니다.
+                C로 구현된 다차원 배열 객체 <code>ndarray</code>를 제공하며,
+                반복문 없이 벡터화 연산으로 수십~수백 배의 성능을 냅니다.
+                Pandas, scikit-learn, TensorFlow, PyTorch 등 거의 모든 AI/데이터 라이브러리의 기반입니다.
+            </p>
+
+            <div class="tip-box">
+                <strong>설치:</strong> <code>pip install numpy</code> &nbsp;|&nbsp;
+                확인: <code>python -c "import numpy; print(numpy.__version__)"</code>
+            </div>
+
+            <h4>배열 생성 (Array Creation)</h4>
             <div class="code-block">
 <span class="keyword">import</span> numpy <span class="keyword">as</span> np
 
-<span class="comment"># 배열 생성</span>
-arr = np.array([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>])
-matrix = np.array([[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]])
+<span class="comment"># 리스트/튜플에서 생성</span>
+a1 = np.array([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])                    <span class="comment"># 1차원 (ndim=1)</span>
+a2 = np.array([[<span class="number">1</span>, <span class="number">2</span>], [<span class="number">3</span>, <span class="number">4</span>]])              <span class="comment"># 2차원 (ndim=2)</span>
+a3 = np.array([[[<span class="number">1</span>, <span class="number">2</span>], [<span class="number">3</span>, <span class="number">4</span>]]])             <span class="comment"># 3차원 (ndim=3)</span>
 
-<span class="comment"># 특수 배열</span>
-zeros = np.zeros(<span class="number">3</span>)
-ones = np.ones((<span class="number">3</span>, <span class="number">4</span>))
-eye = np.eye(<span class="number">4</span>)
-range_arr = np.arange(<span class="number">0</span>, <span class="number">10</span>, <span class="number">2</span>)
-linspace = np.linspace(<span class="number">0</span>, <span class="number">1</span>, <span class="number">5</span>)
+<span class="comment"># 특수 배열 생성</span>
+np.zeros((<span class="number">3</span>, <span class="number">4</span>))          <span class="comment"># 0으로 채운 3×4 행렬</span>
+np.ones((<span class="number">2</span>, <span class="number">3</span>))           <span class="comment"># 1로 채운 2×3 행렬</span>
+np.full((<span class="number">3</span>, <span class="number">3</span>), <span class="number">7</span>)        <span class="comment"># 7로 채운 3×3 행렬</span>
+np.eye(<span class="number">4</span>)                  <span class="comment"># 4×4 단위 행렬(항등행렬)</span>
+np.empty((<span class="number">2</span>, <span class="number">2</span>))          <span class="comment"># 초기화 없이 메모리 할당 (속도 빠름)</span>
 
-<span class="comment"># 배열 연산</span>
-arr * <span class="number">2</span>        <span class="comment"># Broadcasting</span>
-arr + arr       <span class="comment"># 요소별 연산</span>
-np.dot(arr, arr)  <span class="comment"># 내적</span>
-np.sum(arr)      <span class="comment"># 합계</span>
-np.mean(arr)     <span class="comment"># 평균</span>
-np.std(arr)      <span class="comment"># 표준편차</span>
-np.max(arr), np.min(arr)  <span class="comment"># 최대/최소</span>
+<span class="comment"># 수열 배열</span>
+np.arange(<span class="number">0</span>, <span class="number">10</span>, <span class="number">2</span>)       <span class="comment"># [0 2 4 6 8]  — range와 유사, 실수 step 가능</span>
+np.linspace(<span class="number">0</span>, <span class="number">1</span>, <span class="number">5</span>)      <span class="comment"># [0.   0.25 0.5  0.75 1.]  — 균등 간격 n개</span>
+np.logspace(<span class="number">0</span>, <span class="number">3</span>, <span class="number">4</span>)      <span class="comment"># [1. 10. 100. 1000.]  — 로그 균등</span>
 
-<span class="comment"># 형태 변환</span>
-arr.reshape(<span class="number">-1</span>, <span class="number">1</span>)  <span class="comment"># 열 벡터로</span>
-arr.flatten()    <span class="comment"># 1차원으로</span>
-
-<span class="comment"># 인덱싱</span>
-arr[<span class="number">0</span>]         <span class="comment"># 첫 번째 요소</span>
-arr[<span class="number">1</span>:<span class="number">4</span>]       <span class="comment"># 슬라이싱</span>
-arr[arr > <span class="number">3</span>]    <span class="comment"># 조건 인덱싱</span>
+<span class="comment"># 타입 지정</span>
+np.array([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], dtype=np.float32)   <span class="comment"># float32 (메모리 절반)</span>
+np.zeros(<span class="number">5</span>, dtype=np.int64)              <span class="comment"># int64</span>
+np.array([<span class="keyword">True</span>, <span class="keyword">False</span>], dtype=np.bool_)  <span class="comment"># bool</span>
             </div>
-            
+
+            <h4>배열 속성 (ndarray Attributes)</h4>
+            <div class="code-block">
+a = np.array([[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],
+              [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]])
+
+a.ndim       <span class="comment"># 2          — 차원 수</span>
+a.shape      <span class="comment"># (2, 3)     — (행, 열) 크기</span>
+a.size       <span class="comment"># 6          — 전체 요소 수</span>
+a.dtype      <span class="comment"># dtype('int64')  — 요소 데이터 타입</span>
+a.itemsize   <span class="comment"># 8          — 요소 하나의 바이트 크기</span>
+a.nbytes     <span class="comment"># 48         — 전체 바이트 크기 (size × itemsize)</span>
+a.T          <span class="comment"># 전치 행렬 shape=(3, 2)</span>
+a.real       <span class="comment"># 실수부 (복소수 배열일 때)</span>
+a.imag       <span class="comment"># 허수부</span>
+            </div>
+
+            <h4>인덱싱 &amp; 슬라이싱 (Indexing &amp; Slicing)</h4>
+            <div class="code-block">
+a = np.array([[<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>],
+              [<span class="number">40</span>, <span class="number">50</span>, <span class="number">60</span>],
+              [<span class="number">70</span>, <span class="number">80</span>, <span class="number">90</span>]])
+
+<span class="comment"># 기본 인덱싱</span>
+a[<span class="number">0</span>, <span class="number">1</span>]          <span class="comment"># 20  — (0행, 1열)</span>
+a[<span class="number">-1</span>, <span class="number">-1</span>]        <span class="comment"># 90  — 마지막 요소</span>
+
+<span class="comment"># 슬라이싱  [행 start:stop:step, 열 start:stop:step]</span>
+a[<span class="number">0</span>:<span class="number">2</span>, <span class="number">1</span>:<span class="number">3</span>]       <span class="comment"># [[20,30],[50,60]]</span>
+a[:, <span class="number">0</span>]           <span class="comment"># [10 40 70]  — 0번 열 전체</span>
+a[<span class="number">1</span>, :]           <span class="comment"># [40 50 60]  — 1번 행 전체</span>
+a[::<span class="number">2</span>, ::<span class="number">2</span>]       <span class="comment"># [[10,30],[70,90]]  — 2칸 간격</span>
+
+<span class="comment"># 팬시 인덱싱 (Fancy Indexing) — 인덱스 목록으로 선택</span>
+idx = [<span class="number">0</span>, <span class="number">2</span>]
+a[idx]            <span class="comment"># [[10,20,30],[70,80,90]]  — 0행, 2행</span>
+a[:, idx]         <span class="comment"># 0열, 2열 선택</span>
+
+<span class="comment"># 불리언 인덱싱 (Boolean Indexing)</span>
+mask = a > <span class="number">50</span>
+a[mask]           <span class="comment"># [60 70 80 90]  — 조건 만족 요소</span>
+a[a % <span class="number">20</span> == <span class="number">0</span>]   <span class="comment"># 20의 배수만</span>
+
+<span class="comment"># 인덱스 위치 찾기</span>
+np.where(a > <span class="number">50</span>)          <span class="comment"># 조건 위치 (행 배열, 열 배열) 반환</span>
+np.argmax(a), np.argmin(a)  <span class="comment"># 최대/최소 위치 (flatten 기준)</span>
+np.argmax(a, axis=<span class="number">0</span>)       <span class="comment"># 열별 최대값 위치</span>
+            </div>
+
+            <h4>형태 변환 (Reshaping)</h4>
+            <div class="code-block">
+a = np.arange(<span class="number">12</span>)    <span class="comment"># [0 1 2 ... 11]</span>
+
+<span class="comment"># reshape — 데이터 공유(뷰), 변경 시 원본도 변경</span>
+a.reshape(<span class="number">3</span>, <span class="number">4</span>)      <span class="comment"># 3행 4열</span>
+a.reshape(<span class="number">2</span>, <span class="number">-1</span>)     <span class="comment"># -1은 자동 계산 → (2, 6)</span>
+a.reshape(<span class="number">-1</span>, <span class="number">1</span>)     <span class="comment"># 열 벡터 (12, 1)</span>
+a.reshape(<span class="number">1</span>, <span class="number">-1</span>)     <span class="comment"># 행 벡터 (1, 12)</span>
+
+<span class="comment"># 차원 추가/제거</span>
+a[np.newaxis, :]     <span class="comment"># (1, 12) — 앞에 차원 추가</span>
+a[:, np.newaxis]     <span class="comment"># (12, 1) — 뒤에 차원 추가</span>
+np.expand_dims(a, axis=<span class="number">0</span>)  <span class="comment"># (1, 12)</span>
+np.squeeze(a.reshape(<span class="number">1</span>,<span class="number">12</span>))  <span class="comment"># 크기 1인 차원 제거 → (12,)</span>
+
+<span class="comment"># 평탄화</span>
+b = a.reshape(<span class="number">3</span>, <span class="number">4</span>)
+b.ravel()            <span class="comment"># 1차원 뷰 반환 (원본 공유)</span>
+b.flatten()          <span class="comment"># 1차원 복사본 반환 (독립)</span>
+
+<span class="comment"># 전치 (Transpose)</span>
+b.T                  <span class="comment"># shape (3,4) → (4,3)</span>
+np.transpose(b, (<span class="number">1</span>, <span class="number">0</span>))  <span class="comment"># 축 순서 지정</span>
+            </div>
+
+            <h4>브로드캐스팅 (Broadcasting)</h4>
+            <div class="tip-box">
+                <strong>브로드캐스팅 규칙:</strong> 두 배열의 shape를 오른쪽에서 비교해서,
+                ① 같거나 ② 한쪽이 1이면 연산 가능합니다. 크기 1인 차원이 자동으로 확장됩니다.
+            </div>
+            <div class="code-block">
+<span class="comment"># 스칼라 브로드캐스팅</span>
+a = np.array([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])
+a + <span class="number">10</span>       <span class="comment"># [11 12 13]</span>
+a * <span class="number">2</span>        <span class="comment"># [2 4 6]</span>
+
+<span class="comment"># 2D ↔ 1D 브로드캐스팅</span>
+m = np.array([[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>],   <span class="comment"># shape (2, 3)</span>
+              [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]])
+v = np.array([<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>])  <span class="comment"># shape (3,) → 자동으로 (1,3)→(2,3)</span>
+m + v         <span class="comment"># [[11,22,33],[14,25,36]]</span>
+
+<span class="comment"># 열 벡터 ↔ 행 벡터</span>
+col = np.array([[<span class="number">1</span>], [<span class="number">2</span>], [<span class="number">3</span>]])  <span class="comment"># shape (3, 1)</span>
+row = np.array([<span class="number">10</span>, <span class="number">20</span>])          <span class="comment"># shape (2,) → (1, 2)</span>
+col + row     <span class="comment"># shape (3, 2) — 외적처럼 확장</span>
+<span class="comment"># [[11,21],[12,22],[13,23]]</span>
+
+<span class="comment"># 실용: 정규화 (각 열을 평균 0으로)</span>
+data = np.random.randn(<span class="number">100</span>, <span class="number">5</span>)
+data -= data.mean(axis=<span class="number">0</span>)    <span class="comment"># 열별 평균 빼기</span>
+data /= data.std(axis=<span class="number">0</span>)     <span class="comment"># 열별 표준편차 나누기</span>
+            </div>
+
+            <h4>수학 함수 (Math Functions)</h4>
+            <div class="code-block">
+a = np.array([<span class="number">1.0</span>, <span class="number">4.0</span>, <span class="number">9.0</span>, <span class="number">16.0</span>])
+
+<span class="comment"># 기본 수학</span>
+np.sqrt(a)           <span class="comment"># [1. 2. 3. 4.]</span>
+np.square(a)         <span class="comment"># 제곱</span>
+np.abs(np.array([-<span class="number">1</span>, <span class="number">2</span>, -<span class="number">3</span>]))   <span class="comment"># 절대값 [1 2 3]</span>
+np.power(a, <span class="number">0.5</span>)    <span class="comment"># 거듭제곱 (sqrt와 동일)</span>
+
+<span class="comment"># 지수/로그</span>
+np.exp(np.array([<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>]))   <span class="comment"># e^x: [1. 2.718 7.389]</span>
+np.log(a)            <span class="comment"># 자연로그</span>
+np.log2(a)           <span class="comment"># 밑 2 로그</span>
+np.log10(a)          <span class="comment"># 밑 10 로그</span>
+
+<span class="comment"># 삼각함수 (라디안 기준)</span>
+angles = np.linspace(<span class="number">0</span>, np.pi, <span class="number">5</span>)
+np.sin(angles)
+np.cos(angles)
+np.tan(angles)
+np.deg2rad(<span class="number">180</span>)     <span class="comment"># 도→라디안 (= np.pi)</span>
+np.rad2deg(np.pi)   <span class="comment"># 라디안→도 (= 180.0)</span>
+
+<span class="comment"># 반올림</span>
+x = np.array([<span class="number">1.4</span>, <span class="number">1.5</span>, <span class="number">2.5</span>, <span class="number">3.6</span>])
+np.round(x)          <span class="comment"># [1. 2. 2. 4.]  (은행가 반올림)</span>
+np.floor(x)          <span class="comment"># [1. 1. 2. 3.]  (내림)</span>
+np.ceil(x)           <span class="comment"># [2. 2. 3. 4.]  (올림)</span>
+np.trunc(x)          <span class="comment"># [1. 1. 2. 3.]  (0 방향 절단)</span>
+
+<span class="comment"># 누적 연산</span>
+a = np.array([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])
+np.cumsum(a)         <span class="comment"># [1 3 6 10]  — 누적 합</span>
+np.cumprod(a)        <span class="comment"># [1 2 6 24]  — 누적 곱</span>
+np.diff(a)           <span class="comment"># [1 1 1]     — 차분</span>
+            </div>
+
+            <h4>통계 함수 (Statistical Functions)</h4>
+            <div class="code-block">
+a = np.array([[<span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>],
+              [<span class="number">8</span>, <span class="number">10</span>, <span class="number">12</span>]])
+
+<span class="comment"># 기본 통계 — axis=None(전체), axis=0(열별), axis=1(행별)</span>
+np.sum(a)              <span class="comment"># 42</span>
+np.sum(a, axis=<span class="number">0</span>)     <span class="comment"># [10 14 18]  — 열별 합</span>
+np.sum(a, axis=<span class="number">1</span>)     <span class="comment"># [12 30]     — 행별 합</span>
+
+np.mean(a)             <span class="comment"># 7.0</span>
+np.median(a)           <span class="comment"># 7.0</span>
+np.std(a)              <span class="comment"># 표준편차</span>
+np.var(a)              <span class="comment"># 분산</span>
+
+np.min(a), np.max(a)   <span class="comment"># 2, 12</span>
+np.ptp(a)              <span class="comment"># peak-to-peak (max-min) = 10</span>
+
+<span class="comment"># 퍼센타일 / 분위수</span>
+np.percentile(a, <span class="number">25</span>)   <span class="comment"># 1사분위수 (Q1)</span>
+np.percentile(a, [<span class="number">25</span>, <span class="number">50</span>, <span class="number">75</span>])  <span class="comment"># Q1, Q2, Q3</span>
+np.quantile(a, <span class="number">0.9</span>)   <span class="comment"># 90번째 백분위</span>
+
+<span class="comment"># 상관 계수 / 공분산</span>
+x = np.array([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>])
+y = np.array([<span class="number">2</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">8</span>])
+np.corrcoef(x, y)      <span class="comment"># 상관 계수 행렬</span>
+np.cov(x, y)           <span class="comment"># 공분산 행렬</span>
+
+<span class="comment"># 히스토그램</span>
+counts, edges = np.histogram(a.ravel(), bins=<span class="number">4</span>)
+            </div>
+
+            <h4>선형대수 (Linear Algebra — np.linalg)</h4>
+            <div class="code-block">
+A = np.array([[<span class="number">3</span>, <span class="number">1</span>],
+              [<span class="number">1</span>, <span class="number">2</span>]])
+b = np.array([<span class="number">9</span>, <span class="number">8</span>])
+
+<span class="comment"># 행렬 곱</span>
+np.dot(A, A)           <span class="comment"># 행렬 곱셈 (2D 권장)</span>
+A @ A                  <span class="comment"># @ 연산자 (Python 3.5+, 권장)</span>
+np.matmul(A, A)        <span class="comment"># matmul (배치 연산 지원)</span>
+
+<span class="comment"># np.linalg 함수</span>
+np.linalg.det(A)       <span class="comment"># 행렬식(determinant)</span>
+np.linalg.inv(A)       <span class="comment"># 역행렬</span>
+np.linalg.solve(A, b)  <span class="comment"># Ax=b 연립방정식 풀기 (inv 대신 권장)</span>
+
+np.linalg.norm(b)      <span class="comment"># 벡터 노름(크기) — L2 norm</span>
+np.linalg.norm(b, <span class="number">1</span>)  <span class="comment"># L1 norm</span>
+np.linalg.norm(A, <span class="string">"fro"</span>)  <span class="comment"># Frobenius norm</span>
+
+<span class="comment"># 고유값 분해 (Eigendecomposition)</span>
+eigenvalues, eigenvectors = np.linalg.eig(A)
+
+<span class="comment"># 특이값 분해 (SVD)</span>
+U, S, Vt = np.linalg.svd(A)
+
+<span class="comment"># QR 분해 / LU 분해</span>
+Q, R = np.linalg.qr(A)
+
+<span class="comment"># 랭크 / 대각 / 대각합</span>
+np.linalg.matrix_rank(A)   <span class="comment"># 행렬 랭크</span>
+np.diag(A)                  <span class="comment"># 대각 요소 추출</span>
+np.diag([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>])         <span class="comment"># 대각 행렬 생성</span>
+np.trace(A)                 <span class="comment"># 대각합 (trace)</span>
+            </div>
+
+            <h4>난수 생성 (Random — np.random)</h4>
+            <div class="code-block">
+rng = np.random.default_rng(seed=<span class="number">42</span>)  <span class="comment"># 권장: 새 Generator API</span>
+
+<span class="comment"># 연속 분포</span>
+rng.random((<span class="number">3</span>, <span class="number">4</span>))        <span class="comment"># [0, 1) 균등 분포</span>
+rng.uniform(<span class="number">-1</span>, <span class="number">1</span>, <span class="number">5</span>)    <span class="comment"># [-1, 1) 균등 분포</span>
+rng.normal(<span class="number">0</span>, <span class="number">1</span>, (<span class="number">3</span>, <span class="number">3</span>)) <span class="comment"># 정규 분포 (평균=0, 표준편차=1)</span>
+rng.exponential(<span class="number">2</span>, <span class="number">10</span>)   <span class="comment"># 지수 분포</span>
+rng.beta(<span class="number">2</span>, <span class="number">5</span>, <span class="number">10</span>)       <span class="comment"># 베타 분포</span>
+rng.poisson(<span class="number">3</span>, <span class="number">10</span>)       <span class="comment"># 포아송 분포</span>
+
+<span class="comment"># 이산 분포</span>
+rng.integers(<span class="number">0</span>, <span class="number">10</span>, <span class="number">5</span>)   <span class="comment"># [0, 10) 정수 (구 randint)</span>
+rng.choice([<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>], <span class="number">5</span>, replace=<span class="keyword">True</span>)  <span class="comment"># 복원 추출</span>
+rng.choice([<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>], <span class="number">2</span>, replace=<span class="keyword">False</span>) <span class="comment"># 비복원 추출</span>
+
+<span class="comment"># 셔플 / 순열</span>
+arr = np.arange(<span class="number">10</span>)
+rng.shuffle(arr)          <span class="comment"># 제자리 셔플 (in-place)</span>
+rng.permutation(arr)      <span class="comment"># 셔플된 새 배열 반환</span>
+
+<span class="comment"># 레거시 API (구버전 호환)</span>
+np.random.seed(<span class="number">42</span>)       <span class="comment"># 재현성 고정 (전역 상태 — 비권장)</span>
+np.random.rand(<span class="number">3</span>, <span class="number">3</span>)    <span class="comment"># [0,1) 균등</span>
+np.random.randn(<span class="number">3</span>, <span class="number">3</span>)   <span class="comment"># 표준 정규 분포</span>
+            </div>
+
+            <h4>배열 결합 &amp; 분할 (Concatenation &amp; Splitting)</h4>
+            <div class="code-block">
+a = np.array([[<span class="number">1</span>, <span class="number">2</span>], [<span class="number">3</span>, <span class="number">4</span>]])
+b = np.array([[<span class="number">5</span>, <span class="number">6</span>], [<span class="number">7</span>, <span class="number">8</span>]])
+
+<span class="comment"># 결합 (concatenate)</span>
+np.concatenate([a, b], axis=<span class="number">0</span>)   <span class="comment"># 행 방향 → (4,2)</span>
+np.concatenate([a, b], axis=<span class="number">1</span>)   <span class="comment"># 열 방향 → (2,4)</span>
+np.vstack([a, b])  <span class="comment"># 행 쌓기 (axis=0), shape 달라도 열수 같으면 OK</span>
+np.hstack([a, b])  <span class="comment"># 열 쌓기 (axis=1)</span>
+np.dstack([a, b])  <span class="comment"># 깊이 쌓기 (axis=2)</span>
+
+<span class="comment"># 새 축으로 쌓기</span>
+np.stack([a, b], axis=<span class="number">0</span>)  <span class="comment"># → (2,2,2): 새 축(0) 생성</span>
+np.stack([a, b], axis=<span class="number">2</span>)  <span class="comment"># → (2,2,2): 새 축(2) 생성</span>
+
+<span class="comment"># 분할 (split)</span>
+arr = np.arange(<span class="number">12</span>).reshape(<span class="number">4</span>, <span class="number">3</span>)
+np.split(arr, <span class="number">2</span>, axis=<span class="number">0</span>)       <span class="comment"># 행 방향 2등분 → [shape(2,3), shape(2,3)]</span>
+np.vsplit(arr, <span class="number">2</span>)               <span class="comment"># vsplit = split(..., axis=0)</span>
+np.hsplit(arr, <span class="number">3</span>)               <span class="comment"># 열 방향 3등분 → [shape(4,1), ...]</span>
+np.array_split(arr, <span class="number">3</span>, axis=<span class="number">0</span>) <span class="comment"># 불균등 분할도 가능</span>
+            </div>
+
+            <h4>정렬 &amp; 탐색 (Sorting &amp; Searching)</h4>
+            <div class="code-block">
+a = np.array([<span class="number">3</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">1</span>, <span class="number">5</span>, <span class="number">9</span>, <span class="number">2</span>, <span class="number">6</span>])
+
+<span class="comment"># 정렬</span>
+np.sort(a)              <span class="comment"># [1 1 2 3 4 5 6 9]  — 새 배열</span>
+a.sort()                <span class="comment"># in-place 정렬</span>
+np.sort(a)[:<span class="number">-1</span>]        <span class="comment"># 내림차순 슬라이싱</span>
+
+<span class="comment"># 간접 정렬 (인덱스 반환)</span>
+np.argsort(a)           <span class="comment"># 정렬 시 원래 인덱스 순서</span>
+a[np.argsort(a)]        <span class="comment"># 정렬된 배열 (argsort 활용)</span>
+
+<span class="comment"># 2D 정렬</span>
+m = np.array([[<span class="number">3</span>,<span class="number">1</span>],[<span class="number">4</span>,<span class="number">2</span>]])
+np.sort(m, axis=<span class="number">0</span>)    <span class="comment"># 열별 정렬</span>
+np.sort(m, axis=<span class="number">1</span>)    <span class="comment"># 행별 정렬</span>
+
+<span class="comment"># 탐색</span>
+np.searchsorted([<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>], <span class="number">4</span>)   <span class="comment"># 삽입 위치 → 2 (이진 탐색)</span>
+np.nonzero(a)                   <span class="comment"># 0이 아닌 요소 위치</span>
+np.where(a > <span class="number">4</span>, a, <span class="number">0</span>)          <span class="comment"># 조건 기반 대체</span>
+
+<span class="comment"># 집합 연산</span>
+np.unique(a)            <span class="comment"># 중복 제거 + 정렬</span>
+np.unique(a, return_counts=<span class="keyword">True</span>)  <span class="comment"># 각 값의 빈도</span>
+np.intersect1d([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>], [<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>])  <span class="comment"># 교집합</span>
+np.union1d([<span class="number">1</span>,<span class="number">2</span>], [<span class="number">2</span>,<span class="number">3</span>])          <span class="comment"># 합집합</span>
+np.setdiff1d([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>], [<span class="number">2</span>,<span class="number">3</span>])      <span class="comment"># 차집합</span>
+np.isin(a, [<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>])              <span class="comment"># 멤버십 검사 (bool 배열)</span>
+            </div>
+
+            <h4>파일 I/O</h4>
+            <div class="code-block">
+arr = np.arange(<span class="number">12</span>).reshape(<span class="number">3</span>, <span class="number">4</span>)
+
+<span class="comment"># 이진 형식 (.npy / .npz) — 빠르고 정확, dtype 보존</span>
+np.save(<span class="string">"array.npy"</span>, arr)               <span class="comment"># 단일 배열 저장</span>
+loaded = np.load(<span class="string">"array.npy"</span>)            <span class="comment"># 불러오기</span>
+
+np.savez(<span class="string">"data.npz"</span>, x=arr, y=arr*<span class="number">2</span>)    <span class="comment"># 여러 배열</span>
+f = np.load(<span class="string">"data.npz"</span>)
+f[<span class="string">"x"</span>], f[<span class="string">"y"</span>]                           <span class="comment"># 키로 접근</span>
+
+np.savez_compressed(<span class="string">"data.npz"</span>, arr=arr) <span class="comment"># 압축 저장</span>
+
+<span class="comment"># 텍스트 형식 (.txt / .csv) — 사람이 읽을 수 있음</span>
+np.savetxt(<span class="string">"data.csv"</span>, arr, delimiter=<span class="string">","</span>, fmt=<span class="string">"%.4f"</span>)
+loaded_txt = np.loadtxt(<span class="string">"data.csv"</span>, delimiter=<span class="string">","</span>)
+
+<span class="comment"># genfromtxt — 결측치/헤더 처리 가능</span>
+data = np.genfromtxt(<span class="string">"data.csv"</span>, delimiter=<span class="string">","</span>,
+                      skip_header=<span class="number">1</span>, filling_values=<span class="number">0</span>)
+            </div>
+
+            <h4>벡터화 &amp; 성능 최적화</h4>
+            <div class="code-block">
+<span class="comment"># np.vectorize — 스칼라 함수를 배열 함수로 래핑</span>
+<span class="keyword">def</span> <span class="function">my_func</span>(x):
+    <span class="keyword">return</span> x ** <span class="number">2</span> + <span class="number">1</span> <span class="keyword">if</span> x > <span class="number">0</span> <span class="keyword">else</span> <span class="number">0</span>
+
+vfunc = np.vectorize(my_func)
+vfunc(np.array([-<span class="number">1</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">3</span>]))    <span class="comment"># [0, 0, 5, 10]</span>
+
+<span class="comment"># np.where — 조건 분기 (벡터화된 if-else)</span>
+a = np.array([-<span class="number">3</span>, -<span class="number">1</span>, <span class="number">0</span>, <span class="number">2</span>, <span class="number">4</span>])
+np.where(a > <span class="number">0</span>, a, <span class="number">0</span>)             <span class="comment"># ReLU: [0 0 0 2 4]</span>
+np.where(a > <span class="number">0</span>, <span class="string">"pos"</span>, <span class="string">"non-pos"</span>)  <span class="comment"># 문자열도 가능</span>
+
+<span class="comment"># np.select — 다중 조건</span>
+conditions = [a &lt; <span class="number">0</span>, a == <span class="number">0</span>, a > <span class="number">0</span>]
+choices    = [<span class="string">"neg"</span>, <span class="string">"zero"</span>, <span class="string">"pos"</span>]
+np.select(conditions, choices, default=<span class="string">"?"</span>)
+
+<span class="comment"># 메모리 레이아웃 — C order(행 우선) vs F order(열 우선)</span>
+c_arr = np.ascontiguousarray(arr)   <span class="comment"># C-contiguous (행 연속)</span>
+f_arr = np.asfortranarray(arr)      <span class="comment"># F-contiguous (열 연속)</span>
+arr.flags                           <span class="comment"># 메모리 레이아웃 정보</span>
+
+<span class="comment"># 뷰 vs 복사 — 메모리 공유 여부 확인</span>
+view = arr[<span class="number">0</span>:<span class="number">2</span>]                     <span class="comment"># 뷰 (메모리 공유)</span>
+copy = arr[<span class="number">0</span>:<span class="number">2</span>].copy()              <span class="comment"># 독립 복사본</span>
+view.base <span class="keyword">is</span> arr                    <span class="comment"># True (뷰 확인)</span>
+            </div>
+
+            <h4>NumPy vs 순수 Python 성능 비교</h4>
+            <table class="comparison-table">
+                <tr><th>작업</th><th>순수 Python</th><th>NumPy</th><th>속도 차이</th></tr>
+                <tr><td>1백만 요소 합산</td><td><code>sum(list)</code></td><td><code>np.sum(arr)</code></td><td>~10–50배 빠름</td></tr>
+                <tr><td>요소별 곱셈</td><td>list comprehension</td><td>arr * arr</td><td>~20–100배 빠름</td></tr>
+                <tr><td>행렬 곱</td><td>이중 for 루프</td><td>A @ B</td><td>~100배+ 빠름</td></tr>
+                <tr><td>메모리 사용</td><td>int 객체 ~28B</td><td>int64 8B</td><td>~3배 적음</td></tr>
+                <tr><td>조건 필터</td><td>list comprehension</td><td>arr[mask]</td><td>~10배 빠름</td></tr>
+            </table>
+
+            <div class="warning-box">
+                <strong>주의:</strong> 반복문 안에서 NumPy 배열을 요소 하나씩 접근하면 오히려 느립니다.
+                NumPy는 <strong>벡터화 연산</strong>으로 사용할 때 최고 성능을 발휘합니다.
+                루프 대신 브로드캐스팅, <code>np.where</code>, <code>np.vectorize</code>, <code>ufunc</code>를 활용하세요.
+            </div>
+
             <h3>Pandas (데이터 처리)</h3>
+
+            <p>
+                Pandas는 표 형태의 데이터를 다루는 파이썬의 핵심 라이브러리입니다.
+                <code>Series</code>(1차원)와 <code>DataFrame</code>(2차원) 두 가지 자료구조를 중심으로,
+                데이터 로딩·정제·변환·집계·시각화까지 데이터 분석의 전 과정을 지원합니다.
+            </p>
+
+            <div class="tip-box">
+                <strong>설치:</strong> <code>pip install pandas</code> &nbsp;|&nbsp;
+                권장: <code>pip install pandas openpyxl pyarrow</code> (Excel·Parquet 지원 포함)
+            </div>
+
+            <h4>Series — 1차원 자료구조</h4>
             <div class="code-block">
 <span class="keyword">import</span> pandas <span class="keyword">as</span> pd
+<span class="keyword">import</span> numpy <span class="keyword">as</span> np
 
-<span class="comment"># DataFrame 생성</span>
+<span class="comment"># 생성</span>
+s = pd.Series([<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>])
+s = pd.Series([<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>], index=[<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>])  <span class="comment"># 레이블 인덱스</span>
+s = pd.Series({<span class="string">"x"</span>: <span class="number">1</span>, <span class="string">"y"</span>: <span class="number">2</span>, <span class="string">"z"</span>: <span class="number">3</span>})             <span class="comment"># 딕셔너리에서</span>
+s = pd.Series(np.arange(<span class="number">5</span>), dtype=<span class="string">"float32"</span>)
+
+<span class="comment"># 속성</span>
+s.values          <span class="comment"># numpy 배열</span>
+s.index           <span class="comment"># 인덱스</span>
+s.dtype           <span class="comment"># 데이터 타입</span>
+s.shape           <span class="comment"># (n,)</span>
+s.name            <span class="comment"># 시리즈 이름</span>
+
+<span class="comment"># 인덱싱</span>
+s[<span class="string">"a"</span>]            <span class="comment"># 레이블 접근</span>
+s[[<span class="string">"a"</span>, <span class="string">"c"</span>]]     <span class="comment"># 여러 레이블</span>
+s[s > <span class="number">15</span>]         <span class="comment"># 불리언 필터</span>
+
+<span class="comment"># 연산 — 인덱스 기준으로 정렬 후 연산 (align)</span>
+s1 = pd.Series([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], index=[<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>])
+s2 = pd.Series([<span class="number">10</span>, <span class="number">20</span>], index=[<span class="string">"b"</span>, <span class="string">"c"</span>])
+s1 + s2           <span class="comment"># a: NaN, b: 22, c: 33  (불일치 → NaN)</span>
+s1.add(s2, fill_value=<span class="number">0</span>)  <span class="comment"># NaN 대신 0으로 채워 연산</span>
+
+<span class="comment"># 유용한 메서드</span>
+s.value_counts()  <span class="comment"># 값별 빈도</span>
+s.unique()        <span class="comment"># 고유값 배열</span>
+s.nunique()       <span class="comment"># 고유값 개수</span>
+s.sort_values()   <span class="comment"># 값 기준 정렬</span>
+s.apply(<span class="keyword">lambda</span> x: x ** <span class="number">2</span>)  <span class="comment"># 요소별 함수 적용</span>
+s.map({<span class="number">10</span>: <span class="string">"low"</span>, <span class="number">20</span>: <span class="string">"mid"</span>, <span class="number">30</span>: <span class="string">"high"</span>})  <span class="comment"># 값 매핑</span>
+            </div>
+
+            <h4>DataFrame 생성</h4>
+            <div class="code-block">
+<span class="comment"># 딕셔너리 → DataFrame (가장 일반적)</span>
 df = pd.DataFrame({
-    <span class="string">"name"</span>: [<span class="string">"Alice"</span>, <span class="string">"Bob"</span>, <span class="string">"Charlie"</span>],
-    <span class="string">"age"</span>: [<span class="number">25</span>, <span class="number">30</span>, <span class="number">35</span>],
-    <span class="string">"score"</span>: [<span class="number">85</span>, <span class="number">90</span>, <span class="number">78</span>]
+    <span class="string">"name"</span> : [<span class="string">"Alice"</span>, <span class="string">"Bob"</span>, <span class="string">"Charlie"</span>],
+    <span class="string">"age"</span>  : [<span class="number">25</span>, <span class="number">30</span>, <span class="number">35</span>],
+    <span class="string">"score"</span>: [<span class="number">85.0</span>, <span class="number">90.5</span>, <span class="number">78.3</span>],
+    <span class="string">"pass"</span> : [<span class="keyword">True</span>, <span class="keyword">True</span>, <span class="keyword">False</span>]
 })
 
-<span class="comment"># CSV에서 읽기/쓰기</span>
-df = pd.read_csv(<span class="string">"data.csv"</span>)
-df.to_csv(<span class="string">"output.csv"</span>, index=<span class="keyword">False</span>)
+<span class="comment"># 리스트 of 딕셔너리</span>
+df = pd.DataFrame([
+    {<span class="string">"name"</span>: <span class="string">"Alice"</span>, <span class="string">"age"</span>: <span class="number">25</span>},
+    {<span class="string">"name"</span>: <span class="string">"Bob"</span>,   <span class="string">"age"</span>: <span class="number">30</span>},
+])
 
-<span class="comment"># 데이터 조회</span>
-df.head(<span class="number">10</span>)     <span class="comment"># 첫 10행</span>
-df.tail(<span class="number">5</span>)      <span class="comment"># 마지막 5행</span>
-df.info()         <span class="comment"># 정보</span>
-df.describe()    <span class="comment"># 통계 요약</span>
+<span class="comment"># NumPy 배열에서</span>
+df = pd.DataFrame(np.random.randn(<span class="number">5</span>, <span class="number">3</span>),
+                  columns=[<span class="string">"A"</span>, <span class="string">"B"</span>, <span class="string">"C"</span>],
+                  index=pd.date_range(<span class="string">"2024-01"</span>, periods=<span class="number">5</span>, freq=<span class="string">"ME"</span>))
 
-<span class="comment"># 열/행 선택</span>
-df[<span class="string">"name"</span>]           <span class="comment"># 특정 열</span>
-df[[<span class="string">"name"</span>, <span class="string">"age"</span>]]  <span class="comment"># 여러 열</span>
-df.loc[<span class="number">0</span>]             <span class="comment"># 행 인덱스</span>
-df.iloc[<span class="number">0</span>:<span class="number">5</span>]          <span class="comment"># 행 번호</span>
+<span class="comment"># 빈 DataFrame 후 열 추가</span>
+df = pd.DataFrame()
+df[<span class="string">"x"</span>] = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]
 
-<span class="comment"># 데이터 처리</span>
-df.isnull()           <span class="comment"># 결측치 확인</span>
-df.fillna(<span class="number">0</span>)          <span class="comment"># 결측치 채우기</span>
-df.dropna()            <span class="comment"># 결측치 행 삭제</span>
-df.drop(<span class="string">"column"</span>, axis=<span class="number">1</span>)  <span class="comment"># 열 삭제</span>
-df.sort_values(<span class="string">"age"</span>)  <span class="comment"># 정렬</span>
-df.groupby(<span class="string">"category"</span>).mean()  <span class="comment"># 그룹화</span>
-
-<span class="comment"># 결측치 처리</span>
-df[<span class="string">"col"</span>].fillna(df[<span class="string">"col"</span>].mean(), inplace=<span class="keyword">True</span>)
+<span class="comment"># 인덱스 지정</span>
+df.index.name = <span class="string">"id"</span>
             </div>
-            
+
+            <h4>기본 속성 &amp; 탐색</h4>
+            <div class="code-block">
+df.shape          <span class="comment"># (행수, 열수)</span>
+df.dtypes         <span class="comment"># 각 열의 타입</span>
+df.index          <span class="comment"># 행 인덱스</span>
+df.columns        <span class="comment"># 열 이름 목록</span>
+df.values         <span class="comment"># numpy 배열</span>
+df.size           <span class="comment"># 전체 요소 수</span>
+df.memory_usage(deep=<span class="keyword">True</span>)  <span class="comment"># 열별 메모리 사용량</span>
+
+<span class="comment"># 데이터 미리보기</span>
+df.head(<span class="number">5</span>)        <span class="comment"># 상위 5행 (기본값)</span>
+df.tail(<span class="number">3</span>)        <span class="comment"># 하위 3행</span>
+df.sample(<span class="number">5</span>)      <span class="comment"># 무작위 5행</span>
+df.sample(frac=<span class="number">0.1</span>)  <span class="comment"># 10% 무작위</span>
+
+<span class="comment"># 요약 정보</span>
+df.info()          <span class="comment"># 타입·결측치·메모리</span>
+df.describe()      <span class="comment"># 수치형 통계 요약 (count/mean/std/min/Q/max)</span>
+df.describe(include=<span class="string">"all"</span>)   <span class="comment"># 범주형 포함</span>
+df.describe(percentiles=[.<span class="number">1</span>, .<span class="number">5</span>, .<span class="number">9</span>])  <span class="comment"># 퍼센타일 지정</span>
+
+<span class="comment"># 열 탐색</span>
+df[<span class="string">"age"</span>].value_counts()     <span class="comment"># 값별 빈도</span>
+df[<span class="string">"age"</span>].value_counts(normalize=<span class="keyword">True</span>)  <span class="comment"># 비율</span>
+df[<span class="string">"age"</span>].nunique()          <span class="comment"># 고유값 개수</span>
+df[<span class="string">"age"</span>].unique()           <span class="comment"># 고유값 배열</span>
+            </div>
+
+            <h4>인덱싱 &amp; 선택 (loc / iloc / query)</h4>
+            <table class="comparison-table">
+                <tr><th>방법</th><th>기준</th><th>예시</th><th>특징</th></tr>
+                <tr><td><code>df["col"]</code></td><td>열 이름</td><td><code>df["age"]</code></td><td>Series 반환</td></tr>
+                <tr><td><code>df[["c1","c2"]]</code></td><td>열 이름 목록</td><td><code>df[["name","age"]]</code></td><td>DataFrame 반환</td></tr>
+                <tr><td><code>.loc[행, 열]</code></td><td>레이블 기반</td><td><code>df.loc[0, "age"]</code></td><td>슬라이스 끝 포함</td></tr>
+                <tr><td><code>.iloc[행, 열]</code></td><td>위치(정수) 기반</td><td><code>df.iloc[0:3, 1:3]</code></td><td>슬라이스 끝 미포함</td></tr>
+                <tr><td><code>.at[행, 열]</code></td><td>단일 레이블</td><td><code>df.at[0, "age"]</code></td><td>스칼라, 빠름</td></tr>
+                <tr><td><code>.iat[행, 열]</code></td><td>단일 위치</td><td><code>df.iat[0, 1]</code></td><td>스칼라, 가장 빠름</td></tr>
+                <tr><td><code>.query()</code></td><td>문자열 표현식</td><td><code>df.query("age > 25")</code></td><td>가독성 좋음</td></tr>
+            </table>
+            <div class="code-block">
+<span class="comment"># loc — 레이블 기반 (끝 인덱스 포함)</span>
+df.loc[<span class="number">0</span>]                       <span class="comment"># 인덱스 0인 행</span>
+df.loc[<span class="number">0</span>:<span class="number">3</span>]                    <span class="comment"># 인덱스 0~3행 (3 포함)</span>
+df.loc[<span class="number">0</span>, <span class="string">"age"</span>]               <span class="comment"># 스칼라</span>
+df.loc[<span class="number">0</span>:<span class="number">3</span>, [<span class="string">"name"</span>, <span class="string">"score"</span>]]  <span class="comment"># 슬라이스 + 여러 열</span>
+df.loc[df[<span class="string">"age"</span>] > <span class="number">25</span>]         <span class="comment"># 불리언 마스크</span>
+df.loc[df[<span class="string">"age"</span>] > <span class="number">25</span>, <span class="string">"name"</span>] <span class="comment"># 조건 행 + 특정 열</span>
+
+<span class="comment"># iloc — 위치 기반 (끝 인덱스 미포함)</span>
+df.iloc[<span class="number">0</span>]                      <span class="comment"># 첫 번째 행</span>
+df.iloc[<span class="number">0</span>:<span class="number">3</span>]                   <span class="comment"># 0, 1, 2행</span>
+df.iloc[<span class="number">0</span>:<span class="number">3</span>, <span class="number">1</span>:<span class="number">3</span>]              <span class="comment"># 0~2행, 1~2열</span>
+df.iloc[[<span class="number">0</span>, <span class="number">2</span>, <span class="number">4</span>], [<span class="number">1</span>, <span class="number">3</span>]]    <span class="comment"># 팬시 인덱싱</span>
+df.iloc[:, :<span class="number">-1</span>]                 <span class="comment"># 마지막 열 제외 전체</span>
+
+<span class="comment"># query — SQL 스타일 (변수는 @var)</span>
+threshold = <span class="number">80</span>
+df.query(<span class="string">"age > 25 and score >= @threshold"</span>)
+df.query(<span class="string">"name in ['Alice', 'Bob']"</span>)
+df.query(<span class="string">"score.between(80, 95)"</span>)
+
+<span class="comment"># 불리언 마스크 조합</span>
+mask = (df[<span class="string">"age"</span>] > <span class="number">25</span>) &amp; (df[<span class="string">"score"</span>] >= <span class="number">80</span>)
+df[mask]
+df[~mask]  <span class="comment"># 반전</span>
+            </div>
+
+            <h4>데이터 타입 변환</h4>
+            <div class="code-block">
+<span class="comment"># astype — 기본 타입 변환</span>
+df[<span class="string">"age"</span>] = df[<span class="string">"age"</span>].astype(<span class="string">"int32"</span>)      <span class="comment"># 메모리 절반</span>
+df[<span class="string">"score"</span>] = df[<span class="string">"score"</span>].astype(<span class="string">"float32"</span>)
+df[<span class="string">"flag"</span>] = df[<span class="string">"flag"</span>].astype(<span class="builtin">bool</span>)
+
+<span class="comment"># 수치 변환 — 오류 처리</span>
+pd.to_numeric(df[<span class="string">"col"</span>], errors=<span class="string">"coerce"</span>)   <span class="comment"># 변환 실패 → NaN</span>
+pd.to_numeric(df[<span class="string">"col"</span>], errors=<span class="string">"ignore"</span>)   <span class="comment"># 실패 시 원본 유지</span>
+pd.to_numeric(df[<span class="string">"col"</span>], downcast=<span class="string">"integer"</span>) <span class="comment"># 가능한 작은 int로</span>
+
+<span class="comment"># 날짜 변환</span>
+df[<span class="string">"date"</span>] = pd.to_datetime(df[<span class="string">"date"</span>])
+df[<span class="string">"date"</span>] = pd.to_datetime(df[<span class="string">"date"</span>], format=<span class="string">"%Y-%m-%d"</span>)
+df[<span class="string">"date"</span>] = pd.to_datetime(df[<span class="string">"date"</span>], errors=<span class="string">"coerce"</span>)
+
+<span class="comment"># 카테고리 타입 — 반복 문자열에 효율적</span>
+df[<span class="string">"grade"</span>] = df[<span class="string">"grade"</span>].astype(<span class="string">"category"</span>)
+df[<span class="string">"grade"</span>].cat.categories       <span class="comment"># 카테고리 목록</span>
+df[<span class="string">"grade"</span>].cat.codes            <span class="comment"># 정수 코드</span>
+pd.Categorical(df[<span class="string">"grade"</span>],
+               categories=[<span class="string">"C"</span>,<span class="string">"B"</span>,<span class="string">"A"</span>], ordered=<span class="keyword">True</span>)  <span class="comment"># 순서 있는 카테고리</span>
+
+<span class="comment"># 일괄 타입 최적화</span>
+df = df.convert_dtypes()   <span class="comment"># Pandas 2.0+: 최적 타입 자동 추론</span>
+            </div>
+
+            <h4>결측치 처리 (Missing Data)</h4>
+            <div class="code-block">
+<span class="comment"># 결측치 확인</span>
+df.isnull()                   <span class="comment"># 요소별 bool</span>
+df.isnull().sum()             <span class="comment"># 열별 결측치 수</span>
+df.isnull().sum() / <span class="builtin">len</span>(df)   <span class="comment"># 결측 비율</span>
+df.notnull()                  <span class="comment"># 반대</span>
+
+<span class="comment"># 결측치 제거</span>
+df.dropna()                        <span class="comment"># 결측 있는 행 전체 제거</span>
+df.dropna(axis=<span class="number">1</span>)                  <span class="comment"># 결측 있는 열 제거</span>
+df.dropna(subset=[<span class="string">"name"</span>, <span class="string">"age"</span>])  <span class="comment"># 특정 열 기준</span>
+df.dropna(thresh=<span class="number">3</span>)               <span class="comment"># 유효값이 3개 미만인 행 제거</span>
+df.dropna(how=<span class="string">"all"</span>)              <span class="comment"># 모두 NaN인 행만 제거</span>
+
+<span class="comment"># 결측치 채우기</span>
+df.fillna(<span class="number">0</span>)                          <span class="comment"># 모든 NaN → 0</span>
+df[<span class="string">"score"</span>].fillna(df[<span class="string">"score"</span>].mean()) <span class="comment"># 평균으로</span>
+df[<span class="string">"score"</span>].fillna(df[<span class="string">"score"</span>].median()) <span class="comment"># 중앙값으로</span>
+df[<span class="string">"grade"</span>].fillna(df[<span class="string">"grade"</span>].mode()[<span class="number">0</span>]) <span class="comment"># 최빈값으로</span>
+df.fillna({<span class="string">"age"</span>: <span class="number">0</span>, <span class="string">"name"</span>: <span class="string">"unknown"</span>}) <span class="comment"># 열별 다른 값</span>
+df[<span class="string">"col"</span>].ffill()   <span class="comment"># 앞 값으로 전파 (forward fill)</span>
+df[<span class="string">"col"</span>].bfill()   <span class="comment"># 뒤 값으로 전파 (backward fill)</span>
+
+<span class="comment"># 보간 (Interpolation)</span>
+df[<span class="string">"price"</span>].interpolate(method=<span class="string">"linear"</span>)   <span class="comment"># 선형 보간</span>
+df[<span class="string">"price"</span>].interpolate(method=<span class="string">"spline"</span>, order=<span class="number">2</span>)  <span class="comment"># 스플라인</span>
+df[<span class="string">"price"</span>].interpolate(limit=<span class="number">2</span>)           <span class="comment"># 최대 2개만</span>
+            </div>
+
+            <h4>데이터 정제 &amp; 변환</h4>
+            <div class="code-block">
+<span class="comment"># 열/행 이름 변경</span>
+df.rename(columns={<span class="string">"name"</span>: <span class="string">"Name"</span>, <span class="string">"age"</span>: <span class="string">"Age"</span>})
+df.rename(index={<span class="number">0</span>: <span class="string">"first"</span>})
+df.columns = df.columns.str.lower().str.replace(<span class="string">" "</span>, <span class="string">"_"</span>)  <span class="comment"># 일괄 소문자+언더스코어</span>
+
+<span class="comment"># 열/행 추가·삭제</span>
+df[<span class="string">"bonus"</span>] = df[<span class="string">"score"</span>] * <span class="number">0.1</span>            <span class="comment"># 새 열 추가</span>
+df.insert(<span class="number">2</span>, <span class="string">"rank"</span>, df[<span class="string">"score"</span>].rank())   <span class="comment"># 위치 지정 삽입</span>
+df.drop(columns=[<span class="string">"bonus"</span>])                 <span class="comment"># 열 삭제</span>
+df.drop(index=[<span class="number">0</span>, <span class="number">2</span>])                      <span class="comment"># 행 삭제</span>
+df.pop(<span class="string">"bonus"</span>)                             <span class="comment"># 열 제거 후 반환</span>
+
+<span class="comment"># 중복 처리</span>
+df.duplicated()                    <span class="comment"># 중복 행 여부 bool</span>
+df.duplicated(subset=[<span class="string">"name"</span>])     <span class="comment"># 특정 열 기준</span>
+df.drop_duplicates()               <span class="comment"># 중복 제거</span>
+df.drop_duplicates(subset=[<span class="string">"name"</span>], keep=<span class="string">"last"</span>)  <span class="comment"># 마지막 남기기</span>
+
+<span class="comment"># 값 치환</span>
+df[<span class="string">"grade"</span>].replace(<span class="string">"A"</span>, <span class="string">"Excellent"</span>)
+df[<span class="string">"grade"</span>].replace({<span class="string">"A"</span>: <span class="number">4</span>, <span class="string">"B"</span>: <span class="number">3</span>, <span class="string">"C"</span>: <span class="number">2</span>})
+df.replace(np.nan, <span class="number">0</span>)             <span class="comment"># 전체 NaN → 0</span>
+
+<span class="comment"># apply — 행/열 단위 함수 적용</span>
+df[<span class="string">"score_scaled"</span>] = df[<span class="string">"score"</span>].apply(<span class="keyword">lambda</span> x: (x - <span class="number">50</span>) / <span class="number">50</span>)
+df.apply(np.sum, axis=<span class="number">0</span>)          <span class="comment"># 열별 합</span>
+df.apply(np.sum, axis=<span class="number">1</span>)          <span class="comment"># 행별 합</span>
+df[[<span class="string">"age"</span>,<span class="string">"score"</span>]].apply(<span class="keyword">lambda</span> row: row[<span class="string">"age"</span>] * row[<span class="string">"score"</span>], axis=<span class="number">1</span>)
+
+<span class="comment"># map — Series 요소별 매핑</span>
+df[<span class="string">"grade"</span>].map({<span class="string">"A"</span>: <span class="number">4</span>, <span class="string">"B"</span>: <span class="number">3</span>, <span class="string">"C"</span>: <span class="number">2</span>})
+
+<span class="comment"># 구간 분류</span>
+pd.cut(df[<span class="string">"score"</span>], bins=[<span class="number">0</span>,<span class="number">60</span>,<span class="number">80</span>,<span class="number">100</span>], labels=[<span class="string">"F"</span>,<span class="string">"B"</span>,<span class="string">"A"</span>])
+pd.qcut(df[<span class="string">"score"</span>], q=<span class="number">4</span>)          <span class="comment"># 4분위로 자동 분류</span>
+
+<span class="comment"># 인덱스 재설정</span>
+df.reset_index(drop=<span class="keyword">True</span>)         <span class="comment"># 0,1,2... 재번호</span>
+df.set_index(<span class="string">"name"</span>)              <span class="comment"># 열 → 인덱스</span>
+df.set_index([<span class="string">"year"</span>, <span class="string">"month"</span>])   <span class="comment"># 멀티 인덱스</span>
+            </div>
+
+            <h4>정렬 &amp; 순위</h4>
+            <div class="code-block">
+<span class="comment"># 값 기준 정렬</span>
+df.sort_values(<span class="string">"age"</span>)                                 <span class="comment"># 오름차순</span>
+df.sort_values(<span class="string">"age"</span>, ascending=<span class="keyword">False</span>)               <span class="comment"># 내림차순</span>
+df.sort_values([<span class="string">"grade"</span>, <span class="string">"score"</span>],
+               ascending=[<span class="keyword">True</span>, <span class="keyword">False</span>])              <span class="comment"># 복합 정렬</span>
+df.sort_values(<span class="string">"score"</span>, na_position=<span class="string">"first"</span>)         <span class="comment"># NaN 앞에 배치</span>
+
+<span class="comment"># 인덱스 기준 정렬</span>
+df.sort_index()
+df.sort_index(ascending=<span class="keyword">False</span>)
+
+<span class="comment"># 순위 (rank)</span>
+df[<span class="string">"rank"</span>] = df[<span class="string">"score"</span>].rank(ascending=<span class="keyword">False</span>)         <span class="comment"># 내림차순 순위</span>
+df[<span class="string">"score"</span>].rank(method=<span class="string">"dense"</span>)    <span class="comment"># 동점 시 건너뜀 없음</span>
+df[<span class="string">"score"</span>].rank(method=<span class="string">"min"</span>)      <span class="comment"># 동점 시 최소 순위</span>
+df[<span class="string">"score"</span>].rank(pct=<span class="keyword">True</span>)          <span class="comment"># 백분위 순위 (0~1)</span>
+
+<span class="comment"># 상위/하위 N개</span>
+df.nlargest(<span class="number">5</span>, <span class="string">"score"</span>)    <span class="comment"># 상위 5개</span>
+df.nsmallest(<span class="number">3</span>, <span class="string">"age"</span>)    <span class="comment"># 하위 3개</span>
+            </div>
+
+            <h4>그룹화 &amp; 집계 (GroupBy)</h4>
+            <div class="code-block">
+<span class="comment"># 기본 groupby</span>
+grp = df.groupby(<span class="string">"grade"</span>)
+grp[<span class="string">"score"</span>].mean()          <span class="comment"># 학점별 평균</span>
+grp[<span class="string">"score"</span>].agg([<span class="string">"mean"</span>, <span class="string">"std"</span>, <span class="string">"count"</span>])  <span class="comment"># 여러 집계</span>
+
+<span class="comment"># 다중 키 그룹화</span>
+df.groupby([<span class="string">"dept"</span>, <span class="string">"grade"</span>])[<span class="string">"score"</span>].mean()
+
+<span class="comment"># agg — 열별로 다른 집계 함수</span>
+df.groupby(<span class="string">"grade"</span>).agg(
+    avg_score=(<span class="string">"score"</span>, <span class="string">"mean"</span>),
+    max_age  =(<span class="string">"age"</span>,   <span class="string">"max"</span>),
+    count    =(<span class="string">"name"</span>,  <span class="string">"count"</span>)
+)
+
+<span class="comment"># transform — 원래 shape 유지 (그룹 통계 → 각 행에 브로드캐스트)</span>
+df[<span class="string">"grade_avg"</span>] = df.groupby(<span class="string">"grade"</span>)[<span class="string">"score"</span>].transform(<span class="string">"mean"</span>)
+df[<span class="string">"score_z"</span>]   = df.groupby(<span class="string">"grade"</span>)[<span class="string">"score"</span>].transform(
+    <span class="keyword">lambda</span> x: (x - x.mean()) / x.std()  <span class="comment"># 그룹 내 z-score</span>
+)
+
+<span class="comment"># filter — 조건 만족 그룹만 남기기</span>
+df.groupby(<span class="string">"grade"</span>).filter(<span class="keyword">lambda</span> g: g[<span class="string">"score"</span>].mean() >= <span class="number">80</span>)
+
+<span class="comment"># pivot_table — 엑셀 피벗과 동일</span>
+pd.pivot_table(df,
+               values=<span class="string">"score"</span>,
+               index=<span class="string">"dept"</span>,
+               columns=<span class="string">"grade"</span>,
+               aggfunc=<span class="string">"mean"</span>,
+               fill_value=<span class="number">0</span>)
+
+<span class="comment"># crosstab — 빈도 교차표</span>
+pd.crosstab(df[<span class="string">"dept"</span>], df[<span class="string">"grade"</span>], margins=<span class="keyword">True</span>)
+pd.crosstab(df[<span class="string">"dept"</span>], df[<span class="string">"grade"</span>],
+            values=df[<span class="string">"score"</span>], aggfunc=<span class="string">"mean"</span>)
+            </div>
+
+            <h4>데이터 결합 (Merge / Join / Concat)</h4>
+            <div class="code-block">
+<span class="comment"># concat — 같은 구조의 DataFrame 이어 붙이기</span>
+pd.concat([df1, df2])                    <span class="comment"># 행 방향 (axis=0, 기본)</span>
+pd.concat([df1, df2], ignore_index=<span class="keyword">True</span>) <span class="comment"># 인덱스 재번호</span>
+pd.concat([df1, df2], axis=<span class="number">1</span>)           <span class="comment"># 열 방향</span>
+pd.concat([df1, df2], join=<span class="string">"inner"</span>)    <span class="comment"># 공통 열만</span>
+
+<span class="comment"># merge — SQL JOIN과 동일 개념</span>
+pd.merge(df_left, df_right, on=<span class="string">"id"</span>)                 <span class="comment"># INNER JOIN</span>
+pd.merge(df_left, df_right, on=<span class="string">"id"</span>, how=<span class="string">"left"</span>)     <span class="comment"># LEFT JOIN</span>
+pd.merge(df_left, df_right, on=<span class="string">"id"</span>, how=<span class="string">"right"</span>)    <span class="comment"># RIGHT JOIN</span>
+pd.merge(df_left, df_right, on=<span class="string">"id"</span>, how=<span class="string">"outer"</span>)    <span class="comment"># FULL OUTER JOIN</span>
+pd.merge(df_left, df_right,
+         left_on=<span class="string">"user_id"</span>, right_on=<span class="string">"id"</span>)            <span class="comment"># 다른 열 이름</span>
+pd.merge(df_left, df_right, on=[<span class="string">"year"</span>, <span class="string">"month"</span>])    <span class="comment"># 복합 키</span>
+pd.merge(df_left, df_right, on=<span class="string">"id"</span>,
+         suffixes=(<span class="string">"_left"</span>, <span class="string">"_right"</span>))               <span class="comment"># 중복 열명 접미사</span>
+
+<span class="comment"># join — 인덱스 기준 병합 (merge의 편의 래퍼)</span>
+df1.join(df2, how=<span class="string">"left"</span>)
+df1.join(df2, lsuffix=<span class="string">"_l"</span>, rsuffix=<span class="string">"_r"</span>)
+            </div>
+
+            <h4>시계열 (Time Series)</h4>
+            <div class="code-block">
+<span class="comment"># DatetimeIndex 생성</span>
+dates = pd.date_range(<span class="string">"2024-01-01"</span>, periods=<span class="number">12</span>, freq=<span class="string">"ME"</span>)  <span class="comment"># 월말</span>
+dates = pd.date_range(<span class="string">"2024-01-01"</span>, <span class="string">"2024-12-31"</span>, freq=<span class="string">"D"</span>) <span class="comment"># 일별</span>
+dates = pd.bdate_range(<span class="string">"2024-01-01"</span>, periods=<span class="number">10</span>)             <span class="comment"># 영업일</span>
+
+<span class="comment"># dt 접근자 — datetime 열 속성</span>
+df[<span class="string">"date"</span>] = pd.to_datetime(df[<span class="string">"date"</span>])
+df[<span class="string">"year"</span>]    = df[<span class="string">"date"</span>].dt.year
+df[<span class="string">"month"</span>]   = df[<span class="string">"date"</span>].dt.month
+df[<span class="string">"weekday"</span>] = df[<span class="string">"date"</span>].dt.day_name()
+df[<span class="string">"quarter"</span>] = df[<span class="string">"date"</span>].dt.quarter
+df[<span class="string">"is_month_end"</span>] = df[<span class="string">"date"</span>].dt.is_month_end
+
+<span class="comment"># resample — 시간 단위 리샘플링</span>
+ts = df.set_index(<span class="string">"date"</span>)[<span class="string">"price"</span>]
+ts.resample(<span class="string">"ME"</span>).mean()      <span class="comment"># 월별 평균 (다운샘플링)</span>
+ts.resample(<span class="string">"D"</span>).ffill()     <span class="comment"># 일별로 확장 (업샘플링, 앞 값으로)</span>
+ts.resample(<span class="string">"QE"</span>).agg({<span class="string">"price"</span>: [<span class="string">"mean"</span>, <span class="string">"max"</span>]})  <span class="comment"># 분기별 집계</span>
+
+<span class="comment"># rolling / expanding — 이동 통계</span>
+ts.rolling(window=<span class="number">7</span>).mean()        <span class="comment"># 7일 이동 평균</span>
+ts.rolling(window=<span class="number">7</span>, min_periods=<span class="number">1</span>).std()  <span class="comment"># 최소 1개부터 계산</span>
+ts.expanding().mean()               <span class="comment"># 누적 평균</span>
+ts.ewm(span=<span class="number">7</span>).mean()              <span class="comment"># 지수 가중 이동 평균</span>
+
+<span class="comment"># shift / diff — 시차 &amp; 변화량</span>
+ts.shift(<span class="number">1</span>)            <span class="comment"># 1기간 뒤로 (lag)</span>
+ts.shift(<span class="number">-1</span>)           <span class="comment"># 1기간 앞으로 (lead)</span>
+ts.diff(<span class="number">1</span>)             <span class="comment"># 1기간 차분</span>
+ts.pct_change()         <span class="comment"># 전기 대비 변화율</span>
+            </div>
+
+            <h4>문자열 처리 (str 접근자)</h4>
+            <div class="code-block">
+s = df[<span class="string">"name"</span>]   <span class="comment"># 문자열 Series</span>
+
+<span class="comment"># 검색 &amp; 판별</span>
+s.str.contains(<span class="string">"li"</span>, case=<span class="keyword">False</span>)    <span class="comment"># 대소문자 무시 포함 여부</span>
+s.str.startswith(<span class="string">"A"</span>)               <span class="comment"># 시작 여부</span>
+s.str.endswith(<span class="string">"e"</span>)                 <span class="comment"># 끝 여부</span>
+s.str.match(<span class="string">r"^[A-Z]"</span>)              <span class="comment"># 정규식 매치</span>
+s.str.fullmatch(<span class="string">r"[A-Za-z]+"</span>)       <span class="comment"># 전체 일치</span>
+
+<span class="comment"># 변환</span>
+s.str.upper()                         <span class="comment"># 대문자</span>
+s.str.lower()                         <span class="comment"># 소문자</span>
+s.str.strip()                         <span class="comment"># 양쪽 공백 제거</span>
+s.str.replace(<span class="string">" "</span>, <span class="string">"_"</span>, regex=<span class="keyword">False</span>) <span class="comment"># 치환</span>
+s.str.replace(<span class="string">r"\s+"</span>, <span class="string">"_"</span>, regex=<span class="keyword">True</span>) <span class="comment"># 정규식 치환</span>
+
+<span class="comment"># 분리 &amp; 추출</span>
+s.str.split(<span class="string">"_"</span>)                     <span class="comment"># 분리 → 리스트</span>
+s.str.split(<span class="string">"_"</span>, expand=<span class="keyword">True</span>)      <span class="comment"># DataFrame으로 확장</span>
+s.str.split(<span class="string">"_"</span>).str[<span class="number">0</span>]             <span class="comment"># 첫 번째 요소</span>
+s.str.extract(<span class="string">r"(\d+)"</span>)              <span class="comment"># 정규식 캡처 그룹</span>
+
+<span class="comment"># 길이 &amp; 카운트</span>
+s.str.len()                           <span class="comment"># 문자열 길이</span>
+s.str.count(<span class="string">"a"</span>)                     <span class="comment"># 특정 문자 개수</span>
+s.str.zfill(<span class="number">5</span>)                        <span class="comment"># 앞에 0 채우기</span>
+            </div>
+
+            <h4>파일 I/O</h4>
+            <div class="code-block">
+<span class="comment"># CSV</span>
+df = pd.read_csv(<span class="string">"data.csv"</span>,
+                 encoding=<span class="string">"utf-8"</span>,
+                 index_col=<span class="string">"id"</span>,
+                 parse_dates=[<span class="string">"date"</span>],
+                 dtype={<span class="string">"age"</span>: <span class="string">"int32"</span>},
+                 na_values=[<span class="string">"-"</span>, <span class="string">"N/A"</span>, <span class="string">"?"</span>],
+                 chunksize=<span class="number">10_000</span>)       <span class="comment"># 대용량: 청크 단위 읽기</span>
+df.to_csv(<span class="string">"out.csv"</span>, index=<span class="keyword">False</span>, encoding=<span class="string">"utf-8-sig"</span>)  <span class="comment"># BOM for Excel</span>
+
+<span class="comment"># Excel (openpyxl 필요)</span>
+df = pd.read_excel(<span class="string">"data.xlsx"</span>, sheet_name=<span class="string">"Sheet1"</span>, header=<span class="number">1</span>)
+df.to_excel(<span class="string">"out.xlsx"</span>, index=<span class="keyword">False</span>, sheet_name=<span class="string">"Result"</span>)
+
+<span class="comment"># 여러 시트를 한 파일에 쓰기</span>
+<span class="keyword">with</span> pd.ExcelWriter(<span class="string">"report.xlsx"</span>, engine=<span class="string">"openpyxl"</span>) <span class="keyword">as</span> writer:
+    df1.to_excel(writer, sheet_name=<span class="string">"Summary"</span>, index=<span class="keyword">False</span>)
+    df2.to_excel(writer, sheet_name=<span class="string">"Detail"</span>,  index=<span class="keyword">False</span>)
+
+<span class="comment"># JSON</span>
+df = pd.read_json(<span class="string">"data.json"</span>, orient=<span class="string">"records"</span>)
+df.to_json(<span class="string">"out.json"</span>, orient=<span class="string">"records"</span>, force_ascii=<span class="keyword">False</span>)
+
+<span class="comment"># Parquet — 컬럼형 이진, 대용량에 권장 (pyarrow 필요)</span>
+df = pd.read_parquet(<span class="string">"data.parquet"</span>)
+df.to_parquet(<span class="string">"out.parquet"</span>, compression=<span class="string">"snappy"</span>)
+
+<span class="comment"># SQL (SQLAlchemy)</span>
+<span class="keyword">from</span> sqlalchemy <span class="keyword">import</span> create_engine
+engine = create_engine(<span class="string">"sqlite:///mydb.db"</span>)
+df = pd.read_sql(<span class="string">"SELECT * FROM users WHERE age > 20"</span>, engine)
+df.to_sql(<span class="string">"result"</span>, engine, if_exists=<span class="string">"replace"</span>, index=<span class="keyword">False</span>)
+
+<span class="comment"># 대용량 CSV 청크 처리</span>
+chunks = pd.read_csv(<span class="string">"big.csv"</span>, chunksize=<span class="number">50_000</span>)
+result = pd.concat(
+    chunk[chunk[<span class="string">"age"</span>] > <span class="number">25</span>] <span class="keyword">for</span> chunk <span class="keyword">in</span> chunks
+)
+            </div>
+
+            <h4>성능 최적화</h4>
+            <div class="code-block">
+<span class="comment"># 1. dtype 다운캐스팅 — 메모리 대폭 절감</span>
+df[<span class="string">"age"</span>]   = pd.to_numeric(df[<span class="string">"age"</span>],   downcast=<span class="string">"integer"</span>)  <span class="comment"># int64→int8</span>
+df[<span class="string">"score"</span>] = pd.to_numeric(df[<span class="string">"score"</span>], downcast=<span class="string">"float"</span>)    <span class="comment"># float64→float32</span>
+df[<span class="string">"grade"</span>] = df[<span class="string">"grade"</span>].astype(<span class="string">"category"</span>)                  <span class="comment"># 반복 문자열</span>
+
+<span class="comment"># 2. iterrows 대신 벡터화</span>
+<span class="comment"># 느림 (절대 금지):</span>
+<span class="keyword">for</span> idx, row <span class="keyword">in</span> df.iterrows():
+    df.at[idx, <span class="string">"bonus"</span>] = row[<span class="string">"score"</span>] * <span class="number">0.1</span>
+<span class="comment"># 빠름:</span>
+df[<span class="string">"bonus"</span>] = df[<span class="string">"score"</span>] * <span class="number">0.1</span>
+
+<span class="comment"># 3. inplace=True — Pandas 2.0+ 에서 더 이상 성능 이점 없음, 지양 권장</span>
+<span class="comment"># 구버전 관용:</span>
+df.dropna(inplace=<span class="keyword">True</span>)
+<span class="comment"># 권장 (재할당):</span>
+df = df.dropna()
+
+<span class="comment"># 4. copy vs view — SettingWithCopyWarning 방지</span>
+subset = df[df[<span class="string">"age"</span>] > <span class="number">25</span>].copy()   <span class="comment"># 명시적 복사</span>
+subset[<span class="string">"bonus"</span>] = <span class="number">100</span>               <span class="comment"># 안전하게 수정 가능</span>
+
+<span class="comment"># 5. pipe — 메서드 체인 가독성</span>
+result = (
+    df
+    .dropna(subset=[<span class="string">"score"</span>])
+    .query(<span class="string">"age >= 20"</span>)
+    .assign(bonus=<span class="keyword">lambda</span> x: x[<span class="string">"score"</span>] * <span class="number">0.1</span>)
+    .groupby(<span class="string">"grade"</span>)
+    .agg(avg=(<span class="string">"score"</span>, <span class="string">"mean"</span>))
+    .reset_index()
+)
+            </div>
+
+            <h4>Pandas vs SQL 대응표</h4>
+            <table class="comparison-table">
+                <tr><th>SQL</th><th>Pandas</th></tr>
+                <tr><td><code>SELECT col FROM t</code></td><td><code>df["col"]</code></td></tr>
+                <tr><td><code>SELECT * FROM t WHERE age &gt; 25</code></td><td><code>df.query("age > 25")</code></td></tr>
+                <tr><td><code>ORDER BY score DESC</code></td><td><code>df.sort_values("score", ascending=False)</code></td></tr>
+                <tr><td><code>GROUP BY grade</code></td><td><code>df.groupby("grade")</code></td></tr>
+                <tr><td><code>COUNT(*)</code></td><td><code>df.groupby("grade").size()</code></td></tr>
+                <tr><td><code>INNER JOIN</code></td><td><code>pd.merge(df1, df2, on="id")</code></td></tr>
+                <tr><td><code>LEFT JOIN</code></td><td><code>pd.merge(df1, df2, on="id", how="left")</code></td></tr>
+                <tr><td><code>UNION ALL</code></td><td><code>pd.concat([df1, df2])</code></td></tr>
+                <tr><td><code>DISTINCT</code></td><td><code>df.drop_duplicates()</code></td></tr>
+                <tr><td><code>LIMIT 10</code></td><td><code>df.head(10)</code></td></tr>
+            </table>
+
+            <div class="warning-box">
+                <strong>Pandas 2.0 주요 변경:</strong>
+                <ul>
+                    <li><code>inplace=True</code>는 복사를 방지하지 않습니다 — 재할당(<code>df = df.method()</code>) 권장</li>
+                    <li>Copy-on-Write(CoW) 기본 활성화 예정 — <code>.copy()</code>를 명시적으로 사용</li>
+                    <li><code>freq="M"</code> → <code>freq="ME"</code> (월말), <code>"QE"</code> (분기말) 등 별칭 변경</li>
+                </ul>
+            </div>
+
             <h3>Matplotlib (시각화)</h3>
             <div class="code-block">
 <span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt
